@@ -275,6 +275,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 @keyframes sceneIn{from{transform:scale(1.06);opacity:.4}to{transform:none;opacity:1}}
 .scene::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,14,20,.55))}
 .sc-sky1{stop-color:var(--sk1)}.sc-sky2{stop-color:var(--sk2)}.sc-ground{fill:var(--grd)}.sc-far{fill:var(--far)}.sc-bld{fill:var(--bld)}.sc-bld2{fill:var(--bld2)}.sc-win{fill:var(--win)}.sc-door{fill:var(--ink2)}.sc-ink{fill:var(--ink2);stroke:var(--ink2)}.sc-ppl{fill:var(--ppl)}.sc-tree{fill:#3F8F5A}.sc-col{fill:var(--col)}.sc-dome{fill:var(--dome)}.sc-acc{fill:var(--seal)}.sc-sign{fill:#F4F1E8}.sc-water{fill:#4A86B8}.sc-wave{stroke:#BFDDF2}.sc-rain{stroke:#9EC3E0}.sc-hill{fill:#5B4A3A}.sc-fire{fill:#F2762E}.sc-fire2{fill:#FFD23F}.sc-smoke{fill:rgba(120,120,120,.45)}.sc-board{fill:var(--bld2)}.sc-line2{stroke:var(--far)}.sc-grid{stroke:rgba(255,255,255,.18)}.sc-coin{fill:#F2C230}.sc-cointx{fill:#7a5a00}.sc-globe{fill:#5C9BD1}.sc-paper{fill:#F4F1E8}.sc-grid2{fill:#C9C4B8}.sc-red{fill:#C8102E}.sc-flash{fill:rgba(255,255,255,.8)}.sc-smk{stroke:var(--far)}
+.aspa{animation:gira 4s linear infinite}@keyframes gira{to{transform:rotate(360deg)}}.sirena{animation:sir .5s steps(2) infinite}@keyframes sir{50%{fill:#1D4F91}}.sabias.mem{border-left-color:var(--accent)}
 .sc-fire,.sc-fire2{animation:flick .6s ease-in-out infinite alternate;transform-origin:bottom;transform-box:fill-box}
 @keyframes flick{to{transform:scaleY(1.12)}}
 .brand{align-items:center}
@@ -673,7 +674,7 @@ const EV = [
   ["Votás con las potencias occidentales",{i:6,p:-3},"Mejora la relación con Washington y Bruselas."],
   ["Te abstenés",{i:-2,n:2},"Neutralidad incómoda."],
   ["Votás con el Sur Global",{l:4,i:-4,p:3},"Coherencia con tu base, frialdad en el Norte."]]},
- {t:"dip",tit:"Cable filtrado",txt:"Se filtra un cable tuyo con opiniones durísimas sobre el gobierno anfitrión.",o:[
+ {t:"dip",tit:"Cable filtrado",txt:"Se filtra un cable tuyo con opiniones durísimas sobre el gobierno de {DESTINO}.",o:[
   ["Pedís disculpas formales",{i:4,p:-3},"Crisis contenida."],
   ["Sostenés lo dicho",{l:5,i:-8},"Te vuelven un héroe en casa."],
   ["Decís que es falso",{s:8,i:-2},"Nadie te cree del todo."]]},
@@ -1286,7 +1287,7 @@ function rangos(pk){
   return out;
 }
 const rk=id=>id?rangos(G.pais).find(r=>r.id===id):null;
-const tpl=s=>s.replace(/\{CIUDAD\}/g,G.ciudad||CIUDADES[G.pais][0]).replace(/\{PROV\}/g,G.prov||"").replace(/\{RIVAL\}/g,G.nemesis?.n||"tu rival").replace(/\{RCARGO\}/g,G.nemesis?.cargo||"").replace(/\{RPART\}/g,G.nemesis?.pa||"").replace(/\{P\}/g,PAISES[G.pais].n).replace(/\{B\}/g,PAISES[G.pais].bloque).replace(/\{C\}/g,PAISES[G.pais].cong);
+const tpl=s=>s.replace(/\{CIUDAD\}/g,G.ciudad||CIUDADES[G.pais][0]).replace(/\{PROV\}/g,G.prov||"").replace(/\{RIVAL\}/g,G.nemesis?.n||"tu rival").replace(/\{RCARGO\}/g,G.nemesis?.cargo||"").replace(/\{RPART\}/g,G.nemesis?.pa||"").replace(/\{DESTINO\}/g,G.destino?.n||"el país anfitrión").replace(/\{DCAP\}/g,G.destino?.cap||"la capital anfitriona").replace(/\{P\}/g,PAISES[G.pais].n).replace(/\{B\}/g,PAISES[G.pais].bloque).replace(/\{C\}/g,PAISES[G.pais].cong);
 
 /* ================== CUENTA (Supabase), RANKING, NOTICIAS, ANUNCIOS ================== */
 const CFG=window.MANDATO_CONFIG||{};
@@ -1553,7 +1554,7 @@ function vSetup(){
    <div class="field"><span class="lab">Rasgos <span class="muted" style="font-weight:400">(elegí 2)</span> ${infoBtn('rasgos','rasgos')}</span><div class="chips">${Object.entries(RASGOS).map(([k,v])=>`<button class="chip" data-r="${k}" aria-pressed="${SET.rasgos.includes(k)}">${v.n} <small>· ${v.d}</small></button>`).join("")}</div></div>
    <div class="field"><span class="lab">Cómo arrancás ${infoBtn('modo','modo')}</span>
     <div class="chips"><button class="chip" data-m="carrera" aria-pressed="${SET.modo==="carrera"}">Carrera completa <small>· desde abajo, a los 28</small></button><button class="chip" data-m="directo" aria-pressed="${SET.modo==="directo"}">Arranque directo <small>· elegís el cargo</small></button></div>
-    ${SET.modo==="directo"?`<div class="chips" style="margin-top:6px">${rs.map(r=>`<button class="chip" data-st="${r.id}" aria-pressed="${SET.inicio===r.id}">${esc(r.nombre)} <small>· ${RAMAS[r.rama]}</small></button>`).join("")}</div>`:""}
+    ${SET.modo==="directo"?`<div class="chips" style="margin-top:6px">${rs.map(r=>`<button class="chip" data-st="${r.id}" aria-pressed="${SET.inicio===r.id}">${esc(r.nombre)} <small>· ${RAMAS[r.rama]}</small></button>`).join("")}</div>${SET.modo==="directo"&&(rs.find(r=>r.id===SET.inicio)||{}).kind==="dip"&&(rs.find(r=>r.id===SET.inicio)||{}).tier<=4?`<p class="hint" style="margin:10px 0 4px">¿Adónde te mandan? Elegí tu destino:</p><div class="chips">${DESTINOS.filter(d=>d[0]!==PAISES[SET.pais].n).map(d=>`<button class="chip" data-dest="${esc(d[0])}" aria-pressed="${SET.destino===d[0]}">${esc(d[0])}</button>`).join("")}<button class="chip" data-dest="" aria-pressed="${!SET.destino}">🎲 Que decida Cancillería</button></div>`:""}`:""}
    </div>
    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" id="go">Empezar carrera</button><button class="btn ghost" id="back">Volver</button></div>
   </div>`;
@@ -1567,7 +1568,7 @@ function vSetup(){
   if(SET.modoP==="propio")bindCreador(SET.mp,()=>{const y=scrollY;vSetup();scrollTo(0,y)});
   app.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{SET.origen=b.dataset.o;vSetup()});
   app.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{SET.modo=b.dataset.m;vSetup()});
-  app.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{SET.inicio=b.dataset.st;vSetup()});
+  app.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{SET.inicio=b.dataset.st;vSetup()});app.querySelectorAll("[data-dest]").forEach(b=>b.onclick=()=>{SET.destino=b.dataset.dest||null;vSetup()});
   app.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{const k=b.dataset.r;if(SET.rasgos.includes(k))SET.rasgos=SET.rasgos.filter(x=>x!==k);else SET.rasgos=[SET.rasgos[SET.rasgos.length-1],k].filter(Boolean).slice(-2);vSetup()});
   $("#back").onclick=()=>show("home");
   $("#go").onclick=()=>{if(SET.rasgos.length<2){$("#go").textContent="Elegí 2 rasgos";return}
@@ -1609,13 +1610,15 @@ function nueva(o){
     G.escenario=e.n;
   }else if(o.modo==="directo"){start=rs.find(r=>r.id===o.inicio);G.edad=start.tier>=6?54:start.tier>=5?48:42}
   else start=rs.find(r=>r.id===(G.origen==="diplomatico"?"diplomacia0":"politica0"));
+  if(o.modo==="directo"&&SET.destino)G._destIni=SET.destino;
   setCargo(start);
   nuevoTurno();save();show("game");
 }
 function setCargo(r){
   const mismo=G.cargo===r.id;
   G.cargo=r.id;G.aniosCargo=0;G.mandatoAnios=0;G.mandatos=mismo?G.mandatos+1:1;
-  if(!mismo){G.hist.push({anio:G.anio,cargo:r.nombre,tier:r.tier,kind:r.kind});G.gab=null}
+  if(!mismo&&r.kind==="dip"&&r.tier<=4){G.destino=(G._destIni&&DESTINOS.find(d=>d[0]===G._destIni))?(d=>({n:d[0],cap:d[1],pr:d[2]}))(DESTINOS.find(d=>d[0]===G._destIni)):elegirDestino(r.tier);G._destIni=null}
+  if(!mismo){G.hist.push({anio:G.anio,cargo:nombreCargo(r),tier:r.tier,kind:r.kind});G.gab=null}
   G.maxTier=Math.max(G.maxTier,r.tier);
   if(!G.ramas.includes(r.rama))G.ramas.push(r.rama);
   if(!G.kinds.includes(r.kind))G.kinds.push(r.kind);
@@ -1660,7 +1663,7 @@ function elegir(i){
   const d=aplicar(op[1]);
   G.T=G.T||{};for(const k in d)G.T[k]=(G.T[k]||0)+d[k];
   const net=Object.entries(d).reduce((a,[k,v])=>a+(k==="s"?-v:v),0);G._sfx=net>=0?"bien":"mal";
-  G.ult={res:op[2],d,elec:op[0]};G.fase="resultado";G.log.push({anio:G.anio,tit:e.tit,op:op[0],raro:e.t==="raro",seq:e.t==="seq"});
+  G.ult={res:op[2],d,elec:op[0]};G.fase="resultado";G.log.push({anio:G.anio,tit:tplSafe(e.tit),op:tplSafe(op[0]),raro:e.t==="raro",seq:e.t==="seq",tipo:tipoEscena(e,null)});
   const sq=OPT_SEQ[op[0]];if(sq&&!(G.seqHecho||[]).includes(sq)){G.seq=G.seq||[];G.seqHecho=[...(G.seqHecho||[]),sq];G.seq.push({id:sq,turno:G.turnos+1+Math.floor(R()*2),dec:op[0]})}
   save();vGame();
 }
@@ -1673,7 +1676,7 @@ function finTurno(){
   G.st.s=clamp(G.st.s-5,0,100);
   if(r&&["terr","gob","top"].includes(r.kind))G.st.l=clamp(G.st.l-2,0,100);
   if(r&&(r.kind==="gob"||r.kind==="top"))G.st.e=clamp(G.st.e+Math.round((R()-.5)*8),0,100);
-  const gm=turnoGabinete();const nm=avanzarNemesis();if(nm)gm.push(nm);if(gm.length)G._gm=gm.join(" ");
+  const gm=turnoGabinete();const nm=avanzarNemesis();if(nm)gm.push(nm);const tr=trasladoDip();if(tr)gm.push(tr);if(gm.length)G._gm=gm.join(" ");
   G.puntos+=r?r.tier*24:6;G.aniosCargo+=2;G.mandatoAnios+=2;G.anio+=2;G.edad+=2;
   if(G.st.p<=6)return fin("Tu partido te expulsó. Sin estructura, tu carrera termina acá.");
   if(G.st.s>=100)return fin("Procesado por la Justicia. Tu carrera termina en tribunales.");
@@ -2031,17 +2034,6 @@ function badgeSVG(code,size=40,pk){
 
 
 /* Escenas ilustradas */
-function tipoEscena(e,kind){
-  const t=((e?.tit||"")+" "+(e?.txt||"")).toLowerCase();
-  if(/inund|crece|agua|dana|lluvia|sequ|represa|hurac/.test(t))return"agua";
-  if(/incendi|fuego/.test(t))return"fuego";
-  if(/paro|huelga|marcha|corte|piquete|protest|acampe|recolector/.test(t))return"protesta";
-  if(/dólar|inflaci|cambiari|precio|cobre|deuda|crédito|presupuesto|impuesto|arancel|tlc|tratado/.test(t))return"economia";
-  if(/onu|g20|cumbre|otan|visita de estado|misión de paz/.test(t))return"cumbre";
-  if(/escánd|coima|filtr|sobreprec|aporte|viaje oficial|fondos públicos/.test(t))return"escandalo";
-  if(!kind)return"cafe";
-  return{loc:"municipio",leg:"congreso",terr:"ciudad",gob:"gobierno",top:"gobierno",dip:"embajada"}[kind]||"ciudad";
-}
 function escenaSVG(tipo){
   const PK=(G&&G.pais)||SET.pais||"AR";const c=COLORES_PAIS[PK]||["#888","#ccc","#444"],c1=c[0],c2=c[2]||c[1];
   const flag=(x,y,h=34)=>`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+h}" class="sc-ink" stroke-width="1.6"/><svg x="${x+1}" y="${y}" width="24" height="16" viewBox="0 0 30 20">${flagSVG(PK,30).replace(/^<svg[^>]*>|<\/svg>$/g,"")}</svg>`;
@@ -2065,7 +2057,7 @@ function escenaSVG(tipo){
     cafe:`${skyline}${suelo}<rect x="120" y="96" width="160" height="10" rx="5" class="sc-bld2"/><rect x="190" y="106" width="20" height="24" class="sc-ink"/><rect x="150" y="70" width="24" height="26" rx="3" class="sc-paper"/><path d="M174 76 q10 0 10 8 q0 8 -10 8" fill="none" class="sc-ink" stroke-width="2"/><path d="M156 62 q4 -8 0 -14 M166 62 q4 -8 0 -14" class="sc-smk" fill="none" stroke-width="2"/><rect x="200" y="72" width="60" height="24" rx="2" class="sc-paper"/>${[78,84,90].map(y=>`<rect x="206" y="${y}" width="48" height="2.5" class="sc-grid2"/>`).join("")}`,
     urna:`${skyline}${suelo}<rect x="150" y="70" width="100" height="60" rx="4" class="sc-board"/><rect x="180" y="66" width="40" height="6" rx="3" class="sc-ink"/><rect x="186" y="34" width="28" height="36" class="sc-paper" transform="rotate(-6 200 52)"/><path d="M193 48 l5 5 l9 -11" style="stroke:${c1}" stroke-width="3" fill="none" transform="rotate(-6 200 52)"/>${flag(270,64)}${gente(150,10,7)}`,
   };
-  return `<svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true">${base}${S[tipo]||S.ciudad}</svg>`;
+  return `<svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true">${base}${S[tipo]||escenaExtra(tipo,{c1,flag,gente,ventanas,skyline,suelo})||S.ciudad}</svg>`;
 }
 function escenaHTML(tipo,label){return `<div class="scene sc-${tipo}">${escenaSVG(tipo)}<span class="hero-l">${esc(label||"")}</span></div>`}
 
@@ -2485,6 +2477,126 @@ function titulo(){
   return TIT_ESTILO[nivel][est];
 }
 
+/* ================== v9 ================== */
+/* Destinos diplomáticos: [país, capital, prestigio 1-3] */
+const DESTINOS=[
+ ["Estados Unidos","Washington",3],["China","Pekín",3],["Brasil","Brasilia",3],["España","Madrid",3],["Reino Unido","Londres",3],["Francia","París",3],["Alemania","Berlín",3],["Italia","Roma",3],["Japón","Tokio",3],["la Santa Sede","el Vaticano",3],
+ ["México","Ciudad de México",2],["Chile","Santiago",2],["Uruguay","Montevideo",2],["Paraguay","Asunción",2],["Bolivia","La Paz",2],["Perú","Lima",2],["Colombia","Bogotá",2],["Canadá","Ottawa",2],["India","Nueva Delhi",2],["Portugal","Lisboa",2],["Corea del Sur","Seúl",2],["Australia","Canberra",2],["Sudáfrica","Pretoria",2],["Argentina","Buenos Aires",2],
+ ["Ecuador","Quito",1],["Cuba","La Habana",1],["Marruecos","Rabat",1],["Egipto","El Cairo",1],["Nueva Zelanda","Wellington",1],["Grecia","Atenas",1],["Polonia","Varsovia",1],["Vietnam","Hanói",1],["Kenia","Nairobi",1],["Turquía","Ankara",1],["Indonesia","Yakarta",1],["Noruega","Oslo",1],
+];
+function destinosValidos(){const propio=PAISES[G?.pais||SET.pais].n;return DESTINOS.filter(d=>d[0]!==propio&&!(propio==="Estados Unidos"&&d[0]==="Estados Unidos"))}
+function elegirDestino(tier){
+  const L=destinosValidos(),i=G.st.i;
+  let pr=tier<=2?(R()<.6?1:2):tier===3?2:(i>=65?3:i>=50?(R()<.5?3:2):2);
+  const c=L.filter(d=>d[2]===pr&&d[0]!==G.destino?.n);const d=pick(c.length?c:L);
+  return {n:d[0],cap:d[1],pr:d[2]};
+}
+function nombreCargo(r){if(!r)return"Sin cargo";return r.kind==="dip"&&r.tier<=4&&G.destino&&G.cargo===r.id?`${r.nombre} en ${G.destino.n}`:r.nombre}
+
+/* Sucesos diplomáticos con destino */
+EV.push(...[
+ {tit:"Visita presidencial a {DESTINO}",txt:"Tu presidente viaja a {DCAP} y la organización de la visita queda en tus manos.",o:[["Agenda comercial cargada",{e:4,i:3},"Se firman cuatro acuerdos."],["Agenda política y foto",{l:3,i:2},"La foto recorre los diarios de los dos países."],["Una visita corta y sin riesgos",{n:2},"Prolija y olvidable."]]},
+ {tit:"Compatriota detenido en {DESTINO}",txt:"Un ciudadano de {P} es detenido en {DCAP} y su familia te pide ayuda.",o:[["Gestión consular discreta",{i:3,n:2},"Lo liberan en una semana."],["Denuncia pública",{l:5,i:-5},"Héroe en casa, frialdad en {DCAP}."],["Pedir ayuda a organismos internacionales",{i:2,n:3},"Proceso más lento."]]},
+ {tit:"Elecciones en {DESTINO}",txt:"El candidato opositor de {DESTINO} te pide una reunión en plena campaña.",o:[["Reunión en privado",{i:3,s:2},"El gobierno se entera y se molesta."],["Negarte por neutralidad",{n:3},"Correcto y prolijo."],["Foto pública",{i:-5,l:2},"Escándalo diplomático."]]},
+ {tit:"Fiesta nacional en la embajada",txt:"Es el día nacional de {P} y toda {DCAP} espera la recepción de la embajada.",o:[["Fiesta grande con artistas de {P}",{i:5,e:-2},"La embajada queda de moda."],["Recepción austera",{n:2},"Sin excesos."],["Invitar a empresarios de {DESTINO}",{e:4,i:2},"Se cierran negocios en la recepción."]]},
+ {tit:"Feria en {DCAP}",txt:"Hay una gran feria de alimentos en {DCAP} y {P} puede tener su stand.",o:[["Stand propio con productores",{e:5,i:2},"Pedidos de exportación."],["Compartir stand con la región",{i:3,e:2},"Gesto de integración."],["No ir",{e:-2},"Oportunidad perdida."]]},
+ {tit:"{DESTINO} vota en contra",txt:"{DESTINO} vota en contra de {P} en un organismo internacional.",o:[["Protesta formal",{l:3,i:-2},"Nota diplomática enviada."],["Negociar en privado",{i:4},"Prometen apoyar la próxima."],["Pedir instrucciones a la cancillería",{p:2},"Te dicen que esperes."]]},
+ {tit:"Entrevista en la TV de {DESTINO}",txt:"El noticiero más visto de {DESTINO} te invita a una entrevista.",o:[["Hablar de cultura y turismo",{i:5},"Suben las búsquedas de viajes a {P}."],["Criticar a la oposición de tu país",{p:3,i:-2,n:-2},"Te acusan de hacer política afuera."],["Responder con honestidad sobre la crisis",{n:3,i:2},"Te elogian por sincero."]]},
+ {tit:"Trabas para estudiantes",txt:"Estudiantes de {P} denuncian trabas para conseguir visas en {DESTINO}.",o:[["Negociar un acuerdo de visas",{i:4,l:2},"Se agilizan los trámites."],["Reclamo público",{l:4,i:-3},"Tensión bilateral."],["Programa de becas conjunto",{i:3,e:-1,n:2},"Más intercambio."]]},
+].map(e=>({...e,t:"dip"})));
+
+/* Más cadenas de consecuencias */
+Object.assign(OPT_SEQ,{"Te despegás y pedís que se investigue":"seq_aliado","Armás una línea propia":"seq_linea","Lo defendés: es una operación":"seq_operacion","Escalás el tono":"seq_vecino","Discurso duro contra las potencias":"seq_potencias","Lo bloqueás":"seq_tratado","Endurecer penas":"seq_carceles","Multás a las distribuidoras":"seq_energia","Aceptás hacer lobby":"seq_lobby","Sostenés lo dicho":"seq_persona",
+ "Hablar de persecución":"seq_juicio","Culpar al tesorero":"seq_tesorero","Sostener el rumbo":"seq_ajuste2","Romper el acuerdo":"seq_ruptura","Ampliar la Corte":"seq_sanciones","No declarar":"seq_indagatoria","Armar un bloque propio":"seq_bloque"});
+EV_SEQ.push(...[
+ {id:"seq_aliado",tit:"Tu exaliado se venga",txt:"El aliado del que te despegaste filtra chats tuyos a la prensa.",o:[["Mostrar todos los chats",{n:3,s:-1},"No había nada grave."],["Querellarlo",{n:1,s:2},"Pelea en tribunales."],["Ignorarlo",{s:3,l:-2},"El tema crece solo."]]},
+ {id:"seq_linea",tit:"Tu línea interna crece",txt:"La línea propia que armaste ya tiene concejales y militantes en todo el país.",o:[["Pelear la conducción del partido",{p:6,l:2,n:-2},"Ganás espacio, sumás enemigos."],["Negociar lugares en las listas",{p:4},"Acuerdo de unidad."],["Irte del partido con tu gente",{l:4,p:-10},"Arrancás algo nuevo."]]},
+ {id:"seq_operacion",tit:"La causa te salpica",txt:"La causa de tu aliado avanza y aparece tu nombre en un expediente.",o:[["Presentarte a la Justicia",{n:4,s:-2},"Te despegás a tiempo."],["Seguir defendiéndolo",{p:3,s:6},"Quedás pegado."],["Pedir licencia",{s:-1,l:-3,p:-2},"Gesto de responsabilidad."]]},
+ {id:"seq_vecino",tit:"El vecino responde",txt:"Después de que escalaste el tono, el país vecino cierra un paso fronterizo.",o:[["Bajar el tono",{i:4,l:-3},"Se reabre el paso."],["Responder con lo mismo",{l:4,i:-6,e:-3},"Colas de camiones en la frontera."],["Pedir mediación de {B}",{i:5,n:2},"Los socios intervienen."]]},
+ {id:"seq_potencias",tit:"Las potencias toman nota",txt:"Después de tu discurso duro, una potencia demora un acuerdo comercial clave.",o:[["Viaje para recomponer",{i:5,l:-2},"Se destraba a medias."],["Buscar otros socios",{i:2,e:-1},"Diversificación forzada."],["Sostener la postura",{l:4,e:-4},"Épica y costos."]]},
+ {id:"seq_tratado",tit:"Te dejaron afuera",txt:"El tratado que bloqueaste se firmó igual, pero sin {P}.",o:[["Pedir adherir",{i:4,l:-3},"Entrás tarde y con peores condiciones."],["Acuerdos bilaterales",{e:2,i:2},"Plan B."],["Defender la decisión",{l:3,e:-3},"Tu base te banca."]]},
+ {id:"seq_carceles",tit:"Cárceles colapsadas",txt:"Con las penas más duras, las cárceles están desbordadas.",o:[["Construir nuevas cárceles",{e:-4,l:2},"Obra cara."],["Penas alternativas para delitos leves",{n:3,l:-3},"Te acusan de blando."],["Cárceles con trabajo",{n:2,e:1},"Experiencia piloto."]]},
+ {id:"seq_energia",tit:"Las distribuidoras no invierten",txt:"Tras las multas, las distribuidoras frenan sus inversiones y vuelven los cortes.",o:[["Intervenirlas",{l:4,i:-4,n:-2},"Choque con los inversores."],["Acuerdo de inversión",{n:3,e:2},"Plan de obras pactado."],["Subir tarifas para financiar",{e:3,l:-5},"Ruidazo en los barrios."]]},
+ {id:"seq_lobby",tit:"Tu cliente te compromete",txt:"La empresa para la que hiciste lobby aparece en una investigación periodística.",o:[["Cortar la relación",{s:-2,e:-1},"Te alejás a tiempo."],["Explicar todo en una entrevista",{n:2,s:1},"Te creen a medias."],["Callarte",{s:5},"El tema crece."]]},
+ {id:"seq_persona",tit:"Persona non grata",txt:"Por sostener tus dichos, el gobierno de {DESTINO} te declara persona non grata.",o:[["Volver con la frente alta",{l:5,i:-4},"Te reciben como héroe."],["Pedir disculpas para quedarte",{i:3,l:-4},"Te quedás, debilitado."],["Pedir otro destino",{i:1,p:1},"Te trasladan."]]},
+ {id:"seq_juicio",tit:"Llega el juicio oral",txt:"La causa por los aportes de campaña llega a juicio oral.",o:[["Defenderte con los mejores abogados",{s:-3,e:-1},"La causa se debilita."],["Convertirlo en un acto político",{p:4,s:6,n:-4},"Tu base te acompaña a Tribunales."],["Acordar una salida alternativa",{s:-5,l:-3},"Zafás, con mancha."]]},
+ {id:"seq_tesorero",tit:"El tesorero se hace arrepentido",txt:"El tesorero al que culpaste decide declarar como arrepentido.",o:[["Desmentir todo",{s:5,l:-2},"Palabra contra palabra."],["Admitir errores administrativos",{s:2,n:2},"Te creen a medias."],["Atacar su credibilidad",{p:2,s:3},"Guerra de versiones."]]},
+ {id:"seq_ajuste2",tit:"El ajuste va a las urnas",txt:"Las elecciones de medio término se vuelven un plebiscito sobre tu ajuste.",o:[["Defender el rumbo en campaña",{e:2,l:-2},"Elección pareja."],["Anunciar alivio fiscal",{l:4,e:-3},"Ganás aire."],["Echar al ministro de Economía",{l:2,p:-2,e:-2},"Fusible político."]]},
+ {id:"seq_ruptura",tit:"Sin crédito internacional",txt:"Tras romper con el organismo, nadie quiere prestarle a {P}.",o:[["Emisión monetaria",{l:2,e:-8},"Se dispara la inflación."],["Ajuste propio",{e:4,l:-6},"Sin ayuda de afuera."],["Volver a negociar",{i:4,l:-3},"Arrancás de cero."]]},
+ {id:"seq_sanciones",tit:"Sanciones internacionales",txt:"Después de ampliar la Corte, varios países suspenden acuerdos con {P}.",o:[["Dar marcha atrás",{n:6,p:-6},"Se levantan las sanciones."],["Resistir",{l:3,i:-8,e:-3},"Aislamiento."],["Buscar nuevos aliados",{i:-2,e:-1},"Socios inesperados."]]},
+ {id:"seq_indagatoria",tit:"La indagatoria",txt:"Por no declarar, el juez te cita a indagatoria.",o:[["Ir y hablar",{n:3,s:-1},"Bajás la tensión."],["Pedir que se aparte el juez",{s:3,n:-3},"Maniobra dilatoria."],["Ir con una multitud",{p:4,l:2,n:-5},"Show en Tribunales."]]},
+ {id:"seq_bloque",tit:"Tu bloque es clave",txt:"El bloque propio que armaste tiene los votos que definen una ley importante.",o:[["Vender caro tus votos",{p:3,s:3,e:2},"Conseguís obras para tu provincia."],["Votar por convicción",{n:4,l:2},"Te ganás respeto."],["Abstenerte",{p:-2},"Nadie te entiende."]]},
+]);
+EV_SEQ.slice(-17).forEach(e=>EV.push({...e,t:"seq"}));
+
+/* Escenas nuevas */
+function escenaExtra(tipo,h){
+  const {c1,flag,gente,ventanas,skyline,suelo}=h;
+  const S={
+    hospital:`${skyline}${suelo}<rect x="120" y="58" width="160" height="72" class="sc-paper"/>${ventanas(120,64,160,44)}<rect x="185" y="30" width="30" height="30" rx="3" fill="#C8102E"/><rect x="196" y="35" width="8" height="20" fill="#fff"/><rect x="190" y="41" width="20" height="8" fill="#fff"/><rect x="186" y="106" width="28" height="24" class="sc-door"/><rect x="300" y="108" width="54" height="22" rx="4" class="sc-paper"/><rect x="300" y="108" width="54" height="7" fill="#C8102E"/><circle cx="312" cy="132" r="5" class="sc-ink"/><circle cx="342" cy="132" r="5" class="sc-ink"/>${gente(146,6,3)}`,
+    escuela:`${skyline}${suelo}<rect x="110" y="70" width="180" height="60" class="sc-bld"/><polygon points="100,72 200,42 300,72" style="fill:${c1}"/>${ventanas(110,78,180,40)}<rect x="190" y="104" width="20" height="26" class="sc-door"/><circle cx="200" cy="58" r="6" class="sc-coin"/>${flag(298,40)}${Array.from({length:9},(_,i)=>`<circle cx="${70+i*30}" cy="148" r="4" class="sc-ppl"/><rect x="${66+i*30}" y="152" width="8" height="10" rx="2" style="fill:${["#C8102E","#1D4F91","#F2C230"][i%3]}"/>`).join("")}`,
+    campo:`<rect y="96" width="400" height="74" fill="#C9B26A"/>${Array.from({length:8},(_,i)=>`<path d="M${-40+i*60} 170 L${100+i*40} 96" stroke="#A8913F" stroke-width="2"/>`).join("")}<circle cx="330" cy="38" r="20" fill="#F2C230"/><rect x="40" y="46" width="34" height="56" rx="4" class="sc-col"/><path d="M40 46 Q57 26 74 46Z" class="sc-dome"/><rect x="80" y="62" width="22" height="40" class="sc-bld2"/><g transform="translate(220 92)"><rect x="0" y="0" width="44" height="18" rx="3" fill="#2E8B57"/><rect x="26" y="-12" width="16" height="14" fill="#2E8B57"/><circle cx="10" cy="20" r="9" class="sc-ink"/><circle cx="36" cy="22" r="6" class="sc-ink"/></g>${flag(150,64)}`,
+    fabrica:`${skyline}${suelo}<path d="M80 130 V80 L120 60 V80 L160 60 V80 L200 60 V80 L240 60 V130Z" class="sc-bld2"/><rect x="250" y="40" width="16" height="90" class="sc-bld"/><rect x="280" y="54" width="16" height="76" class="sc-bld"/>${[[258,30],[288,44]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="10" class="sc-smoke"/><circle cx="${x+12}" cy="${y-12}" r="13" class="sc-smoke"/>`).join("")}${ventanas(80,90,160,30)}${gente(146,10,4)}`,
+    energia:`${skyline}${suelo}${[60,130].map(x=>`<path d="M${x} 130 L${x+18} 50 L${x+36} 130" style="fill:none;stroke:var(--ink2)" stroke-width="2.4"/><path d="M${x+8} 100 H${x+28} M${x+12} 80 H${x+24}" style="fill:none;stroke:var(--ink2)" stroke-width="2"/><rect x="${x+4}" y="44" width="30" height="8" style="fill:${c1}"/>`).join("")}${[250,320].map(x=>`<line x1="${x}" y1="130" x2="${x}" y2="60" stroke="#E6E6E6" stroke-width="4"/><g class="aspa" style="transform-origin:${x}px 60px"><path d="M${x} 60 L${x+3} 26 L${x-3} 26Z M${x} 60 L${x+30} 76 L${x+27} 81Z M${x} 60 L${x-30} 76 L${x-27} 81Z" fill="#F4F4F4"/></g>`).join("")}`,
+    mina:`<path d="M0 130 L90 40 L170 100 L250 30 L400 120 V170 H0Z" class="sc-hill"/><path d="M230 52 L250 30 L270 52Z" fill="#fff" opacity=".8"/><path d="M60 130 Q90 104 120 130Z" class="sc-ink"/><g transform="translate(160 118)"><rect x="0" y="0" width="60" height="22" rx="3" fill="#F2C230"/><rect x="40" y="-14" width="20" height="16" fill="#F2C230"/><circle cx="12" cy="24" r="8" class="sc-ink"/><circle cx="48" cy="24" r="8" class="sc-ink"/></g>${flag(300,72)}`,
+    puerto:`${skyline}<rect y="110" width="400" height="60" class="sc-water"/><rect x="0" y="100" width="130" height="14" class="sc-bld2"/><path d="M90 100 V30 H150 M140 30 V60" style="fill:none;stroke:var(--ink2)" stroke-width="4"/><path d="M180 112 L360 112 L340 134 L196 134Z" class="sc-ink"/>${Array.from({length:12},(_,i)=>`<rect x="${200+(i%6)*24}" y="${88+Math.floor(i/6)*12}" width="22" height="11" style="fill:${["#C8102E","#1D4F91","#F2C230","#2E8B57"][i%4]}"/>`).join("")}${Array.from({length:6},(_,i)=>`<path d="M${i*70} 150 q17 -7 34 0 t34 0" class="sc-wave" fill="none" stroke-width="2"/>`).join("")}`,
+    frontera:`${skyline}${suelo}<rect x="0" y="122" width="400" height="16" class="sc-grid2"/><rect x="170" y="80" width="60" height="44" class="sc-bld"/><rect x="180" y="88" width="40" height="16" class="sc-win"/><path d="M230 112 H360" stroke="#C8102E" stroke-width="5" stroke-dasharray="14 10"/>${flag(140,60)}<line x1="260" y1="60" x2="260" y2="94" class="sc-ink" stroke-width="1.6"/><rect x="261" y="60" width="24" height="16" class="sc-grid2"/>${Array.from({length:4},(_,i)=>`<rect x="${20+i*36}" y="112" width="30" height="16" rx="3" class="sc-bld2"/>`).join("")}`,
+    justicia:`${skyline}${suelo}<rect x="100" y="76" width="200" height="54" class="sc-paper"/><polygon points="90,78 200,40 310,78" class="sc-paper"/>${Array.from({length:7},(_,i)=>`<rect x="${112+i*27}" y="82" width="10" height="46" class="sc-grid2"/>`).join("")}<g transform="translate(200 58)" style="fill:none;stroke:var(--ink2)" stroke-width="1.8"><path d="M0 -10 V8 M-16 -6 H16"/><path d="M-16 -6 L-22 4 H-10Z M16 -6 L10 4 H22Z"/></g>${gente(150,8,5)}`,
+    avion:`${skyline}<rect y="128" width="400" height="42" class="sc-grid2"/><path d="M0 146 H400" stroke="#fff" stroke-width="3" stroke-dasharray="20 14"/><g transform="translate(150 50) rotate(-12)"><path d="M0 14 Q4 6 20 6 H104 Q114 6 118 12 Q114 18 104 18 H20 Q4 18 0 14Z" fill="#F4F4F4"/><path d="M48 12 L70 -14 H80 L66 12Z M48 14 L70 40 H80 L66 14Z M10 8 L4 -6 H12 L22 8Z" style="fill:${c1}"/></g>`,
+    estadio:`<rect width="400" height="170" class="sc-ground"/><ellipse cx="200" cy="120" rx="190" ry="70" class="sc-bld2"/><ellipse cx="200" cy="124" rx="140" ry="42" fill="#3F8F5A"/><line x1="200" y1="82" x2="200" y2="166" stroke="#fff" stroke-width="2"/><ellipse cx="200" cy="124" rx="22" ry="8" fill="none" stroke="#fff" stroke-width="2"/>${Array.from({length:60},(_,i)=>`<circle cx="${20+(i*31)%360}" cy="${58+(i*13)%30}" r="3" style="fill:${(COLORES_PAIS[(G&&G.pais)||"AR"]||["#ccc"])[i%3]||"#fff"}"/>`).join("")}${[40,360].map(x=>`<rect x="${x-3}" y="10" width="6" height="50" class="sc-ink"/><rect x="${x-14}" y="6" width="28" height="10" fill="#FFF6C9"/>`).join("")}`,
+    tv:`<rect width="400" height="170" fill="#1C2433"/><rect x="40" y="20" width="320" height="80" rx="6" style="fill:${c1}" opacity=".85"/><text x="200" y="70" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-weight="800" font-size="26" fill="#fff">EN VIVO</text><circle cx="70" cy="40" r="6" fill="#E5484D"/><rect x="60" y="118" width="110" height="14" rx="3" class="sc-bld2"/><rect x="230" y="118" width="110" height="14" rx="3" class="sc-bld2"/><circle cx="115" cy="104" r="11" class="sc-ppl" style="fill:#E8B48A"/><circle cx="285" cy="104" r="11" style="fill:#C68A5E"/><g transform="translate(196 132)"><rect x="-14" y="0" width="28" height="18" rx="3" fill="#555"/><rect x="14" y="5" width="10" height="8" fill="#333"/><path d="M0 18 L-12 38 M0 18 L12 38 M0 18 V38" stroke="#555" stroke-width="2"/></g>`,
+    transporte:`${skyline}${suelo}<rect y="128" width="400" height="10" class="sc-grid2"/><g transform="translate(60 92)"><rect x="0" y="0" width="230" height="34" rx="8" style="fill:${c1}"/>${Array.from({length:9},(_,i)=>`<rect x="${12+i*24}" y="6" width="16" height="12" rx="2" fill="#E8F1F8"/>`).join("")}<circle cx="30" cy="36" r="6" class="sc-ink"/><circle cx="200" cy="36" r="6" class="sc-ink"/></g>${gente(160,10,2)}`,
+    vivienda:`${skyline}${suelo}<rect x="90" y="56" width="70" height="74" class="sc-bld"/>${ventanas(90,60,70,68)}<rect x="180" y="80" width="70" height="50" class="sc-bld"/><path d="M180 80 H250 M180 96 H250 M180 112 H250 M198 80 V130 M216 80 V130 M234 80 V130" class="sc-ink" stroke-width="1.4"/><path d="M300 130 V20 H380 M300 30 L330 20 M360 20 V50" stroke="#F2C230" stroke-width="5" fill="none"/><rect x="352" y="50" width="16" height="12" class="sc-bld2"/>`,
+    seguridad:`${skyline}${suelo}<g transform="translate(110 96)"><rect x="0" y="12" width="170" height="26" rx="6" fill="#F4F4F4"/><path d="M28 12 L44 -6 H122 L140 12Z" fill="#F4F4F4"/><rect x="0" y="22" width="170" height="8" fill="#1D4F91"/><rect x="74" y="-12" width="24" height="7" rx="2" fill="#1D4F91"/><rect x="74" y="-12" width="12" height="7" rx="2" fill="#E5484D" class="sirena"/><circle cx="36" cy="40" r="10" class="sc-ink"/><circle cx="134" cy="40" r="10" class="sc-ink"/></g>${gente(160,6,6)}`,
+    selva:`<rect width="400" height="170" fill="#2F6B46"/>${Array.from({length:22},(_,i)=>`<circle cx="${(i*41)%420}" cy="${30+(i*17)%70}" r="${22+(i%4)*6}" fill="${["#3F8F5A","#2E7D4F","#4FA06A"][i%3]}"/>`).join("")}<path d="M0 140 Q100 120 200 140 T400 136 V170 H0Z" class="sc-water"/>${Array.from({length:4},(_,i)=>`<rect x="${70+i*80}" y="${100+(i%2)*6}" width="6" height="36" fill="#6B4A2B"/>`).join("")}`,
+    montana:`<path d="M0 120 L80 50 L150 110 L230 30 L320 100 L400 60 V170 H0Z" class="sc-far"/><path d="M60 68 L80 50 L100 68Z M210 48 L230 30 L250 48Z M385 70 L400 60 V80Z" fill="#fff"/><path d="M0 140 Q200 120 400 142 V170 H0Z" class="sc-water"/>${flag(330,92)}`,
+    playa:`<rect y="100" width="400" height="30" class="sc-water"/>${Array.from({length:6},(_,i)=>`<path d="M${i*70} 116 q17 -6 34 0 t34 0" class="sc-wave" fill="none" stroke-width="2"/>`).join("")}<rect y="128" width="400" height="42" fill="#EAD9A8"/><circle cx="330" cy="40" r="22" fill="#F2C230"/>${[80,180,280].map((x,i)=>`<line x1="${x}" y1="100" x2="${x}" y2="150" class="sc-ink" stroke-width="2"/><path d="M${x-30} 104 Q${x} 76 ${x+30} 104Z" fill="${["#C8102E","#1D4F91","#F2C230"][i]}"/>`).join("")}${gente(160,8,8)}`,
+  };
+  return S[tipo]||"";
+}
+function tipoEscena(e,kind){
+  const t=((e?.tit||"")+" "+(e?.txt||"")).toLowerCase();
+  if(e?.t==="dip"&&/visita|viaj|varado/.test(t))return"avion";
+  if(/escánd|coima|sobreprec|aporte|filtr|lobby|chats/.test(t))return"escandalo";
+  if(/paro|huelga|marcha|corte de|piquete|protest|acampe|cacerol|ruidazo/.test(t))return"protesta";
+  if(/salud|hospital|médic|vacuna|pandemia|nhs|virus|pacientes/.test(t))return"hospital";
+  if(/docente|escuela|maestr|estudiant|universidad|becas|alumnos/.test(t))return"escuela";
+  if(/juez|justicia|corte|tribunal|juicio|indagatoria|declarar|fiscal investiga|causa/.test(t))return"justicia";
+  if(/mundial|selección|futbol|fútbol|campeones/.test(t))return"estadio";
+  if(/televisi|\btv\b|entrevista|streaming|noticiero|cadena nacional|periodista/.test(t))return"tv";
+  if(/frontera|migra|cayuco|botes|asilo|visa|paso fronterizo/.test(t))return"frontera";
+  if(/puerto|hidrovía|barco|salmon|pesca|contenedor/.test(t))return"puerto";
+  if(/minera|minería|litio|cobre|mina\b/.test(t))return"mina";
+  if(/petrol|vaca muerta|energ|hidrógeno|fracking|apagón|represa|carbón|yacimiento|distribuidora|eléctric/.test(t))return"energia";
+  if(/campo|rural|yerba|retenci|agro|productor|fruta|zafra|ingenio|azúcar|soja|regante|jornaler|chacarer/.test(t))return"campo";
+  if(/fábrica|planta de|industri|acero|maquila|automotriz|chips/.test(t))return"fabrica";
+  if(/colectivo|tren|subte|metro|transporte|camiones|ferrocarril|autobús/.test(t))return"transporte";
+  if(/alquiler|vivienda|torre|departamento|construc/.test(t))return"vivienda";
+  if(/inseguridad|delito|crimen|narco|robo|balacera|violencia|cárcel|gendarme|policía|patrull/.test(t))return"seguridad";
+  if(/amazon|selva|deforest|iberá|bosque/.test(t))return"selva";
+  if(/glaciar|cordillera|volcán|nieve|montaña|ceniza|meseta/.test(t))return"montana";
+  if(/playa|turis|punta del este|cancún|termas|acapulco|cenote/.test(t))return"playa";
+  if(/inund|crece|agua|dana|lluvia|sequ|hurac/.test(t))return"agua";
+  if(/incendi|fuego/.test(t))return"fuego";
+  if(/dólar|inflaci|cambiari|precio|deuda|crédito|presupuesto|impuesto|arancel|tlc|tratado|default|corralito|bonistas/.test(t))return"economia";
+  if(/onu|g20|cumbre|otan|visita de estado|misión de paz|organismo internacional|potencia/.test(t))return"cumbre";
+  if(!kind)return"cafe";
+  return{loc:"municipio",leg:"congreso",terr:"ciudad",gob:"gobierno",top:"gobierno",dip:"embajada"}[kind]||"ciudad";
+}
+function trasladoDip(){
+  const r=rk(G.cargo);if(!r||r.kind!=="dip"||r.tier>4||!G.destino)return null;
+  if(G.aniosCargo<4||R()>.35)return null;
+  const ant=G.destino.n;G.destino=elegirDestino(r.tier);G.hist.push({anio:G.anio+2,cargo:`${r.nombre} en ${G.destino.n}`,tier:r.tier,kind:"dip"});
+  return `Cancillería te traslada: dejás ${ant} y te vas a ${G.destino.cap}.`;
+}
+function antecedente(e){
+  if(e.t==="seq"||e.t==="raro")return"";
+  const tp=tipoEscena(e,null);if(tp==="cafe")return"";
+  const L=(G.log||[]).filter(x=>x.tipo===tp&&x.tit!==tplSafe(e.tit));
+  const a=L[L.length-1];if(!a)return"";
+  return `<div class="sabias mem"><b>Antecedente (${a.anio}):</b> en «${esc(a.tit)}» elegiste «${esc(a.op)}». La gente se acuerda.</div>`;
+}
+
 /* ================== VISTA DE JUEGO ================== */
 const STC={l:"Local",i:"Mundo",p:"Partido",n:"Instit.",e:"Economía",s:"Escándalo"};
 function colorFor(k,v){const good=k==="s"?100-v:v;return good>=60?"var(--good)":good>=35?"var(--warn)":"var(--bad)"}
@@ -2495,7 +2607,7 @@ function hud(){
   const steps=[1,2,3,4,5,6].map(n=>`<i class="${n<t?"on":n===t?"now":""}" title="Nivel ${n}"></i>`).join("");
   return `<header class="hud">
    <div class="hud-top">
-    <div class="me"><span class="avatar" aria-hidden="true">${avatarSVG(G.av,46,{acc:colorPartido(),banda:r?.top?COLORES_PAIS[G.pais]:null,canas:G.edad>=62})}<span class="av-flag">${flagSVG(G.pais,20)}</span></span><div class="me-t"><b>${esc(G.nombre)}</b><span>${r?esc(r.nombre):"Sin cargo"} ${r?infoBtn("k_"+r.kind,"este cargo"):""}</span><small class="pa-line">${badgeSVG(G.partido,18)} ${esc(pa[1])}</small></div></div>
+    <div class="me"><span class="avatar" aria-hidden="true">${avatarSVG(G.av,46,{acc:colorPartido(),banda:r?.top?COLORES_PAIS[G.pais]:null,canas:G.edad>=62})}<span class="av-flag">${flagSVG(G.pais,20)}</span></span><div class="me-t"><b>${esc(G.nombre)}</b><span>${r?esc(nombreCargo(r)):"Sin cargo"} ${r?infoBtn("k_"+r.kind,"este cargo"):""}</span><small class="pa-line">${badgeSVG(G.partido,18)} ${esc(pa[1])}</small></div></div>
     <div class="hud-meta"><b>${G.anio}</b><span>${G.edad} años</span></div>
    </div>
    <div class="ladder2" aria-label="Escalafón: nivel ${t} de 6">${steps}<span>${t?"Nivel "+t+(t===6?" · la cima":""):"En el llano"} ${infoBtn("escalafon","escalafón")}</span></div>
@@ -2512,7 +2624,7 @@ function vGame(){
     const e=EV[G.cola[0]];
     body=`${G.aviso?`<p class="res">${esc(G.aviso)}</p>`:""}
     ${hero(fotoQuery(e,r?.kind),dateline(e.pr?"loc":r?.kind))}
-    ${e.t==="seq"?`<div class="sabias"><b>Consecuencia de tu decisión:</b> «${esc(tpl(G.seqDec||""))}»</div>`:e.t==="raro"?`<div class="sabias raro"><b>Momento histórico.</b> Esto no pasa todos los días.</div>`:""}
+    ${e.t==="seq"?`<div class="sabias"><b>Consecuencia de tu decisión:</b> «${esc(tpl(G.seqDec||""))}»</div>`:e.t==="raro"?`<div class="sabias raro"><b>Momento histórico.</b> Esto no pasa todos los días.</div>`:antecedente(e)}
     <div class="dl"><span>${esc(G.provLab)} · ${esc(PAISES[G.pais].n)}</span><span class="stamp">${r?KIND_N[r.kind]:"En el llano"}</span></div>
     <h2>${esc(tpl(e.tit))}</h2><p class="txt">${esc(tpl(e.txt))}</p>
     <div class="choices">${e.o.map((o,i)=>`<button class="choice" data-c="${i}"><span class="k">${String.fromCharCode(65+i)}</span><span>${esc(tpl(o[0]))}</span></button>`).join("")}</div>`;
