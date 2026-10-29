@@ -200,6 +200,51 @@ img{max-width:100%}
 .nego{display:flex;flex-direction:column;gap:12px}
 .nego-v{font-family:var(--f-display);font-size:56px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
 input[type=range]{width:100%;accent-color:var(--accent)}
+/* ---- v7 ---- */
+.hero2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px}
+.mode-card{border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.mc-main{background:var(--surface);border:1.5px solid var(--ink)}
+.mc-main h2{font-size:44px;text-transform:uppercase}
+.mc-main p,.mc-fund p{margin:0;max-width:52ch}
+.mc-main p{color:var(--muted)}
+.mc-fund{background:var(--seal);color:#fff;border:1.5px solid var(--seal)}
+.mc-fund h3{font-size:34px;text-transform:uppercase}
+.fund-logos{display:flex;gap:6px}
+.fund-logos span{animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(-4deg)}}
+.fund-btn{background:#fff;color:var(--seal);border-color:#fff;align-self:flex-start}
+.modos{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.modo{position:relative;display:flex;flex-direction:column;gap:3px;padding:12px;border-radius:var(--r);border:1px dashed var(--line);background:var(--surface);opacity:.7}
+.modo.on{border:1px solid var(--line);opacity:1}
+.modo b{font-family:var(--f-display);font-size:19px;text-transform:uppercase}
+.modo span{font-size:12.5px;color:var(--muted)}
+.modo .pronto{align-self:flex-start;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--seal);border:1px solid var(--seal);border-radius:3px;padding:1px 6px}
+.practica{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.pr-j{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:12px;border-radius:var(--r);border:1.5px solid var(--line);background:var(--surface)}
+.pr-j:hover{border-color:var(--accent)}
+.pr-j b{font-weight:600}.pr-j span{font-size:12px;color:var(--muted)}
+.mapa{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:6px}
+.mapa .tile{animation:tileIn .35s both}
+@keyframes tileIn{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+.mapa .tile{transform-box:fill-box;transform-origin:center}
+.mapa-ley{display:flex;flex-wrap:wrap;gap:12px;font-size:12.5px}
+.mapa-ley i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.ds-bar{position:relative;height:30px;border-radius:var(--r);background:var(--sunk);border:1.5px solid var(--line);overflow:hidden}
+.ds-bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);opacity:.85}
+.ds-bar .zone{position:absolute;top:0;bottom:0;background:color-mix(in srgb,var(--good) 45%,transparent);border-left:2px solid var(--good);border-right:2px solid var(--good);z-index:1}
+.ds-bar.ok{box-shadow:0 0 0 3px color-mix(in srgb,var(--good) 40%,transparent)}.ds-bar.bad{box-shadow:0 0 0 3px color-mix(in srgb,var(--bad) 40%,transparent)}
+.ds-btn{user-select:none;-webkit-user-select:none;touch-action:none}.ds-btn.on{transform:scale(.97);filter:brightness(1.15)}
+.sabias.raro{background:color-mix(in srgb,var(--seal) 12%,var(--bg));border-color:color-mix(in srgb,var(--seal) 40%,transparent)}
+.tl2{list-style:none;margin:8px 0 0;padding:0;position:relative}
+.tl2::before{content:"";position:absolute;left:6px;top:4px;bottom:4px;width:2px;background:var(--line)}
+.tl2 li{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 10px;padding:6px 0 6px 24px;font-size:14px}
+.tl2 .tl-dot{position:absolute;left:0;top:10px;width:14px;height:14px;border-radius:50%;border:2px solid var(--surface)}
+.tl2 .tl-y{font-family:var(--f-mono);font-size:12.5px;color:var(--muted)}
+.tl2 small{grid-column:2;font-size:11.5px;color:var(--muted)}
+.tl2 .tl-off{opacity:.65}
+.graf{margin-top:6px}.g-grid{stroke:var(--line)}.g-t{font-size:11px;fill:var(--muted);font-family:var(--f-mono)}
+.momentos{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+@media (max-width:760px){.hero2{grid-template-columns:minmax(0,1fr)}.modos,.practica{grid-template-columns:repeat(2,minmax(0,1fr))}.mc-main h2{font-size:36px}}
 /* ---- v6 ---- */
 :root{--sk1:#BFD9EE;--sk2:#F1E6D2;--grd:#C9C3B3;--far:#A9B6C4;--bld:#E9E2D3;--bld2:#B9AE98;--win:#7E95AE;--ink2:#2A3442;--ppl:#3B4656;--col:#F7F3EA;--dome:#8FA3B5}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sk1:#0F1B2D;--sk2:#2C3550;--grd:#1F2632;--far:#2A3850;--bld:#3A475C;--bld2:#4C5A70;--win:#F2C96B;--ink2:#0B0F15;--ppl:#121821;--col:#56657C;--dome:#5D7187}}
@@ -1128,6 +1173,7 @@ const INFO = {
  m_poroteo:["Poroteo","Memorizá qué bancas te apoyan mientras están prendidas y marcalas cuando se apagan."],
  m_crisis:["Gestión de crisis","Cuatro frentes se vacían solos. Tocalos para recargarlos. Si uno llega a cero, se cae."],
  m_tira:["Negociación","La aguja va y viene. Frenala en la zona verde: ni de más ni de menos."],
+ m_discurso:["Discurso","Mantené apretado el botón para hablar: el aplausómetro sube. Soltalo cuando esté en la zona verde. Si soltás antes, fuiste tibio; si te pasás, abucheos."],
  m_agenda:["Agenda","Las reuniones se prenden en un orden. Repetilo sin equivocarte."],
 };
 const SISTEMA_INFO = {
@@ -1312,20 +1358,22 @@ function vHome(){
   app.innerHTML=`
   <div class="home">
    <div class="col">
-    <section class="hero">
-     <div class="l">
-      <span class="eyebrow">Carrera política · simulador</span>
-      <h2>Del timbreo al balcón</h2>
-      <p>Elegí tu país, tu partido y tu ciudad, y armá tu carrera: elecciones, ministerios y embajadas, con rivales que no te van a regalar nada. Cada decisión mueve tu imagen local, tu imagen afuera, tu partido y las instituciones. Al final, la historia te pone un nombre.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
-       <button class="btn primary" id="bNueva">Carrera política</button>
-       <button class="btn" id="bFundar">Fundá tu partido</button>
+    <section class="hero2">
+     <div class="mode-card mc-main">
+      <span class="eyebrow">Carrera política</span>
+      <h2>¿Hasta dónde llegás?</h2>
+      <p>Una carrera política de toda la vida, decisión por decisión: elecciones, gestión, internas, alianzas y crisis. Elegí país, provincia y partido, y escribí tu propia historia.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+       <button class="btn primary" id="bNueva">Empezar mi carrera</button>
        ${sv&&!sv.fin?'<button class="btn" id="bSeguir">Seguir partida · '+esc(PAISES[sv.pais]?.n||"")+'</button>':''}
       </div>
      </div>
-     <div class="r" aria-label="Ejemplo de escalafón">
-      <span class="eyebrow" style="color:inherit;opacity:.7">Escalafón · ${AR.c}</span>
-      <div class="ladder">${[...AR.politica.slice(0,1),AR.politica[3],AR.politica[5],AR.ejecutivo[1],AR.diplomacia[4],AR.ejecutivo[3]].map(r=>`<div><b>${esc(r[0])}</b><span>N${r[1]}</span></div>`).join("")}</div>
+     <div class="mode-card mc-fund">
+      <div class="fund-logos" aria-hidden="true">${[[0,0,1,8],[1,1,3,2],[2,3,0,8],[3,4,4,2]].map(([f,sy,c1,c2],i)=>{const keep=SET.mp;SET.mp={forma:f,simb:sy,c1,c2,sigla:"",n:""};const b=badgeSVG("PROPIO",58);SET.mp=keep;return `<span style="animation-delay:${i*.15}s">${b}</span>`}).join("")}</div>
+      <span class="eyebrow" style="color:inherit;opacity:.8">Modo fundador</span>
+      <h3>Fundá tu partido</h3>
+      <p>Nombre, ideología y logo propios. Arrancás chico y crecés a fuerza de votos, sin internas.</p>
+      <button class="btn fund-btn" id="bFundar">Fundar mi partido</button>
      </div>
     </section>
 
@@ -1344,6 +1392,19 @@ function vHome(){
 
     ${adHTML("home","inline","Banner adaptable")}
 
+    <section>
+     <div class="sec-h"><h3>Modos de juego</h3></div>
+     <div class="modos">
+      <div class="modo on"><b>Carrera política</b><span>Toda una vida en la política.</span></div>
+      <div class="modo on"><b>Fundá tu partido</b><span>Tu partido, tus reglas.</span></div>
+      <div class="modo"><span class="pronto">Próximamente</span><b>Test político</b><span>¿Dónde estás en el mapa ideológico?</span></div>
+      <div class="modo"><span class="pronto">Próximamente</span><b>Wordle político</b><span>Adiviná el político, el partido o la ley del día.</span></div>
+     </div>
+    </section>
+    <section>
+     <div class="sec-h"><h3>Probá los desafíos</h3><span class="eyebrow">Sin arrancar una carrera</span></div>
+     <div class="practica">${JUEGOS.map(j=>`<button class="pr-j" data-pr="${j[0]}"><b>${j[1]}</b><span>${j[2]}</span></button>`).join("")}</div>
+    </section>
     <section>
      <div class="sec-h"><h3>Tus insignias</h3><span class="eyebrow">${Object.keys(insigniasGuardadas()).length} de ${INSIGNIAS.length}</span></div>
      <div class="ins-grid">${INSIGNIAS.map(x=>insigniaHTML(x[0],!!insigniasGuardadas()[x[0]])).join("")}</div>
@@ -1375,6 +1436,7 @@ function vHome(){
   </div>`;
   $("#bNueva").onclick=()=>{SET.modoP="existente";show("setup")};
   $("#bFundar").onclick=()=>{SET.modoP="propio";show("setup")};
+  app.querySelectorAll("[data-pr]").forEach(b=>b.onclick=()=>practicar(b.dataset.pr));
   if($("#bSeguir"))$("#bSeguir").onclick=()=>{G=sv;show(G.fin?"legado":"game")};
   $("#bDiario").onclick=()=>{
     let jugado=false;try{jugado=localStorage.getItem("elmandato.diario")===hoyISO()}catch(e){}
@@ -1402,7 +1464,7 @@ function vPre(o,tit,desc){
   $("#back2").onclick=()=>show("home");
   $("#go2").onclick=()=>{SET.nombre=$("#nm2").value;nueva({...o,nombre:SET.nombre,av:{...SET.av}})};
 }
-let SET={av:{piel:1,pelo:0,colorPelo:1,barba:0,anteojos:0,ropa:0},modoP:"existente",mp:{n:"",sigla:"",ideo:3,forma:0,simb:0,c1:1,c2:8},pais:"AR",partido:null,origen:"academico",rasgos:["carismatico","negociador"],modo:"carrera",inicio:null,nombre:""};
+let SET={av:{piel:1,pelo:0,colorPelo:1,barba:0,anteojos:0,ropa:0,estilo:0,maq:0,aros:0},modoP:"existente",mp:{n:"",sigla:"",ideo:3,forma:0,simb:0,c1:1,c2:8},pais:"AR",partido:null,origen:"academico",rasgos:["carismatico","negociador"],modo:"carrera",inicio:null,nombre:""};
 function vSetup(){
   if(!SET.nombre)SET.nombre=nombreUsuario();
   if(!PARTIDOS[SET.pais].find(x=>x[0]===SET.partido))SET.partido=PARTIDOS[SET.pais][0][0];
@@ -1501,11 +1563,14 @@ function nuevoTurno(){
   if(pool.length<3){G.usados=G.usados.filter(i=>!ok(i));pool=EV.map((e,i)=>i).filter(ok)}
   const propios=pool.filter(i=>EV[i].t!=="g"),locales=propios.filter(i=>EV[i].pr),pais=propios.filter(i=>EV[i].p),x=R();
   const a=locales.length&&x<.3?pick(locales):pais.length&&x<.6?pick(pais):propios.length&&x<.88?pick(propios):pick(pool);
-  G.cola=[a];G.usados.push(a);G.ev=0;G.fase="evento";
+  let pick2=a;G.seqDec=null;
+  const due=(G.seq||[]).find(q=>q.turno<=(G.turnos||0)+1);
+  if(due){G.seq=G.seq.filter(q=>q!==due);const k=EV.findIndex(e=>e.id===due.id);if(k>=0){pick2=k;G.seqDec=due.dec}}
+  else if(R()<.07&&(G.turnos||0)>2&&(!G.raroUlt||G.turnos-G.raroUlt>5)){const rs=EV.map((e,i)=>i).filter(i=>EV[i].t==="raro"&&!(G.usados||[]).includes(i));if(rs.length){pick2=pick(rs);G.raroUlt=G.turnos}}
+  G.cola=[pick2];G.usados.push(pick2);G.ev=0;G.fase="evento";
   G.turnos=(G.turnos||0)+1;
-  const pools={loc:["tira","agenda","fiscal"],leg:["poroteo","agenda","tira"],terr:["crisis","tira","fiscal","agenda"],gob:["crisis","tira","agenda","poroteo"],top:["crisis","agenda","poroteo","tira"],dip:["tira","agenda","fiscal"]};
-  const pl=r?pools[r.kind].filter(m=>m!==G.lastMini):[];
-  G.mini=(pl.length&&G.turnos>1&&!G.miniPrev&&R()<.55)?pick(pl):null;G.miniPrev=!!G.mini;if(G.mini)G.lastMini=G.mini;
+  const pools={loc:["tira","agenda","fiscal","recorrida","discurso"],leg:["poroteo","agenda","tira","discurso","debate"],terr:["crisis","tira","fiscal","agenda","recorrida","discurso"],gob:["crisis","tira","agenda","poroteo","discurso","debate"],top:["crisis","agenda","poroteo","tira","discurso","debate"],dip:["tira","agenda","fiscal","discurso","debate"]};
+  G.mini=(r&&G.turnos>1&&!G.miniPrev&&R()<.55)?elegirJuego(pools[r.kind]):null;G.miniPrev=!!G.mini;
 }
 function aplicar(ef){
   const out={};G.prevSt={...G.st};
@@ -1527,7 +1592,8 @@ function aplicar(ef){
 function elegir(i){
   const e=EV[G.cola[0]],op=e.o[i];
   const d=aplicar(op[1]);
-  G.ult={res:op[2],d,elec:op[0]};G.fase="resultado";G.log.push({anio:G.anio,tit:e.tit,op:op[0]});
+  G.ult={res:op[2],d,elec:op[0]};G.fase="resultado";G.log.push({anio:G.anio,tit:e.tit,op:op[0],raro:e.t==="raro",seq:e.t==="seq"});
+  const sq=OPT_SEQ[op[0]];if(sq&&!(G.seqHecho||[]).includes(sq)){G.seq=G.seq||[];G.seqHecho=[...(G.seqHecho||[]),sq];G.seq.push({id:sq,turno:G.turnos+1+Math.floor(R()*2),dec:op[0]})}
   save();vGame();
 }
 function seguir(){
@@ -1535,7 +1601,7 @@ function seguir(){
   finTurno();
 }
 function finTurno(){
-  const r=rk(G.cargo);G.lastD=null;G.aviso=null;
+  const r=rk(G.cargo);G.hs=G.hs||[];G.hs.push({anio:G.anio,l:G.st.l,e:G.st.e,i:G.st.i});G.lastD=null;G.aviso=null;
   G.st.s=clamp(G.st.s-5,0,100);
   if(r&&["terr","gob","top"].includes(r.kind))G.st.l=clamp(G.st.l-2,0,100);
   if(r&&(r.kind==="gob"||r.kind==="top"))G.st.e=clamp(G.st.e+Math.round((R()-.5)*8),0,100);
@@ -1625,6 +1691,10 @@ function eleccion(r,reel,bonus,rival){
   }else{
     rpct=Math.round((34+R()*15+r.tier*1.2)*10)/10;gano=pct>rpct;txt=`${pct}% contra ${rpct}% de ${rn}.`;
   }
+  rpct=rpct??Math.round((100-pct)*10)/10;const o1=pct,o2=rpct;
+  if(gano&&rpct>=pct&&P.top.modo!=="colegio")rpct=Math.round((pct-1-R()*6)*10)/10;
+  if(pct+rpct>97){const f=96/(pct+rpct);pct=Math.round(pct*f*10)/10;rpct=Math.round(rpct*f*10)/10}
+  if(o1!==pct||o2!==rpct)txt=txt.split(o2+"%").join("§R").split(o1+"%").join(pct+"%").split("§R").join(rpct+"%");
   if(gano){G.elecG++;G.racha=0}else{G.elecP++;G.racha=(G.racha||0)+1}
   return{gano,txt,pct,rpct:rpct??Math.round((100-pct)*10)/10};
 }
@@ -1633,8 +1703,9 @@ function aceptar(id,reel){
   G.pista=null;G.aviso=null;
   if(r.via==="eleccion"){
     const rival=R()<.45?{...G.nemesis,nem:true}:nuevoRival();
-    const jp=(r.tier>=4?["debate","debate","recorrida","fiscal"]:["recorrida","recorrida","fiscal","debate"]).filter(x=>x!==G.lastCamp);const juego=pick(jp);G.lastCamp=juego;
+    const juego=elegirJuego(["recorrida","debate","fiscal","discurso"]);
     G.pendElec={id:r.id,reel,prev:G.fase,rival,juego,postu:!!G.postulando};G.postulando=false;G.fase="campania";
+    if(r.tier>=3){G.pendElec.aliOps=opcionesAlianza();G.fase="alianza"}
     G.pendElec.est=estimarVoto()-Math.max(0,r.tier-(rk(G.cargo)?.tier||G.ultTier||1)-1)*6;
     if(r.top&&!reel&&G.partido==="PROPIO"){G.interna={gano:true,pct:100,rival:"",leg:100,propio:true};G.fase="interna"}
     else if(r.top&&!reel){
@@ -1649,8 +1720,11 @@ function aceptar(id,reel){
 }
 function resolverEleccion(bonus){
   const pe=G.pendElec,r=rangos(G.pais).find(x=>x.id===pe.id);
-  const res=eleccion(r,pe.reel,bonus,pe.rival);
-  G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier,postu:pe.postu};G.fase="eleccion";G.pendElec=null;
+  if(G.practica)return practicaFin(`${bonus>=0?"+":""}${bonus} puntos`,"Eso es lo que te habría sumado o restado en una elección.");
+  const res=eleccion(r,pe.reel,bonus+(pe.alianza?.bonus||0),pe.rival);
+  G.elecLog=G.elecLog||[];G.elecLog.push({anio:G.anio,cargo:r.nombre,gano:res.gano,pct:res.pct,rival:pe.rival.n+" ("+pe.rival.pa+")"});
+  G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier,postu:pe.postu,alianza:pe.alianza||null};
+  if(r.top)G.elec.mapa=resultadoMapa(G.elec);G.fase="eleccion";G.pendElec=null;
   if(res.gano){if(pe.rival.nem)G.nemWins=(G.nemWins||0)+1;if(G._balo)G.ganoBalotaje=true;if((pe.est??60)<43)G.ganoBaja=true;
     if(G.partido==="PROPIO"){G.crecePropio=(G.crecePropio||0)+1;const np=G.crecePropio>=6?3:G.crecePropio>=3?2:1;if(np>G.pesoPropio){G.pesoPropio=np;G.avisoPartido=`${G.miPartido.n} ya es un ${np===3?"partido grande":"partido mediano"}.`}if(r.top)G.llegoTopPropio=true}
     setCargo(r)}
@@ -1667,7 +1741,7 @@ function contEleccion(){
 }
 function contInterna(){
   const it=G.interna,pe=G.pendElec;G.interna=null;
-  if(it.gano){G.fase="campania";save();vGame();return}
+  if(it.gano){irACampania();return}
   G.pendElec=null;if(pe.prev==="mandato")sinCargo("perdió la interna");
   if(pe.postu)return finTurno();
   nuevoTurno();save();vGame();
@@ -1813,7 +1887,9 @@ const AV_DEF={piel:1,pelo:0,colorPelo:1,barba:0,anteojos:0,ropa:0};
 function avatarSVG(av,size=48,opt={}){
   av={...AV_DEF,...(av||{})};
   const sk=AV_OPC.piel[av.piel],hc=opt.canas?"#A8A8A8":AV_OPC.colorPelo[av.colorPelo],cl=AV_OPC.ropa[av.ropa],acc=opt.acc||"#C8102E";
-  const hairBack=av.pelo===2?`<path d="M30 44 Q30 17 50 17 Q70 17 70 44 L73 74 Q62 68 61 60 L39 60 Q38 68 27 74Z" fill="${hc}"/>`:"";
+  const hairBack=av.pelo===2?`<path d="M30 44 Q30 17 50 17 Q70 17 70 44 L73 74 Q62 68 61 60 L39 60 Q38 68 27 74Z" fill="${hc}"/>`
+    :av.pelo===6?`<path d="M30 46 Q29 18 50 18 Q71 18 70 46 L71 62 Q64 64 62 58 L38 58 Q36 64 29 62Z" fill="${hc}"/>`
+    :av.pelo===7?`<path d="M31 44 Q30 18 50 18 Q70 18 69 44 L66 52 L34 52Z" fill="${hc}"/>${[52,59,66,73,80].map(y=>`<ellipse cx="${30+(y-52)*.12}" cy="${y}" rx="4.6" ry="4.2" fill="${hc}"/>`).join("")}`:"";
   const hair=[
     `<path d="M33 41 Q32 21 50 21 Q68 21 67 41 Q61 29 50 30 Q39 29 33 41Z" fill="${hc}"/>`,
     `<path d="M33 43 Q30 20 52 20 Q70 22 67 43 Q64 30 56 28 L41 33 Q35 36 33 43Z" fill="${hc}"/>`,
@@ -1821,6 +1897,8 @@ function avatarSVG(av,size=48,opt={}){
     `<circle cx="50" cy="17" r="7" fill="${hc}"/><path d="M33 40 Q33 22 50 22 Q67 22 67 40 Q60 30 50 31 Q40 30 33 40Z" fill="${hc}"/>`,
     `<path d="M33 46 Q32 37 36 33 L37 46Z M67 46 Q68 37 64 33 L63 46Z" fill="${hc}"/>`,
     `<g fill="${hc}">${[[36,32],[42,25],[50,22],[58,25],[64,32],[34,40],[66,40],[46,24],[54,24]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="6"/>`).join("")}</g>`,
+    `<path d="M33 41 Q36 24 50 24 Q64 24 67 41 Q59 31 50 32 Q41 31 33 41Z" fill="${hc}"/>`,
+    `<path d="M33 40 Q37 23 50 23 Q63 23 67 40 Q59 30 50 31 Q41 30 33 40Z" fill="${hc}"/>`,
   ][av.pelo];
   const beard=["",`<path d="M43 54.5 Q50 50.5 57 54.5 Q50 52.5 43 54.5Z" fill="${hc}"/>`,`<path d="M34 46 Q35 65 50 67 Q65 65 66 46 Q62 58 50 58.5 Q38 58 34 46Z" fill="${hc}"/>`][av.barba];
   const glasses=["",`<g fill="none" stroke="#1b1b1b" stroke-width="1.6"><circle cx="43" cy="44" r="5"/><circle cx="57" cy="44" r="5"/><path d="M48 44h4"/></g>`,`<g fill="none" stroke="#1b1b1b" stroke-width="1.6"><rect x="37.5" y="40" width="11" height="8" rx="1.5"/><rect x="51.5" y="40" width="11" height="8" rx="1.5"/><path d="M48.5 44h3"/></g>`][av.anteojos];
@@ -1831,14 +1909,14 @@ function avatarSVG(av,size=48,opt={}){
    ${hairBack}
    <path d="M12 102 Q15 72 50 70 Q85 72 88 102Z" fill="${cl}"/>
    <path d="M42 71 L50 87 L58 71Z" fill="#fff"/>
-   <path d="M48.3 74 L51.7 74 L53.5 90 L50 95 L46.5 90Z" fill="${acc}"/>
+   ${(av.estilo||0)===0?`<path d="M48.3 74 L51.7 74 L53.5 90 L50 95 L46.5 90Z" fill="${acc}"/>`:av.estilo===1?`<path d="M42 71 Q50 80 58 71" fill="none" stroke="${acc}" stroke-width="2.4"/>${[44,47,50,53,56].map((x,i)=>`<circle cx="${x}" cy="${73.6+[0,1.8,2.4,1.8,0][i]}" r="1.25" fill="#FFF8E7"/>`).join("")}`:`<path d="M44 71 L50 80 L56 71" fill="none" stroke="#d8d2c6" stroke-width="1.2"/>`}
    <rect x="44" y="57" width="12" height="15" fill="${sk}"/>
-   <circle cx="33" cy="46" r="4" fill="${sk}"/><circle cx="67" cy="46" r="4" fill="${sk}"/>
+   <circle cx="33" cy="46" r="4" fill="${sk}"/><circle cx="67" cy="46" r="4" fill="${sk}"/>${av.aros?`<circle cx="33" cy="51.5" r="1.8" fill="#E8C15A"/><circle cx="67" cy="51.5" r="1.8" fill="#E8C15A"/>`:""}
    <ellipse cx="50" cy="44" rx="17" ry="20" fill="${sk}"/>
    ${hair}${beard}
    <circle cx="43" cy="44" r="1.9" fill="#1b1b1b"/><circle cx="57" cy="44" r="1.9" fill="#1b1b1b"/>
    <path d="M39.5 38.5 Q43 36.5 46.5 38.5M53.5 38.5 Q57 36.5 60.5 38.5" stroke="${hc}" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-   <path d="M45 55 Q50 58.5 55 55" stroke="#7a3b2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+   ${av.maq?`<path d="M45 55 Q50 53.6 55 55 Q50 59.4 45 55Z" fill="#B23A54"/><path d="M39.6 42.6 l-1.6 -1.4 M41 41.6 l-1 -1.8 M60.4 42.6 l1.6 -1.4 M59 41.6 l1 -1.8" stroke="#1b1b1b" stroke-width="1"/>`:`<path d="M45 55 Q50 58.5 55 55" stroke="#7a3b2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>`}
    ${glasses}${banda}</g></svg>`;
 }
 
@@ -1948,7 +2026,7 @@ function bindCreador(mp,rerender){
 function editorAvatarHTML(av){
   const row=(k,lab,opts,sw)=>`<div class="field"><span class="lab">${lab}</span><div class="${sw?"swatches":"chips"}">${opts.map((x,i)=>sw?`<button type="button" class="sw" data-av="${k}" data-v="${i}" aria-pressed="${av[k]===i}" style="background:${x}" aria-label="${lab} ${i+1}"></button>`:`<button type="button" class="chip" data-av="${k}" data-v="${i}" aria-pressed="${av[k]===i}">${x}</button>`).join("")}</div></div>`;
   return `<div class="av-ed"><div class="av-prev">${avatarSVG(av,120,{acc:"var(--accent)"})}</div><div class="av-opts">
-   ${row("piel","Tono de piel",AV_OPC.piel,true)}${row("pelo","Pelo",AV_OPC.pelo)}${row("colorPelo","Color de pelo",AV_OPC.colorPelo,true)}${row("barba","Barba",AV_OPC.barba)}${row("anteojos","Anteojos",AV_OPC.anteojos)}${row("ropa","Ropa",AV_OPC.ropa,true)}
+   ${row("piel","Tono de piel",AV_OPC.piel,true)}${row("pelo","Pelo",AV_OPC.pelo)}${row("colorPelo","Color de pelo",AV_OPC.colorPelo,true)}${row("barba","Barba",AV_OPC.barba)}${row("anteojos","Anteojos",AV_OPC.anteojos)}${row("estilo","Vestimenta",AV_OPC.estilo)}${row("ropa","Color del saco",AV_OPC.ropa,true)}${row("maq","Maquillaje",AV_OPC.maq)}${row("aros","Aros",AV_OPC.aros)}
   </div></div>`;
 }
 
@@ -2038,6 +2116,185 @@ async function tarjetaPNG(){
   return new Promise(r=>cv.toBlob(r,"image/png"));
 }
 
+/* ================== v7 ================== */
+/* Consecuencias de decisiones */
+const OPT_SEQ={"Ajuste fiscal duro":"seq_ajuste","Firmás con las condiciones":"seq_fmi","Aceptás por afuera":"seq_aporte","Repartís cargos":"seq_cargos","Impulsás la reforma":"seq_rerre","Lo respaldás hasta que haya sentencia":"seq_coima","Votás en contra":"seq_rebelde","Pedís fuerzas federales":"seq_fuerzas","Tope a los alquileres":"seq_alq","Mandás la reforma a {C}":"seq_jubil","Controles de precios":"seq_controles","Mirás para otro lado":"seq_obra","Te sumás al meme con humor":"seq_meme","Libre mercado y apertura exportadora":"seq_yerba"};
+const EV_SEQ=[
+ {id:"seq_ajuste",tit:"Dos años de ajuste",txt:"La inflación bajó, pero la calle está caliente y los gremios amenazan con un paro.",o:[["Sostener el rumbo",{e:5,l:-4},"Los números siguen mejorando. La paciencia social, no."],["Un bono para los que menos tienen",{l:4,e:-3},"Alivio inmediato, críticas de los economistas."],["Bajar impuestos para reactivar",{e:2,l:2,n:-1},"La economía se mueve un poco."]]},
+ {id:"seq_fmi",tit:"Llega la revisión del FMI",txt:"Los técnicos del organismo revisan si cumpliste las metas del préstamo.",o:[["Cumplir las metas",{i:5,e:2,l:-3},"Aprobado. En la calle, no tanto."],["Pedir una dispensa",{i:-2,n:2},"Te la dan, con advertencias."],["Romper el acuerdo",{l:4,i:-8,e:-4},"Corrida en los mercados."]]},
+ {id:"seq_aporte",tit:"La causa del aporte",txt:"Un fiscal investiga los aportes en negro de tu campaña.",o:[["Presentarte espontáneamente",{n:4,s:-3,l:-1},"Gesto bien visto por los jueces."],["Hablar de persecución",{p:3,s:6,n:-3},"Tu base te cree. El fiscal acelera."],["Culpar al tesorero",{s:2,p:-3},"El tesorero empieza a hablar."]]},
+ {id:"seq_cargos",tit:"Te pasan la factura",txt:"Los aliados a los que les diste cargos ahora quieren más.",o:[["Darles más",{p:4,s:4,n:-2},"Te sostienen, a un precio."],["Plantarte",{n:3,p:-5},"Te votan en contra la próxima ley."],["Renegociar todo",{n:2,p:-1},"Acuerdo más chico."]]},
+ {id:"seq_rerre",tit:"La Corte decide",txt:"La Corte Suprema analiza tu reforma para la re-reelección.",o:[["Acatar el fallo",{n:6,p:-4},"La reforma muere, tu imagen institucional mejora."],["Llamar a plebiscito",{l:3,n:-4},"El país se polariza."],["Ampliar la Corte",{p:4,n:-12,i:-6,s:6},"Escándalo nacional e internacional."]]},
+ {id:"seq_coima",tit:"Te citan a declarar",txt:"El funcionario que respaldaste en la causa de coimas te involucra.",o:[["Declarar y entregar todo",{n:5,s:-2,p:-3},"Quedás limpio, pero solo."],["No declarar",{s:6,l:-3},"Las sospechas crecen."],["Atacar al juez",{p:3,n:-6,s:4},"La causa se vuelve política."]]},
+ {id:"seq_rebelde",tit:"Tu bloque te margina",txt:"Después de votar en contra, tu bloque te saca de las comisiones.",o:[["Armar un bloque propio",{l:3,p:-6},"Ganás independencia y perdés estructura."],["Pedir disculpas",{p:4,l:-2},"Volvés al redil."],["Negociar tu regreso",{p:2,n:1},"Te devuelven una comisión."]]},
+ {id:"seq_fuerzas",tit:"Se van los gendarmes",txt:"Las fuerzas federales que pediste se retiran y la violencia vuelve.",o:[["Pedir que se queden",{l:2,p:-2},"Se quedan, pocos."],["Policía propia reforzada",{l:4,e:-4},"Más patrulleros."],["Plan integral con los barrios",{n:4,e:-2},"Resultados a largo plazo."]]},
+ {id:"seq_alq",tit:"Menos departamentos",txt:"Tras el tope, muchos propietarios retiraron sus departamentos del alquiler.",o:[["Mantener el tope",{l:2,e:-3},"Los que tienen contrato, felices. Los que buscan, no."],["Flexibilizarlo",{e:3,l:-2},"Vuelve la oferta, suben los precios."],["Incentivos para alquilar",{e:2,n:2},"Equilibrio a medias."]]},
+ {id:"seq_jubil",tit:"Marcha de jubilados",txt:"Miles de jubilados marchan contra la reforma previsional que impulsaste.",o:[["Recibirlos",{l:4,p:-1},"Foto amable."],["Un aumento de emergencia",{l:5,e:-4},"Se calma la protesta."],["Sostener la reforma",{e:3,l:-5},"Los números cierran, la imagen no."]]},
+ {id:"seq_controles",tit:"Faltantes en las góndolas",txt:"Después de los controles de precios, faltan productos básicos.",o:[["Levantar los controles",{e:4,l:-3},"Vuelven los productos, más caros."],["Multar a las empresas",{l:3,i:-3,e:-2},"Pelea con los empresarios."],["Importar lo que falta",{e:-2,i:2,l:2},"Alivio de corto plazo."]]},
+ {id:"seq_obra",tit:"La obra se cae",txt:"La obra con sobreprecios que dejaste pasar muestra fallas graves.",o:[["Denunciar a la constructora",{n:3,s:2},"Tarde, pero lo hiciste."],["Repararla en silencio",{e:-3,s:4},"Alguien lo filtra."],["Pedir perdón",{l:2,s:-2,p:-2},"Gesto valorado."]]},
+ {id:"seq_meme",tit:"Sos tendencia",txt:"Desde el meme del casamiento, los jóvenes te siguen en redes.",o:[["Abrir una cuenta de videos",{l:4,n:-1},"Millones de vistas."],["Volver a lo serio",{n:2},"Tus asesores respiran."],["Hacer un streaming semanal",{l:5,s:1},"Cada tanto se te escapa algo."]]},
+ {id:"seq_yerba",tit:"La yerba se fue a pique",txt:"Con el libre mercado, el precio de la hoja verde se desplomó en Misiones.",o:[["Volver al precio mínimo",{l:4,e:-2},"Los colonos te perdonan."],["Ayuda directa a pequeños productores",{l:3,e:-3},"Alivio focalizado."],["Sostener la apertura",{e:3,l:-5},"Más cortes de ruta."]]},
+];
+/* Eventos raros */
+const EV_RARO=[
+ {tit:"Pandemia",txt:"Un virus nuevo se expande por el mundo y llega a {P}.",o:[["Cuarentena estricta",{l:3,e:-8,n:2},"Se salvan vidas, la economía se hunde."],["Cuidados y economía abierta",{e:2,l:-4,i:-2},"Polémica nacional."],["Vacunas primero, acuerdos con todos",{i:6,e:-3},"Llegan antes las dosis."]]},
+ {tit:"¡Campeones del mundo!",txt:"La selección de {P} gana el Mundial y el país entero sale a la calle.",o:[["Recibir al plantel",{l:7,n:-2},"La foto con la copa es histórica, aunque algunos jugadores no quisieron ir."],["Felicitar sin aparecer",{n:2},"Prudente."],["Decretar feriado nacional",{l:5,e:-2},"Fiesta total."]]},
+ {tit:"Corralito",txt:"Los bancos cierran y la gente no puede sacar sus ahorros.",o:[["Congelar los depósitos",{e:4,l:-10,s:3},"Cacerolazos en todo el país."],["Pedir un rescate internacional",{i:3,e:3,l:-4},"Llega ayuda con condiciones."],["Llamar a la unidad nacional",{n:6,p:-4,l:2},"La oposición se sienta a la mesa."]]},
+ {tit:"Hackeo al Estado",txt:"Un ataque informático filtra datos de millones de ciudadanos.",o:[["Admitirlo y pedir disculpas",{n:4,l:-2},"Honestidad valorada."],["Culpar a un país extranjero",{l:2,i:-5},"Tensión diplomática."],["Plan nacional de ciberseguridad",{n:3,e:-2,i:2},"Inversión a futuro."]]},
+ {tit:"Visita del Papa",txt:"El Papa anuncia una visita a {P}.",o:[["Recibirlo con todos los honores",{l:5,e:-2},"Multitudes en las calles."],["Visita sobria y protocolar",{n:3},"Correcto."],["Aprovechar la foto",{l:3,s:2},"Te critican por oportunista."]]},
+ {tit:"El gran yacimiento",txt:"Se descubre un yacimiento gigante de gas y petróleo frente a las costas.",o:[["Empresa estatal",{l:4,e:3,i:-3},"Soberanía energética."],["Licitación internacional",{e:7,i:5,l:-2},"Llegan las grandes petroleras."],["Fondo para generaciones futuras",{n:5,e:2},"Modelo noruego."]]},
+ {tit:"Default",txt:"{P} no puede pagar su deuda externa.",o:[["Declarar el default con épica",{l:5,i:-10,e:-5},"Aplausos en el Congreso, pánico afuera."],["Reestructurar con los acreedores",{i:4,e:2,l:-3},"Negociación larga."],["Pedir un préstamo puente",{i:2,e:1,s:2},"Pateás el problema."]]},
+ {tit:"Nube de ceniza",txt:"Un volcán de la cordillera entra en erupción y la ceniza cubre varias ciudades.",o:[["Emergencia y evacuaciones",{l:5,e:-3},"Gestión elogiada."],["Ayuda económica a los afectados",{l:3,e:-4},"Alivio."],["Pedir ayuda internacional",{i:4,l:1},"Llegan equipos."]]},
+];
+EV_SEQ.forEach(e=>EV.push({...e,t:"seq"}));
+EV_RARO.forEach(e=>EV.push({...e,t:"raro"}));
+
+/* Ubicación de provincias para el mapa electoral */
+const MAPA_POS={
+ AR:{"Jujuy":[1,0],"Salta":[2,0],"Formosa":[3,0],"Misiones":[5,0],"Catamarca":[1,1],"Tucumán":[2,1],"Santiago del Estero":[3,1],"Chaco":[4,1],"Corrientes":[5,1],"San Juan":[0,2],"La Rioja":[1,2],"Córdoba":[2,2],"Santa Fe":[3,2],"Entre Ríos":[4,2],"Mendoza":[0,3],"San Luis":[1,3],"La Pampa":[2,3],"Buenos Aires":[3,3],"CABA":[4,3],"Neuquén":[0,4],"Río Negro":[1,4],"Chubut":[1,5],"Santa Cruz":[1,6],"Tierra del Fuego":[2,7]},
+ US:{"Alaska":[0,0],"Maine":[10,0],"Vermont":[9,1],"Nuevo Hampshire":[10,1],"Washington":[0,2],"Idaho":[1,2],"Montana":[2,2],"Dakota del Norte":[3,2],"Minnesota":[4,2],"Illinois":[5,2],"Wisconsin":[6,2],"Michigan":[7,2],"Nueva York":[8,2],"Rhode Island":[9,2],"Massachusetts":[10,2],"Oregón":[0,3],"Nevada":[1,3],"Wyoming":[2,3],"Dakota del Sur":[3,3],"Iowa":[4,3],"Indiana":[5,3],"Ohio":[6,3],"Pensilvania":[7,3],"Nueva Jersey":[8,3],"Connecticut":[9,3],"California":[0,4],"Utah":[1,4],"Colorado":[2,4],"Nebraska":[3,4],"Misuri":[4,4],"Kentucky":[5,4],"Virginia Occidental":[6,4],"Virginia":[7,4],"Maryland":[8,4],"Delaware":[9,4],"Arizona":[1,5],"Nuevo México":[2,5],"Kansas":[3,5],"Arkansas":[4,5],"Tennessee":[5,5],"Carolina del Norte":[6,5],"Carolina del Sur":[7,5],"Oklahoma":[3,6],"Luisiana":[4,6],"Misisipi":[5,6],"Alabama":[6,6],"Georgia":[7,6],"Hawái":[0,7],"Texas":[3,7],"Florida":[8,7]},
+};
+function colorDe(pa){if(pa===G.partido&&G.partido==="PROPIO")return LOGO_COL[G.miPartido.c1];return (PCOLOR[G.pais]?.[pa]||["#8A8F98"])[0]}
+function resultadoMapa(e){
+  const L=PROVS[G.pais],out={};let gan=0;
+  const margen=e.gano?Math.max(3,e.pct-e.rpct):Math.min(-3,e.pct-e.rpct);
+  L.forEach(p=>{const casa=p[0]===G.provLab?9:0;const v=margen+(Math.random()-.5)*26+casa>0;out[p[0]]=v;if(v)gan++});
+  return {out,gan,total:L.length};
+}
+function mapaHTML(m){
+  const L=PROVS[G.pais],pos=MAPA_POS[G.pais];
+  let cells;
+  if(pos){cells=L.map(p=>({n:p[0],x:pos[p[0]][0],y:pos[p[0]][1]}))}
+  else{const cols=G.pais==="CL"?2:Math.ceil(Math.sqrt(L.length*1.3));cells=L.map((p,i)=>({n:p[0],x:i%cols,y:Math.floor(i/cols)}))}
+  const W=Math.max(...cells.map(c=>c.x))+1,H=Math.max(...cells.map(c=>c.y))+1,s=G.pais==="US"?30:G.pais==="CL"?60:Math.min(56,Math.floor(300/W));
+  const mio=colorDe(G.partido),otro=colorDe(G.elec.rival.pa);
+  return `<div class="mapa" style="--w:${W};--s:${s}px"><svg viewBox="0 0 ${W*s} ${H*s}" width="100%" style="max-width:${W*s}px">${cells.map((c,i)=>`<g class="tile" style="animation-delay:${i*45}ms"><rect x="${c.x*s+2}" y="${c.y*s+2}" width="${s-4}" height="${s-4}" rx="5" fill="${m.out[c.n]?mio:otro}" ${c.n===G.provLab?'stroke="var(--ink)" stroke-width="3"':""}><title>${esc(c.n)}</title></rect><text x="${c.x*s+s/2}" y="${c.y*s+s/2+3.5}" text-anchor="middle" font-size="${s>40?9:7}" fill="#fff" style="paint-order:stroke;stroke:rgba(0,0,0,.35);stroke-width:2">${esc(c.n.split(" ").map(w=>w[0]).join("").slice(0,3))}</text></g>`).join("")}</svg>
+   <div class="mapa-ley"><span><i style="background:${mio}"></i>Vos · ${m.gan}</span><span><i style="background:${otro}"></i>${esc(G.elec.rival.n)} · ${m.total-m.gan}</span></div></div>`;
+}
+
+/* Alianzas */
+function opcionesAlianza(){
+  return shuffle(PARTIDOS[G.pais].filter(x=>x[0]!==G.partido&&x[0]!=="IND")).slice(0,3).map(x=>({pa:x[0],n:x[1],bonus:Math.round(x[2]*1.6+1),costo:3+x[2]}));
+}
+function irACampania(){
+  const pe=G.pendElec,r=rangos(G.pais).find(y=>y.id===pe.id);
+  if(r.tier>=3&&!pe.aliDone){pe.aliOps=opcionesAlianza();G.fase="alianza"}else G.fase="campania";
+  save();vGame();
+}
+
+/* Elección del minijuego: el menos jugado */
+function elegirJuego(pool){
+  G.uso=G.uso||{};const min=Math.min(...pool.map(j=>G.uso[j]||0));
+  const cand=pool.filter(j=>(G.uso[j]||0)===min&&j!==G.lastJuego);const j=pick(cand.length?cand:pool);
+  G.uso[j]=(G.uso[j]||0)+1;G.lastJuego=j;return j;
+}
+
+/* Minijuego nuevo: discurso (mantener y soltar) */
+function mountDiscurso(cb){
+  const btn=$("#dsGo"),fill=$("#dsF"),zone=$("#dsZ"),W=[22,15,10],SP=[55,75,95];let ri=0,hits=0,lv=0,holding=false,last=0,zs=0,done=false,wait=false;
+  function setZone(){zs=40+Math.random()*(52-W[ri]);zone.style.left=zs+"%";zone.style.width=W[ri]+"%";lv=0;fill.style.width="0%"}
+  setZone();
+  const down=e=>{e.preventDefault();if(done||holding||wait)return;holding=true;last=performance.now();btn.classList.add("on");MGRAF=requestAnimationFrame(tick)};
+  const up=e=>{if(!holding)return;holding=false;btn.classList.remove("on");cancelAnimationFrame(MGRAF);
+    const ok=lv>=zs&&lv<=zs+W[ri];if(ok)hits++;$("#dsS").textContent=hits;$("#dsBar").classList.add(ok?"ok":"bad");
+    $("#dsM").textContent=ok?"¡Ovación!":lv<zs?"Tibio: nadie aplaudió":"Te pasaste: abucheos";ri++;wait=true;
+    MGT.push(setTimeout(()=>{wait=false;$("#dsBar").classList.remove("ok","bad");if(ri>=3){done=true;return cb(hits)}$("#dsR").textContent=`Frase ${ri+1} de 3`;$("#dsM").textContent="Mantené apretado";setZone()},800))};
+  function tick(t){lv=Math.min(100,lv+(t-last)/1000*SP[ri]);last=t;fill.style.width=lv+"%";if(lv>=100)return up();MGRAF=requestAnimationFrame(tick)}
+  btn.addEventListener("pointerdown",down);btn.addEventListener("pointerup",up);btn.addEventListener("pointerleave",up);
+  btn.addEventListener("keydown",e=>{if((e.key===" "||e.key==="Enter")&&!e.repeat)down(e)});btn.addEventListener("keyup",e=>{if(e.key===" "||e.key==="Enter")up(e)});
+}
+function discursoHTML(){return `<div class="mg-top"><span id="dsR">Frase 1 de 3</span><span>Ovaciones <b id="dsS">0</b></span></div>
+  <div class="ds-bar" id="dsBar"><span class="zone" id="dsZ"></span><i id="dsF"></i></div><p class="muted" id="dsM" style="margin:0">Mantené apretado</p>
+  <button class="btn primary big-btn ds-btn" id="dsGo">Mantené para hablar</button>`}
+
+/* Práctica de minijuegos */
+const JUEGOS=[["recorrida","Recorrida","Tocá lugares, esquivá escándalos."],["debate","Debate","Respondé cada ataque con el arma correcta."],["fiscal","Fiscalización","Encontrá el acta adulterada."],["discurso","Discurso","Mantené y soltá en el punto justo."],["poroteo","Poroteo","Memorizá las bancas que te apoyan."],["crisis","Gestión de crisis","Que no se caiga ningún frente."],["tira","Negociación","Frená la aguja en la zona verde."],["agenda","Agenda","Repetí el orden de las reuniones."]];
+function practicar(j){
+  const pais=SET.pais||"AR",pv=PROVS[pais].find(x=>x[0]===SET.prov)||PROVS[pais][0];
+  G={practica:true,pais,provLab:pv[0],prov:pv[1],ciudad:pv[2],partido:PARTIDOS[pais][0][0],cargo:"politica2",st:{l:50,i:50,p:50,n:50,e:50,s:5},rasgos:[],rs:Date.now()%2147483647,hist:[],uso:{}};
+  G.nemesis=nuevoRival();
+  if(["recorrida","debate","fiscal"].includes(j)){G.pendElec={id:"politica2",rival:G.nemesis,juego:j};G.fase="campania"}
+  else{G.mini=j;G.fase="mini";if(j==="crisis")G.cargo="politica2"}
+  renderPractica(j);
+}
+function renderPractica(j){
+  clearMG();window.scrollTo(0,0);
+  app.innerHTML=`<div class="play"><div class="dl"><span>Modo práctica · no afecta ninguna carrera</span></div><section class="cable"><div class="cable-b">${miniBody()}</div></section>
+   <div class="row-a"><button class="btn sm" id="pOtra">Probar otra vez</button><button class="btn sm ghost" id="pVolver">Volver al inicio</button></div></div>`;
+  mountMini();$("#pOtra").onclick=()=>practicar(j);$("#pVolver").onclick=()=>{clearMG();G=null;show("home")};
+}
+function practicaFin(tit,txt){
+  clearMG();const b=app.querySelector(".cable-b");
+  b.innerHTML=`<div class="mg-end"><b>${esc(tit)}</b><span>${esc(txt)}</span></div>`;
+}
+
+/* Avatar: estilos y género */
+Object.assign(AV_OPC,{pelo:["Corto","Raya al costado","Largo","Recogido","Pelado","Rulos","Melena","Trenza"],estilo:["Traje y corbata","Blazer y blusa","Camisa abierta"],maq:["Sin maquillaje","Con maquillaje"],aros:["Sin aros","Con aros"]});
+Object.assign(AV_DEF,{estilo:0,maq:0,aros:0});
+
+/* Resumen de carrera */
+function resumenCarrera(){
+  const C=G.hist.filter(h=>h.tier>0),pri=C[0],max=[...C].sort((a,b)=>b.tier-a.tier)[0],pa=partidoDe()[1];
+  let t=`Arrancó como ${pri?pri.cargo:"militante"} en ${G.ciudad}, ${G.provLab}, en ${G.hist[0].anio}`;
+  if(max&&max!==pri)t+=` y llegó a ${max.cargo}`;t+=". ";
+  t+=`Ganó ${G.elecG} ${G.elecG===1?"elección":"elecciones"} y perdió ${G.elecP}. `;
+  if(G.cambios)t+=`Se cambió de partido ${G.cambios} ${G.cambios===1?"vez":"veces"} y terminó en ${pa}. `;else t+=`Hizo toda su carrera en ${pa}. `;
+  if(G.fundo)t+=`Fundó su propio partido. `;
+  if(G.nemWins)t+=`Le ganó a su archirrival ${G.nemesis.n}. `;else t+=`Su archirrival fue ${G.nemesis.n}. `;
+  return t+G.fin;
+}
+function graficoStats(){
+  const H=G.hs||[];if(H.length<2)return "";
+  const W=600,Hh=160,x=i=>20+i*(W-40)/(H.length-1),y=v=>Hh-15-v*(Hh-30)/100;
+  const line=(k,c)=>`<polyline points="${H.map((p,i)=>`${x(i)},${y(p[k])}`).join(" ")}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linejoin="round"/>`;
+  return `<div class="graf"><svg viewBox="0 0 ${W} ${Hh}" width="100%" aria-label="Evolución de tu imagen y la economía">${[25,50,75].map(v=>`<line x1="20" x2="${W-20}" y1="${y(v)}" y2="${y(v)}" class="g-grid"/>`).join("")}${line("l","var(--accent)")}${line("e","var(--warn)")}${line("i","var(--good)")}
+   <text x="20" y="${Hh-2}" class="g-t">${H[0].anio}</text><text x="${W-20}" y="${Hh-2}" text-anchor="end" class="g-t">${H[H.length-1].anio}</text></svg>
+   <div class="mapa-ley"><span><i style="background:var(--accent)"></i>Imagen local</span><span><i style="background:var(--warn)"></i>Economía</span><span><i style="background:var(--good)"></i>Mundo</span></div></div>`;
+}
+const KIND_COL={loc:"#7E95AE",leg:"#6B2FA0",terr:"#2E8B57",gob:"#1D4F91",top:"#C8102E",dip:"#F28C28"};
+function trayectoriaHTML(){
+  return `<ol class="tl2">${G.hist.map(h=>`<li class="${h.tier?"":"tl-off"}"><span class="tl-dot" style="background:${h.tier?KIND_COL[h.kind]||"var(--accent)":"var(--line)"}"></span><span class="tl-y">${h.anio}</span><b>${esc(h.cargo)}</b>${h.kind?`<small>${KIND_N[h.kind]}</small>`:""}</li>`).join("")}</ol>`;
+}
+function momentosHTML(){
+  const E=(G.elecLog||[]).map(e=>`<li><span class="tag" style="background:${e.gano?"color-mix(in srgb,var(--good) 20%,var(--bg))":"color-mix(in srgb,var(--bad) 18%,var(--bg))"}">${e.gano?"Ganó":"Perdió"}</span> ${e.anio} · ${esc(e.cargo)} · ${e.pct}% contra ${esc(e.rival)}</li>`);
+  const D=(G.log||[]).filter(x=>x.raro||x.seq).map(x=>`<li><span class="tag">${x.raro?"Histórico":"Consecuencia"}</span> ${x.anio} · ${esc(x.tit)}: ${esc(x.op)}</li>`);
+  const U=(G.log||[]).slice(-5).filter(x=>!x.raro&&!x.seq).map(x=>`<li><span class="tag">Decisión</span> ${x.anio} · ${esc(tplSafe(x.tit))}: ${esc(tplSafe(x.op))}</li>`);
+  return `<ul class="momentos">${[...E,...D,...U].join("")||"<li class='muted'>Sin momentos destacados.</li>"}</ul>`;
+}
+function tplSafe(s){try{return tpl(s)}catch(e){return s}}
+
+/* Tarjeta para compartir (nueva) */
+async function tarjetaPNG(){
+  const W=1080,H=1350,cv=document.createElement("canvas");cv.width=W;cv.height=H;const x=cv.getContext("2d");
+  try{await document.fonts.ready}catch(e){}
+  const col=COLORES_PAIS[G.pais],pc=colorPartido();
+  x.fillStyle="#0E141C";x.fillRect(0,0,W,H);
+  x.save();x.translate(W,0);x.rotate(Math.PI/4);col.forEach((c,i)=>{x.fillStyle=c;x.globalAlpha=.9;x.fillRect(-60,40+i*46,900,40)});x.restore();x.globalAlpha=1;
+  const gr=x.createRadialGradient(W/2,420,40,W/2,420,620);gr.addColorStop(0,"rgba(134,173,227,.25)");gr.addColorStop(1,"rgba(14,20,28,0)");x.fillStyle=gr;x.fillRect(0,0,W,H);
+  const load=svg=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg.replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" ').replace(/var\(--sunk\)/g,"#26364f").replace(/var\(--accent\)/g,"#86ADE3").replace(/var\(--ink\)/g,"#E5E9EF"))});
+  x.beginPath();x.arc(W/2,300,176,0,Math.PI*2);x.fillStyle=pc;x.fill();
+  const av=await load(avatarSVG(G.av,336,{banda:G.llegoTop?col:null,acc:pc,canas:G.edad>=62}));if(av)x.drawImage(av,W/2-168,132,336,336);
+  const bd=await load(badgeSVG(G.partido,110));if(bd)x.drawImage(bd,W/2+100,370,110,110);
+  const fl=await load(flagSVG(G.pais,96));if(fl)x.drawImage(fl,70,70,96,64);
+  x.textAlign="left";x.fillStyle="#E5E9EF";x.font="500 30px 'IBM Plex Mono', monospace";x.fillText("EL MANDATO",186,114);
+  x.textAlign="center";x.fillStyle="#E5E9EF";x.font="600 46px 'IBM Plex Sans', sans-serif";x.fillText(G.nombre,W/2,540);
+  x.fillStyle="#97A2B2";x.font="400 30px 'IBM Plex Sans', sans-serif";x.fillText(`${partidoDe()[1]} · ${G.provLab}, ${PAISES[G.pais].n}`,W/2,584);
+  x.fillStyle="#F2C230";x.font="800 96px 'Big Shoulders Display', 'Arial Narrow', sans-serif";
+  const wrap=(t,maxW)=>{const L=[];let ln="";for(const w of t.split(" ")){const s=ln?ln+" "+w:w;if(x.measureText(s).width>maxW&&ln){L.push(ln);ln=w}else ln=s}L.push(ln);return L};
+  let y=684;wrap(G.titulo.toUpperCase(),W-120).slice(0,2).forEach(l=>{x.fillText(l,W/2,y);y+=88});
+  x.fillStyle="#C9D1DC";x.font="400 29px 'IBM Plex Sans', sans-serif";
+  const desc=resumenCarrera().replace(G.fin,"").trim();wrap(desc,W-160).slice(0,4).forEach(l=>{x.fillText(l,W/2,y+4);y+=40});
+  y+=28;const C=[...new Set(G.hist.filter(h=>h.tier>0).map(h=>h.cargo))].slice(-4);
+  x.font="600 26px 'IBM Plex Sans', sans-serif";let tw=C.map(c=>x.measureText(c).width+44),total=tw.reduce((a,b)=>a+b,0)+(C.length-1)*14;
+  if(total>W-80){x.font="600 21px 'IBM Plex Sans', sans-serif";tw=C.map(c=>x.measureText(c).width+36);total=tw.reduce((a,b)=>a+b,0)+(C.length-1)*12}
+  let px=(W-total)/2;C.forEach((c,i)=>{x.fillStyle=i===C.length-1?pc:"#26364f";x.beginPath();x.roundRect?x.roundRect(px,y,tw[i],52,26):x.rect(px,y,tw[i],52);x.fill();x.fillStyle="#fff";x.textAlign="center";x.fillText(c,px+tw[i]/2,y+35);px+=tw[i]+14});
+  y+=92;const st=[["Local",G.st.l],["Mundo",G.st.i],["Instituciones",G.st.n],["Economía",G.st.e]];
+  st.forEach(([n,v],i)=>{const bx=110+(i%2)*450,by=y+Math.floor(i/2)*58;x.textAlign="left";x.fillStyle="#97A2B2";x.font="500 24px 'IBM Plex Mono', monospace";x.fillText(n,bx,by);x.fillStyle="#26364f";x.fillRect(bx,by+12,380,14);x.fillStyle=v>=60?"#62C08B":v>=35?"#E3AE52":"#E57C70";x.fillRect(bx,by+12,380*v/100,14)});
+  const yp=Math.max(y+150,H-130);x.textAlign="center";x.fillStyle="#E5E9EF";x.font="500 34px 'IBM Plex Mono', monospace";x.fillText(`${G.puntosFinal.toLocaleString("es-AR")} puntos · ${G.elecG} ${G.elecG===1?"victoria":"victorias"}`,W/2,Math.min(yp,H-100));
+  x.fillStyle="#86ADE3";x.font="600 32px 'IBM Plex Sans', sans-serif";x.fillText("¿Hasta dónde llegás vos? · el-mandato.vercel.app",W/2,H-62);
+  return new Promise(r=>cv.toBlob(r,"image/png"));
+}
+
 /* ================== VISTA DE JUEGO ================== */
 const STC={l:"Local",i:"Mundo",p:"Partido",n:"Instit.",e:"Economía",s:"Escándalo"};
 function colorFor(k,v){const good=k==="s"?100-v:v;return good>=60?"var(--good)":good>=35?"var(--warn)":"var(--bad)"}
@@ -2065,6 +2322,7 @@ function vGame(){
     const e=EV[G.cola[0]];
     body=`${G.aviso?`<p class="res">${esc(G.aviso)}</p>`:""}
     ${hero(fotoQuery(e,r?.kind),dateline(e.pr?"loc":r?.kind))}
+    ${e.t==="seq"?`<div class="sabias"><b>Consecuencia de tu decisión:</b> «${esc(tpl(G.seqDec||""))}»</div>`:e.t==="raro"?`<div class="sabias raro"><b>Momento histórico.</b> Esto no pasa todos los días.</div>`:""}
     <div class="dl"><span>${esc(G.provLab)} · ${esc(PAISES[G.pais].n)}</span><span class="stamp">${r?KIND_N[r.kind]:"En el llano"}</span></div>
     <h2>${esc(tpl(e.tit))}</h2><p class="txt">${esc(tpl(e.txt))}</p>
     <div class="choices">${e.o.map((o,i)=>`<button class="choice" data-c="${i}"><span class="k">${String.fromCharCode(65+i)}</span><span>${esc(tpl(o[0]))}</span></button>`).join("")}</div>`;
@@ -2099,6 +2357,12 @@ function vGame(){
     <p class="txt">Te podés presentar a cualquier cargo electivo. Cuanto más grande el salto desde tu cargo actual, menos chances. Si perdés conservás tu cargo, pero se te van dos años. Ojo: tres derrotas seguidas y tu partido te suelta la mano.</p>
     <div class="choices">${ops.map(x=>{const gap=Math.max(0,x.tier-cur-1),est=estimarVoto()-gap*6-(x.top?4:0)-x.tier*0.6;const ch=est>=48?"altas":est>=43?"medias":est>=37?"bajas":"casi nulas";return `<div class="offer"><div><b>${esc(x.nombre)}</b><span>${x.top?"Interna y elección nacional":"Elección"} · chances ${ch}</span></div><button class="btn sm ${x.top?"primary":""}" data-post="${x.id}">Postularme</button></div>`}).join("")}
     <div class="offer"><div><b>Mejor no</b><span>Volvés a la agenda</span></div><button class="btn sm ghost" id="bPostNo">Volver</button></div></div>`;
+  }else if(G.fase==="alianza"){
+    const pe=G.pendElec,x=rangos(G.pais).find(y=>y.id===pe.id);
+    body=`${escenaHTML("cumbre","Mesa de negociación")}<div class="dl"><span>Armado electoral</span></div><h2>¿Vas con aliados?</h2>
+    <p class="txt">Antes de la elección por ${esc(x.nombre)} podés sumar a otro partido. Te da votos, pero tu propio partido se enoja por los lugares que cedés.</p>
+    <div class="choices">${pe.aliOps.map((o,i)=>`<div class="offer"><div class="of-pa">${badgeSVG(o.pa,34)}<div><b>Alianza con ${esc(o.n)}</b><span>+${o.bonus} votos · partido −${o.costo}</span></div></div><button class="btn sm" data-ali="${i}">Aliarme</button></div>`).join("")}
+    <div class="offer"><div><b>Ir solos</b><span>Sin costos, sin ayuda</span></div><button class="btn sm ghost" data-ali="-1">Ir solos</button></div></div>`;
   }else if(G.fase==="gabinete"){
     const areas=Object.keys(G.gab.cand),sel=G.gab.sel||{},listo=areas.every(a=>sel[a]!=null);
     body=`${escenaHTML("gobierno","Armado del equipo")}<div class="dl"><span>Tu gabinete</span></div><h2>Elegí tu equipo</h2>
@@ -2135,11 +2399,13 @@ function vGame(){
     const e=G.elec;
     body=`${escenaHTML("urna","Noche electoral")}<div class="dl"><span>Elección ${G.anio}</span><span class="stamp" style="color:${e.gano?"var(--good)":"var(--bad)"};border-color:currentColor">${e.gano?"Ganaste":"Perdiste"}</span></div><h2>${esc(e.cargo)}</h2>
     ${e.tier===6?`<p class="muted" style="margin:0;font-size:13px">Sistema electoral ${infoBtn("sis:"+G.pais,"sistema electoral")}</p>`:""}
+    ${e.mapa?`<div><span class="eyebrow">Resultado por ${PROV_LAB[G.pais].replace("Tu ","")}</span>${mapaHTML(e.mapa)}</div>`:""}
     <div class="vs">
      <div class="vs-r"><span>${esc(G.nombre)} (${esc(partidoDe()[0])})</span><span class="vs-b"><i class="me-b" data-w="${e.pct}"></i></span><b data-n="${e.pct}">0</b></div>
      <div class="vs-r"><span>${esc(e.rival.n)} (${esc(e.rival.pa)})${e.rival.nem?' · <em>archirrival</em>':""}</span><span class="vs-b"><i data-w="${e.rpct}"></i></span><b data-n="${e.rpct}">0</b></div>
     </div>
     ${G.avisoPartido?`<p class="res">${esc(G.avisoPartido)}</p>`:""}
+    ${e.alianza?`<p class="muted" style="margin:0;font-size:13.5px">La alianza con ${esc(e.alianza.n)} te sumó ${e.alianza.bonus} puntos.</p>`:""}
     <p class="txt">${esc(e.txt)} ${e.bonus>=0?"La campaña te sumó":"La campaña te restó"} ${Math.abs(e.bonus)} puntos.</p>
     <div class="gbar"><span class="muted">${e.gano?(e.reel?"Seguís en el cargo.":"Te toca asumir."):"Te toca reagruparte."}</span><button class="btn primary" id="bElec">Continuar</button></div>`;
   }
@@ -2169,6 +2435,9 @@ function vGame(){
   if($("#bAsum"))$("#bAsum").onclick=()=>{const p=G.asuncion.postu;G.asuncion=null;const rr=rk(G.cargo);
     if(gabElegible(rr)){G.gab={miembros:{},cand:{},post:p};areasGab(rr).forEach(a=>{G.gab.miembros[a]=null;G.gab.cand[a]=candidatosGab(a)});G.fase="gabinete";save();vGame();return}
     if(p)return finTurno();nuevoTurno();save();vGame()};
+  app.querySelectorAll("[data-ali]").forEach(b=>b.onclick=()=>{const pe=G.pendElec,i=+b.dataset.ali;pe.aliDone=true;
+    if(i>=0){const o=pe.aliOps[i];pe.alianza={pa:o.pa,n:o.n,bonus:o.bonus};aplicar({p:-o.costo});G.lastD=null;let k=0;while(pe.rival.pa===o.pa&&k++<10)pe.rival=nuevoRival()}
+    G.fase="campania";save();vGame()});
   app.querySelectorAll("[data-gab]").forEach(b=>b.onclick=()=>{const [a,i]=b.dataset.gab.split("|");G.gab.sel=G.gab.sel||{};G.gab.sel[a]=+i;save();vGame()});
   if($("#bGabOk"))$("#bGabOk").onclick=()=>{for(const a in G.gab.cand){const i=G.gab.sel?.[a];if(i!=null)G.gab.miembros[a]=G.gab.cand[a][i]}G.gab.cand={};G.gab.sel={};const p=G.gab.post;G.gab.post=false;
     if(G.gabVuelta){G.gabVuelta=false;G.fase="evento";save();vGame();return}if(p)return finTurno();nuevoTurno();save();vGame()};
@@ -2201,12 +2470,17 @@ function miniCtx(){
     crisis:{tit:k==="terr"?"Gestión de crisis en "+G.ciudad:"Semana negra en el gobierno",txt:"Cuatro frentes se te prenden fuego a la vez. Tocá cada barra para apagar el incendio antes de que llegue a cero. Aguantá 15 segundos.",f:k==="terr"?["Basura","Tránsito","Hospitales","Seguridad"]:["Precios","Calle","Mercados","Congreso"]},
     tira:{tit:k==="dip"?"Cierre del acuerdo":k==="loc"?"Negociación con los vecinos":k==="leg"?"Negociación del presupuesto":"Paritaria",txt:"La aguja va y viene. Tocá Cerrar cuando esté en la zona verde. Tres rondas, cada vez más difícil."},
     agenda:{tit:"Agenda apretada",txt:"Tenés reuniones con la prensa, el partido, los gremios y los empresarios. Mirá el orden en que se prenden y repetilo sin plantar a nadie."},
+    recorrida:{tit:"Timbreo en "+G.provLab,txt:"Recorré "+G.prov+" tocando las ciudades. Los escándalos restan. 12 segundos."},
+    debate:{tit:k==="leg"?"Debate en el recinto":k==="dip"?"Conferencia de prensa internacional":"Entrevista picante",txt:"Te atacan seis veces. Al dato se lo refuta, a la chicana se le responde con humor y a la trampa se la esquiva."},
+    discurso:{tit:k==="top"?"Discurso en el balcón":k==="dip"?"Discurso ante la ONU":"Discurso en el acto",txt:"Mantené apretado para hablar y soltá cuando el aplausómetro esté en la zona verde. Ni tibio ni exagerado."},
     fiscal:{tit:k==="dip"?"Revisión del tratado":"Auditoría de cuentas",txt:"Todas las planillas tienen que coincidir. Encontrá la adulterada antes de que se acabe el tiempo."},
   }[G.mini];
 }
 function miniBody(){
   if(G.fase==="campania"){
     const pe=G.pendElec,x=rangos(G.pais).find(y=>y.id===pe.id);
+    if(pe.juego==="discurso")return `<div class="dl"><span>Campaña · ${esc(x.nombre)} ${infoBtn("m_discurso","discurso")}</span><span class="stamp">Acto</span></div><h2>El acto de cierre</h2>
+    <p class="txt">Tu acto de cierre contra ${esc(pe.rival.n)} (${esc(pe.rival.pa)}). Mantené apretado para hablar y soltá cuando el aplausómetro esté en la zona verde.</p>${discursoHTML()}`;
     if(pe.juego==="fiscal")return `<div class="dl"><span>Campaña · ${esc(x.nombre)} ${infoBtn("m_fiscal","fiscalización")}</span><span class="stamp">Fiscales</span></div><h2>Noche de escrutinio</h2>
     <p class="txt">Contra ${esc(pe.rival.n)} (${esc(pe.rival.pa)}) cada voto cuenta. Encontrá las actas adulteradas antes de que se carguen.</p>
     <div id="fz" class="col" style="gap:12px"><button class="btn primary" id="mgGo" style="align-self:flex-start">Ir a fiscalizar</button></div>`;
@@ -2221,7 +2495,10 @@ function miniBody(){
   }
   if(G.fase==="mini"){
     const c=miniCtx();
-    const area=G.mini==="agenda"?`<div class="mg-top"><span id="agR">Ronda 1 de 4</span><span id="agM">Mirá el orden</span></div><div class="agenda">${["Prensa","Partido","Gremios","Empresarios"].map((x,i)=>`<button class="ag ag${i}" data-g="${i}">${x}</button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Empezar el día</button>`
+    const area=G.mini==="recorrida"?`<div class="mg-top"><span>Gente <b id="mgS">0</b></span><span>Tiempo <b id="mgT">12</b></span></div><div class="arena" id="arena"><button class="btn primary" id="mgGo">Arrancar</button></div>`
+      :G.mini==="debate"?`<div class="legend"><span><b>Dato</b> → Refutar</span><span><b>Chicana</b> → Humor</span><span><b>Trampa</b> → Esquivar</span></div><div id="db" class="col" style="gap:12px"><button class="btn primary" id="mgGo" style="align-self:flex-start">Arrancar</button></div>`
+      :G.mini==="discurso"?discursoHTML()
+      :G.mini==="agenda"?`<div class="mg-top"><span id="agR">Ronda 1 de 4</span><span id="agM">Mirá el orden</span></div><div class="agenda">${["Prensa","Partido","Gremios","Empresarios"].map((x,i)=>`<button class="ag ag${i}" data-g="${i}">${x}</button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Empezar el día</button>`
       :G.mini==="fiscal"?`<div id="fz" class="col" style="gap:12px"><button class="btn primary" id="mgGo" style="align-self:flex-start">Abrir las planillas</button></div>`
       :G.mini==="poroteo"?`<div class="mg-top"><span id="poR">Ronda 1 de 3</span><span id="poM">Memorizá</span></div><div class="seats" id="seats">${Array.from({length:12},(_,i)=>`<button class="seat" data-s="${i}" disabled aria-label="Banca ${i+1}"></button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Empezar la votación</button>`
       :G.mini==="crisis"?`<div class="mg-top"><span>Frentes en pie <b id="crF">4</b></span><span>Tiempo <b id="crT">15</b></span></div><div class="fronts" id="fronts">${c.f.map((f,i)=>`<button class="front" data-f="${i}" disabled><span class="fl">${f}</span><span class="fb"><i style="width:70%"></i></span></button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Arrancar</button>`
@@ -2233,8 +2510,14 @@ function miniBody(){
   return "";
 }
 function mountMini(){
-  if(G.fase==="campania"){const j=G.pendElec.juego;if(j==="debate")return mountDebate();if(j==="fiscal")return mountFiscal(ok=>{const bonus=[-6,-4,-2,0,2,4][ok];$("#fz").innerHTML=`<div class="mg-end"><b>${ok} de 5</b><span>${ok>=4?"Cuidaste cada voto.":ok>=2?"Fiscalización floja.":"Te robaron votos en las mesas."} ${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;$("#mgFin").onclick=()=>resolverEleccion(bonus)});return mountRecorrida()}
-  if(G.fase==="mini")return ({poroteo:mountPoroteo,crisis:mountCrisis,tira:mountTira,agenda:mountAgenda,fiscal:()=>mountFiscal(ok=>{
+  if(G.fase==="campania"){const j=G.pendElec.juego;if(j==="debate")return mountDebate();
+    if(j==="discurso")return mountDiscurso(h=>{const bonus=[-5,-2,1,4][h];($("#dsGo")||{}).outerHTML=`<div class="mg-end"><b>${h} de 3 ovaciones</b><span>${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;$("#mgFin").onclick=()=>resolverEleccion(bonus)});if(j==="fiscal")return mountFiscal(ok=>{const bonus=[-6,-4,-2,0,2,4][ok];$("#fz").innerHTML=`<div class="mg-end"><b>${ok} de 5</b><span>${ok>=4?"Cuidaste cada voto.":ok>=2?"Fiscalización floja.":"Te robaron votos en las mesas."} ${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;$("#mgFin").onclick=()=>resolverEleccion(bonus)});return mountRecorrida()}
+  if(G.fase==="mini")return ({recorrida:mountRecorrida,debate:mountDebate,discurso:()=>mountDiscurso(h=>{
+    if(h===3)return terminarMini("Ovación total","El discurso se comparte en todos lados.",{l:5,p:3});
+    if(h===2)return terminarMini("Buen discurso","La gente salió contenta.",{l:3,p:1});
+    if(h===1)return terminarMini("Discurso irregular","Arrancó bien y se te fue.",{l:-1});
+    terminarMini("Discurso para el olvido","Los memes no perdonan.",{l:-4,s:2});
+  }),poroteo:mountPoroteo,crisis:mountCrisis,tira:mountTira,agenda:mountAgenda,fiscal:()=>mountFiscal(ok=>{
     if(ok>=5)return terminarMini("Ojo de halcón","Encontraste todas las irregularidades.",{n:5,s:-3,l:2});
     if(ok>=3)return terminarMini("Buena auditoría","Detectaste casi todo.",{n:3,s:-1});
     if(ok>=1)return terminarMini("Se te pasaron cosas","Varias planillas truchas siguieron de largo.",{n:-1,s:2});
@@ -2242,11 +2525,11 @@ function mountMini(){
   })})[G.mini]();
   if(G.fase==="mini_res")$("#bMiniOk").onclick=()=>{G.miniRes=null;G.mini=null;finTurno()};
 }
-function terminarMini(tit,txt,ef){clearMG();if(["Cerraste justo","Poroteo perfecto","Gestión impecable","Agenda perfecta","Ojo de halcón"].includes(tit))G.perfecto=true;const d=aplicar(ef);G.miniRes={tit,txt,d};G.fase="mini_res";save();vGame()}
+function terminarMini(tit,txt,ef){clearMG();if(G.practica)return practicaFin(tit,txt);if(["Cerraste justo","Poroteo perfecto","Gestión impecable","Agenda perfecta","Ojo de halcón","Ovación total","Timbreo perfecto","Lo destrozaste"].includes(tit))G.perfecto=true;const d=aplicar(ef);G.miniRes={tit,txt,d};G.fase="mini_res";save();vGame()}
 
 function mountRecorrida(){
   const arena=$("#arena");let score=0,t=12,run=false;
-  const tgt=rangos(G.pais).find(y=>y.id===G.pendElec.id);
+  const tgt=G.pendElec?rangos(G.pais).find(y=>y.id===G.pendElec.id):null;
   const lugares=tgt?.top?PROVS[G.pais].map(p=>p[0]):(CIU_PROV[G.pais]?.[G.provLab]||G.ciudad).split("|");
   const traps=["Escándalo","Abucheo","Fake news","Huevazo"];
   $("#mgGo").onclick=()=>{
@@ -2264,6 +2547,7 @@ function mountRecorrida(){
   }
   function end(){
     clearMG();const bonus=clamp(Math.round((score-9)*.6),-6,4);
+    if(G.fase==="mini"){if(score>=15)return terminarMini("Timbreo perfecto","Te recorriste todo y la gente te recuerda.",{l:5,p:2});if(score>=10)return terminarMini("Buen timbreo","Te vieron en todos lados.",{l:3});if(score>=5)return terminarMini("Timbreo flojo","Poca gente, varios abucheos.",{l:-1});return terminarMini("Te escracharon","La recorrida terminó mal.",{l:-4,s:2})}
     arena.innerHTML=`<div class="mg-end"><b>${score} votos</b><span>${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;
     $("#mgFin").onclick=()=>resolverEleccion(bonus);
   }
@@ -2294,6 +2578,7 @@ function mountDebate(){
   }
   function done(){
     const bonus=[-6,-5,-3,-1,1,2,4][ok];
+    if(G.fase==="mini"){if(ok>=6)return terminarMini("Lo destrozaste","Ganaste el debate por paliza.",{l:5,n:2,p:2});if(ok>=4)return terminarMini("Ganaste el debate","Te fue bien en el cara a cara.",{l:3,p:1});if(ok>=2)return terminarMini("Empate técnico","Nadie ganó.",{});return terminarMini("Te comieron","Quedaste mal parado.",{l:-4,p:-2})}
     box.innerHTML=`<div class="mg-end"><b>${ok} de ${N}</b><span>${ok>=5?"Lo pasaste por arriba.":ok>=3?"Debate parejo.":"Te comió el debate."} ${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;
     $("#mgFin").onclick=()=>resolverEleccion(bonus);
   }
@@ -2440,11 +2725,13 @@ Econ  ${sq(s.e)}`;
    <section class="lcard">
     <div class="leg-top">${avatarSVG(G.av,96,{acc:colorPartido(),banda:G.llegoTop?COLORES_PAIS[G.pais]:null,canas:G.edad>=62})}<div>${flagSVG(G.pais,30)} ${badgeSVG(G.partido,30)}<br><span class="eyebrow">Legado · ${esc(G.nombre)} · ${P.n} · ${G.hist[0].anio}–${G.anio}</span></div></div>
     <div class="ltitle">${esc(G.titulo)}</div>
-    <div class="lpts">${G.puntosFinal.toLocaleString("es-AR")} puntos · cargo máximo nivel ${G.maxTier} · ${G.elecG} elecciones ganadas, ${G.elecP} perdidas</div>
-    <p class="res">${esc(G.fin)}</p>
+    <div class="lpts">${G.puntosFinal.toLocaleString("es-AR")} puntos · cargo más alto: ${esc([...G.hist].filter(h=>h.tier).sort((a,b)=>b.tier-a.tier)[0]?.cargo||"—")} · ${G.elecG} elecciones ganadas, ${G.elecP} perdidas</div>
+    <p class="res">${esc(resumenCarrera())}</p>
     ${G.logros.length?`<div class="logros">${G.logros.map(l=>`<span class="tag">${esc(l)}</span>`).join("")}</div>`:""}
     ${G.ins?`<div><span class="eyebrow">Insignias de esta carrera</span><div class="ins-grid" style="margin-top:6px">${G.ins.todas.map(id=>insigniaHTML(id,true,G.ins.nuevas.includes(id))).join("")||'<span class="muted">Ninguna esta vez.</span>'}</div></div>`:""}
-    <div><span class="eyebrow">Línea de tiempo</span><div class="timeline" style="margin-top:6px">${G.hist.map(h=>`<div><span>${h.anio}</span><b style="font-weight:${h.tier>=5?600:400}">${esc(h.cargo)}</b></div>`).join("")}</div></div>
+    <div><span class="eyebrow">Tu trayectoria</span>${trayectoriaHTML()}</div>
+    ${graficoStats()?`<div><span class="eyebrow">Cómo te fue en el tiempo</span>${graficoStats()}</div>`:""}
+    <div><span class="eyebrow">Momentos clave</span>${momentosHTML()}</div>
     <div class="stats">${Object.keys(ST).map(k=>`<div class="stat"><span>${ST[k]}</span><span class="bar"><i style="width:${s[k]}%;background:${colorFor(k,s[k])}"></i></span><span class="v">${s[k]}</span></div>`).join("")}</div>
    </section>
    <aside class="col">
@@ -2471,7 +2758,7 @@ Econ  ${sq(s.e)}`;
 
 /* ================== ARRANQUE ================== */
 $("#goHome").insertAdjacentHTML("afterbegin",MARCA);
-$("#goHome").onclick=()=>{if(G&&!G.fin)save();G=null;show("home")};
+$("#goHome").onclick=()=>{clearMG();if(G&&!G.fin&&!G.practica)save();G=null;show("home")};
 $("#fecha").textContent=new Date().toLocaleDateString("es-AR",{day:"numeric",month:"long",year:"numeric"});
 $("#adTop").innerHTML=adHTML("top","leader","728 × 90");
 loadAdsense();
