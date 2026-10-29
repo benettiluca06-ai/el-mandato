@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>El Mandato</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect x=%271%27 y=%271%27 width=%2738%27 height=%2738%27 rx=%279%27 fill=%27%231E4E8C%27/%3E%3Crect x=%279%27 y=%2719%27 width=%2722%27 height=%2714%27 rx=%272%27 fill=%27white%27/%3E%3Crect x=%2714%27 y=%2718%27 width=%2712%27 height=%272.6%27 fill=%27%231E4E8C%27/%3E%3Crect x=%2715%27 y=%277%27 width=%2710%27 height=%2711%27 fill=%27white%27 transform=%27rotate(-8 20 12)%27/%3E%3C/svg%3E">
 <meta name="description" content="Simulador de carrera política internacional: elegí tu país, subí de cargo y mirá tu legado.">
 <meta property="og:title" content="El Mandato">
 <meta property="og:description" content="De concejal a la ONU. ¿Qué legado dejás?">
@@ -199,6 +200,50 @@ img{max-width:100%}
 .nego{display:flex;flex-direction:column;gap:12px}
 .nego-v{font-family:var(--f-display);font-size:56px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
 input[type=range]{width:100%;accent-color:var(--accent)}
+/* ---- v6 ---- */
+:root{--sk1:#BFD9EE;--sk2:#F1E6D2;--grd:#C9C3B3;--far:#A9B6C4;--bld:#E9E2D3;--bld2:#B9AE98;--win:#7E95AE;--ink2:#2A3442;--ppl:#3B4656;--col:#F7F3EA;--dome:#8FA3B5}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--sk1:#0F1B2D;--sk2:#2C3550;--grd:#1F2632;--far:#2A3850;--bld:#3A475C;--bld2:#4C5A70;--win:#F2C96B;--ink2:#0B0F15;--ppl:#121821;--col:#56657C;--dome:#5D7187}}
+:root[data-theme="dark"]{--sk1:#0F1B2D;--sk2:#2C3550;--grd:#1F2632;--far:#2A3850;--bld:#3A475C;--bld2:#4C5A70;--win:#F2C96B;--ink2:#0B0F15;--ppl:#121821;--col:#56657C;--dome:#5D7187}
+.scene{position:relative;height:170px;margin:-20px -18px 2px;overflow:hidden;background:var(--sunk)}
+.scene svg{display:block;animation:sceneIn .7s ease-out}
+@keyframes sceneIn{from{transform:scale(1.06);opacity:.4}to{transform:none;opacity:1}}
+.scene::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,14,20,.55))}
+.sc-sky1{stop-color:var(--sk1)}.sc-sky2{stop-color:var(--sk2)}.sc-ground{fill:var(--grd)}.sc-far{fill:var(--far)}.sc-bld{fill:var(--bld)}.sc-bld2{fill:var(--bld2)}.sc-win{fill:var(--win)}.sc-door{fill:var(--ink2)}.sc-ink{fill:var(--ink2);stroke:var(--ink2)}.sc-ppl{fill:var(--ppl)}.sc-tree{fill:#3F8F5A}.sc-col{fill:var(--col)}.sc-dome{fill:var(--dome)}.sc-acc{fill:var(--seal)}.sc-sign{fill:#F4F1E8}.sc-water{fill:#4A86B8}.sc-wave{stroke:#BFDDF2}.sc-rain{stroke:#9EC3E0}.sc-hill{fill:#5B4A3A}.sc-fire{fill:#F2762E}.sc-fire2{fill:#FFD23F}.sc-smoke{fill:rgba(120,120,120,.45)}.sc-board{fill:var(--bld2)}.sc-line2{stroke:var(--far)}.sc-grid{stroke:rgba(255,255,255,.18)}.sc-coin{fill:#F2C230}.sc-cointx{fill:#7a5a00}.sc-globe{fill:#5C9BD1}.sc-paper{fill:#F4F1E8}.sc-grid2{fill:#C9C4B8}.sc-red{fill:#C8102E}.sc-flash{fill:rgba(255,255,255,.8)}.sc-smk{stroke:var(--far)}
+.sc-fire,.sc-fire2{animation:flick .6s ease-in-out infinite alternate;transform-origin:bottom;transform-box:fill-box}
+@keyframes flick{to{transform:scaleY(1.12)}}
+.brand{align-items:center}
+.marca{flex:none}
+.av{display:block;border-radius:50%}
+.avatar{width:auto;height:auto;background:none;display:block}
+.pa-line{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);margin-top:2px}
+.badge{display:inline-block;vertical-align:middle;flex:none}
+.pa-chip{display:inline-flex;align-items:center;gap:6px}
+.av-ed{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.av-prev{flex:none;padding:6px;border-radius:50%;background:var(--surface);border:1.5px solid var(--line)}
+.av-opts{flex:1;min-width:240px;display:flex;flex-direction:column;gap:10px}
+.av-opts .field{gap:4px}.av-opts .lab{font-weight:500;font-size:13px}
+.swatches{display:flex;flex-wrap:wrap;gap:6px}
+.sw{width:30px;height:30px;border-radius:50%;border:2px solid var(--line);padding:0}
+.sw[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--accent)}
+.creador{display:flex;flex-direction:column;gap:12px;padding:14px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.cr-prev{display:flex;align-items:center;gap:14px}.cr-prev b{font-family:var(--f-display);font-size:24px;text-transform:uppercase;display:block;line-height:1.05}
+.row2{display:flex;gap:10px;flex-wrap:wrap}.row2 .field{flex:1;min-width:140px}
+.gab-a{display:flex;flex-direction:column;gap:6px}
+.gab-c{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.gab-o{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:10px;border-radius:var(--r);border:1.5px solid var(--line);background:var(--bg)}
+.gab-o[aria-pressed="true"]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.gab-o small{font-size:11.5px;color:var(--muted)}
+.of-pa{display:flex;gap:10px;align-items:center}
+.eq{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.asum-av{animation:rise .6s cubic-bezier(.2,.8,.2,1)}
+.leg-top{display:flex;gap:14px;align-items:center}
+.ins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.ins{display:grid;grid-template-columns:36px minmax(0,1fr);grid-template-rows:auto auto;gap:0 8px;padding:8px;border-radius:var(--r);border:1px solid var(--line);background:var(--surface);opacity:.45;filter:grayscale(1)}
+.ins.on{opacity:1;filter:none}
+.ins.new{border-color:var(--seal);box-shadow:0 0 0 2px color-mix(in srgb,var(--seal) 30%,transparent)}
+.ins-i{grid-row:1/3;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--accent-ink);font-family:var(--f-display);font-weight:800;font-size:15px}
+.ins b{font-size:13px}.ins span:last-child{font-size:11px;color:var(--muted);line-height:1.25}
+@media (max-width:520px){.gab-c{grid-template-columns:minmax(0,1fr)}}
 /* ---- v5 ---- */
 .ib{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;background:transparent;color:var(--accent);font:600 12px/1 var(--f-mono);padding:0;vertical-align:middle;cursor:pointer;flex:none}
 .ib:hover{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
@@ -1107,6 +1152,7 @@ const DATOS_POL = {
 };
 
 Object.assign(INFO,{
+ fundar:["Fundar tu partido","Elegís nombre, sigla, posición y logo. Arrancás como partido chico, con mucho apoyo interno y menos votos. Cada elección que ganás lo hace crecer: a las 3 victorias es mediano y a las 6, grande. Como fundador, nunca tenés interna."],
  prov:["Tu provincia o estado","Es tu lugar de origen. Los sucesos locales pasan ahí, la recorrida de campaña es por sus ciudades y te tocan temas propios de su política."],
  origen:["Origen","De dónde venís antes de la política. Cambia tus números iniciales: un sindicalista arranca con más partido, un diplomático con más imagen internacional."],
  rasgos:["Rasgos","Dos características que te acompañan toda la carrera y multiplican o suavizan ciertos cambios."],
@@ -1268,11 +1314,12 @@ function vHome(){
    <div class="col">
     <section class="hero">
      <div class="l">
-      <span class="eyebrow">Simulador de carrera política</span>
-      <h2>De concejal a presidente</h2>
+      <span class="eyebrow">Carrera política · simulador</span>
+      <h2>Del timbreo al balcón</h2>
       <p>Elegí tu país, tu partido y tu ciudad, y armá tu carrera: elecciones, ministerios y embajadas, con rivales que no te van a regalar nada. Cada decisión mueve tu imagen local, tu imagen afuera, tu partido y las instituciones. Al final, la historia te pone un nombre.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
-       <button class="btn primary" id="bNueva">Nueva carrera</button>
+       <button class="btn primary" id="bNueva">Carrera política</button>
+       <button class="btn" id="bFundar">Fundá tu partido</button>
        ${sv&&!sv.fin?'<button class="btn" id="bSeguir">Seguir partida · '+esc(PAISES[sv.pais]?.n||"")+'</button>':''}
       </div>
      </div>
@@ -1298,6 +1345,10 @@ function vHome(){
     ${adHTML("home","inline","Banner adaptable")}
 
     <section>
+     <div class="sec-h"><h3>Tus insignias</h3><span class="eyebrow">${Object.keys(insigniasGuardadas()).length} de ${INSIGNIAS.length}</span></div>
+     <div class="ins-grid">${INSIGNIAS.map(x=>insigniaHTML(x[0],!!insigniasGuardadas()[x[0]])).join("")}</div>
+    </section>
+    <section>
      <div class="sec-h"><h3>Noticias internacionales</h3><span class="eyebrow" id="newsState">Cargando</span></div>
      <div class="news" id="newsList"></div>
     </section>
@@ -1322,7 +1373,8 @@ function vHome(){
     </section>
    </aside>
   </div>`;
-  $("#bNueva").onclick=()=>show("setup");
+  $("#bNueva").onclick=()=>{SET.modoP="existente";show("setup")};
+  $("#bFundar").onclick=()=>{SET.modoP="propio";show("setup")};
   if($("#bSeguir"))$("#bSeguir").onclick=()=>{G=sv;show(G.fin?"legado":"game")};
   $("#bDiario").onclick=()=>{
     let jugado=false;try{jugado=localStorage.getItem("elmandato.diario")===hoyISO()}catch(e){}
@@ -1348,9 +1400,9 @@ function vPre(o,tit,desc){
    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" id="go2">Empezar</button><button class="btn ghost" id="back2">Volver</button></div>
   </div>`;
   $("#back2").onclick=()=>show("home");
-  $("#go2").onclick=()=>{SET.nombre=$("#nm2").value;nueva({...o,nombre:SET.nombre})};
+  $("#go2").onclick=()=>{SET.nombre=$("#nm2").value;nueva({...o,nombre:SET.nombre,av:{...SET.av}})};
 }
-let SET={pais:"AR",partido:null,origen:"academico",rasgos:["carismatico","negociador"],modo:"carrera",inicio:null,nombre:""};
+let SET={av:{piel:1,pelo:0,colorPelo:1,barba:0,anteojos:0,ropa:0},modoP:"existente",mp:{n:"",sigla:"",ideo:3,forma:0,simb:0,c1:1,c2:8},pais:"AR",partido:null,origen:"academico",rasgos:["carismatico","negociador"],modo:"carrera",inicio:null,nombre:""};
 function vSetup(){
   if(!SET.nombre)SET.nombre=nombreUsuario();
   if(!PARTIDOS[SET.pais].find(x=>x[0]===SET.partido))SET.partido=PARTIDOS[SET.pais][0][0];
@@ -1359,13 +1411,16 @@ function vSetup(){
   if(!SET.inicio||!rs.find(r=>r.id===SET.inicio))SET.inicio=rs[0].id;
   app.innerHTML=`
   <div class="setup">
-   <div><span class="eyebrow">Legajo nuevo</span><h2>Armá tu personaje</h2></div>
+   <div><span class="eyebrow">${SET.modoP==="propio"?"Modo fundador":"Carrera política"}</span><h2>${SET.modoP==="propio"?"Fundá tu partido":"Armá tu personaje"}</h2></div>
+   <div class="chips"><button type="button" class="chip" data-mp="existente" aria-pressed="${SET.modoP!=="propio"}">Partido existente</button><button type="button" class="chip" data-mp="propio" aria-pressed="${SET.modoP==="propio"}">Fundar mi partido</button></div>
    <div class="field"><label for="nm">Nombre</label><input type="text" id="nm" maxlength="40" placeholder="Ej: Lucía Ferreyra" value="${esc(SET.nombre)}"></div>
+   <div class="field"><span class="lab">Tu avatar</span>${editorAvatarHTML(SET.av)}</div>
    <div class="field"><span class="lab">País</span>
     <div class="grid-c">${Object.entries(PAISES).map(([k,p])=>`<button class="opt" data-p="${k}" aria-pressed="${SET.pais===k}"><span class="code">${flagSVG(k,24)} ${p.c}</span><b>${p.n}</b><span>${p.sis}</span></button>`).join("")}</div></div>
    <p class="muted" style="margin:-10px 0 0;font-size:13px">Cómo se elige en ${PAISES[SET.pais].n} ${infoBtn("sis:"+SET.pais,"sistema electoral")}</p>
-   <div class="field"><span class="lab">Partido ${infoBtn('partido','partido')}</span><div class="chips">${PARTIDOS[SET.pais].map(x=>{const rf=REFERENTES[SET.pais]?.[x[0]];return `<button class="chip" data-pa="${x[0]}" aria-pressed="${SET.partido===x[0]}">${esc(x[1])} <small>· ${rf?esc(rf)+" · ":""}${PESO[x[2]].n.replace("Partido ","")}</small></button>`}).join("")}</div>
+   ${SET.modoP==="propio"?`<div class="field"><span class="lab">Tu partido ${infoBtn("fundar","fundar")}</span>${creadorPartidoHTML(SET.mp)}</div>`:`   <div class="field"><span class="lab">Partido ${infoBtn('partido','partido')}</span><div class="chips">${PARTIDOS[SET.pais].map(x=>{const rf=REFERENTES[SET.pais]?.[x[0]];return `<button class="chip pa-chip" data-pa="${x[0]}" aria-pressed="${SET.partido===x[0]}">${badgeSVG(x[0],22,SET.pais)} ${esc(x[1])} <small>· ${rf?esc(rf)+" · ":""}${PESO[x[2]].n.replace("Partido ","")}</small></button>`}).join("")}</div>
     <div class="pa-info">${(()=>{const x=PARTIDOS[SET.pais].find(y=>y[0]===SET.partido)||PARTIDOS[SET.pais][0];const rf=REFERENTES[SET.pais]?.[x[0]];return `<b>${esc(x[1])}</b>${rf?` · referente: ${esc(rf)}`:""}<p>${esc(PARTIDO_INFO[SET.pais]?.[x[0]]||"")}</p>`})()}</div></div>
+`}
    <div class="field"><span class="lab"><label for="prv">${PROV_LAB[SET.pais]}</label> ${infoBtn('prov','provincia')}</span><select id="prv" class="sel">${PROVS[SET.pais].map(x=>`<option value="${esc(x[0])}"${SET.prov===x[0]?" selected":""}>${esc(x[0])}</option>`).join("")}</select></div>
    <div class="field"><span class="lab">Origen ${infoBtn('origen','origen')}</span><div class="chips">${Object.entries(ORIGENES).map(([k,v])=>`<button class="chip" data-o="${k}" aria-pressed="${SET.origen===k}">${v.n} <small>· ${v.d}</small></button>`).join("")}</div></div>
    <div class="field"><span class="lab">Rasgos <span class="muted" style="font-weight:400">(elegí 2)</span> ${infoBtn('rasgos','rasgos')}</span><div class="chips">${Object.entries(RASGOS).map(([k,v])=>`<button class="chip" data-r="${k}" aria-pressed="${SET.rasgos.includes(k)}">${v.n} <small>· ${v.d}</small></button>`).join("")}</div></div>
@@ -1379,18 +1434,26 @@ function vSetup(){
   app.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{SET.pais=b.dataset.p;vSetup()});
   $("#prv").onchange=e=>{SET.prov=e.target.value};
   app.querySelectorAll("[data-pa]").forEach(b=>b.onclick=()=>{SET.partido=b.dataset.pa;vSetup()});
+  app.querySelectorAll("[data-mp]").forEach(b=>b.onclick=()=>{SET.modoP=b.dataset.mp;vSetup()});
+  app.querySelectorAll("[data-av]").forEach(b=>b.onclick=()=>{SET.av[b.dataset.av]=+b.dataset.v;const y=scrollY;vSetup();scrollTo(0,y)});
+  if(SET.modoP==="propio")bindCreador(SET.mp,()=>{const y=scrollY;vSetup();scrollTo(0,y)});
   app.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{SET.origen=b.dataset.o;vSetup()});
   app.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{SET.modo=b.dataset.m;vSetup()});
   app.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{SET.inicio=b.dataset.st;vSetup()});
   app.querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{const k=b.dataset.r;if(SET.rasgos.includes(k))SET.rasgos=SET.rasgos.filter(x=>x!==k);else SET.rasgos=[SET.rasgos[SET.rasgos.length-1],k].filter(Boolean).slice(-2);vSetup()});
   $("#back").onclick=()=>show("home");
-  $("#go").onclick=()=>{if(SET.rasgos.length<2){$("#go").textContent="Elegí 2 rasgos";return}nueva({...SET})};
+  $("#go").onclick=()=>{if(SET.rasgos.length<2){$("#go").textContent="Elegí 2 rasgos";return}
+    if(SET.modoP==="propio"){if(!SET.mp.n.trim())SET.mp.n="Nuevo Movimiento";if(!SET.mp.sigla)SET.mp.sigla=SET.mp.n.split(/\s+/).map(w=>w[0]||"").join("").toUpperCase().slice(0,5)}
+    nueva({...SET,av:{...SET.av},mp:{...SET.mp}})};
 }
 
 /* ================== MOTOR ================== */
 const KIND_TAGS={loc:["loc","prov"],leg:["leg","prov"],terr:["terr","prov"],gob:["gob"],top:["top","gob"],dip:["dip"]};
 const KIND_N={loc:"Concejo",leg:"Legislativo",terr:"Ejecutivo local",gob:"Gobierno",top:"Jefatura de gobierno",dip:"Diplomacia"};
-function partidoDe(){return (PARTIDOS[G.pais]||[]).find(x=>x[0]===G.partido)||PARTIDOS[G.pais][0]}
+function partidoDe(){
+  if(G.partido==="PROPIO"){const mp=G.miPartido;return [mp.sigla,mp.n,G.pesoPropio||1,IDEOLOGIAS[mp.ideo][1]]}
+  return (PARTIDOS[G.pais]||[]).find(x=>x[0]===G.partido)||PARTIDOS[G.pais][0]}
+function colorPartido(){return G.partido==="PROPIO"?LOGO_COL[G.miPartido.c1]:(PCOLOR[G.pais]?.[G.partido]||["#6B6E73"])[0]}
 function nuevoRival(){
   const N=NOMBRES[G.pais],ps=PARTIDOS[G.pais].filter(x=>x[0]!==G.partido&&x[0]!=="IND");
   const pa=ps.length?pick(ps.filter(x=>x[2]>=2).length?ps.filter(x=>x[2]>=2):ps):PARTIDOS[G.pais][0];
@@ -1401,12 +1464,15 @@ function nueva(o){
      rs:o.seed??Math.floor(Math.random()*2**31),anio:2027,edad:28,turnos:0,st:{l:45,i:45,p:45,n:50,e:50,s:5},
      cargo:null,ultTier:1,aniosCargo:0,mandatoAnios:0,mandatos:0,hist:[],maxTier:0,ramas:[],kinds:[],usados:[],puntos:0,
      elecG:0,elecP:0,maxEsc:0,exTop:false,topMandatos:0,nemWins:0,fase:"evento",cola:[],ev:0,vista:"game",log:[]};
-  const pa=partidoDe();G.partido=pa[0];G.ideo=pa[3];
+  G.av={...AV_DEF,...(o.av||{})};G.ultCambio=2027;G.cambios=0;
+  if(o.modoP==="propio"&&o.mp){G.partido="PROPIO";G.miPartido={...o.mp};G.pesoPropio=1;G.crecePropio=0;G.fundo=true}
+  const pa=partidoDe();if(G.partido!=="PROPIO")G.partido=pa[0];G.ideo=pa[3];
   const pv=PROVS[G.pais].find(x=>x[0]===o.prov)||PROVS[G.pais][0];
   G.provLab=pv[0];G.prov=pv[1];G.ciudad=pv[2];G.racha=0;
   G.nemesis=nuevoRival();
   const add=ef=>{for(const k in ef)G.st[k]=clamp(G.st[k]+ef[k],0,100)};
   add(ORIGENES[G.origen].ef);add(IDEOS[G.ideo].ef);add(PESO[pa[2]].ef);
+  if(G.partido==="PROPIO"){add(IDEOLOGIAS[G.miPartido.ideo][2]);G.st.p=70}
   const rs=rangos(G.pais);let start;
   if(o.modo==="escenario"){
     const e=ESCENARIOS.find(x=>x.id===o.esc);add(e.ef);G.edad=e.edad;
@@ -1421,13 +1487,13 @@ function nueva(o){
 function setCargo(r){
   const mismo=G.cargo===r.id;
   G.cargo=r.id;G.aniosCargo=0;G.mandatoAnios=0;G.mandatos=mismo?G.mandatos+1:1;
-  if(!mismo)G.hist.push({anio:G.anio,cargo:r.nombre,tier:r.tier,kind:r.kind});
+  if(!mismo){G.hist.push({anio:G.anio,cargo:r.nombre,tier:r.tier,kind:r.kind});G.gab=null}
   G.maxTier=Math.max(G.maxTier,r.tier);
   if(!G.ramas.includes(r.rama))G.ramas.push(r.rama);
   if(!G.kinds.includes(r.kind))G.kinds.push(r.kind);
   if(r.top){G.llegoTop=true;G.topMandatos=(G.topMandatos||0)+1}
 }
-function sinCargo(motivo){const r=rk(G.cargo);G.ultTier=r?r.tier:G.ultTier;if(r?.top){G.exTop=true;G.topSalida=G.anio}G.cargo=null;G.aniosCargo=0;G.hist.push({anio:G.anio,cargo:"Sin cargo"+(motivo?" · "+motivo:""),tier:0})}
+function sinCargo(motivo){G.gab=null;const r=rk(G.cargo);G.ultTier=r?r.tier:G.ultTier;if(r?.top){G.exTop=true;G.topSalida=G.anio}G.cargo=null;G.aniosCargo=0;G.hist.push({anio:G.anio,cargo:"Sin cargo"+(motivo?" · "+motivo:""),tier:0})}
 function nuevoTurno(){
   const r=rk(G.cargo),tg=r?KIND_TAGS[r.kind]:["fuera"];
   const ok=i=>(tg.includes(EV[i].t)||EV[i].t==="g")&&(!EV[i].p||EV[i].p===G.pais)&&(!EV[i].pr||EV[i].pr===G.prov);
@@ -1473,6 +1539,7 @@ function finTurno(){
   G.st.s=clamp(G.st.s-5,0,100);
   if(r&&["terr","gob","top"].includes(r.kind))G.st.l=clamp(G.st.l-2,0,100);
   if(r&&(r.kind==="gob"||r.kind==="top"))G.st.e=clamp(G.st.e+Math.round((R()-.5)*8),0,100);
+  const gm=turnoGabinete();if(gm.length)G._gm=gm.join(" ");
   G.puntos+=r?r.tier*24:6;G.aniosCargo+=2;G.mandatoAnios+=2;G.anio+=2;G.edad+=2;
   if(G.st.p<=6)return fin("Tu partido te expulsó. Sin estructura, tu carrera termina acá.");
   if(G.st.s>=100)return fin("Procesado por la Justicia. Tu carrera termina en tribunales.");
@@ -1482,7 +1549,7 @@ function finTurno(){
   siguientePaso();
 }
 function siguientePaso(){
-  const r=rk(G.cargo);
+  const r=rk(G.cargo);if(G._gm){G.aviso=G._gm;G._gm=null}
   if(r&&r.via==="nombramiento"&&(G.st.p<18||G.st.n<12)&&R()<.7){sinCargo("renuncia");G.aviso="Te pidieron la renuncia: perdiste el apoyo para seguir en el cargo.";G.ofertas=ofertas(true);G.fase="ofertas";save();vGame();return}
   const term=r?(r.top?PAISES[G.pais].top.term:4):0;
   if(r&&r.via==="eleccion"&&G.mandatoAnios>=term){
@@ -1546,7 +1613,7 @@ function eleccion(r,reel,bonus,rival){
     if(m==="balotaje"){
       rpct=Math.round((pct-6+R()*12)*10)/10;
       if(pct>=45||(pct>=40&&pct-rpct>=10)){gano=true;txt=`Ganás en primera vuelta: ${pct}% contra ${rpct}% de ${rn}.`}
-      else{const p2=clamp(Math.round((pct+8+(R()-.5)*14+(s.l-50)*.15+(bonus||0)*.5)*10)/10,30,70);gano=p2>=50;txt=`Primera vuelta: ${pct}%. En el balotaje contra ${rn}: ${p2}% a ${Math.round((100-p2)*10)/10}%.`;pct=p2;rpct=Math.round((100-p2)*10)/10}
+      else{const p2=clamp(Math.round((pct+8+(R()-.5)*14+(s.l-50)*.15+(bonus||0)*.5)*10)/10,30,70);gano=p2>=50;G._balo=true;txt=`Primera vuelta: ${pct}%. En el balotaje contra ${rn}: ${p2}% a ${Math.round((100-p2)*10)/10}%.`;pct=p2;rpct=Math.round((100-p2)*10)/10}
     }else if(m==="colegio"){
       const ev=clamp(Math.round(270+(pct-50)*22+(R()-.5)*60),60,480);gano=ev>=270;rpct=Math.round((100-pct-3)*10)/10;txt=`${pct}% del voto popular contra ${rpct}% de ${rn}. Colegio Electoral: ${ev} a ${538-ev}.`;
     }else if(m==="escanios"){
@@ -1568,7 +1635,9 @@ function aceptar(id,reel){
     const rival=R()<.45?{...G.nemesis,nem:true}:nuevoRival();
     const jp=(r.tier>=4?["debate","debate","recorrida","fiscal"]:["recorrida","recorrida","fiscal","debate"]).filter(x=>x!==G.lastCamp);const juego=pick(jp);G.lastCamp=juego;
     G.pendElec={id:r.id,reel,prev:G.fase,rival,juego,postu:!!G.postulando};G.postulando=false;G.fase="campania";
-    if(r.top&&!reel){
+    G.pendElec.est=estimarVoto()-Math.max(0,r.tier-(rk(G.cargo)?.tier||G.ultTier||1)-1)*6;
+    if(r.top&&!reel&&G.partido==="PROPIO"){G.interna={gano:true,pct:100,rival:"",leg:100,propio:true};G.fase="interna"}
+    else if(r.top&&!reel){
       const s=G.st,cT=rk(G.cargo)?.tier||G.ultTier||1,leg=.45*s.p+.35*s.n+.2*s.l-Math.max(0,4-cT)*5,pInt=clamp((leg-32)/40,.06,.92),gano=R()<pInt;
       const N=NOMBRES[G.pais],pct=gano?Math.round((50+R()*25)*10)/10:Math.round((28+R()*21)*10)/10;
       G.interna={gano,pct,rival:pick(N[0])+" "+pick(N[1]),leg:Math.round(leg)};G.fase="interna";
@@ -1582,12 +1651,15 @@ function resolverEleccion(bonus){
   const pe=G.pendElec,r=rangos(G.pais).find(x=>x.id===pe.id);
   const res=eleccion(r,pe.reel,bonus,pe.rival);
   G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier,postu:pe.postu};G.fase="eleccion";G.pendElec=null;
-  if(res.gano){if(pe.rival.nem)G.nemWins=(G.nemWins||0)+1;setCargo(r)}
+  if(res.gano){if(pe.rival.nem)G.nemWins=(G.nemWins||0)+1;if(G._balo)G.ganoBalotaje=true;if((pe.est??60)<43)G.ganoBaja=true;
+    if(G.partido==="PROPIO"){G.crecePropio=(G.crecePropio||0)+1;const np=G.crecePropio>=6?3:G.crecePropio>=3?2:1;if(np>G.pesoPropio){G.pesoPropio=np;G.avisoPartido=`${G.miPartido.n} ya es un ${np===3?"partido grande":"partido mediano"}.`}if(r.top)G.llegoTopPropio=true}
+    setCargo(r)}
   else if(G.cargo===r.id||pe.reel||pe.prev==="mandato")sinCargo("derrota");
+  G._balo=false;
   save();vGame();
 }
 function contEleccion(){
-  const e=G.elec,post=e.postu;G.elec=null;
+  const e=G.elec,post=e.postu;G.elec=null;G.avisoPartido=null;
   if(G.racha>=3)return fin("Tres derrotas seguidas. Tu partido te soltó la mano y tu carrera se termina acá.");
   if(e.gano&&!e.reel){G.asuncion={cargo:e.cargo,tier:e.tier,via:"Elección",postu:post};G.fase="asuncion";save();vGame();return}
   if(post)return finTurno();
@@ -1599,6 +1671,18 @@ function contInterna(){
   G.pendElec=null;if(pe.prev==="mandato")sinCargo("perdió la interna");
   if(pe.postu)return finTurno();
   nuevoTurno();save();vGame();
+}
+function cambiarPartido(code){
+  const antes=partidoDe()[1];
+  G.partido=code;const pa=partidoDe();G.ideo=pa[3];
+  const nuevoP=code==="PROPIO"?62:pa[2]===3?32:pa[2]===2?38:46;
+  aplicar({l:-4,n:-3,s:4});G.st.p=nuevoP;G.cambios=(G.cambios||0)+1;G.ultCambio=G.anio;G.lastD=null;
+  if(G.nemesis.pa===pa[0])G.nemesis=nuevoRival();
+  G.hist.push({anio:G.anio,cargo:(code==="PROPIO"?"Funda ":"Se pasa a ")+pa[1],tier:0});
+  const r=rk(G.cargo);
+  if(r&&r.kind==="gob"){sinCargo("cambió de partido");G.aviso=`Dejaste ${antes} por ${pa[1]}. Te pidieron la renuncia al cargo y te tratan de traidor.`;G.ofertas=ofertas(true);G.fase="ofertas";save();vGame();return}
+  G.aviso=code==="PROPIO"?`Fundaste ${pa[1]}. Tus excompañeros de ${antes} te tratan de traidor, pero ahora el partido es tuyo.`:`Dejaste ${antes} por ${pa[1]}. Tus excompañeros te tratan de traidor.`;
+  G.fase="evento";save();vGame();
 }
 function rechazar(){G.pista=null;G.aviso=null;nuevoTurno();save();vGame()}
 
@@ -1613,7 +1697,7 @@ function fin(motivo){
   if(G.elecP===0&&G.elecG>0)logros.push("Invicto en las urnas");
   const finales=Math.round((s.l+s.i+s.n+s.e+s.p)/2-s.s);
   G.puntosFinal=Math.max(0,G.puntos+finales+logros.length*60+(G.llegoTop?250:0)+(G.topMandatos>=2?150:0)-(motivo.startsWith("Procesado")?200:0));
-  G.logros=logros;G.titulo=titulo();
+  G.logros=logros;G.titulo=titulo();G.ins=calcInsignias();
   clearSave();try{localStorage.setItem("elmandato.ultimo",JSON.stringify(G))}catch(e){}
   if(G.diario&&!G.yaJugado){try{localStorage.setItem("elmandato.diario",hoyISO())}catch(e){}}
   guardarRanking();
@@ -1688,23 +1772,9 @@ async function fotoWiki(q){
     return src;
   }catch(e){return null}
 }
-function fotoQuery(e,kind){
-  const S=SEDES[G.pais];
-  if(e&&IMG_EV[e.tit])return IMG_EV[e.tit];
-  if(e?.pr)return G.ciudad+" "+G.provLab;
-  const r=rk(G.cargo);
-  if(!kind||kind==="loc"||kind==="terr"||(kind==="leg"&&r&&r.tier<=2))return G.ciudad+" "+G.provLab;
-  return S[kind==="top"?"gob":kind]||S.gob;
-}
-function hero(q,label){
-  return `<div class="hero-img" data-q="${esc(q)}"><div class="hero-ph">${flagSVG(G.pais,60)}</div><span class="hero-l">${esc(label||"")}</span><span class="hero-cr">Foto: Wikipedia</span></div>`;
-}
-function cargarHeros(){
-  app.querySelectorAll(".hero-img[data-q]").forEach(async el=>{
-    const src=await fotoWiki(el.dataset.q);if(!src||!el.isConnected)return;
-    const img=new Image();img.alt="";img.onload=()=>{el.style.backgroundImage=`url("${src}")`;el.classList.add("on")};img.src=src;
-  });
-}
+function fotoQuery(e,kind){return tipoEscena(e,kind)}
+function hero(q,label){return escenaHTML(q,label)}
+function cargarHeros(){}
 function confeti(colores){
   if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   const c=document.createElement("canvas");c.className="confeti";document.body.appendChild(c);
@@ -1719,7 +1789,8 @@ const COLORES_PAIS={AR:["#74ACDF","#ffffff","#F6B40E"],BR:["#009C3B","#FFDF00","
 function infoBtn(key,label){return `<button type="button" class="ib" data-info="${esc(key)}" aria-label="Qué es ${esc(label||"esto")}">i</button>`}
 function abrirInfo(key){
   let t="",d="";
-  if(key.startsWith("pa:")){const [,pk,code]=key.split(":");const pa=PARTIDOS[pk].find(x=>x[0]===code);t=pa[1];const rf=REFERENTES[pk]?.[code];d=(PARTIDO_INFO[pk]?.[code]||"")+(rf?`\n\nReferente en el juego: ${rf}.`:"")+`\n\nEn el juego: ${PESO[pa[2]].n.toLowerCase()}.`}
+  if(key==="pa:propio"||key.endsWith(":PROPIO")){const mp=G?.miPartido||SET.mp;t=mp.n||"Tu partido";d=`Partido fundado por vos. Posición: ${IDEOLOGIAS[mp.ideo][0]}. Empieza chico y crece con cada elección que ganás. Como sos el fundador, no tenés interna.`}
+  else if(key.startsWith("pa:")){const [,pk,code]=key.split(":");const pa=PARTIDOS[pk].find(x=>x[0]===code);t=pa[1];const rf=REFERENTES[pk]?.[code];d=(PARTIDO_INFO[pk]?.[code]||"")+(rf?`\n\nReferente en el juego: ${rf}.`:"")+`\n\nEn el juego: ${PESO[pa[2]].n.toLowerCase()}.`}
   else if(key.startsWith("sis:")){const pk=key.slice(4);t="Cómo se elige en "+PAISES[pk].n;d=SISTEMA_INFO[pk]}
   else if(key.startsWith("or:")){const o=ORIGENES[key.slice(3)];t=o.n;d=o.d+". Cambia tus números iniciales."}
   else if(key.startsWith("ra:")){const o=RASGOS[key.slice(3)];t=o.n;d=o.d+"."}
@@ -1728,6 +1799,244 @@ function abrirInfo(key){
   $("#infoT").textContent=t;$("#infoD").textContent=d;$("#info").hidden=false;$("#infoX").focus();
 }
 document.addEventListener("click",e=>{const b=e.target.closest("[data-info]");if(b){e.preventDefault();e.stopPropagation();abrirInfo(b.dataset.info)}},true);
+
+/* ================== v6: AVATAR, PARTIDOS, ESCENAS, GABINETE, INSIGNIAS ================== */
+const AV_OPC={
+  piel:["#F6D3B3","#E8B48A","#C68A5E","#8D5A3B","#5C3A24"],
+  pelo:["Corto","Raya al costado","Largo","Recogido","Pelado","Rulos"],
+  colorPelo:["#1E1A17","#4A2E1B","#A0522D","#D9B26A","#9A9A9A"],
+  barba:["Sin barba","Bigote","Barba"],
+  anteojos:["Sin anteojos","Redondos","Rectangulares"],
+  ropa:["#1F2A44","#2E2E2E","#6B6E73","#7A1F2B","#2F5D50","#C9C2B6"],
+};
+const AV_DEF={piel:1,pelo:0,colorPelo:1,barba:0,anteojos:0,ropa:0};
+function avatarSVG(av,size=48,opt={}){
+  av={...AV_DEF,...(av||{})};
+  const sk=AV_OPC.piel[av.piel],hc=opt.canas?"#A8A8A8":AV_OPC.colorPelo[av.colorPelo],cl=AV_OPC.ropa[av.ropa],acc=opt.acc||"#C8102E";
+  const hairBack=av.pelo===2?`<path d="M30 44 Q30 17 50 17 Q70 17 70 44 L73 74 Q62 68 61 60 L39 60 Q38 68 27 74Z" fill="${hc}"/>`:"";
+  const hair=[
+    `<path d="M33 41 Q32 21 50 21 Q68 21 67 41 Q61 29 50 30 Q39 29 33 41Z" fill="${hc}"/>`,
+    `<path d="M33 43 Q30 20 52 20 Q70 22 67 43 Q64 30 56 28 L41 33 Q35 36 33 43Z" fill="${hc}"/>`,
+    `<path d="M33 39 Q37 23 50 23 Q63 23 67 39 Q59 30 50 31 Q41 30 33 39Z" fill="${hc}"/>`,
+    `<circle cx="50" cy="17" r="7" fill="${hc}"/><path d="M33 40 Q33 22 50 22 Q67 22 67 40 Q60 30 50 31 Q40 30 33 40Z" fill="${hc}"/>`,
+    `<path d="M33 46 Q32 37 36 33 L37 46Z M67 46 Q68 37 64 33 L63 46Z" fill="${hc}"/>`,
+    `<g fill="${hc}">${[[36,32],[42,25],[50,22],[58,25],[64,32],[34,40],[66,40],[46,24],[54,24]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="6"/>`).join("")}</g>`,
+  ][av.pelo];
+  const beard=["",`<path d="M43 54.5 Q50 50.5 57 54.5 Q50 52.5 43 54.5Z" fill="${hc}"/>`,`<path d="M34 46 Q35 65 50 67 Q65 65 66 46 Q62 58 50 58.5 Q38 58 34 46Z" fill="${hc}"/>`][av.barba];
+  const glasses=["",`<g fill="none" stroke="#1b1b1b" stroke-width="1.6"><circle cx="43" cy="44" r="5"/><circle cx="57" cy="44" r="5"/><path d="M48 44h4"/></g>`,`<g fill="none" stroke="#1b1b1b" stroke-width="1.6"><rect x="37.5" y="40" width="11" height="8" rx="1.5"/><rect x="51.5" y="40" width="11" height="8" rx="1.5"/><path d="M48.5 44h3"/></g>`][av.anteojos];
+  const banda=opt.banda?`<g>${opt.banda.map((c,i)=>`<path d="M${62-i*3} ${71+i*1} L${66-i*3} ${72+i*1} L${34-i*3} 100 L${30-i*3} 100Z" fill="${c}" opacity=".95"/>`).join("")}</g>`:"";
+  return `<svg class="av" width="${size}" height="${size}" viewBox="0 0 100 100" aria-hidden="true">
+   ${opt.bg!==false?`<circle cx="50" cy="50" r="50" fill="${opt.bg||"var(--sunk)"}"/>`:""}
+   <clipPath id="avc${size}"><circle cx="50" cy="50" r="50"/></clipPath><g clip-path="url(#avc${size})">
+   ${hairBack}
+   <path d="M12 102 Q15 72 50 70 Q85 72 88 102Z" fill="${cl}"/>
+   <path d="M42 71 L50 87 L58 71Z" fill="#fff"/>
+   <path d="M48.3 74 L51.7 74 L53.5 90 L50 95 L46.5 90Z" fill="${acc}"/>
+   <rect x="44" y="57" width="12" height="15" fill="${sk}"/>
+   <circle cx="33" cy="46" r="4" fill="${sk}"/><circle cx="67" cy="46" r="4" fill="${sk}"/>
+   <ellipse cx="50" cy="44" rx="17" ry="20" fill="${sk}"/>
+   ${hair}${beard}
+   <circle cx="43" cy="44" r="1.9" fill="#1b1b1b"/><circle cx="57" cy="44" r="1.9" fill="#1b1b1b"/>
+   <path d="M39.5 38.5 Q43 36.5 46.5 38.5M53.5 38.5 Q57 36.5 60.5 38.5" stroke="${hc}" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+   <path d="M45 55 Q50 58.5 55 55" stroke="#7a3b2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+   ${glasses}${banda}</g></svg>`;
+}
+
+/* Colores de partidos reales (solo colores, sin logos) */
+const PCOLOR={
+ AR:{LLA:["#6B2FA0","#F2C230"],PJ:["#3A8DDE","#FFFFFF"],PRO:["#F7D117","#1F1F1F"],UCR:["#D52B1E","#FFFFFF"],PU:["#1A9E8F","#FFFFFF"],FIT:["#C8102E","#FFFFFF"]},
+ BR:{PT:["#C8102E","#FFFFFF"],PL:["#1F4E9C","#F2C230"],MDB:["#2E8B57","#FFD200"],PSD:["#F28C28","#FFFFFF"],"UNIÃO":["#0B3D91","#FFFFFF"],PSOL:["#F5D000","#C8102E"]},
+ CL:{REP:["#0E3A6E","#FFFFFF"],FA:["#3FB27F","#FFFFFF"],PS:["#E2231A","#FFFFFF"],RN:["#1D4F91","#FFFFFF"],UDI:["#1F64A6","#F2C230"],PC:["#B5121B","#FFD200"]},
+ UY:{FA:["#1E3A8A","#E11D2E"],PN:["#F4F4F4","#1D4F91"],PC:["#D52B1E","#FFFFFF"],CA:["#1F6F3F","#FFFFFF"],IP:["#5B2C83","#FFFFFF"]},
+ MX:{MORENA:["#8B1E2D","#FFFFFF"],PAN:["#0A3D91","#FFFFFF"],PRI:["#0A7A3D","#E2231A"],MC:["#F47920","#FFFFFF"],PVEM:["#3BAA35","#FFFFFF"]},
+ US:{DEM:["#1A4DA1","#FFFFFF"],REP:["#C8102E","#FFFFFF"],LIB:["#F2C230","#1F1F1F"]},
+ ES:{PP:["#1D84C6","#FFFFFF"],PSOE:["#E30613","#FFFFFF"],VOX:["#5BC035","#FFFFFF"],SUMAR:["#E5007D","#FFFFFF"],PNV:["#0A7A3D","#E2231A"],JUNTS:["#1BB5B5","#FFFFFF"]},
+ UK:{LAB:["#E4003B","#FFFFFF"],CON:["#0087DC","#FFFFFF"],REF:["#12B6CF","#FFFFFF"],LD:["#FAA61A","#1F1F1F"],SNP:["#FDF38E","#1F1F1F"],GRN:["#02A95B","#FFFFFF"]},
+};
+const IDEOLOGIAS=[["Extrema izquierda","izq",{l:2,n:-4}],["Izquierda","izq",{}],["Centroizquierda","izq",{n:2}],["Centro","centro",{n:3}],["Centroderecha","der",{n:2}],["Derecha","der",{}],["Extrema derecha","der",{l:2,n:-4}],["Libertario","der",{e:2,n:-2}],["Ecologista","izq",{i:3}],["Regionalista","centro",{l:3,i:-2}],["Humanista","centro",{n:2,i:1}],["Populista","centro",{l:4,n:-3}]];
+const LOGO_FORMAS=["Círculo","Escudo","Rombo","Bandera"];
+const LOGO_SIMB=["Estrella","Sol","Hoja","Llama","Rayo","Anillos","Solo sigla"];
+const LOGO_COL=["#C8102E","#1D4F91","#F2C230","#2E8B57","#6B2FA0","#F47920","#1BB5B5","#1F1F1F","#FFFFFF"];
+function simbolo(i,c){
+  switch(i){
+    case 0:return `<polygon points="30,14 34.7,25.5 47,26 37.5,33.8 40.6,46 30,39 19.4,46 22.5,33.8 13,26 25.3,25.5" fill="${c}"/>`;
+    case 1:return `<g fill="${c}" stroke="${c}"><circle cx="30" cy="30" r="8"/>${Array.from({length:12},(_,k)=>{const a=k*Math.PI/6;return`<line x1="${30+Math.cos(a)*11}" y1="${30+Math.sin(a)*11}" x2="${30+Math.cos(a)*17}" y2="${30+Math.sin(a)*17}" stroke-width="2.4" stroke-linecap="round"/>`}).join("")}</g>`;
+    case 2:return `<path d="M30 13 Q46 22 42 38 Q38 46 30 47 Q22 46 18 38 Q14 22 30 13Z" fill="${c}"/><path d="M30 18 V45" stroke="rgba(0,0,0,.25)" stroke-width="1.5"/>`;
+    case 3:return `<path d="M30 12 Q42 26 38 38 Q35 47 30 47 Q25 47 22 38 Q19 28 27 22 Q27 30 31 31 Q28 22 30 12Z" fill="${c}"/>`;
+    case 4:return `<polygon points="34,11 20,33 29,33 25,49 41,25 31,25" fill="${c}"/>`;
+    case 5:return `<g fill="none" stroke="${c}" stroke-width="3"><circle cx="24" cy="30" r="9"/><circle cx="36" cy="30" r="9"/></g>`;
+  }
+  return "";
+}
+function badgeSVG(code,size=40,pk){
+  pk=pk||G?.pais||SET.pais;
+  let f=0,c1,c2,sym=6,sig=code;
+  if(code==="PROPIO"){const mp=(G&&G.miPartido)||SET.mp;f=mp.forma;c1=LOGO_COL[mp.c1];c2=LOGO_COL[mp.c2];sym=mp.simb;sig=mp.sigla||"?"}
+  else{[c1,c2]=PCOLOR[pk]?.[code]||["#6B6E73","#FFFFFF"];sig=code==="IND"?"IND":code}
+  const shape=[`<circle cx="30" cy="30" r="27" fill="${c1}" stroke="${c2}" stroke-width="3"/>`,
+    `<path d="M30 3 L54 11 V29 Q54 47 30 57 Q6 47 6 29 V11Z" fill="${c1}" stroke="${c2}" stroke-width="3"/>`,
+    `<polygon points="30,2 58,30 30,58 2,30" fill="${c1}" stroke="${c2}" stroke-width="3"/>`,
+    `<rect x="3" y="9" width="54" height="42" rx="4" fill="${c1}" stroke="${c2}" stroke-width="3"/>`][f];
+  const fs=sig.length<=3?17:sig.length<=4?14:sig.length<=5?11.5:9.5;
+  const inner=sym===6?`<text x="30" y="${30+fs*.36}" text-anchor="middle" font-family="Big Shoulders Display, Arial Narrow, sans-serif" font-weight="800" font-size="${fs}" fill="${c2}">${esc(sig)}</text>`:simbolo(sym,c2);
+  return `<svg class="badge" width="${size}" height="${size}" viewBox="0 0 60 60" aria-hidden="true">${shape}${inner}</svg>`;
+}
+const MARCA=`<svg class="marca" width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="9" fill="var(--accent)"/><rect x="9" y="19" width="22" height="14" rx="2" fill="var(--accent-ink)"/><rect x="14" y="18" width="12" height="2.6" rx="1.3" fill="var(--accent)"/><path d="M15 7 h10 v11 h-10z" fill="var(--accent-ink)" transform="rotate(-8 20 12)"/><polygon points="20,9.6 21.2,12.3 24,12.5 21.9,14.3 22.6,17 20,15.5 17.4,17 18.1,14.3 16,12.5 18.8,12.3" fill="var(--seal)" transform="rotate(-8 20 12)"/></svg>`;
+
+/* Escenas ilustradas */
+function tipoEscena(e,kind){
+  const t=((e?.tit||"")+" "+(e?.txt||"")).toLowerCase();
+  if(/inund|crece|agua|dana|lluvia|sequ|represa|hurac/.test(t))return"agua";
+  if(/incendi|fuego/.test(t))return"fuego";
+  if(/paro|huelga|marcha|corte|piquete|protest|acampe|recolector/.test(t))return"protesta";
+  if(/dólar|inflaci|cambiari|precio|cobre|deuda|crédito|presupuesto|impuesto|arancel|tlc|tratado/.test(t))return"economia";
+  if(/onu|g20|cumbre|otan|visita de estado|misión de paz/.test(t))return"cumbre";
+  if(/escánd|coima|filtr|sobreprec|aporte|viaje oficial|fondos públicos/.test(t))return"escandalo";
+  if(!kind)return"cafe";
+  return{loc:"municipio",leg:"congreso",terr:"ciudad",gob:"gobierno",top:"gobierno",dip:"embajada"}[kind]||"ciudad";
+}
+function escenaSVG(tipo){
+  const c=COLORES_PAIS[G.pais]||["#888","#ccc","#444"],c1=c[0],c2=c[2]||c[1];
+  const flag=(x,y,h=34)=>`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+h}" class="sc-ink" stroke-width="1.6"/><svg x="${x+1}" y="${y}" width="24" height="16" viewBox="0 0 30 20">${flagSVG(G.pais,30).replace(/^<svg[^>]*>|<\/svg>$/g,"")}</svg>`;
+  const gente=(y,n,seed=1)=>Array.from({length:n},(_,i)=>{const x=(i*37+seed*13)%400,h=6+(i*7%5);return`<circle cx="${x}" cy="${y-h-3}" r="3.2" class="sc-ppl"/><rect x="${x-3.5}" y="${y-h}" width="7" height="${h}" rx="2" class="sc-ppl"/>`}).join("");
+  const ventanas=(x,y,w,h)=>{let o="";for(let i=x+5;i<x+w-6;i+=10)for(let j=y+6;j<y+h-6;j+=11)o+=`<rect x="${i}" y="${j}" width="4" height="6" class="sc-win"/>`;return o};
+  const skyline=Array.from({length:12},(_,i)=>{const h=30+((i*53)%60),w=26+((i*17)%14),x=i*34-6;return`<rect x="${x}" y="${130-h}" width="${w}" height="${h}" class="sc-far"/>`}).join("");
+  const base=`<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sc-sky1"/><stop offset="1" class="sc-sky2"/></linearGradient></defs><rect width="400" height="170" fill="url(#sky)"/>`;
+  const suelo=`<rect y="130" width="400" height="40" class="sc-ground"/>`;
+  const S={
+    municipio:`${skyline}${suelo}<rect x="150" y="70" width="100" height="60" class="sc-bld"/><rect x="185" y="40" width="30" height="34" class="sc-bld2"/><circle cx="200" cy="55" r="8" class="sc-win"/><path d="M200 55 v-5 M200 55 h4" class="sc-ink" stroke-width="1.4"/>${ventanas(150,78,100,50)}<rect x="192" y="108" width="16" height="22" class="sc-door"/>${flag(240,36)}<circle cx="120" cy="118" r="14" class="sc-tree"/><rect x="118" y="118" width="4" height="12" class="sc-ink"/><circle cx="285" cy="116" r="16" class="sc-tree"/><rect x="283" y="116" width="4" height="14" class="sc-ink"/>${gente(140,9,2)}`,
+    ciudad:`${skyline}${suelo}${[[60,60,50],[115,40,44],[165,75,60],[230,50,48],[285,68,56],[345,45,40]].map(([x,h,w])=>`<rect x="${x}" y="${130-h-20}" width="${w}" height="${h+20}" class="sc-bld"/>${ventanas(x,130-h-20,w,h+20)}`).join("")}${flag(178,20)}${gente(145,8,4)}`,
+    congreso:`${skyline}${suelo}<rect x="80" y="88" width="240" height="42" class="sc-bld"/><rect x="70" y="80" width="260" height="10" class="sc-bld2"/>${Array.from({length:10},(_,i)=>`<rect x="${92+i*23}" y="92" width="8" height="36" class="sc-col"/>`).join("")}<rect x="160" y="58" width="80" height="24" class="sc-bld"/><path d="M165 58 Q200 14 235 58Z" class="sc-dome"/><rect x="197" y="10" width="6" height="12" class="sc-bld2"/>${flag(200,-6,18)}<rect x="60" y="128" width="280" height="5" class="sc-bld2"/>${gente(150,7,3)}`,
+    gobierno:`${skyline}${suelo}<rect x="100" y="66" width="200" height="64" class="sc-bld"/><rect x="92" y="58" width="216" height="10" class="sc-bld2"/>${ventanas(100,72,200,40)}<rect x="170" y="86" width="60" height="6" class="sc-bld2"/><rect x="180" y="74" width="40" height="14" class="sc-door"/><rect x="186" y="104" width="28" height="26" class="sc-door"/>${flag(200,24)}${gente(150,14,1)}${gente(162,12,5)}`,
+    embajada:`${skyline}${suelo}<rect x="120" y="70" width="160" height="60" class="sc-bld"/><polygon points="110,72 200,44 290,72" class="sc-bld2"/>${Array.from({length:6},(_,i)=>`<rect x="${136+i*24}" y="78" width="8" height="50" class="sc-col"/>`).join("")}${flag(96,40)}<line x1="304" y1="40" x2="304" y2="74" class="sc-ink" stroke-width="1.6"/><rect x="305" y="40" width="24" height="16" class="sc-acc"/><circle cx="352" cy="72" r="18" class="sc-globe"/><path d="M334 72h36M352 54v36M340 60q12 12 0 24M364 60q-12 12 0 24" class="sc-ink" stroke-width="1.2" fill="none"/>`,
+    protesta:`${skyline}${suelo}${Array.from({length:7},(_,i)=>`<line x1="${40+i*52}" y1="${80+(i%3)*8}" x2="${40+i*52}" y2="128" class="sc-ink" stroke-width="2"/><rect x="${22+i*52}" y="${66+(i%3)*8}" width="36" height="22" rx="2" class="${i%2?"sc-acc":"sc-sign"}"/>`).join("")}<rect x="120" y="96" width="160" height="22" rx="3" style="fill:${c1}"/><text x="200" y="112" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-weight="800" font-size="14" fill="#fff">¡QUEREMOS RESPUESTAS!</text>${gente(140,16,2)}${gente(156,14,6)}`,
+    agua:`${skyline}<rect y="112" width="400" height="58" class="sc-water"/>${Array.from({length:8},(_,i)=>`<path d="M${i*52} ${124+(i%2)*10} q13 -7 26 0 t26 0" class="sc-wave" fill="none" stroke-width="2.2"/>`).join("")}${[[70,50],[150,64],[250,44],[320,58]].map(([x,h])=>`<rect x="${x}" y="${118-h}" width="40" height="${h}" class="sc-bld"/>${ventanas(x,118-h,40,h)}`).join("")}${Array.from({length:30},(_,i)=>`<line x1="${(i*29)%400}" y1="${(i*17)%80}" x2="${(i*29)%400-6}" y2="${(i*17)%80+14}" class="sc-rain" stroke-width="1.3"/>`).join("")}`,
+    fuego:`<path d="M0 130 Q60 70 130 110 Q200 60 270 105 Q330 70 400 115 V170 H0Z" class="sc-hill"/>${Array.from({length:9},(_,i)=>`<path d="M${30+i*42} 128 q10 -30 6 -46 q16 18 14 46z" class="sc-fire"/><path d="M${36+i*42} 128 q5 -16 3 -24 q9 10 8 24z" class="sc-fire2"/>`).join("")}${Array.from({length:6},(_,i)=>`<circle cx="${60+i*60}" cy="${40+(i%2)*14}" r="${18+(i%3)*6}" class="sc-smoke"/>`).join("")}`,
+    economia:`${skyline}${suelo}<rect x="60" y="22" width="280" height="96" rx="6" class="sc-board"/><polyline points="80,96 120,80 160,88 200,58 240,70 280,40 320,52" fill="none" style="stroke:${c1}" stroke-width="4" stroke-linejoin="round"/><polyline points="80,104 120,100 160,106 200,94 240,104 280,92 320,100" fill="none" class="sc-line2" stroke-width="2.5"/>${[90,140,190,240,290].map(x=>`<line x1="${x}" y1="30" x2="${x}" y2="112" class="sc-grid"/>`).join("")}<circle cx="352" cy="140" r="11" class="sc-coin"/><circle cx="372" cy="146" r="11" class="sc-coin"/><text x="352" y="145" text-anchor="middle" font-size="12" font-weight="700" class="sc-cointx">$</text>`,
+    cumbre:`${skyline}${suelo}<rect x="70" y="96" width="260" height="14" rx="7" class="sc-bld2"/>${[c1,"#C8102E","#1D4F91","#F2C230","#2E8B57","#6B2FA0"].map((col,i)=>`<line x1="${88+i*45}" y1="44" x2="${88+i*45}" y2="96" class="sc-ink" stroke-width="1.6"/><rect x="${89+i*45}" y="44" width="22" height="14" style="fill:${col}"/>`).join("")}${Array.from({length:6},(_,i)=>`<circle cx="${92+i*44}" cy="88" r="7" class="sc-ppl"/>`).join("")}`,
+    escandalo:`${skyline}${suelo}<rect x="110" y="26" width="180" height="104" rx="3" class="sc-paper"/><rect x="122" y="36" width="156" height="16" class="sc-ink"/><text x="200" y="48.5" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-weight="800" font-size="13" fill="#fff">ÚLTIMO MOMENTO</text><rect x="122" y="58" width="70" height="44" class="sc-grid2"/>${[60,68,76,84,92,100].map(y=>`<rect x="200" y="${y}" width="78" height="3" class="sc-grid2"/>`).join("")}<text x="200" y="120" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-weight="800" font-size="16" class="sc-red">ESCÁNDALO</text>${Array.from({length:5},(_,i)=>`<circle cx="${40+i*80}" cy="150" r="9" class="sc-flash"/>`).join("")}`,
+    cafe:`${skyline}${suelo}<rect x="120" y="96" width="160" height="10" rx="5" class="sc-bld2"/><rect x="190" y="106" width="20" height="24" class="sc-ink"/><rect x="150" y="70" width="24" height="26" rx="3" class="sc-paper"/><path d="M174 76 q10 0 10 8 q0 8 -10 8" fill="none" class="sc-ink" stroke-width="2"/><path d="M156 62 q4 -8 0 -14 M166 62 q4 -8 0 -14" class="sc-smk" fill="none" stroke-width="2"/><rect x="200" y="72" width="60" height="24" rx="2" class="sc-paper"/>${[78,84,90].map(y=>`<rect x="206" y="${y}" width="48" height="2.5" class="sc-grid2"/>`).join("")}`,
+    urna:`${skyline}${suelo}<rect x="150" y="70" width="100" height="60" rx="4" class="sc-board"/><rect x="180" y="66" width="40" height="6" rx="3" class="sc-ink"/><rect x="186" y="34" width="28" height="36" class="sc-paper" transform="rotate(-6 200 52)"/><path d="M193 48 l5 5 l9 -11" style="stroke:${c1}" stroke-width="3" fill="none" transform="rotate(-6 200 52)"/>${flag(270,64)}${gente(150,10,7)}`,
+  };
+  return `<svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true">${base}${S[tipo]||S.ciudad}</svg>`;
+}
+function escenaHTML(tipo,label){return `<div class="scene sc-${tipo}">${escenaSVG(tipo)}<span class="hero-l">${esc(label||"")}</span></div>`}
+
+/* Creador de partido (setup y en juego) */
+function creadorPartidoHTML(mp){
+  return `<div class="creador">
+   <div class="cr-prev">${badgeSVG("PROPIO",78)}<div><b id="mpN">${esc(mp.n||"Tu partido")}</b><span class="muted" id="mpS">${esc(mp.sigla||"")} · ${esc(IDEOLOGIAS[mp.ideo][0])}</span></div></div>
+   <div class="row2"><div class="field"><label for="mpNombre">Nombre del partido</label><input type="text" id="mpNombre" maxlength="40" value="${esc(mp.n)}" placeholder="Ej: Movimiento Federal Renovador"></div>
+   <div class="field"><label for="mpSigla">Sigla</label><input type="text" id="mpSigla" maxlength="6" value="${esc(mp.sigla)}" placeholder="MFR" style="text-transform:uppercase;max-width:140px"></div></div>
+   <div class="field"><label for="mpIdeo">Posición</label><select id="mpIdeo" class="sel">${IDEOLOGIAS.map((x,i)=>`<option value="${i}"${mp.ideo===i?" selected":""}>${x[0]}</option>`).join("")}</select></div>
+   <div class="field"><span class="lab">Forma del logo</span><div class="chips">${LOGO_FORMAS.map((x,i)=>`<button type="button" class="chip" data-mf="${i}" aria-pressed="${mp.forma===i}">${x}</button>`).join("")}</div></div>
+   <div class="field"><span class="lab">Símbolo</span><div class="chips">${LOGO_SIMB.map((x,i)=>`<button type="button" class="chip" data-ms="${i}" aria-pressed="${mp.simb===i}">${x}</button>`).join("")}</div></div>
+   <div class="field"><span class="lab">Color principal</span><div class="swatches">${LOGO_COL.map((x,i)=>`<button type="button" class="sw" data-mc1="${i}" aria-pressed="${mp.c1===i}" style="background:${x}" aria-label="Color ${i+1}"></button>`).join("")}</div></div>
+   <div class="field"><span class="lab">Color del símbolo</span><div class="swatches">${LOGO_COL.map((x,i)=>`<button type="button" class="sw" data-mc2="${i}" aria-pressed="${mp.c2===i}" style="background:${x}" aria-label="Color ${i+1}"></button>`).join("")}</div></div>
+  </div>`;
+}
+function bindCreador(mp,rerender){
+  const n=$("#mpNombre"),sg=$("#mpSigla");
+  n.oninput=()=>{mp.n=n.value;$("#mpN").textContent=mp.n||"Tu partido"};
+  sg.oninput=()=>{mp.sigla=sg.value.toUpperCase().replace(/[^A-ZÁÉÍÓÚÑ0-9]/g,"").slice(0,6);sg.value=mp.sigla;const bx=$(".cr-prev .badge");if(bx)bx.outerHTML=badgeSVG("PROPIO",78);$("#mpS").textContent=mp.sigla+" · "+IDEOLOGIAS[mp.ideo][0]};
+  $("#mpIdeo").onchange=e=>{mp.ideo=+e.target.value;rerender()};
+  app.querySelectorAll("[data-mf]").forEach(b=>b.onclick=()=>{mp.forma=+b.dataset.mf;rerender()});
+  app.querySelectorAll("[data-ms]").forEach(b=>b.onclick=()=>{mp.simb=+b.dataset.ms;rerender()});
+  app.querySelectorAll("[data-mc1]").forEach(b=>b.onclick=()=>{mp.c1=+b.dataset.mc1;rerender()});
+  app.querySelectorAll("[data-mc2]").forEach(b=>b.onclick=()=>{mp.c2=+b.dataset.mc2;rerender()});
+}
+function editorAvatarHTML(av){
+  const row=(k,lab,opts,sw)=>`<div class="field"><span class="lab">${lab}</span><div class="${sw?"swatches":"chips"}">${opts.map((x,i)=>sw?`<button type="button" class="sw" data-av="${k}" data-v="${i}" aria-pressed="${av[k]===i}" style="background:${x}" aria-label="${lab} ${i+1}"></button>`:`<button type="button" class="chip" data-av="${k}" data-v="${i}" aria-pressed="${av[k]===i}">${x}</button>`).join("")}</div></div>`;
+  return `<div class="av-ed"><div class="av-prev">${avatarSVG(av,120,{acc:"var(--accent)"})}</div><div class="av-opts">
+   ${row("piel","Tono de piel",AV_OPC.piel,true)}${row("pelo","Pelo",AV_OPC.pelo)}${row("colorPelo","Color de pelo",AV_OPC.colorPelo,true)}${row("barba","Barba",AV_OPC.barba)}${row("anteojos","Anteojos",AV_OPC.anteojos)}${row("ropa","Ropa",AV_OPC.ropa,true)}
+  </div></div>`;
+}
+
+/* Gabinete */
+const PERFILES={Leal:{sk:1,lo:3,in:2,d:"Fiel hasta el final, pero no es un genio."},"Técnico":{sk:3,lo:2,in:3,d:"Sabe muchísimo y es prolijo. Poco carisma."},Ambicioso:{sk:3,lo:0,in:2,d:"Muy capaz, pero quiere tu silla."},"Polémico":{sk:2,lo:2,in:0,d:"Mediático y efectivo, con cola de paja."}};
+function areasGab(r){return r.top?["Economía","Interior","Cancillería"]:["Economía","Seguridad","Comunicación"]}
+function gabElegible(r){return r&&(r.top||(r.kind==="terr"&&r.tier>=3))}
+function candidatosGab(area){
+  const N=NOMBRES[G.pais],ps=shuffle(Object.keys(PERFILES)).slice(0,3);
+  return ps.map(p=>({n:pickM(N[0])+" "+pickM(N[1]),perfil:p,area}));
+}
+function efectoArea(area,sk){return{"Economía":{e:Math.round(sk*.8)},"Seguridad":{l:Math.round(sk*.6)},"Interior":{l:Math.round(sk*.5),n:Math.round(sk*.3)},"Comunicación":{l:Math.round(sk*.7)},"Cancillería":{i:Math.round(sk*.8)}}[area]}
+function turnoGabinete(){
+  if(!G.gab)return [];
+  const msgs=[];
+  for(const area of Object.keys(G.gab.miembros)){
+    const m=G.gab.miembros[area];if(!m)continue;const P=PERFILES[m.perfil];
+    const ef=efectoArea(area,P.sk);for(const k in ef)G.st[k]=clamp(G.st[k]+ef[k],0,100);
+    if(Math.random()<(3-P.lo)*.07){G.st.l=clamp(G.st.l-4,0,100);G.st.p=clamp(G.st.p-3,0,100);msgs.push(`${m.n} renunció a ${area} y salió a criticarte en los medios.`);G.gab.miembros[area]=null;G.traicionado=true;continue}
+    if(Math.random()<(3-P.in)*.06){G.st.s=clamp(G.st.s+8,0,100);G.st.l=clamp(G.st.l-2,0,100);msgs.push(`Estalla un escándalo con ${m.n}, tu responsable de ${area}.`)}
+  }
+  return msgs;
+}
+
+/* Insignias permanentes */
+const INSIGNIAS=[
+ ["primera","Primera victoria","Ganaste tu primera elección."],
+ ["balotaje","Balotaje","Ganaste una segunda vuelta."],
+ ["remontada","La remontada","Ganaste una elección con chances bajas."],
+ ["cima","La cima","Llegaste a jefe de gobierno."],
+ ["reelecto","Reelecto","Ganaste una reelección en la cima."],
+ ["archirrival","Archirrival vencido","Le ganaste a tu archirrival en las urnas."],
+ ["tres_ramas","Todoterreno","Pasaste por política territorial, gobierno y diplomacia."],
+ ["fundador","Fundador","Fundaste tu propio partido."],
+ ["fundador_cima","Tu partido al poder","Llegaste a la cima con un partido propio."],
+ ["panqueque","Panqueque","Te cambiaste de partido dos veces o más."],
+ ["invicto","Invicto","Terminaste con 3 o más elecciones ganadas y ninguna perdida."],
+ ["sobreviviente","Sobreviviente","Superaste un escándalo grave."],
+ ["prontuario","Prontuario","Terminaste procesado por la Justicia."],
+ ["expulsado","Expulsado","Tu partido te echó."],
+ ["traicionado","Traicionado","Alguien de tu gabinete te clavó un puñal."],
+ ["perfecto","Mano de cirujano","Hiciste perfecto un desafío."],
+ ["longevo","Hasta el final","Llegaste a los 74 en actividad."],
+];
+function insigniasGuardadas(){try{return JSON.parse(localStorage.getItem("elmandato.insignias")||"{}")}catch(e){return {}}}
+function calcInsignias(){
+  const s=G.st,f=G.fin||"",out=[];
+  const add=id=>out.push(id);
+  if(G.elecG>=1)add("primera");if(G.ganoBalotaje)add("balotaje");if(G.ganoBaja)add("remontada");
+  if(G.llegoTop)add("cima");if(G.topMandatos>=2)add("reelecto");if(G.nemWins)add("archirrival");
+  if(G.ramas.length>=3)add("tres_ramas");if(G.fundo)add("fundador");if(G.llegoTopPropio)add("fundador_cima");
+  if((G.cambios||0)>=2)add("panqueque");if(G.elecP===0&&G.elecG>=3)add("invicto");
+  if(G.maxEsc>=60&&s.s<40&&!f.startsWith("Procesado"))add("sobreviviente");
+  if(f.startsWith("Procesado"))add("prontuario");if(f.startsWith("Tu partido te expulsó"))add("expulsado");
+  if(G.traicionado)add("traicionado");if(G.perfecto)add("perfecto");if(f.startsWith("Llegó la hora"))add("longevo");
+  const prev=insigniasGuardadas(),nuevas=out.filter(x=>!prev[x]);
+  out.forEach(x=>{if(!prev[x])prev[x]=hoyISO()});try{localStorage.setItem("elmandato.insignias",JSON.stringify(prev))}catch(e){}
+  return {todas:out,nuevas};
+}
+function insigniaHTML(id,on,nueva){const x=INSIGNIAS.find(y=>y[0]===id);return `<div class="ins${on?" on":""}${nueva?" new":""}" title="${esc(x[2])}"><span class="ins-i">${esc(x[1].split(" ").map(w=>w[0]).join("").slice(0,2))}</span><b>${esc(x[1])}</b><span>${esc(x[2])}</span></div>`}
+
+/* Tarjeta para compartir */
+async function tarjetaPNG(){
+  const W=1080,H=1350,cv=document.createElement("canvas");cv.width=W;cv.height=H;const x=cv.getContext("2d");
+  try{await document.fonts.ready}catch(e){}
+  const col=COLORES_PAIS[G.pais];
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,"#0E141C");g.addColorStop(1,"#1B2A40");x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.fillStyle=col[0];x.fillRect(0,0,W,18);x.fillStyle=col[col.length-1];x.fillRect(0,H-18,W,18);
+  const load=svg=>new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.onerror=()=>r(null);i.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg.replace('<svg ','<svg xmlns="http://www.w3.org/2000/svg" ').replace(/var\(--sunk\)/g,"#26364f").replace(/var\(--accent\)/g,"#86ADE3"))});
+  const av=await load(avatarSVG(G.av,420,{banda:G.llegoTop?col:null,acc:(PCOLOR[G.pais]?.[G.partido]||[G.miPartido?LOGO_COL[G.miPartido.c1]:"#C8102E"])[0],canas:G.edad>=62}));
+  if(av)x.drawImage(av,W/2-210,140,420,420);
+  const fl=await load(flagSVG(G.pais,90));if(fl)x.drawImage(fl,80,80,90,60);
+  const bd=await load(badgeSVG(G.partido,90));if(bd)x.drawImage(bd,W-170,70,90,90);
+  x.textAlign="center";x.fillStyle="#E5E9EF";
+  x.font="500 34px 'IBM Plex Mono', monospace";x.fillText("EL MANDATO · "+PAISES[G.pais].n.toUpperCase(),W/2,116);
+  x.font="600 44px 'IBM Plex Sans', sans-serif";x.fillText(G.nombre,W/2,630);
+  x.fillStyle="#E5867A";x.font="800 110px 'Big Shoulders Display', 'Arial Narrow', sans-serif";
+  const t=G.titulo.toUpperCase();const words=t.split(" ");let line="",y=760;const lines=[];
+  for(const w of words){const test=line?line+" "+w:w;if(x.measureText(test).width>W-140&&line){lines.push(line);line=w}else line=test}lines.push(line);
+  lines.forEach((l,i)=>x.fillText(l,W/2,y+i*104));y+=lines.length*104;
+  x.fillStyle="#E5E9EF";x.font="500 40px 'IBM Plex Mono', monospace";x.fillText(G.puntosFinal.toLocaleString("es-AR")+" puntos",W/2,y+10);
+  x.font="400 32px 'IBM Plex Sans', sans-serif";x.fillStyle="#97A2B2";
+  const tray=G.hist.filter(h=>h.tier>0).map(h=>h.cargo);const top=[...new Set(tray)].slice(-4).join(" → ");
+  const tl=[];let ln="";for(const w of top.split(" ")){const ts=ln?ln+" "+w:w;if(x.measureText(ts).width>W-160&&ln){tl.push(ln);ln=w}else ln=ts}tl.push(ln);
+  tl.slice(0,3).forEach((l,i)=>x.fillText(l,W/2,y+80+i*44));
+  x.fillStyle="#86ADE3";x.font="600 34px 'IBM Plex Mono', monospace";x.fillText("el-mandato.vercel.app",W/2,H-60);
+  return new Promise(r=>cv.toBlob(r,"image/png"));
+}
 
 /* ================== VISTA DE JUEGO ================== */
 const STC={l:"Local",i:"Mundo",p:"Partido",n:"Instit.",e:"Economía",s:"Escándalo"};
@@ -1739,7 +2048,7 @@ function hud(){
   const steps=[1,2,3,4,5,6].map(n=>`<i class="${n<t?"on":n===t?"now":""}" title="Nivel ${n}"></i>`).join("");
   return `<header class="hud">
    <div class="hud-top">
-    <div class="me"><span class="avatar" aria-hidden="true">${esc(iniciales(G.nombre))}<span class="av-flag">${flagSVG(G.pais,20)}</span></span><div class="me-t"><b>${esc(G.nombre)}</b><span>${r?esc(r.nombre):"Sin cargo"} · ${esc(pa[0])} ${r?infoBtn("k_"+r.kind,"este cargo"):""}</span></div></div>
+    <div class="me"><span class="avatar" aria-hidden="true">${avatarSVG(G.av,46,{acc:colorPartido(),banda:r?.top?COLORES_PAIS[G.pais]:null,canas:G.edad>=62})}<span class="av-flag">${flagSVG(G.pais,20)}</span></span><div class="me-t"><b>${esc(G.nombre)}</b><span>${r?esc(r.nombre):"Sin cargo"} ${r?infoBtn("k_"+r.kind,"este cargo"):""}</span><small class="pa-line">${badgeSVG(G.partido,18)} ${esc(pa[1])}</small></div></div>
     <div class="hud-meta"><b>${G.anio}</b><span>${G.edad} años</span></div>
    </div>
    <div class="ladder2" aria-label="Escalafón: nivel ${t} de 6">${steps}<span>${t?"Nivel "+t+(t===6?" · la cima":""):"En el llano"} ${infoBtn("escalafon","escalafón")}</span></div>
@@ -1790,34 +2099,53 @@ function vGame(){
     <p class="txt">Te podés presentar a cualquier cargo electivo. Cuanto más grande el salto desde tu cargo actual, menos chances. Si perdés conservás tu cargo, pero se te van dos años. Ojo: tres derrotas seguidas y tu partido te suelta la mano.</p>
     <div class="choices">${ops.map(x=>{const gap=Math.max(0,x.tier-cur-1),est=estimarVoto()-gap*6-(x.top?4:0)-x.tier*0.6;const ch=est>=48?"altas":est>=43?"medias":est>=37?"bajas":"casi nulas";return `<div class="offer"><div><b>${esc(x.nombre)}</b><span>${x.top?"Interna y elección nacional":"Elección"} · chances ${ch}</span></div><button class="btn sm ${x.top?"primary":""}" data-post="${x.id}">Postularme</button></div>`}).join("")}
     <div class="offer"><div><b>Mejor no</b><span>Volvés a la agenda</span></div><button class="btn sm ghost" id="bPostNo">Volver</button></div></div>`;
+  }else if(G.fase==="gabinete"){
+    const areas=Object.keys(G.gab.cand),sel=G.gab.sel||{},listo=areas.every(a=>sel[a]!=null);
+    body=`${escenaHTML("gobierno","Armado del equipo")}<div class="dl"><span>Tu gabinete</span></div><h2>Elegí tu equipo</h2>
+    <p class="txt">Cada área suma algo por turno según el perfil. Los leales no te traicionan; los ambiciosos rinden pero pueden saltar; los polémicos traen escándalos.</p>
+    ${areas.map(a=>`<div class="gab-a"><span class="lab">${esc(a)}</span><div class="gab-c">${G.gab.cand[a].map((c,i)=>`<button type="button" class="gab-o" data-gab="${esc(a)}|${i}" aria-pressed="${sel[a]===i}"><b>${esc(c.n)}</b><span class="tag">${c.perfil}</span><small>${PERFILES[c.perfil].d}</small></button>`).join("")}</div></div>`).join("")}
+    <div class="gbar"><span class="muted">${listo?"Equipo completo.":"Elegí una persona por área."}</span><button class="btn primary" id="bGabOk" ${listo?"":"disabled"}>Confirmar equipo</button></div>`;
+  }else if(G.fase==="cambio"){
+    const ops=PARTIDOS[G.pais].filter(x=>x[0]!==G.partido);
+    body=`<div class="dl"><span>Cambio de partido</span></div><h2>¿A dónde te vas?</h2>
+    <p class="txt">Cambiarte tiene costo: arrancás con poco apoyo en el partido nuevo, tu imagen cae y te tratan de traidor. Si tenés un cargo nombrado por el gobierno, lo perdés. Después tenés que esperar 4 años para volver a cambiar.</p>
+    <div class="choices">${ops.map(x=>`<div class="offer"><div class="of-pa">${badgeSVG(x[0],34)}<div><b>${esc(x[1])}</b><span>${PESO[x[2]].n} ${infoBtn("pa:"+G.pais+":"+x[0],x[1])}</span></div></div><button class="btn sm" data-cp="${x[0]}">Pasarme</button></div>`).join("")}
+    ${G.partido!=="PROPIO"?`<div class="offer"><div><b>Fundar mi propio partido</b><span>Empezás chico, pero el partido es tuyo</span></div><button class="btn sm primary" id="bFundarJ">Fundar</button></div>`:""}
+    <div class="offer"><div><b>Mejor me quedo</b><span>Volvés a la agenda</span></div><button class="btn sm ghost" id="bCambioNo">Volver</button></div></div>`;
+  }else if(G.fase==="fundar"){
+    SET.mp=G.mpDraft;
+    body=`<div class="dl"><span>Nuevo partido</span></div><h2>Fundá tu partido</h2>${creadorPartidoHTML(G.mpDraft)}
+    <div class="gbar"><span class="muted">Empezás chico: crece cada vez que ganás una elección.</span><button class="btn primary" id="bFundOk">Fundarlo</button></div>`;
   }else if(G.fase==="interna"){
     const it=G.interna,pa=partidoDe(),x=rangos(G.pais).find(y=>y.id===G.pendElec.id);
     body=`<div class="dl"><span>Interna · ${esc(pa[1])} ${infoBtn("interna","interna")}</span><span class="stamp" style="color:${it.gano?"var(--good)":"var(--bad)"};border-color:currentColor">${it.gano?"Ganaste":"Perdiste"}</span></div>
     <h2>${it.gano?"Sos el candidato":"Te ganaron la interna"}</h2>
-    <p class="txt">Para ir por ${esc(x.nombre)} primero tenías que ganarle la interna a ${esc(it.rival)}. ${it.gano?`Ganaste con el ${it.pct}%.`:`Sacaste el ${it.pct}%.`} Tu legitimidad interna era de ${it.leg} sobre 100: pesa el partido, las instituciones y tu imagen.</p>
+    ${it.propio?`<p class="txt">El partido es tuyo: no hay interna. La candidatura a ${esc(x.nombre)} es tuya.</p>`:`<p class="txt">Para ir por ${esc(x.nombre)} primero tenías que ganarle la interna a ${esc(it.rival)}. ${it.gano?`Ganaste con el ${it.pct}%.`:`Sacaste el ${it.pct}%.`} Tu legitimidad interna era de ${it.leg} sobre 100: pesa el partido, las instituciones y tu imagen.</p>`}
     <div class="gbar"><span class="muted">${it.gano?"Ahora, la campaña contra "+esc(G.pendElec.rival.n)+".":"Tendrás otra oportunidad."}</span><button class="btn primary" id="bInt">${it.gano?"A la campaña":"Seguir"}</button></div>`;
   }else if(G.fase==="asuncion"){
     const a=G.asuncion;
     const ak=rangos(G.pais).find(x=>x.nombre===a.cargo)?.kind;
-    body=`${hero(fotoQuery(null,ak),a.cargo)}<div class="asum"><span class="eyebrow">${esc(a.via)} · ${G.anio}</span><span class="asum-pre">Asumís como</span><div class="asum-c">${esc(a.cargo)}</div>
+    const rr=rangos(G.pais).find(x=>x.nombre===a.cargo);
+    body=`${hero(fotoQuery(null,ak),a.cargo)}<div class="asum"><div class="asum-av">${avatarSVG(G.av,120,{acc:colorPartido(),banda:rr?.top?COLORES_PAIS[G.pais]:null,canas:G.edad>=62})}</div><span class="eyebrow">${esc(a.via)} · ${G.anio}</span><span class="asum-pre">Asumís como</span><div class="asum-c">${esc(a.cargo)}</div>
     <div class="ladder2 big">${[1,2,3,4,5,6].map(n=>`<i class="${n<a.tier?"on":n===a.tier?"now":""}"></i>`).join("")}<span>Nivel ${a.tier} de 6</span></div>
     <button class="btn primary" id="bAsum">Jurar y empezar</button></div>`;
   }else if(["mini","mini_res","campania"].includes(G.fase)){
     body=miniBody();
   }else if(G.fase==="eleccion"){
     const e=G.elec;
-    body=`<div class="dl"><span>Elección ${G.anio}</span><span class="stamp" style="color:${e.gano?"var(--good)":"var(--bad)"};border-color:currentColor">${e.gano?"Ganaste":"Perdiste"}</span></div><h2>${esc(e.cargo)}</h2>
+    body=`${escenaHTML("urna","Noche electoral")}<div class="dl"><span>Elección ${G.anio}</span><span class="stamp" style="color:${e.gano?"var(--good)":"var(--bad)"};border-color:currentColor">${e.gano?"Ganaste":"Perdiste"}</span></div><h2>${esc(e.cargo)}</h2>
     ${e.tier===6?`<p class="muted" style="margin:0;font-size:13px">Sistema electoral ${infoBtn("sis:"+G.pais,"sistema electoral")}</p>`:""}
     <div class="vs">
      <div class="vs-r"><span>${esc(G.nombre)} (${esc(partidoDe()[0])})</span><span class="vs-b"><i class="me-b" data-w="${e.pct}"></i></span><b data-n="${e.pct}">0</b></div>
      <div class="vs-r"><span>${esc(e.rival.n)} (${esc(e.rival.pa)})${e.rival.nem?' · <em>archirrival</em>':""}</span><span class="vs-b"><i data-w="${e.rpct}"></i></span><b data-n="${e.rpct}">0</b></div>
     </div>
+    ${G.avisoPartido?`<p class="res">${esc(G.avisoPartido)}</p>`:""}
     <p class="txt">${esc(e.txt)} ${e.bonus>=0?"La campaña te sumó":"La campaña te restó"} ${Math.abs(e.bonus)} puntos.</p>
     <div class="gbar"><span class="muted">${e.gano?(e.reel?"Seguís en el cargo.":"Te toca asumir."):"Te toca reagruparte."}</span><button class="btn primary" id="bElec">Continuar</button></div>`;
   }
   app.innerHTML=`<div class="play">${hud()}<section class="cable"><div class="cable-b">${body}</div></section>
-   <details class="tray2"><summary>Trayectoria y archirrival</summary><ul class="tray">${G.hist.map(h=>`<li><span class="y">${h.anio}</span>${esc(h.cargo)}</li>`).join("")}</ul><p class="muted" style="margin:8px 0 0;font-size:13px">Tu archirrival: ${esc(G.nemesis.n)} (${esc(G.nemesis.pa)})${G.nemWins?` · le ganaste ${G.nemWins} ${G.nemWins>1?"veces":"vez"}`:""}.</p></details>
-   <div class="row-a">${G.fase==="evento"?'<button class="btn sm" id="bPost">Postularme a un cargo</button>':""}<button class="btn sm ghost" id="bRetiro">Retirarme</button><button class="btn sm ghost" id="bSalir">Guardar y salir</button></div>
+   <details class="tray2"><summary>Trayectoria, equipo y archirrival</summary>${G.gab?`<div class="eq">${Object.entries(G.gab.miembros).map(([a,m])=>`<span class="tag">${esc(a)}: ${m?esc(m.n)+" ("+m.perfil+")":"vacante"}</span>`).join("")}</div>`:""}<ul class="tray">${G.hist.map(h=>`<li><span class="y">${h.anio}</span>${esc(h.cargo)}</li>`).join("")}</ul><p class="muted" style="margin:8px 0 0;font-size:13px">Tu archirrival: ${esc(G.nemesis.n)} (${esc(G.nemesis.pa)})${G.nemWins?` · le ganaste ${G.nemWins} ${G.nemWins>1?"veces":"vez"}`:""}.</p></details>
+   <div class="row-a">${G.fase==="evento"?'<button class="btn sm" id="bPost">Postularme a un cargo</button>':""}${G.fase==="evento"&&G.anio-(G.ultCambio||0)>=4?'<button class="btn sm ghost" id="bCambio">Cambiar de partido</button>':""}${G.fase==="evento"&&G.gab&&Object.values(G.gab.miembros).some(x=>!x)?'<button class="btn sm ghost" id="bEquipo">Completar gabinete</button>':""}<button class="btn sm ghost" id="bRetiro">Retirarme</button><button class="btn sm ghost" id="bSalir">Guardar y salir</button></div>
    ${adHTML("game","inline","Banner adaptable")}</div>`;
   pushAds();
   if(G.anim){G.anim=false;requestAnimationFrame(()=>requestAnimationFrame(()=>app.querySelectorAll(".meter .bar i").forEach(b=>{b.style.width=G.st[b.dataset.k]+"%"})))}
@@ -1838,7 +2166,18 @@ function vGame(){
   if($("#bPost"))$("#bPost").onclick=()=>{G.fase="postular";save();vGame()};
   if($("#bPostNo"))$("#bPostNo").onclick=()=>{G.fase="evento";save();vGame()};
   app.querySelectorAll("[data-post]").forEach(b=>b.onclick=()=>{G.postulando=true;G.fase="evento";aceptar(b.dataset.post,false)});
-  if($("#bAsum"))$("#bAsum").onclick=()=>{const p=G.asuncion.postu;G.asuncion=null;if(p)return finTurno();nuevoTurno();save();vGame()};
+  if($("#bAsum"))$("#bAsum").onclick=()=>{const p=G.asuncion.postu;G.asuncion=null;const rr=rk(G.cargo);
+    if(gabElegible(rr)){G.gab={miembros:{},cand:{},post:p};areasGab(rr).forEach(a=>{G.gab.miembros[a]=null;G.gab.cand[a]=candidatosGab(a)});G.fase="gabinete";save();vGame();return}
+    if(p)return finTurno();nuevoTurno();save();vGame()};
+  app.querySelectorAll("[data-gab]").forEach(b=>b.onclick=()=>{const [a,i]=b.dataset.gab.split("|");G.gab.sel=G.gab.sel||{};G.gab.sel[a]=+i;save();vGame()});
+  if($("#bGabOk"))$("#bGabOk").onclick=()=>{for(const a in G.gab.cand){const i=G.gab.sel?.[a];if(i!=null)G.gab.miembros[a]=G.gab.cand[a][i]}G.gab.cand={};G.gab.sel={};const p=G.gab.post;G.gab.post=false;
+    if(G.gabVuelta){G.gabVuelta=false;G.fase="evento";save();vGame();return}if(p)return finTurno();nuevoTurno();save();vGame()};
+  if($("#bEquipo"))$("#bEquipo").onclick=()=>{const vac=Object.keys(G.gab.miembros).filter(a=>!G.gab.miembros[a]);G.gab.cand={};vac.forEach(a=>G.gab.cand[a]=candidatosGab(a));G.gab.sel={};G.gabVuelta=true;G.st.p=clamp(G.st.p-1,0,100);G.fase="gabinete";save();vGame()};
+  if($("#bCambio"))$("#bCambio").onclick=()=>{G.fase="cambio";save();vGame()};
+  app.querySelectorAll("[data-cp]").forEach(b=>b.onclick=()=>cambiarPartido(b.dataset.cp));
+  if($("#bFundarJ"))$("#bFundarJ").onclick=()=>{G.mpDraft={n:"",sigla:"",ideo:3,forma:0,simb:0,c1:1,c2:8};G.miPartido=null;G.fase="fundar";save();vGame()};
+  if($("#bCambioNo"))$("#bCambioNo").onclick=()=>{G.fase="evento";save();vGame()};
+  if(G.fase==="fundar"){bindCreador(G.mpDraft,()=>{SET.mp=G.mpDraft;const y=scrollY;vGame();scrollTo(0,y)});$("#bFundOk").onclick=()=>{const m=G.mpDraft;if(!m.n.trim())m.n="Nuevo Movimiento";if(!m.sigla)m.sigla=m.n.split(/\s+/).map(w=>w[0]||"").join("").toUpperCase().slice(0,5);G.miPartido={...m};G.pesoPropio=1;G.crecePropio=0;G.fundo=true;cambiarPartido("PROPIO")}}
   if($("#bElec"))$("#bElec").onclick=contEleccion;
   $("#bRetiro").onclick=()=>{const b=$("#bRetiro");if(b.dataset.ok){fin("Te retirás de la política por decisión propia.")}else{b.dataset.ok=1;b.textContent="¿Seguro? Tocá de nuevo";b.classList.remove("ghost")}};
   $("#bSalir").onclick=()=>{save();G=null;show("home")};
@@ -1903,7 +2242,7 @@ function mountMini(){
   })})[G.mini]();
   if(G.fase==="mini_res")$("#bMiniOk").onclick=()=>{G.miniRes=null;G.mini=null;finTurno()};
 }
-function terminarMini(tit,txt,ef){clearMG();const d=aplicar(ef);G.miniRes={tit,txt,d};G.fase="mini_res";save();vGame()}
+function terminarMini(tit,txt,ef){clearMG();if(["Cerraste justo","Poroteo perfecto","Gestión impecable","Agenda perfecta","Ojo de halcón"].includes(tit))G.perfecto=true;const d=aplicar(ef);G.miniRes={tit,txt,d};G.fase="mini_res";save();vGame()}
 
 function mountRecorrida(){
   const arena=$("#arena");let score=0,t=12,run=false;
@@ -2099,11 +2438,12 @@ Instit ${sq(s.n)}
 Econ  ${sq(s.e)}`;
   app.innerHTML=`<div class="legacy">
    <section class="lcard">
-    <span class="eyebrow">Legado · ${esc(G.nombre)} · ${P.n} · ${G.hist[0].anio}–${G.anio}</span>
+    <div class="leg-top">${avatarSVG(G.av,96,{acc:colorPartido(),banda:G.llegoTop?COLORES_PAIS[G.pais]:null,canas:G.edad>=62})}<div>${flagSVG(G.pais,30)} ${badgeSVG(G.partido,30)}<br><span class="eyebrow">Legado · ${esc(G.nombre)} · ${P.n} · ${G.hist[0].anio}–${G.anio}</span></div></div>
     <div class="ltitle">${esc(G.titulo)}</div>
     <div class="lpts">${G.puntosFinal.toLocaleString("es-AR")} puntos · cargo máximo nivel ${G.maxTier} · ${G.elecG} elecciones ganadas, ${G.elecP} perdidas</div>
     <p class="res">${esc(G.fin)}</p>
     ${G.logros.length?`<div class="logros">${G.logros.map(l=>`<span class="tag">${esc(l)}</span>`).join("")}</div>`:""}
+    ${G.ins?`<div><span class="eyebrow">Insignias de esta carrera</span><div class="ins-grid" style="margin-top:6px">${G.ins.todas.map(id=>insigniaHTML(id,true,G.ins.nuevas.includes(id))).join("")||'<span class="muted">Ninguna esta vez.</span>'}</div></div>`:""}
     <div><span class="eyebrow">Línea de tiempo</span><div class="timeline" style="margin-top:6px">${G.hist.map(h=>`<div><span>${h.anio}</span><b style="font-weight:${h.tier>=5?600:400}">${esc(h.cargo)}</b></div>`).join("")}</div></div>
     <div class="stats">${Object.keys(ST).map(k=>`<div class="stat"><span>${ST[k]}</span><span class="bar"><i style="width:${s[k]}%;background:${colorFor(k,s[k])}"></i></span><span class="v">${s[k]}</span></div>`).join("")}</div>
    </section>
@@ -2111,20 +2451,26 @@ Econ  ${sq(s.e)}`;
     ${adHTML("end","box","300 × 250")}
     <section class="lcard" style="padding:16px;gap:10px">
      <span class="eyebrow">Compartí tu legado</span>
+     <button class="btn primary" id="bImg">Descargar imagen</button>
+     <button class="btn" id="bShare">Compartir imagen</button>
      <textarea class="share" id="shareTxt" readonly>${esc(share)}</textarea>
-     <button class="btn primary" id="bCopy">Copiar resultado</button>
+     <button class="btn ghost" id="bCopy">Copiar texto</button>
      <span class="muted" style="font-size:12.5px" id="rkState">${SESSION?(G.guardado?"Guardado en el ranking.":"Guardando en el ranking…"):"Jugaste como invitado: este legado no entra al ranking. Ingresá antes de tu próxima partida."}</span>
      ${G.diario&&G.yaJugado?'<span class="muted" style="font-size:12.5px">Ya habías jugado el desafío de hoy: esta partida no cuenta para el ranking diario.</span>':""}
     </section>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="bOtra">Otra carrera</button><button class="btn ghost" id="bInicio">Inicio</button></div>
    </aside>
   </div>`;
+  $("#bImg").onclick=async()=>{const b=$("#bImg");b.textContent="Generando…";const blob=await tarjetaPNG();const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mi-legado-el-mandato.png";document.body.appendChild(a);a.click();a.remove();b.textContent="Descargar imagen"};
+  $("#bShare").onclick=async()=>{const blob=await tarjetaPNG();const f=new File([blob],"mi-legado.png",{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Mi legado en El Mandato",text:G.titulo+" · el-mandato.vercel.app"})}catch(e){}}else{$("#bShare").textContent="Tu navegador no comparte imágenes: usá Descargar"}};
   $("#bCopy").onclick=()=>{const t=$("#shareTxt");const ok=()=>{$("#bCopy").textContent="Copiado"};try{navigator.clipboard.writeText(share).then(ok,()=>{t.select();$("#bCopy").textContent="Seleccionado: copialo"})}catch(e){t.select()}};
   $("#bOtra").onclick=()=>{G=null;show("setup")};
   $("#bInicio").onclick=()=>{G=null;show("home")};
 }
 
 /* ================== ARRANQUE ================== */
+$("#goHome").insertAdjacentHTML("afterbegin",MARCA);
 $("#goHome").onclick=()=>{if(G&&!G.fin)save();G=null;show("home")};
 $("#fecha").textContent=new Date().toLocaleDateString("es-AR",{day:"numeric",month:"long",year:"numeric"});
 $("#adTop").innerHTML=adHTML("top","leader","728 × 90");
