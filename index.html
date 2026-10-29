@@ -199,6 +199,30 @@ img{max-width:100%}
 .nego{display:flex;flex-direction:column;gap:12px}
 .nego-v{font-family:var(--f-display);font-size:56px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
 input[type=range]{width:100%;accent-color:var(--accent)}
+/* ---- v5 ---- */
+.ib{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;background:transparent;color:var(--accent);font:600 12px/1 var(--f-mono);padding:0;vertical-align:middle;cursor:pointer;flex:none}
+.ib:hover{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.meter .ml{background:none;border:0;padding:0;font:inherit;color:var(--muted);text-align:left;text-decoration:underline dotted;text-underline-offset:3px;cursor:pointer}
+.pa-info{border-left:3px solid var(--accent);padding:6px 0 6px 12px;font-size:13.5px}
+.pa-info p{margin:4px 0 0;color:var(--muted)}
+.flag{display:inline-block;vertical-align:middle;border-radius:2px;box-shadow:0 0 0 1px color-mix(in srgb,var(--ink) 15%,transparent)}
+.avatar{position:relative}
+.av-flag{position:absolute;right:-4px;bottom:-4px;line-height:0}
+.hero-img{position:relative;height:170px;margin:-20px -18px 2px;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 35%,var(--sunk)),var(--sunk));background-size:cover;background-position:center;overflow:hidden}
+.hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(10,14,20,.75));opacity:.9}
+.hero-ph{position:absolute;inset:0;display:grid;place-items:center;opacity:.5;transition:opacity .5s}
+.hero-img.on .hero-ph{opacity:0}
+.hero-img.on{animation:kb 9s ease-out both}
+@keyframes kb{from{background-size:112%}to{background-size:100%}}
+.hero-l{position:absolute;left:18px;bottom:12px;z-index:1;color:#fff;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.hero-cr{position:absolute;right:10px;bottom:10px;z-index:1;color:rgba(255,255,255,.75);font-size:10px}
+.sabias{font-size:13.5px;padding:10px 12px;border-radius:var(--r);background:color-mix(in srgb,var(--accent) 10%,var(--bg));border:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+.cable{animation:cardIn .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes cardIn{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+.cable.lose{animation:shake .5s}
+@keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.confeti{position:fixed;inset:0;pointer-events:none;z-index:60}
+.code .flag{margin-right:4px}
 /* ---- v4 ---- */
 .sel{font:inherit;padding:10px 12px;border-radius:var(--r);border:1.5px solid var(--line);background:var(--surface);color:var(--ink);max-width:360px}
 .actas{display:grid;gap:8px}
@@ -320,6 +344,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   </header>
   <div id="adTop"></div>
   <main id="app"></main>
+  <div class="modal" id="info" hidden role="dialog" aria-modal="true" aria-labelledby="infoT"><div class="mbox"><h3 id="infoT"></h3><p id="infoD" style="white-space:pre-line"></p><button class="btn primary sm" id="infoX" type="button" style="align-self:flex-start">Entendido</button></div></div>
   <div class="modal" id="login" hidden role="dialog" aria-modal="true" aria-labelledby="lgT">
    <div class="mbox">
     <h3 id="lgT">Ingresá</h3>
@@ -960,6 +985,135 @@ const EV_PROV = [
 EV.push(...EV_PROV.map(e=>({...e,t:"prov"})));
 const REGLA={AR:"consec",BR:"consec",CL:"consec",UY:"consec",MX:"unico",US:"total",ES:"libre",UK:"libre"};
 
+/* Ciudades (o barrios) de cada provincia/estado, para la recorrida */
+const CIU_PROV = {
+ AR:{"Buenos Aires":"La Plata|Mar del Plata|Bahía Blanca|Quilmes|Tandil|Lomas de Zamora|Pergamino","CABA":"Palermo|Recoleta|La Boca|Belgrano|Caballito|Flores|Mataderos","Catamarca":"Catamarca|Andalgalá|Belén|Tinogasta|Santa María","Chaco":"Resistencia|Sáenz Peña|Villa Ángela|Charata|Castelli","Chubut":"Rawson|Comodoro Rivadavia|Trelew|Puerto Madryn|Esquel","Córdoba":"Córdoba|Río Cuarto|Villa María|San Francisco|Carlos Paz","Corrientes":"Corrientes|Goya|Paso de los Libres|Mercedes|Curuzú Cuatiá","Entre Ríos":"Paraná|Concordia|Gualeguaychú|Concepción del Uruguay|Victoria","Formosa":"Formosa|Clorinda|Pirané|El Colorado|Las Lomitas","Jujuy":"San Salvador de Jujuy|Palpalá|San Pedro|Libertador|Humahuaca","La Pampa":"Santa Rosa|General Pico|Toay|Realicó|General Acha","La Rioja":"La Rioja|Chilecito|Aimogasta|Chamical|Chepes","Mendoza":"Mendoza|San Rafael|Godoy Cruz|Maipú|Malargüe","Misiones":"Posadas|Oberá|Eldorado|Puerto Iguazú|Apóstoles|Leandro N. Alem","Neuquén":"Neuquén|Cutral Có|Zapala|San Martín de los Andes|Añelo","Río Negro":"Viedma|Bariloche|General Roca|Cipolletti|Allen","Salta":"Salta|Orán|Tartagal|Cafayate|Metán","San Juan":"San Juan|Rivadavia|Caucete|Jáchal|Pocito","San Luis":"San Luis|Villa Mercedes|Merlo|La Punta|Justo Daract","Santa Cruz":"Río Gallegos|Caleta Olivia|El Calafate|Pico Truncado|Puerto Deseado","Santa Fe":"Santa Fe|Rosario|Rafaela|Venado Tuerto|Reconquista","Santiago del Estero":"Santiago del Estero|La Banda|Termas de Río Hondo|Añatuya|Frías","Tierra del Fuego":"Ushuaia|Río Grande|Tolhuin","Tucumán":"San Miguel de Tucumán|Yerba Buena|Tafí Viejo|Concepción|Monteros"},
+ BR:{"Acre":"Rio Branco|Cruzeiro do Sul|Sena Madureira|Tarauacá","Alagoas":"Maceió|Arapiraca|Palmeira dos Índios|Penedo","Amapá":"Macapá|Santana|Laranjal do Jari|Oiapoque","Amazonas":"Manaus|Parintins|Itacoatiara|Manacapuru|Tefé","Bahia":"Salvador|Feira de Santana|Vitória da Conquista|Ilhéus|Porto Seguro","Ceará":"Fortaleza|Juazeiro do Norte|Sobral|Caucaia|Crato","Distrito Federal":"Brasília|Taguatinga|Ceilândia|Gama|Sobradinho","Espírito Santo":"Vitória|Vila Velha|Serra|Cariacica|Linhares","Goiás":"Goiânia|Anápolis|Aparecida de Goiânia|Rio Verde|Catalão","Maranhão":"São Luís|Imperatriz|Caxias|Timon|Bacabal","Mato Grosso":"Cuiabá|Várzea Grande|Rondonópolis|Sinop|Sorriso","Mato Grosso do Sul":"Campo Grande|Dourados|Três Lagoas|Corumbá|Ponta Porã","Minas Gerais":"Belo Horizonte|Uberlândia|Juiz de Fora|Contagem|Ouro Preto","Pará":"Belém|Ananindeua|Santarém|Marabá|Parauapebas","Paraíba":"João Pessoa|Campina Grande|Patos|Santa Rita|Bayeux","Paraná":"Curitiba|Londrina|Maringá|Foz do Iguaçu|Ponta Grossa","Pernambuco":"Recife|Olinda|Caruaru|Petrolina|Jaboatão","Piauí":"Teresina|Parnaíba|Picos|Floriano|Piripiri","Rio de Janeiro":"Rio de Janeiro|Niterói|Duque de Caxias|Petrópolis|Nova Iguaçu","Rio Grande do Norte":"Natal|Mossoró|Parnamirim|Caicó|São Gonçalo do Amarante","Rio Grande do Sul":"Porto Alegre|Caxias do Sul|Pelotas|Santa Maria|Gramado","Rondônia":"Porto Velho|Ji-Paraná|Ariquemes|Vilhena|Cacoal","Roraima":"Boa Vista|Rorainópolis|Caracaraí|Pacaraima","Santa Catarina":"Florianópolis|Joinville|Blumenau|Chapecó|Itajaí","São Paulo":"São Paulo|Campinas|Santos|Ribeirão Preto|Sorocaba|Guarulhos","Sergipe":"Aracaju|Socorro|Lagarto|Itabaiana|Estância","Tocantins":"Palmas|Araguaína|Gurupi|Porto Nacional|Paraíso do Tocantins"},
+ CL:{"Arica y Parinacota":"Arica|Putre|Camarones|General Lagos","Tarapacá":"Iquique|Alto Hospicio|Pozo Almonte|Pica","Antofagasta":"Antofagasta|Calama|Tocopilla|Mejillones|San Pedro de Atacama","Atacama":"Copiapó|Vallenar|Caldera|Chañaral|Diego de Almagro","Coquimbo":"La Serena|Coquimbo|Ovalle|Illapel|Vicuña","Valparaíso":"Valparaíso|Viña del Mar|Quilpué|San Antonio|Los Andes","Metropolitana":"Santiago|Puente Alto|Maipú|La Florida|Providencia|Las Condes","O'Higgins":"Rancagua|San Fernando|Rengo|Santa Cruz|Pichilemu","Maule":"Talca|Curicó|Linares|Constitución|Cauquenes","Ñuble":"Chillán|San Carlos|Bulnes|Quirihue|Coihueco","Biobío":"Concepción|Talcahuano|Los Ángeles|Coronel|Lota","La Araucanía":"Temuco|Villarrica|Pucón|Angol|Padre Las Casas","Los Ríos":"Valdivia|La Unión|Río Bueno|Panguipulli|Paillaco","Los Lagos":"Puerto Montt|Osorno|Castro|Puerto Varas|Ancud","Aysén":"Coyhaique|Puerto Aysén|Chile Chico|Cochrane","Magallanes":"Punta Arenas|Puerto Natales|Porvenir|Puerto Williams"},
+ UY:{"Artigas":"Artigas|Bella Unión|Tomás Gomensoro|Baltasar Brum","Canelones":"Canelones|Las Piedras|Ciudad de la Costa|Pando|Santa Lucía","Cerro Largo":"Melo|Río Branco|Fraile Muerto|Isidoro Noblía","Colonia":"Colonia del Sacramento|Carmelo|Juan Lacaze|Nueva Helvecia|Rosario","Durazno":"Durazno|Sarandí del Yí|Carmen|La Paloma","Flores":"Trinidad|Ismael Cortinas|Andresito","Florida":"Florida|Sarandí Grande|Casupá|Fray Marcos","Lavalleja":"Minas|José Pedro Varela|Solís de Mataojo|Batlle y Ordóñez","Maldonado":"Maldonado|Punta del Este|San Carlos|Piriápolis|Pan de Azúcar","Montevideo":"Ciudad Vieja|Pocitos|Cerro|Malvín|Carrasco|Cordón","Paysandú":"Paysandú|Guichón|Quebracho|Chapicuy","Río Negro":"Fray Bentos|Young|Nuevo Berlín|San Javier","Rivera":"Rivera|Tranqueras|Vichadero|Minas de Corrales","Rocha":"Rocha|Chuy|Castillos|La Paloma|Lascano","Salto":"Salto|Constitución|Belén|Termas del Daymán","San José":"San José de Mayo|Ciudad del Plata|Libertad|Ecilda Paullier","Soriano":"Mercedes|Dolores|Cardona|Palmitas","Tacuarembó":"Tacuarembó|Paso de los Toros|San Gregorio de Polanco|Ansina","Treinta y Tres":"Treinta y Tres|Vergara|Santa Clara de Olimar|Cerro Chato"},
+ MX:{"Aguascalientes":"Aguascalientes|Jesús María|Calvillo|Rincón de Romos","Baja California":"Mexicali|Tijuana|Ensenada|Tecate|Rosarito","Baja California Sur":"La Paz|Los Cabos|Loreto|Ciudad Constitución|Mulegé","Campeche":"Campeche|Ciudad del Carmen|Champotón|Escárcega|Calkiní","Chiapas":"Tuxtla Gutiérrez|San Cristóbal|Tapachula|Comitán|Palenque","Chihuahua":"Chihuahua|Ciudad Juárez|Delicias|Parral|Cuauhtémoc","Ciudad de México":"Coyoacán|Iztapalapa|Cuauhtémoc|Tlalpan|Azcapotzalco|Xochimilco","Coahuila":"Saltillo|Torreón|Monclova|Piedras Negras|Acuña","Colima":"Colima|Manzanillo|Tecomán|Villa de Álvarez","Durango":"Durango|Gómez Palacio|Lerdo|Santiago Papasquiaro","Estado de México":"Toluca|Ecatepec|Naucalpan|Nezahualcóyotl|Texcoco","Guanajuato":"Guanajuato|León|Irapuato|Celaya|San Miguel de Allende","Guerrero":"Chilpancingo|Acapulco|Iguala|Taxco|Zihuatanejo","Hidalgo":"Pachuca|Tulancingo|Tula|Huejutla|Tizayuca","Jalisco":"Guadalajara|Zapopan|Puerto Vallarta|Tlaquepaque|Tequila","Michoacán":"Morelia|Uruapan|Zamora|Lázaro Cárdenas|Pátzcuaro","Morelos":"Cuernavaca|Cuautla|Jiutepec|Temixco","Nayarit":"Tepic|Bahía de Banderas|Compostela|Santiago Ixcuintla","Nuevo León":"Monterrey|San Pedro Garza García|Guadalupe|Apodaca|San Nicolás","Oaxaca":"Oaxaca|Juchitán|Salina Cruz|Puerto Escondido|Tuxtepec","Puebla":"Puebla|Tehuacán|Cholula|Atlixco|Teziutlán","Querétaro":"Querétaro|San Juan del Río|Corregidora|El Marqués|Tequisquiapan","Quintana Roo":"Chetumal|Cancún|Playa del Carmen|Tulum|Cozumel","San Luis Potosí":"San Luis Potosí|Ciudad Valles|Soledad|Matehuala","Sinaloa":"Culiacán|Mazatlán|Los Mochis|Guasave|Navolato","Sonora":"Hermosillo|Ciudad Obregón|Nogales|Guaymas|San Luis Río Colorado","Tabasco":"Villahermosa|Cárdenas|Comalcalco|Paraíso|Macuspana","Tamaulipas":"Ciudad Victoria|Reynosa|Matamoros|Nuevo Laredo|Tampico","Tlaxcala":"Tlaxcala|Apizaco|Huamantla|Chiautempan","Veracruz":"Xalapa|Veracruz|Coatzacoalcos|Córdoba|Poza Rica","Yucatán":"Mérida|Valladolid|Progreso|Tizimín|Izamal","Zacatecas":"Zacatecas|Fresnillo|Guadalupe|Jerez|Sombrerete"},
+ US:{"Alabama":"Montgomery|Birmingham|Huntsville|Mobile|Tuscaloosa","Alaska":"Juneau|Anchorage|Fairbanks|Sitka|Ketchikan","Arizona":"Phoenix|Tucson|Mesa|Flagstaff|Scottsdale","Arkansas":"Little Rock|Fayetteville|Fort Smith|Jonesboro|Hot Springs","California":"Sacramento|Los Ángeles|San Francisco|San Diego|San José|Fresno","Carolina del Norte":"Raleigh|Charlotte|Durham|Greensboro|Asheville","Carolina del Sur":"Columbia|Charleston|Greenville|Myrtle Beach|Spartanburg","Colorado":"Denver|Colorado Springs|Boulder|Aurora|Fort Collins","Connecticut":"Hartford|New Haven|Stamford|Bridgeport|Waterbury","Dakota del Norte":"Bismarck|Fargo|Grand Forks|Minot","Dakota del Sur":"Pierre|Sioux Falls|Rapid City|Aberdeen","Delaware":"Dover|Wilmington|Newark|Rehoboth Beach","Florida":"Tallahassee|Miami|Orlando|Tampa|Jacksonville","Georgia":"Atlanta|Savannah|Augusta|Athens|Macon","Hawái":"Honolulu|Hilo|Kailua|Lahaina","Idaho":"Boise|Idaho Falls|Pocatello|Coeur d'Alene|Nampa","Illinois":"Springfield|Chicago|Peoria|Rockford|Champaign","Indiana":"Indianápolis|Fort Wayne|Bloomington|South Bend|Evansville","Iowa":"Des Moines|Cedar Rapids|Iowa City|Davenport|Dubuque","Kansas":"Topeka|Wichita|Kansas City|Lawrence|Manhattan","Kentucky":"Frankfort|Louisville|Lexington|Bowling Green|Paducah","Luisiana":"Baton Rouge|Nueva Orleans|Shreveport|Lafayette|Lake Charles","Maine":"Augusta|Portland|Bangor|Lewiston|Bar Harbor","Maryland":"Annapolis|Baltimore|Frederick|Rockville|Ocean City","Massachusetts":"Boston|Cambridge|Worcester|Springfield|Salem","Michigan":"Lansing|Detroit|Grand Rapids|Ann Arbor|Flint","Minnesota":"Saint Paul|Minneapolis|Duluth|Rochester|Bloomington","Misisipi":"Jackson|Gulfport|Biloxi|Hattiesburg|Tupelo","Misuri":"Jefferson City|Kansas City|San Luis|Springfield|Columbia","Montana":"Helena|Billings|Missoula|Bozeman|Great Falls","Nebraska":"Lincoln|Omaha|Grand Island|Kearney","Nevada":"Carson City|Las Vegas|Reno|Henderson|Elko","Nueva Jersey":"Trenton|Newark|Jersey City|Atlantic City|Princeton","Nueva York":"Albany|Nueva York|Buffalo|Rochester|Syracuse","Nuevo Hampshire":"Concord|Manchester|Nashua|Portsmouth","Nuevo México":"Santa Fe|Albuquerque|Las Cruces|Roswell|Taos","Ohio":"Columbus|Cleveland|Cincinnati|Toledo|Akron","Oklahoma":"Oklahoma City|Tulsa|Norman|Lawton","Oregón":"Salem|Portland|Eugene|Bend|Medford","Pensilvania":"Harrisburg|Filadelfia|Pittsburgh|Allentown|Erie","Rhode Island":"Providence|Newport|Warwick|Cranston","Tennessee":"Nashville|Memphis|Knoxville|Chattanooga","Texas":"Austin|Houston|Dallas|San Antonio|El Paso","Utah":"Salt Lake City|Provo|Ogden|St. George|Park City","Vermont":"Montpelier|Burlington|Rutland|Brattleboro","Virginia":"Richmond|Virginia Beach|Norfolk|Arlington|Charlottesville","Virginia Occidental":"Charleston|Huntington|Morgantown|Wheeling","Washington":"Olympia|Seattle|Spokane|Tacoma|Bellevue","Wisconsin":"Madison|Milwaukee|Green Bay|Kenosha|Eau Claire","Wyoming":"Cheyenne|Casper|Laramie|Jackson|Gillette"},
+ ES:{"Andalucía":"Sevilla|Málaga|Córdoba|Granada|Cádiz|Almería","Aragón":"Zaragoza|Huesca|Teruel|Calatayud|Jaca","Asturias":"Oviedo|Gijón|Avilés|Mieres|Llanes","Baleares":"Palma|Ibiza|Mahón|Manacor|Ciutadella","Canarias":"Las Palmas|Santa Cruz de Tenerife|La Laguna|Arrecife|Puerto del Rosario","Cantabria":"Santander|Torrelavega|Castro Urdiales|Laredo|Santoña","Castilla-La Mancha":"Toledo|Albacete|Ciudad Real|Cuenca|Guadalajara","Castilla y León":"Valladolid|Burgos|Salamanca|León|Segovia","Cataluña":"Barcelona|Tarragona|Girona|Lleida|Sabadell","Comunidad Valenciana":"Valencia|Alicante|Elche|Castellón|Benidorm","Extremadura":"Mérida|Badajoz|Cáceres|Plasencia|Don Benito","Galicia":"Santiago|Vigo|A Coruña|Ourense|Lugo","La Rioja":"Logroño|Calahorra|Arnedo|Haro","Madrid":"Madrid|Alcalá de Henares|Móstoles|Getafe|Leganés","Murcia":"Murcia|Cartagena|Lorca|Molina de Segura|Águilas","Navarra":"Pamplona|Tudela|Estella|Barañáin","País Vasco":"Vitoria|Bilbao|San Sebastián|Barakaldo|Getxo"},
+ UK:{"Londres":"Westminster|Camden|Hackney|Brixton|Greenwich|Croydon","Sudeste de Inglaterra":"Brighton|Oxford|Southampton|Portsmouth|Canterbury","Suroeste de Inglaterra":"Bristol|Plymouth|Exeter|Bath|Bournemouth","Este de Inglaterra":"Cambridge|Norwich|Ipswich|Colchester|Luton","West Midlands":"Birmingham|Coventry|Wolverhampton|Stoke|Worcester","East Midlands":"Nottingham|Leicester|Derby|Lincoln|Northampton","Yorkshire":"Leeds|Sheffield|York|Bradford|Hull","Noroeste de Inglaterra":"Mánchester|Liverpool|Preston|Blackpool|Chester","Noreste de Inglaterra":"Newcastle|Sunderland|Durham|Middlesbrough|Gateshead","Escocia":"Edimburgo|Glasgow|Aberdeen|Dundee|Inverness","Gales":"Cardiff|Swansea|Newport|Wrexham|Bangor","Irlanda del Norte":"Belfast|Derry|Lisburn|Newry|Armagh"},
+};
+/* Sedes para las fotos */
+const SEDES = {
+ AR:{gob:"Casa Rosada",leg:"Palacio del Congreso de la Nación Argentina",dip:"Palacio San Martín (Buenos Aires)"},
+ BR:{gob:"Palácio do Planalto",leg:"Congreso Nacional de Brasil",dip:"Palacio de Itamaraty"},
+ CL:{gob:"Palacio de La Moneda",leg:"Congreso Nacional de Chile",dip:"Palacio de La Moneda"},
+ UY:{gob:"Torre Ejecutiva",leg:"Palacio Legislativo de Uruguay",dip:"Palacio Santos"},
+ MX:{gob:"Palacio Nacional (México)",leg:"Palacio Legislativo de San Lázaro",dip:"Secretaría de Relaciones Exteriores (México)"},
+ US:{gob:"Casa Blanca",leg:"Capitolio de los Estados Unidos",dip:"Departamento de Estado de los Estados Unidos"},
+ ES:{gob:"Palacio de la Moncloa",leg:"Palacio de las Cortes",dip:"Palacio de Santa Cruz (Madrid)"},
+ UK:{gob:"10 de Downing Street",leg:"Palacio de Westminster",dip:"Foreign, Commonwealth and Development Office"},
+};
+const IMG_EV={"Vaca Muerta":"Vaca Muerta","Malvinas en la ONU":"Islas Malvinas","Balaceras en Rosario":"Rosario (Santa Fe)","Corte en la 9 de Julio":"Avenida 9 de Julio","El campo para":"Región pampeana","Agua en el Litoral":"Río Paraná","Yerba en Misiones":"Yerba mate","Desmatamento na Amazônia":"Selva amazónica","Litio en Atacama":"Salar de Atacama","Incendios en Viña del Mar":"Viña del Mar","Agua salada en Montevideo":"Rambla de Montevideo","Punta del Este vacía":"Punta del Este","Violencia en Culiacán":"Culiacán","Sin agua en la CDMX":"Ciudad de México","Migrantes en Tijuana":"Tijuana","La frontera en Texas":"Frontera entre Estados Unidos y México","Huracán en Florida":"Miami","Huelga en Detroit":"Detroit","La IA de Silicon Valley":"Silicon Valley","DANA en Valencia":"Valencia","Turismo masivo en Palma":"Palma de Mallorca","Escocia quiere votar":"Parlamento de Escocia","Botes en el Canal":"Canal de la Mancha","Compras en Encarnación":"Puente San Roque González de Santa Cruz","Minería y agua en Mendoza":"Mendoza (Argentina)","La hidrovía":"Hidrovía Paraná-Paraguay","Litio en la Puna":"Puna de Atacama","Incendios en los Esteros":"Esteros del Iberá","El subte":"Subte de Buenos Aires","Cobre en la cordillera":"Provincia de San Juan","Zona Franca de Manaus":"Manaos","Inundaciones en Porto Alegre":"Porto Alegre","Hidrógeno verde en Magallanes":"Punta Arenas","Agua en Monterrey":"Monterrey","Apagón en Texas":"Austin (Texas)","Doñana y los regantes":"Parque nacional de Doñana","Incendios en Galicia":"Galicia","Cayucos en Canarias":"Islas Canarias","El acero de Port Talbot":"Port Talbot","Petróleo del Mar del Norte":"Aberdeen","Cumbre del G20":"Grupo de los Veinte","Votación en la ONU":"Asamblea General de las Naciones Unidas","Misión de paz":"Cascos azules","Terremoto":"Terremoto","Las AFP":"Administradoras de fondos de pensiones de Chile","Bolsa Família":"Bolsa Família","Cataluña otra vez":"Palacio de la Generalidad de Cataluña","Listas de espera del NHS":"National Health Service","Techo de deuda":"Techo de deuda de los Estados Unidos"};
+
+/* Explicaciones */
+const PARTIDO_INFO = {
+ AR:{LLA:"Fundado en 2021 alrededor de Javier Milei. Liberal-libertario en economía: propone achicar el Estado, bajar impuestos y desregular. Gobierna el país desde diciembre de 2023.",
+  PJ:"El Partido Justicialista nació con Juan Domingo Perón en la década de 1940. Movimiento nacional y popular con fuerte base sindical, que tuvo alas más a la izquierda y más a la derecha. De sus filas salieron Perón, Menem, Néstor y Cristina Kirchner y Alberto Fernández.",
+  PRO:"Propuesta Republicana se fundó en 2005 con Mauricio Macri. De centroderecha, gobierna la Ciudad de Buenos Aires desde 2007 y llegó a la Nación en 2015 dentro de la alianza Cambiemos.",
+  UCR:"La Unión Cívica Radical se fundó en 1891 y es el partido más antiguo en actividad del país. De centro, con tradición republicana y socialdemócrata. Presidentes: Yrigoyen, Illia, Alfonsín y De la Rúa.",
+  PU:"Provincias Unidas es un frente de gobernadores armado en 2025, con dirigentes de Córdoba, Santa Fe y otras provincias. Se presenta como una alternativa de centro con mirada federal.",
+  FIT:"El Frente de Izquierda y de los Trabajadores se armó en 2011 como alianza de partidos trotskistas. Propone la nacionalización de sectores clave y el no pago de la deuda externa.",
+  IND:"Sin partido. Tenés libertad total, pero no contás con estructura, fiscales ni plata para campañas."},
+ BR:{PT:"El Partido de los Trabajadores nació en 1980 del movimiento sindical del ABC paulista. De izquierda. Gobernó con Lula (2003-2010), Dilma Rousseff (2011-2016) y otra vez con Lula desde 2023.",
+  PL:"El Partido Liberal es de derecha y se convirtió en el principal partido de la oposición cuando Jair Bolsonaro se afilió en 2021.",
+  MDB:"El Movimiento Democrático Brasileño viene de la oposición tolerada durante la dictadura militar. De centro, es clave para armar mayorías. Presidentes: Sarney y Temer.",
+  PSD:"El Partido Social Democrático fue fundado en 2011 por Gilberto Kassab. De centro y muy pragmático, tiene muchos alcaldes en todo el país.",
+  "UNIÃO":"União Brasil nació en 2022 de la fusión del DEM y el PSL. De centroderecha, con fuerte presencia en el Congreso.",
+  PSOL:"El Partido Socialismo y Libertad nació en 2004 como escisión del PT. De izquierda, fuerte en las grandes ciudades.",
+  IND:"En Brasil no se permiten candidaturas sin partido, así que en el juego es una opción simbólica: casi sin estructura."},
+ CL:{REP:"El Partido Republicano fue fundado en 2019 por José Antonio Kast. De derecha, Kast ganó la elección presidencial de 2025.",
+  FA:"El Frente Amplio surgió como coalición en 2017 y se unificó como partido en 2024. De izquierda; de ahí salió Gabriel Boric, presidente entre 2022 y 2026.",
+  PS:"El Partido Socialista se fundó en 1933. De centroizquierda. Presidentes: Salvador Allende, Ricardo Lagos y Michelle Bachelet.",
+  RN:"Renovación Nacional nació en 1987. De centroderecha liberal. De sus filas salió Sebastián Piñera.",
+  UDI:"La Unión Demócrata Independiente fue fundada en 1983 por Jaime Guzmán. De derecha conservadora.",
+  PC:"El Partido Comunista de Chile tiene raíces en 1912 y es uno de los más antiguos del país. Gladys Marín fue su referente histórica.",
+  IND:"Sin partido: libertad total, pero sin estructura ni financiamiento partidario."},
+ UY:{FA:"El Frente Amplio es una coalición de izquierda fundada en 1971. Gobernó con Tabaré Vázquez, José Mujica y, desde 2025, con Yamandú Orsi.",
+  PN:"El Partido Nacional (Blanco) se fundó en 1836 y es uno de los partidos tradicionales. De centroderecha. Presidentes: Luis Alberto Lacalle y Luis Lacalle Pou.",
+  PC:"El Partido Colorado se fundó en 1836. Con José Batlle y Ordóñez impulsó el Estado de bienestar uruguayo. Presidentes recientes: Sanguinetti y Batlle.",
+  CA:"Cabildo Abierto se fundó en 2019 con el exjefe del Ejército Guido Manini Ríos. De derecha conservadora.",
+  IP:"El Partido Independiente se fundó en 2002. De centro, liderado por Pablo Mieres."},
+ MX:{MORENA:"El Movimiento Regeneración Nacional fue fundado en 2014 por Andrés Manuel López Obrador. De izquierda. Gobierna desde 2018: AMLO hasta 2024 y desde entonces Claudia Sheinbaum.",
+  PAN:"El Partido Acción Nacional se fundó en 1939. De centroderecha y democristiano. Rompió 71 años de PRI con Vicente Fox en 2000; después gobernó Felipe Calderón.",
+  PRI:"El Partido Revolucionario Institucional nació en 1929 y gobernó México sin interrupción hasta el año 2000. Volvió con Enrique Peña Nieto (2012-2018).",
+  MC:"Movimiento Ciudadano se fundó en 1999 (como Convergencia) con Dante Delgado. De centro, fuerte en Jalisco y Nuevo León.",
+  PVEM:"El Partido Verde Ecologista de México es chico pero clave: suele aliarse con el partido que gobierna.",
+  IND:"Desde 2014 se permiten candidaturas independientes, pero hay que juntar muchas firmas."},
+ US:{DEM:"El Partido Demócrata se fundó en 1828. De centroizquierda en el mapa actual. Presidentes: Franklin D. Roosevelt, Kennedy, Obama y Biden.",
+  REP:"El Partido Republicano se fundó en 1854 contra la expansión de la esclavitud. De derecha en el mapa actual. Presidentes: Lincoln, Reagan, los Bush y Trump.",
+  LIB:"El Partido Libertario se fundó en 1971. Propone mínimo Estado y máxima libertad individual. Es el tercer partido del país, muy lejos de los dos grandes.",
+  IND:"Sin partido. Bernie Sanders es el ejemplo más conocido de un independiente en el Senado."},
+ ES:{PP:"El Partido Popular se refundó en 1989 a partir de Alianza Popular. De centroderecha. Presidentes: José María Aznar y Mariano Rajoy.",
+  PSOE:"El Partido Socialista Obrero Español se fundó en 1879. De centroizquierda. Presidentes: Felipe González, José Luis Rodríguez Zapatero y Pedro Sánchez.",
+  VOX:"Vox se fundó en 2013. De derecha, entró con fuerza al Congreso en 2019 con Santiago Abascal.",
+  SUMAR:"Sumar es una coalición de izquierda armada en 2023 alrededor de Yolanda Díaz.",
+  PNV:"El Partido Nacionalista Vasco se fundó en 1895. Nacionalista vasco y democristiano, gobierna Euskadi casi siempre.",
+  JUNTS:"Junts per Catalunya se fundó en 2020 alrededor de Carles Puigdemont. Independentista catalán."},
+ UK:{LAB:"El Partido Laborista se fundó en 1900. De centroizquierda. Primeros ministros: Clement Attlee, Tony Blair y, desde 2024, Keir Starmer.",
+  CON:"El Partido Conservador viene de 1834. De centroderecha. Primeros ministros: Winston Churchill, Margaret Thatcher y Boris Johnson.",
+  REF:"Reform UK nació en 2018 como Partido del Brexit, con Nigel Farage. De derecha.",
+  LD:"Los Liberales Demócratas nacieron en 1988 de la fusión de liberales y socialdemócratas. Herederos del viejo Partido Liberal de Gladstone. De centro.",
+  SNP:"El Partido Nacional Escocés se fundó en 1934. Busca la independencia de Escocia y la gobernó por muchos años.",
+  GRN:"Los Verdes son ecologistas. Caroline Lucas fue su primera diputada en Westminster (2010)."},
+};
+const INFO = {
+ st_l:["Imagen local","Lo que piensa de vos la gente de tu país o tu provincia. Es lo que más pesa en las elecciones."],
+ st_i:["Imagen internacional","Cómo te ven otros gobiernos, los mercados y los organismos internacionales. Clave para la diplomacia y para conseguir inversiones."],
+ st_p:["Partido","El apoyo de tu propio partido. Sin él no ganás internas ni te nombran en cargos. Si llega a 6 o menos, te expulsan."],
+ st_n:["Instituciones","Tu relación con la Justicia, el Congreso, los gremios y los empresarios. Pesa en los nombramientos y en la legitimidad para ser candidato."],
+ st_e:["Economía","Cómo anda la economía bajo tu gestión o tu influencia. Cuando buscás la reelección como jefe de gobierno, te juzgan por esto."],
+ st_s:["Escándalo","Cuánto te persiguen las denuncias y la prensa. Baja solo con el tiempo. Si llega a 100, terminás procesado y se acaba la carrera."],
+ escalafon:["Escalafón","Los cargos van del nivel 1 al 6. Nivel 1: concejal o secretario de embajada. Nivel 3: intendente o diputado. Nivel 5: gobernador, jefe de gabinete o canciller. Nivel 6: jefe de gobierno, la cima."],
+ k_loc:["Concejo","Cargo local: decidís sobre tu ciudad, sus calles, sus servicios y sus impuestos municipales."],
+ k_leg:["Legislativo","Votás leyes, armás mayorías y controlás al gobierno. Pesa mucho el partido."],
+ k_terr:["Ejecutivo local","Gobernás una ciudad o una provincia: gestión diaria, crisis, obras y presupuesto. Gobernar desgasta tu imagen."],
+ k_gob:["Gobierno nacional","Ministerios y secretarías: economía, seguridad, crisis nacionales. Te nombran, y te pueden echar si perdés apoyo."],
+ k_top:["Jefatura de gobierno","Presidente o primer ministro. Todo pasa por vos: crisis, cumbres y elecciones. Si tu imagen se desploma, juicio político."],
+ k_dip:["Diplomacia","Embajadas y cancillería: acuerdos, conflictos y cumbres. Cuenta mucho tu imagen internacional."],
+ interna:["La interna","Antes de ir por la jefatura de gobierno tenés que ganar la interna de tu partido. Pesan tu apoyo partidario, tu relación con las instituciones y tu imagen. Si venís de un cargo bajo, te cuesta más."],
+ salto:["Saltos de cargo","Podés postularte a cualquier cargo electivo, pero cada nivel que saltás te resta votos. De concejal a presidente es casi imposible, no imposible."],
+ derrotas:["Cómo se pierde","Tres derrotas electorales seguidas, la expulsión de tu partido, un escándalo de 100 o un juicio político terminan tu carrera. A los 74 te retirás sí o sí."],
+ m_recorrida:["Recorrida","Tocá las ciudades para sumar votos. Las trampas (escándalos, huevazos) restan. Suma o resta hasta unos pocos puntos en la elección."],
+ m_debate:["Debate","Cada ataque del rival tiene un tipo. Al dato se lo refuta, a la chicana se le responde con humor y a la pregunta trampa se la esquiva. Cada vez tenés menos tiempo."],
+ m_fiscal:["Fiscalización","Todas las actas tienen que decir lo mismo. Encontrá la adulterada antes de que se acabe el tiempo."],
+ m_poroteo:["Poroteo","Memorizá qué bancas te apoyan mientras están prendidas y marcalas cuando se apagan."],
+ m_crisis:["Gestión de crisis","Cuatro frentes se vacían solos. Tocalos para recargarlos. Si uno llega a cero, se cae."],
+ m_tira:["Negociación","La aguja va y viene. Frenala en la zona verde: ni de más ni de menos."],
+ m_agenda:["Agenda","Las reuniones se prenden en un orden. Repetilo sin equivocarte."],
+};
+const SISTEMA_INFO = {
+ AR:"En Argentina gana en primera vuelta quien saca más del 45%, o más del 40% con 10 puntos de ventaja. Si no, hay balotaje. El presidente dura 4 años y puede reelegirse una vez seguida; después tiene que esperar un período.",
+ BR:"En Brasil, si nadie supera el 50% de los votos válidos hay segunda vuelta. El mandato es de 4 años con una reelección seguida.",
+ CL:"En Chile, si nadie supera el 50% hay segunda vuelta. El mandato es de 4 años sin reelección inmediata: se puede volver después de un período.",
+ UY:"En Uruguay, si nadie supera el 50% hay balotaje. El mandato es de 5 años sin reelección inmediata. Antes, cada partido elige su candidato en internas obligatorias.",
+ MX:"En México gana quien saca más votos en una sola vuelta. El presidente gobierna un sexenio y no puede reelegirse nunca.",
+ US:"En Estados Unidos se vota por electores de cada estado en el Colegio Electoral: hacen falta 270 de 538. Máximo dos mandatos de 4 años.",
+ ES:"En España se votan diputados. El Congreso inviste al presidente del Gobierno; si nadie tiene mayoría, hay que armar coalición. No hay límite de mandatos.",
+ UK:"En el Reino Unido se eligen 650 diputados por distrito. Quien tiene mayoría en los Comunes gobierna como primer ministro. No hay límite de mandatos.",
+};
+const DATOS_POL = {
+ AR:["La Ley Sáenz Peña de 1912 hizo el voto secreto y obligatorio para los varones.","Las mujeres votaron por primera vez en una elección nacional en 1951.","Desde la reforma de 1994 cada provincia tiene tres senadores: dos por la mayoría y uno por la primera minoría.","La Cámara de Diputados se renueva por mitades cada dos años.","Las PASO se crearon en 2009."],
+ BR:["Brasil usa urna electrónica en todo el país desde 2000.","El voto es obligatorio entre los 18 y los 70 años y optativo a los 16 y 17.","Brasília es la capital desde 1960.","La Constitución de 1988 es conocida como la Constitución Ciudadana."],
+ CL:["El Congreso chileno funciona en Valparaíso desde 1990.","El voto volvió a ser obligatorio en 2022.","Chile votó dos propuestas de nueva Constitución, en 2022 y 2023, y ambas fueron rechazadas.","El presidente no puede reelegirse de forma inmediata."],
+ UY:["En Uruguay el voto es obligatorio.","Desde la reforma de 1996 hay internas obligatorias, balotaje y elecciones departamentales separadas.","Uruguay tiene una larga tradición de plebiscitos y referéndums."],
+ MX:["El lema 'sufragio efectivo, no reelección' viene de la Revolución mexicana.","Las mujeres votaron en elecciones federales por primera vez en 1955.","En 2024 México eligió por primera vez a una mujer presidenta.","El INE organiza las elecciones federales."],
+ US:["La Enmienda 22, de 1951, limita la presidencia a dos mandatos.","El Colegio Electoral tiene 538 electores.","Cada dos años se renueva toda la Cámara de Representantes.","Un candidato puede ganar la presidencia con menos votos populares que su rival."],
+ ES:["La Constitución española es de 1978.","Los escaños se reparten por provincia con el sistema D'Hondt.","En 2018 prosperó por primera vez una moción de censura.","España tiene 17 comunidades autónomas y 2 ciudades autónomas."],
+ UK:["El Reino Unido no tiene una constitución escrita en un solo texto.","Los diputados se eligen por mayoría simple en cada distrito.","La Cámara de los Lores no es elegida por voto popular.","El primer ministro vive y trabaja en el 10 de Downing Street."],
+};
+
+Object.assign(INFO,{
+ prov:["Tu provincia o estado","Es tu lugar de origen. Los sucesos locales pasan ahí, la recorrida de campaña es por sus ciudades y te tocan temas propios de su política."],
+ origen:["Origen","De dónde venís antes de la política. Cambia tus números iniciales: un sindicalista arranca con más partido, un diplomático con más imagen internacional."],
+ rasgos:["Rasgos","Dos características que te acompañan toda la carrera y multiplican o suavizan ciertos cambios."],
+ modo:["Cómo arrancás","Carrera completa: empezás de abajo, a los 28. Arranque directo: elegís un cargo de nivel 3 o más y empezás más grande, con menos años por delante."],
+ partido:["Partido","Tu partido define tu base. Los grandes te dan más votos pero más competencia interna; los chicos, menos votos y una militancia más fiel. Cuando elegís uno, abajo aparece su historia y su referente."],
+});
+
 /* ================== UTILIDADES ================== */
 const $ = s=>document.querySelector(s);
 const esc = s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -1208,13 +1362,14 @@ function vSetup(){
    <div><span class="eyebrow">Legajo nuevo</span><h2>Armá tu personaje</h2></div>
    <div class="field"><label for="nm">Nombre</label><input type="text" id="nm" maxlength="40" placeholder="Ej: Lucía Ferreyra" value="${esc(SET.nombre)}"></div>
    <div class="field"><span class="lab">País</span>
-    <div class="grid-c">${Object.entries(PAISES).map(([k,p])=>`<button class="opt" data-p="${k}" aria-pressed="${SET.pais===k}"><span class="code">${p.c}</span><b>${p.n}</b><span>${p.sis}</span></button>`).join("")}</div></div>
-   <div class="field"><span class="lab">Partido</span><div class="chips">${PARTIDOS[SET.pais].map(x=>{const rf=REFERENTES[SET.pais]?.[x[0]];return `<button class="chip" data-pa="${x[0]}" aria-pressed="${SET.partido===x[0]}">${esc(x[1])} <small>· ${rf?esc(rf)+" · ":""}${PESO[x[2]].n.replace("Partido ","")}</small></button>`}).join("")}</div>
-    <span class="muted" style="font-size:12.5px">Al lado de cada partido, un referente histórico o actual. Grande: más votos y más interna. Chico: menos votos y militancia fiel.</span></div>
-   <div class="field"><label for="prv">${PROV_LAB[SET.pais]}</label><select id="prv" class="sel">${PROVS[SET.pais].map(x=>`<option value="${esc(x[0])}"${SET.prov===x[0]?" selected":""}>${esc(x[0])}</option>`).join("")}</select></div>
-   <div class="field"><span class="lab">Origen</span><div class="chips">${Object.entries(ORIGENES).map(([k,v])=>`<button class="chip" data-o="${k}" aria-pressed="${SET.origen===k}">${v.n} <small>· ${v.d}</small></button>`).join("")}</div></div>
-   <div class="field"><span class="lab">Rasgos <span class="muted" style="font-weight:400">(elegí 2)</span></span><div class="chips">${Object.entries(RASGOS).map(([k,v])=>`<button class="chip" data-r="${k}" aria-pressed="${SET.rasgos.includes(k)}">${v.n} <small>· ${v.d}</small></button>`).join("")}</div></div>
-   <div class="field"><span class="lab">Cómo arrancás</span>
+    <div class="grid-c">${Object.entries(PAISES).map(([k,p])=>`<button class="opt" data-p="${k}" aria-pressed="${SET.pais===k}"><span class="code">${flagSVG(k,24)} ${p.c}</span><b>${p.n}</b><span>${p.sis}</span></button>`).join("")}</div></div>
+   <p class="muted" style="margin:-10px 0 0;font-size:13px">Cómo se elige en ${PAISES[SET.pais].n} ${infoBtn("sis:"+SET.pais,"sistema electoral")}</p>
+   <div class="field"><span class="lab">Partido ${infoBtn('partido','partido')}</span><div class="chips">${PARTIDOS[SET.pais].map(x=>{const rf=REFERENTES[SET.pais]?.[x[0]];return `<button class="chip" data-pa="${x[0]}" aria-pressed="${SET.partido===x[0]}">${esc(x[1])} <small>· ${rf?esc(rf)+" · ":""}${PESO[x[2]].n.replace("Partido ","")}</small></button>`}).join("")}</div>
+    <div class="pa-info">${(()=>{const x=PARTIDOS[SET.pais].find(y=>y[0]===SET.partido)||PARTIDOS[SET.pais][0];const rf=REFERENTES[SET.pais]?.[x[0]];return `<b>${esc(x[1])}</b>${rf?` · referente: ${esc(rf)}`:""}<p>${esc(PARTIDO_INFO[SET.pais]?.[x[0]]||"")}</p>`})()}</div></div>
+   <div class="field"><span class="lab"><label for="prv">${PROV_LAB[SET.pais]}</label> ${infoBtn('prov','provincia')}</span><select id="prv" class="sel">${PROVS[SET.pais].map(x=>`<option value="${esc(x[0])}"${SET.prov===x[0]?" selected":""}>${esc(x[0])}</option>`).join("")}</select></div>
+   <div class="field"><span class="lab">Origen ${infoBtn('origen','origen')}</span><div class="chips">${Object.entries(ORIGENES).map(([k,v])=>`<button class="chip" data-o="${k}" aria-pressed="${SET.origen===k}">${v.n} <small>· ${v.d}</small></button>`).join("")}</div></div>
+   <div class="field"><span class="lab">Rasgos <span class="muted" style="font-weight:400">(elegí 2)</span> ${infoBtn('rasgos','rasgos')}</span><div class="chips">${Object.entries(RASGOS).map(([k,v])=>`<button class="chip" data-r="${k}" aria-pressed="${SET.rasgos.includes(k)}">${v.n} <small>· ${v.d}</small></button>`).join("")}</div></div>
+   <div class="field"><span class="lab">Cómo arrancás ${infoBtn('modo','modo')}</span>
     <div class="chips"><button class="chip" data-m="carrera" aria-pressed="${SET.modo==="carrera"}">Carrera completa <small>· desde abajo, a los 28</small></button><button class="chip" data-m="directo" aria-pressed="${SET.modo==="directo"}">Arranque directo <small>· elegís el cargo</small></button></div>
     ${SET.modo==="directo"?`<div class="chips" style="margin-top:6px">${rs.map(r=>`<button class="chip" data-st="${r.id}" aria-pressed="${SET.inicio===r.id}">${esc(r.nombre)} <small>· ${RAMAS[r.rama]}</small></button>`).join("")}</div>`:""}
    </div>
@@ -1352,7 +1507,7 @@ function topElegible(){
   if(reg==="consec"&&G.topSalida&&G.anio-G.topSalida<term)return false;
   return true;
 }
-function estimarVoto(){const s=G.st;return (.5*s.l+.25*s.p+.25*s.n+PESO[partidoDe()[2]].voto)*.5+23}
+function estimarVoto(){const s=G.st;return (.5*s.l+.25*s.p+.25*s.n+PESO[partidoDe()[2]].voto)*.5+21}
 function ofertas(forzar){
   const all=rangos(G.pais),cur=rk(G.cargo),t=cur?cur.tier:G.ultTier,exP=G.exTop||cur?.top;
   const c=[];let top=null;
@@ -1383,7 +1538,7 @@ function eleccion(r,reel,bonus,rival){
   if(G.rasgos.includes("carismatico"))base+=3;
   base+=PESO[partidoDe()[2]].voto;
   const curT=rk(G.cargo)?.tier||G.ultTier||1,gap=Math.max(0,r.tier-curT-1);
-  let pct=clamp(Math.round((base*.5+23+(R()-.5)*20+(bonus||0)-gap*4)*10)/10,8,72);
+  let pct=clamp(Math.round((base*.5+21+(R()-.5)*18+(bonus||0)-gap*6)*10)/10,8,72);
   const rn=`${rival.n} (${rival.pa})`;
   let gano,txt,rpct;
   if(r.top){
@@ -1391,15 +1546,15 @@ function eleccion(r,reel,bonus,rival){
     if(m==="balotaje"){
       rpct=Math.round((pct-6+R()*12)*10)/10;
       if(pct>=45||(pct>=40&&pct-rpct>=10)){gano=true;txt=`Ganás en primera vuelta: ${pct}% contra ${rpct}% de ${rn}.`}
-      else{const p2=clamp(Math.round((pct+12+(R()-.45)*14+(s.l-50)*.15+(bonus||0)*.5)*10)/10,30,70);gano=p2>=50;txt=`Primera vuelta: ${pct}%. En el balotaje contra ${rn}: ${p2}% a ${Math.round((100-p2)*10)/10}%.`;pct=p2;rpct=Math.round((100-p2)*10)/10}
+      else{const p2=clamp(Math.round((pct+8+(R()-.5)*14+(s.l-50)*.15+(bonus||0)*.5)*10)/10,30,70);gano=p2>=50;txt=`Primera vuelta: ${pct}%. En el balotaje contra ${rn}: ${p2}% a ${Math.round((100-p2)*10)/10}%.`;pct=p2;rpct=Math.round((100-p2)*10)/10}
     }else if(m==="colegio"){
-      const ev=clamp(Math.round(270+(pct-48)*22+(R()-.5)*60),60,480);gano=ev>=270;rpct=Math.round((100-pct-3)*10)/10;txt=`${pct}% del voto popular contra ${rpct}% de ${rn}. Colegio Electoral: ${ev} a ${538-ev}.`;
+      const ev=clamp(Math.round(270+(pct-50)*22+(R()-.5)*60),60,480);gano=ev>=270;rpct=Math.round((100-pct-3)*10)/10;txt=`${pct}% del voto popular contra ${rpct}% de ${rn}. Colegio Electoral: ${ev} a ${538-ev}.`;
     }else if(m==="escanios"){
-      const tot=P.top.esc,maj=Math.floor(tot/2)+1,seats=clamp(Math.round(tot*(pct/100)*1.18),20,tot-20);rpct=Math.round((pct-5+R()*10)*10)/10;
+      const tot=P.top.esc,maj=Math.floor(tot/2)+1,seats=clamp(Math.round(tot*(pct/100)*1.1),20,tot-20);rpct=Math.round((pct-5+R()*10)*10)/10;
       if(seats>=maj){gano=true;txt=`Tu partido saca ${seats} de ${tot} bancas: mayoría absoluta. ${rn} queda segundo.`}
       else if(seats>=tot*.4&&R()<.35+(s.n-50)/100+(s.p-50)/200){gano=true;txt=`Sacás ${seats} de ${tot} bancas. Sin mayoría, armás una coalición y le ganás la investidura a ${rn}.`}
       else{gano=false;txt=`Sacás ${seats} de ${tot} bancas. ${rn} arma gobierno.`}
-    }else{rpct=Math.round((30+R()*16)*10)/10;gano=pct>rpct;txt=`${pct}% contra ${rpct}% de ${rn}.`}
+    }else{rpct=Math.round((34+R()*16)*10)/10;gano=pct>rpct;txt=`${pct}% contra ${rpct}% de ${rn}.`}
   }else{
     rpct=Math.round((34+R()*15+r.tier*1.2)*10)/10;gano=pct>rpct;txt=`${pct}% contra ${rpct}% de ${rn}.`;
   }
@@ -1414,7 +1569,7 @@ function aceptar(id,reel){
     const jp=(r.tier>=4?["debate","debate","recorrida","fiscal"]:["recorrida","recorrida","fiscal","debate"]).filter(x=>x!==G.lastCamp);const juego=pick(jp);G.lastCamp=juego;
     G.pendElec={id:r.id,reel,prev:G.fase,rival,juego,postu:!!G.postulando};G.postulando=false;G.fase="campania";
     if(r.top&&!reel){
-      const s=G.st,cT=rk(G.cargo)?.tier||G.ultTier||1,leg=.45*s.p+.35*s.n+.2*s.l-Math.max(0,4-cT)*5,pInt=clamp((leg-28)/40,.08,.95),gano=R()<pInt;
+      const s=G.st,cT=rk(G.cargo)?.tier||G.ultTier||1,leg=.45*s.p+.35*s.n+.2*s.l-Math.max(0,4-cT)*5,pInt=clamp((leg-32)/40,.06,.92),gano=R()<pInt;
       const N=NOMBRES[G.pais],pct=gano?Math.round((50+R()*25)*10)/10:Math.round((28+R()*21)*10)/10;
       G.interna={gano,pct,rival:pick(N[0])+" "+pick(N[1]),leg:Math.round(leg)};G.fase="interna";
     }
@@ -1505,6 +1660,75 @@ async function guardarRanking(){
   }catch(e){msg("No se pudo guardar en el ranking. Probá de nuevo más tarde.")}
 }
 
+/* ================== VISUALES ================== */
+function flagSVG(pk,w=28){
+  const h=Math.round(w*2/3),S=(c)=>`<svg class="flag" width="${w}" height="${h}" viewBox="0 0 30 20" aria-hidden="true">${c}</svg>`;
+  switch(pk){
+    case"AR":return S('<rect width="30" height="20" fill="#74ACDF"/><rect y="6.67" width="30" height="6.67" fill="#fff"/><circle cx="15" cy="10" r="2.3" fill="#F6B40E"/>');
+    case"BR":return S('<rect width="30" height="20" fill="#009C3B"/><polygon points="15,2 28,10 15,18 2,10" fill="#FFDF00"/><circle cx="15" cy="10" r="4.2" fill="#002776"/>');
+    case"CL":return S('<rect width="30" height="20" fill="#fff"/><rect y="10" width="30" height="10" fill="#D52B1E"/><rect width="10" height="10" fill="#0039A6"/><polygon points="5,2.6 5.9,5.3 8.6,5.3 6.4,6.9 7.2,9.5 5,7.9 2.8,9.5 3.6,6.9 1.4,5.3 4.1,5.3" fill="#fff"/>');
+    case"UY":return S('<rect width="30" height="20" fill="#fff"/>'+[1,3,5,7].map(i=>`<rect y="${i*20/9}" width="30" height="${20/9}" fill="#0038A8"/>`).join("")+'<rect width="12" height="'+(20/9*5)+'" fill="#fff"/><circle cx="6" cy="5.5" r="2.8" fill="#FCD116"/>');
+    case"MX":return S('<rect width="10" height="20" fill="#006847"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#CE1126"/><circle cx="15" cy="10" r="2.4" fill="#8C6239"/>');
+    case"US":return S('<rect width="30" height="20" fill="#fff"/>'+[0,2,4,6,8,10,12].map(i=>`<rect y="${i*20/13}" width="30" height="${20/13}" fill="#B22234"/>`).join("")+'<rect width="12" height="'+(20/13*7)+'" fill="#3C3B6E"/>');
+    case"ES":return S('<rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/>');
+    case"UK":return S('<rect width="30" height="20" fill="#012169"/><path d="M0,0 30,20 M30,0 0,20" stroke="#fff" stroke-width="4"/><path d="M0,0 30,20 M30,0 0,20" stroke="#C8102E" stroke-width="1.6"/><path d="M15,0V20M0,10H30" stroke="#fff" stroke-width="6"/><path d="M15,0V20M0,10H30" stroke="#C8102E" stroke-width="3.4"/>');
+  }
+  return"";
+}
+const FOTO_CACHE={};
+try{Object.assign(FOTO_CACHE,JSON.parse(localStorage.getItem("elmandato.fotos")||"{}"))}catch(e){}
+async function fotoWiki(q){
+  if(!q)return null;
+  if(q in FOTO_CACHE)return FOTO_CACHE[q];
+  try{
+    const u="https://es.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch="+encodeURIComponent(q)+"&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=960&format=json&origin=*";
+    const j=await fetch(u).then(r=>r.json());
+    const p=j.query&&Object.values(j.query.pages)[0];const src=p?.thumbnail?.source||null;
+    FOTO_CACHE[q]=src;try{localStorage.setItem("elmandato.fotos",JSON.stringify(FOTO_CACHE))}catch(e){}
+    return src;
+  }catch(e){return null}
+}
+function fotoQuery(e,kind){
+  const S=SEDES[G.pais];
+  if(e&&IMG_EV[e.tit])return IMG_EV[e.tit];
+  if(e?.pr)return G.ciudad+" "+G.provLab;
+  const r=rk(G.cargo);
+  if(!kind||kind==="loc"||kind==="terr"||(kind==="leg"&&r&&r.tier<=2))return G.ciudad+" "+G.provLab;
+  return S[kind==="top"?"gob":kind]||S.gob;
+}
+function hero(q,label){
+  return `<div class="hero-img" data-q="${esc(q)}"><div class="hero-ph">${flagSVG(G.pais,60)}</div><span class="hero-l">${esc(label||"")}</span><span class="hero-cr">Foto: Wikipedia</span></div>`;
+}
+function cargarHeros(){
+  app.querySelectorAll(".hero-img[data-q]").forEach(async el=>{
+    const src=await fotoWiki(el.dataset.q);if(!src||!el.isConnected)return;
+    const img=new Image();img.alt="";img.onload=()=>{el.style.backgroundImage=`url("${src}")`;el.classList.add("on")};img.src=src;
+  });
+}
+function confeti(colores){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  const c=document.createElement("canvas");c.className="confeti";document.body.appendChild(c);
+  const W=c.width=innerWidth,H=c.height=innerHeight,x=c.getContext("2d");
+  const ps=Array.from({length:120},()=>({x:Math.random()*W,y:-20-Math.random()*H*.5,vx:(Math.random()-.5)*3,vy:2+Math.random()*4,r:Math.random()*6.28,s:5+Math.random()*6,c:colores[Math.floor(Math.random()*colores.length)]}));
+  const t0=performance.now();
+  (function f(t){x.clearRect(0,0,W,H);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=.1;x.save();x.translate(p.x,p.y);x.rotate(p.r);x.fillStyle=p.c;x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);x.restore()});if(t-t0<2600)requestAnimationFrame(f);else c.remove()})(t0);
+}
+const COLORES_PAIS={AR:["#74ACDF","#ffffff","#F6B40E"],BR:["#009C3B","#FFDF00","#002776"],CL:["#D52B1E","#ffffff","#0039A6"],UY:["#0038A8","#ffffff","#FCD116"],MX:["#006847","#ffffff","#CE1126"],US:["#B22234","#ffffff","#3C3B6E"],ES:["#AA151B","#F1BF00"],UK:["#012169","#ffffff","#C8102E"]};
+
+/* Ventana de explicaciones */
+function infoBtn(key,label){return `<button type="button" class="ib" data-info="${esc(key)}" aria-label="Qué es ${esc(label||"esto")}">i</button>`}
+function abrirInfo(key){
+  let t="",d="";
+  if(key.startsWith("pa:")){const [,pk,code]=key.split(":");const pa=PARTIDOS[pk].find(x=>x[0]===code);t=pa[1];const rf=REFERENTES[pk]?.[code];d=(PARTIDO_INFO[pk]?.[code]||"")+(rf?`\n\nReferente en el juego: ${rf}.`:"")+`\n\nEn el juego: ${PESO[pa[2]].n.toLowerCase()}.`}
+  else if(key.startsWith("sis:")){const pk=key.slice(4);t="Cómo se elige en "+PAISES[pk].n;d=SISTEMA_INFO[pk]}
+  else if(key.startsWith("or:")){const o=ORIGENES[key.slice(3)];t=o.n;d=o.d+". Cambia tus números iniciales."}
+  else if(key.startsWith("ra:")){const o=RASGOS[key.slice(3)];t=o.n;d=o.d+"."}
+  else if(INFO[key]){[t,d]=INFO[key]}
+  if(!t)return;
+  $("#infoT").textContent=t;$("#infoD").textContent=d;$("#info").hidden=false;$("#infoX").focus();
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-info]");if(b){e.preventDefault();e.stopPropagation();abrirInfo(b.dataset.info)}},true);
+
 /* ================== VISTA DE JUEGO ================== */
 const STC={l:"Local",i:"Mundo",p:"Partido",n:"Instit.",e:"Economía",s:"Escándalo"};
 function colorFor(k,v){const good=k==="s"?100-v:v;return good>=60?"var(--good)":good>=35?"var(--warn)":"var(--bad)"}
@@ -1515,11 +1739,11 @@ function hud(){
   const steps=[1,2,3,4,5,6].map(n=>`<i class="${n<t?"on":n===t?"now":""}" title="Nivel ${n}"></i>`).join("");
   return `<header class="hud">
    <div class="hud-top">
-    <div class="me"><span class="avatar" aria-hidden="true">${esc(iniciales(G.nombre))}</span><div class="me-t"><b>${esc(G.nombre)}</b><span>${r?esc(r.nombre):"Sin cargo"} · ${esc(pa[0])}</span></div></div>
+    <div class="me"><span class="avatar" aria-hidden="true">${esc(iniciales(G.nombre))}<span class="av-flag">${flagSVG(G.pais,20)}</span></span><div class="me-t"><b>${esc(G.nombre)}</b><span>${r?esc(r.nombre):"Sin cargo"} · ${esc(pa[0])} ${r?infoBtn("k_"+r.kind,"este cargo"):""}</span></div></div>
     <div class="hud-meta"><b>${G.anio}</b><span>${G.edad} años</span></div>
    </div>
-   <div class="ladder2" aria-label="Escalafón: nivel ${t} de 6">${steps}<span>${t?"Nivel "+t+(t===6?" · la cima":""):"En el llano"}</span></div>
-   <div class="meters">${Object.keys(ST).map(k=>{const d=G.lastD?.[k];return `<div class="meter"><span class="ml">${STC[k]}</span><span class="bar"><i data-k="${k}" style="width:${from[k]}%;background:${colorFor(k,G.st[k])}"></i></span><span class="mv">${G.st[k]}${d?`<em class="${(k==="s"?d<0:d>0)?"up":"down"}">${d>0?"+":""}${d}</em>`:""}</span></div>`}).join("")}</div>
+   <div class="ladder2" aria-label="Escalafón: nivel ${t} de 6">${steps}<span>${t?"Nivel "+t+(t===6?" · la cima":""):"En el llano"} ${infoBtn("escalafon","escalafón")}</span></div>
+   <div class="meters">${Object.keys(ST).map(k=>{const d=G.lastD?.[k];return `<div class="meter"><button type="button" class="ml" data-info="st_${k}">${STC[k]}</button><span class="bar"><i data-k="${k}" style="width:${from[k]}%;background:${colorFor(k,G.st[k])}"></i></span><span class="mv">${G.st[k]}${d?`<em class="${(k==="s"?d<0:d>0)?"up":"down"}">${d>0?"+":""}${d}</em>`:""}</span></div>`}).join("")}</div>
   </header>`;
 }
 function dateline(kind){return (kind==="loc"||kind==="terr"?G.ciudad:PAISES[G.pais].cap).toUpperCase()+" · "+G.anio}
@@ -1531,11 +1755,14 @@ function vGame(){
   if(G.fase==="evento"){
     const e=EV[G.cola[0]];
     body=`${G.aviso?`<p class="res">${esc(G.aviso)}</p>`:""}
-    <div class="dl"><span>${esc(dateline(r?.kind))}</span><span class="stamp">${r?KIND_N[r.kind]:"En el llano"}</span></div>
+    ${hero(fotoQuery(e,r?.kind),dateline(e.pr?"loc":r?.kind))}
+    <div class="dl"><span>${esc(G.provLab)} · ${esc(PAISES[G.pais].n)}</span><span class="stamp">${r?KIND_N[r.kind]:"En el llano"}</span></div>
     <h2>${esc(tpl(e.tit))}</h2><p class="txt">${esc(tpl(e.txt))}</p>
     <div class="choices">${e.o.map((o,i)=>`<button class="choice" data-c="${i}"><span class="k">${String.fromCharCode(65+i)}</span><span>${esc(tpl(o[0]))}</span></button>`).join("")}</div>`;
   }else if(G.fase==="resultado"){
+    const dp=DATOS_POL[G.pais],dato=G.turnos%3===0?dp[(G.turnos/3)%dp.length|0]:null;
     body=`<div class="dl"><span>Decisión</span></div><h2>${esc(tpl(G.ult.elec))}</h2><p class="res">${esc(G.ult.res)}</p>${deltas(G.ult.d)}
+    ${dato?`<div class="sabias"><b>¿Sabías que…?</b> ${esc(dato)}</div>`:""}
     <div class="gbar"><span class="muted">${G.mini?"Antes de cerrar el bienio, un desafío.":"Cierra el bienio "+G.anio+"–"+(G.anio+1)+"."}</span><button class="btn primary" id="bNext">${G.mini?"Al desafío":"Seguir"}</button></div>`;
   }else if(G.fase==="ofertas"||G.fase==="mandato"){
     const fm=G.fase==="mandato",puedeReel=fm&&r&&(!r.top||G.mandatos<P.top.max);
@@ -1559,19 +1786,20 @@ function vGame(){
   }else if(G.fase==="postular"){
     const cur=r?r.tier:G.ultTier;
     const ops=rangos(G.pais).filter(x=>x.via==="eleccion"&&x.id!==G.cargo&&(!x.top||(!r?.top&&topElegible())));
-    body=`<div class="dl"><span>Candidatura</span></div><h2>¿A qué te postulás?</h2>
+    body=`<div class="dl"><span>Candidatura ${infoBtn("salto","saltos de cargo")} ${infoBtn("derrotas","cómo se pierde")}</span></div><h2>¿A qué te postulás?</h2>
     <p class="txt">Te podés presentar a cualquier cargo electivo. Cuanto más grande el salto desde tu cargo actual, menos chances. Si perdés conservás tu cargo, pero se te van dos años. Ojo: tres derrotas seguidas y tu partido te suelta la mano.</p>
-    <div class="choices">${ops.map(x=>{const gap=Math.max(0,x.tier-cur-1),est=estimarVoto()-gap*4-(x.top?4:0);const ch=est>=50?"altas":est>=44?"medias":est>=36?"bajas":"casi nulas";return `<div class="offer"><div><b>${esc(x.nombre)}</b><span>${x.top?"Interna y elección nacional":"Elección"} · chances ${ch}</span></div><button class="btn sm ${x.top?"primary":""}" data-post="${x.id}">Postularme</button></div>`}).join("")}
+    <div class="choices">${ops.map(x=>{const gap=Math.max(0,x.tier-cur-1),est=estimarVoto()-gap*6-(x.top?4:0)-x.tier*0.6;const ch=est>=48?"altas":est>=43?"medias":est>=37?"bajas":"casi nulas";return `<div class="offer"><div><b>${esc(x.nombre)}</b><span>${x.top?"Interna y elección nacional":"Elección"} · chances ${ch}</span></div><button class="btn sm ${x.top?"primary":""}" data-post="${x.id}">Postularme</button></div>`}).join("")}
     <div class="offer"><div><b>Mejor no</b><span>Volvés a la agenda</span></div><button class="btn sm ghost" id="bPostNo">Volver</button></div></div>`;
   }else if(G.fase==="interna"){
     const it=G.interna,pa=partidoDe(),x=rangos(G.pais).find(y=>y.id===G.pendElec.id);
-    body=`<div class="dl"><span>Interna · ${esc(pa[1])}</span><span class="stamp" style="color:${it.gano?"var(--good)":"var(--bad)"};border-color:currentColor">${it.gano?"Ganaste":"Perdiste"}</span></div>
+    body=`<div class="dl"><span>Interna · ${esc(pa[1])} ${infoBtn("interna","interna")}</span><span class="stamp" style="color:${it.gano?"var(--good)":"var(--bad)"};border-color:currentColor">${it.gano?"Ganaste":"Perdiste"}</span></div>
     <h2>${it.gano?"Sos el candidato":"Te ganaron la interna"}</h2>
     <p class="txt">Para ir por ${esc(x.nombre)} primero tenías que ganarle la interna a ${esc(it.rival)}. ${it.gano?`Ganaste con el ${it.pct}%.`:`Sacaste el ${it.pct}%.`} Tu legitimidad interna era de ${it.leg} sobre 100: pesa el partido, las instituciones y tu imagen.</p>
     <div class="gbar"><span class="muted">${it.gano?"Ahora, la campaña contra "+esc(G.pendElec.rival.n)+".":"Tendrás otra oportunidad."}</span><button class="btn primary" id="bInt">${it.gano?"A la campaña":"Seguir"}</button></div>`;
   }else if(G.fase==="asuncion"){
     const a=G.asuncion;
-    body=`<div class="asum"><span class="eyebrow">${esc(a.via)} · ${G.anio}</span><span class="asum-pre">Asumís como</span><div class="asum-c">${esc(a.cargo)}</div>
+    const ak=rangos(G.pais).find(x=>x.nombre===a.cargo)?.kind;
+    body=`${hero(fotoQuery(null,ak),a.cargo)}<div class="asum"><span class="eyebrow">${esc(a.via)} · ${G.anio}</span><span class="asum-pre">Asumís como</span><div class="asum-c">${esc(a.cargo)}</div>
     <div class="ladder2 big">${[1,2,3,4,5,6].map(n=>`<i class="${n<a.tier?"on":n===a.tier?"now":""}"></i>`).join("")}<span>Nivel ${a.tier} de 6</span></div>
     <button class="btn primary" id="bAsum">Jurar y empezar</button></div>`;
   }else if(["mini","mini_res","campania"].includes(G.fase)){
@@ -1579,6 +1807,7 @@ function vGame(){
   }else if(G.fase==="eleccion"){
     const e=G.elec;
     body=`<div class="dl"><span>Elección ${G.anio}</span><span class="stamp" style="color:${e.gano?"var(--good)":"var(--bad)"};border-color:currentColor">${e.gano?"Ganaste":"Perdiste"}</span></div><h2>${esc(e.cargo)}</h2>
+    ${e.tier===6?`<p class="muted" style="margin:0;font-size:13px">Sistema electoral ${infoBtn("sis:"+G.pais,"sistema electoral")}</p>`:""}
     <div class="vs">
      <div class="vs-r"><span>${esc(G.nombre)} (${esc(partidoDe()[0])})</span><span class="vs-b"><i class="me-b" data-w="${e.pct}"></i></span><b data-n="${e.pct}">0</b></div>
      <div class="vs-r"><span>${esc(e.rival.n)} (${esc(e.rival.pa)})${e.rival.nem?' · <em>archirrival</em>':""}</span><span class="vs-b"><i data-w="${e.rpct}"></i></span><b data-n="${e.rpct}">0</b></div>
@@ -1592,7 +1821,9 @@ function vGame(){
    ${adHTML("game","inline","Banner adaptable")}</div>`;
   pushAds();
   if(G.anim){G.anim=false;requestAnimationFrame(()=>requestAnimationFrame(()=>app.querySelectorAll(".meter .bar i").forEach(b=>{b.style.width=G.st[b.dataset.k]+"%"})))}
-  if(G.fase==="eleccion")animarVotos();
+  cargarHeros();
+  if(G.fase==="eleccion"){animarVotos();if(G.elec.gano)setTimeout(()=>confeti(COLORES_PAIS[G.pais]),900);else app.querySelector(".cable").classList.add("lose")}
+  if(G.fase==="asuncion")confeti(COLORES_PAIS[G.pais]);
   mountMini();
   app.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{G.aviso=null;elegir(+b.dataset.c)});
   if($("#bNext"))$("#bNext").onclick=seguir;
@@ -1637,15 +1868,15 @@ function miniCtx(){
 function miniBody(){
   if(G.fase==="campania"){
     const pe=G.pendElec,x=rangos(G.pais).find(y=>y.id===pe.id);
-    if(pe.juego==="fiscal")return `<div class="dl"><span>Campaña · ${esc(x.nombre)}</span><span class="stamp">Fiscales</span></div><h2>Noche de escrutinio</h2>
+    if(pe.juego==="fiscal")return `<div class="dl"><span>Campaña · ${esc(x.nombre)} ${infoBtn("m_fiscal","fiscalización")}</span><span class="stamp">Fiscales</span></div><h2>Noche de escrutinio</h2>
     <p class="txt">Contra ${esc(pe.rival.n)} (${esc(pe.rival.pa)}) cada voto cuenta. Encontrá las actas adulteradas antes de que se carguen.</p>
     <div id="fz" class="col" style="gap:12px"><button class="btn primary" id="mgGo" style="align-self:flex-start">Ir a fiscalizar</button></div>`;
-    if(pe.juego==="debate")return `<div class="dl"><span>Campaña · ${esc(x.nombre)}</span><span class="stamp">Debate</span></div><h2>Debate contra ${esc(pe.rival.n)}</h2>
+    if(pe.juego==="debate")return `<div class="dl"><span>Campaña · ${esc(x.nombre)} ${infoBtn("m_debate","debate")}</span><span class="stamp">Debate</span></div><h2>Debate contra ${esc(pe.rival.n)}</h2>
     <p class="txt">${esc(pe.rival.n)} (${esc(pe.rival.pa)}) te va a atacar seis veces. Respondé rápido con el arma correcta:</p>
     <div class="legend"><span><b>Dato</b> → Refutar</span><span><b>Chicana</b> → Humor</span><span><b>Trampa</b> → Esquivar</span></div>
     <div id="db" class="col" style="gap:12px"><button class="btn primary" id="mgGo" style="align-self:flex-start">Arrancar el debate</button></div>`;
-    return `<div class="dl"><span>Campaña · ${esc(x.nombre)}</span><span class="stamp">Recorrida</span></div><h2>Recorrida de campaña</h2>
-    <p class="txt">Competís contra ${esc(pe.rival.n)} (${esc(pe.rival.pa)}). Tocá las ciudades para sumar votos; los escándalos restan. 12 segundos.</p>
+    return `<div class="dl"><span>Campaña · ${esc(x.nombre)} ${infoBtn("m_recorrida","recorrida")}</span><span class="stamp">Recorrida</span></div><h2>Recorrida de campaña</h2>
+    <p class="txt">Competís contra ${esc(pe.rival.n)} (${esc(pe.rival.pa)}). ${x.top?"Recorrés el país: tocá las provincias":"Recorrés "+esc(G.prov)+": tocá las ciudades"} para sumar votos; los escándalos restan. 12 segundos.</p>
     <div class="mg-top"><span>Votos <b id="mgS">0</b></span><span>Tiempo <b id="mgT">12</b></span></div>
     <div class="arena" id="arena"><button class="btn primary" id="mgGo">Arrancar la recorrida</button></div>`;
   }
@@ -1656,14 +1887,14 @@ function miniBody(){
       :G.mini==="poroteo"?`<div class="mg-top"><span id="poR">Ronda 1 de 3</span><span id="poM">Memorizá</span></div><div class="seats" id="seats">${Array.from({length:12},(_,i)=>`<button class="seat" data-s="${i}" disabled aria-label="Banca ${i+1}"></button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Empezar la votación</button>`
       :G.mini==="crisis"?`<div class="mg-top"><span>Frentes en pie <b id="crF">4</b></span><span>Tiempo <b id="crT">15</b></span></div><div class="fronts" id="fronts">${c.f.map((f,i)=>`<button class="front" data-f="${i}" disabled><span class="fl">${f}</span><span class="fb"><i style="width:70%"></i></span></button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Arrancar</button>`
       :`<div class="mg-top"><span id="tiR">Ronda 1 de 3</span><span>Aciertos <b id="tiS">0</b></span></div><div class="gauge" id="gauge"><span class="zone" id="zone"></span><span class="needle" id="needle"></span></div><button class="btn primary big-btn" id="mgGo">Arrancar</button>`;
-    return `<div class="dl"><span>Desafío</span><span class="stamp">${c.tit.split(" ")[0]}</span></div><h2>${esc(c.tit)}</h2><p class="txt">${c.txt}</p><div class="col" style="gap:12px">${area}</div>`;
+    return `<div class="dl"><span>Desafío ${infoBtn("m_"+G.mini,"este desafío")}</span><span class="stamp">${c.tit.split(" ")[0]}</span></div><h2>${esc(c.tit)}</h2><p class="txt">${c.txt}</p><div class="col" style="gap:12px">${area}</div>`;
   }
   if(G.fase==="mini_res")return `<div class="dl"><span>Resultado del desafío</span></div><h2>${esc(G.miniRes.tit)}</h2><p class="res">${esc(G.miniRes.txt)}</p>${deltas(G.miniRes.d)}
     <div class="gbar"><span class="muted">Cierra el bienio.</span><button class="btn primary" id="bMiniOk">Seguir</button></div>`;
   return "";
 }
 function mountMini(){
-  if(G.fase==="campania"){const j=G.pendElec.juego;if(j==="debate")return mountDebate();if(j==="fiscal")return mountFiscal(ok=>{const bonus=[-5,-3,-1,1,4,7][ok];$("#fz").innerHTML=`<div class="mg-end"><b>${ok} de 5</b><span>${ok>=4?"Cuidaste cada voto.":ok>=2?"Fiscalización floja.":"Te robaron votos en las mesas."} ${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;$("#mgFin").onclick=()=>resolverEleccion(bonus)});return mountRecorrida()}
+  if(G.fase==="campania"){const j=G.pendElec.juego;if(j==="debate")return mountDebate();if(j==="fiscal")return mountFiscal(ok=>{const bonus=[-6,-4,-2,0,2,4][ok];$("#fz").innerHTML=`<div class="mg-end"><b>${ok} de 5</b><span>${ok>=4?"Cuidaste cada voto.":ok>=2?"Fiscalización floja.":"Te robaron votos en las mesas."} ${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;$("#mgFin").onclick=()=>resolverEleccion(bonus)});return mountRecorrida()}
   if(G.fase==="mini")return ({poroteo:mountPoroteo,crisis:mountCrisis,tira:mountTira,agenda:mountAgenda,fiscal:()=>mountFiscal(ok=>{
     if(ok>=5)return terminarMini("Ojo de halcón","Encontraste todas las irregularidades.",{n:5,s:-3,l:2});
     if(ok>=3)return terminarMini("Buena auditoría","Detectaste casi todo.",{n:3,s:-1});
@@ -1676,6 +1907,8 @@ function terminarMini(tit,txt,ef){clearMG();const d=aplicar(ef);G.miniRes={tit,t
 
 function mountRecorrida(){
   const arena=$("#arena");let score=0,t=12,run=false;
+  const tgt=rangos(G.pais).find(y=>y.id===G.pendElec.id);
+  const lugares=tgt?.top?PROVS[G.pais].map(p=>p[0]):(CIU_PROV[G.pais]?.[G.provLab]||G.ciudad).split("|");
   const traps=["Escándalo","Abucheo","Fake news","Huevazo"];
   $("#mgGo").onclick=()=>{
     if(run)return;run=true;arena.innerHTML="";
@@ -1683,15 +1916,15 @@ function mountRecorrida(){
     MGT.push(setInterval(spawn,520));spawn();
   };
   function spawn(){
-    const trap=Math.random()<.27,b=document.createElement("button");
-    b.type="button";b.className="pop"+(trap?" trap":"");b.textContent=trap?pickM(traps):pickM(CIUDADES[G.pais]);
+    const trap=Math.random()<.33,b=document.createElement("button");
+    b.type="button";b.className="pop"+(trap?" trap":"");b.textContent=trap?pickM(traps):pickM(lugares);
     const W=arena.clientWidth,H=arena.clientHeight;
     b.style.left=Math.max(4,Math.random()*(W-140))+"px";b.style.top=Math.max(4,Math.random()*(H-46))+"px";
     b.onclick=()=>{if(b.dataset.hit)return;b.dataset.hit="1";score+=trap?-2:1;$("#mgS").textContent=score;b.classList.add("hit");b.textContent=trap?"−2":"+1";setTimeout(()=>b.remove(),250)};
-    arena.appendChild(b);MGT.push(setTimeout(()=>b.remove(),1150));
+    arena.appendChild(b);MGT.push(setTimeout(()=>b.remove(),950));
   }
   function end(){
-    clearMG();const bonus=clamp(Math.round((score-7)*.9),-5,8);
+    clearMG();const bonus=clamp(Math.round((score-9)*.6),-6,4);
     arena.innerHTML=`<div class="mg-end"><b>${score} votos</b><span>${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;
     $("#mgFin").onclick=()=>resolverEleccion(bonus);
   }
@@ -1707,7 +1940,7 @@ function mountDebate(){
   function next(){
     clearMG();
     if(i>=N)return done();
-    const k=pickM(Object.keys(ATQ)),a=ATQ[k],ms=Math.max(1500,3000-i*260);
+    const k=pickM(Object.keys(ATQ)),a=ATQ[k],ms=Math.max(1200,2400-i*230);
     box.innerHTML=`<div class="mg-top"><span>Ataque ${i+1} de ${N}</span><span>Bien <b>${ok}</b></span></div><div class="tbar"><i id="dbB"></i></div>
       <div class="attack"><span class="atype t-${k}">${a.n}</span><p>${esc(pickM(a.l))}</p></div>
       <div class="resp">${shuffle(["Refutar","Humor","Esquivar"]).map(x=>`<button class="btn" data-r="${x}">${x}</button>`).join("")}</div>`;
@@ -1721,7 +1954,7 @@ function mountDebate(){
     }
   }
   function done(){
-    const bonus=[-5,-4,-2,0,2,5,8][ok];
+    const bonus=[-6,-5,-3,-1,1,2,4][ok];
     box.innerHTML=`<div class="mg-end"><b>${ok} de ${N}</b><span>${ok>=5?"Lo pasaste por arriba.":ok>=3?"Debate parejo.":"Te comió el debate."} ${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;
     $("#mgFin").onclick=()=>resolverEleccion(bonus);
   }
@@ -1734,7 +1967,7 @@ function mountFiscal(cb){
     if(i>=N)return cb(ok);
     const n=sizes[i],base=1000+Math.floor(Math.random()*8000),s=String(base).split(""),a=Math.floor(Math.random()*3);
     [s[a],s[a+1]]=[s[a+1],s[a]];if(s.join("")===String(base))s[3]=String((+s[3]+1)%10);
-    const odd=+s.join(""),pos=Math.floor(Math.random()*n),ms=Math.max(2600,5200-i*550),fmt=v=>v.toLocaleString("es-AR");
+    const odd=+s.join(""),pos=Math.floor(Math.random()*n),ms=Math.max(2000,4200-i*500),fmt=v=>v.toLocaleString("es-AR");
     box.innerHTML=`<div class="mg-top"><span>Mesa ${i+1} de ${N}</span><span>Bien <b>${ok}</b></span></div><div class="tbar"><i id="fzB"></i></div>
       <p class="muted" style="margin:0">Todas las actas dicen <b>${fmt(base)}</b> votos. Encontrá la adulterada.</p>
       <div class="actas" style="grid-template-columns:repeat(${n>12?4:3},minmax(0,1fr))">${Array.from({length:n},(_,j)=>`<button class="acta" data-j="${j}">${fmt(j===pos?odd:base)}</button>`).join("")}</div>`;
@@ -1749,14 +1982,14 @@ function mountFiscal(cb){
   }
 }
 function mountAgenda(){
-  const btns=[...app.querySelectorAll(".ag")],lens=[3,4,5,6];let ri=0,seq=[],k=0,lock=true,done=0;
+  const btns=[...app.querySelectorAll(".ag")],lens=[4,5,6,7];let ri=0,seq=[],k=0,lock=true,done=0;
   $("#mgGo").onclick=()=>{$("#mgGo").remove();ronda()};
   function ronda(){
     clearMG();
     if(ri>=lens.length)return fin();
     seq=Array.from({length:lens[ri]},()=>Math.floor(Math.random()*4));k=0;lock=true;
     $("#agR").textContent=`Ronda ${ri+1} de ${lens.length}`;$("#agM").textContent="Mirá el orden";
-    const sp=Math.max(380,650-ri*80);
+    const sp=Math.max(320,560-ri*70);
     seq.forEach((b,x)=>{MGT.push(setTimeout(()=>flash(b),400+x*sp))});
     MGT.push(setTimeout(()=>{lock=false;$("#agM").textContent="Repetilo"},400+seq.length*sp));
   }
@@ -1774,7 +2007,7 @@ function mountAgenda(){
   }
 }
 function mountPoroteo(){
-  const seats=[...app.querySelectorAll(".seat")],rounds=[3,4,5];let ri=0,hits=0,total=0,picks=0,target=[];
+  const seats=[...app.querySelectorAll(".seat")],rounds=[4,5,6];let ri=0,hits=0,total=0,picks=0,target=[];
   $("#mgGo").onclick=()=>{$("#mgGo").remove();ronda()};
   function ronda(){
     clearMG();
@@ -1787,7 +2020,7 @@ function mountPoroteo(){
       target.forEach(i=>seats[i].classList.remove("lit"));
       $("#poM").textContent=`Marcá ${rounds[ri]} bancas`;
       seats.forEach(s=>{s.disabled=false});
-    },1100+ri*150));
+    },900+ri*100));
   }
   seats.forEach(s=>s.onclick=()=>{
     if(s.disabled)return;s.disabled=true;const i=+s.dataset.s;
@@ -1811,7 +2044,7 @@ function mountCrisis(){
   els.forEach((e,i)=>e.onclick=()=>{if(dead[i])return;lv[i]=Math.min(100,lv[i]+26);paint()});
   function tick(now){
     const dt=(now-last)/1000;last=now;const boost=1+(now-t0)/15000;
-    lv.forEach((v,i)=>{if(dead[i])return;lv[i]=v-rate[i]*boost*dt*2.2;if(lv[i]<=0){lv[i]=0;dead[i]=true;els[i].classList.add("dead");els[i].disabled=true;const f=$("#crF");if(f)f.textContent=dead.filter(x=>!x).length}});
+    lv.forEach((v,i)=>{if(dead[i])return;lv[i]=v-rate[i]*boost*dt*2.7;if(lv[i]<=0){lv[i]=0;dead[i]=true;els[i].classList.add("dead");els[i].disabled=true;const f=$("#crF");if(f)f.textContent=dead.filter(x=>!x).length}});
     paint();MGRAF=requestAnimationFrame(tick);
   }
   function paint(){els.forEach((e,i)=>{const b=e.querySelector("i");b.style.width=lv[i]+"%";b.style.background=lv[i]>45?"var(--good)":lv[i]>20?"var(--warn)":"var(--bad)"})}
@@ -1824,7 +2057,7 @@ function mountCrisis(){
   }
 }
 function mountTira(){
-  const g=$("#gauge"),z=$("#zone"),nd=$("#needle"),btn=$("#mgGo"),W=[24,16,10],P=[1700,1250,900];let ri=0,hits=0,pos=0,dir=1,zs=0,run=false,last=0;
+  const g=$("#gauge"),z=$("#zone"),nd=$("#needle"),btn=$("#mgGo"),W=[18,12,8],P=[1400,1000,750];let ri=0,hits=0,pos=0,dir=1,zs=0,run=false,last=0;
   function setZone(){zs=8+Math.random()*(84-W[ri]);z.style.left=zs+"%";z.style.width=W[ri]+"%"}
   setZone();
   btn.onclick=()=>{
@@ -1897,6 +2130,7 @@ $("#fecha").textContent=new Date().toLocaleDateString("es-AR",{day:"numeric",mon
 $("#adTop").innerHTML=adHTML("top","leader","728 × 90");
 loadAdsense();
 loginHandlers();
+$("#infoX").onclick=()=>{$("#info").hidden=true};$("#info").onclick=e=>{if(e.target.id==="info")$("#info").hidden=true};
 renderWho();
 show("home");
 initAuth();
