@@ -1228,7 +1228,7 @@ const INFO = {
  k_dip:["Diplomacia","Embajadas y cancillería: acuerdos, conflictos y cumbres. Cuenta mucho tu imagen internacional."],
  interna:["La interna","Antes de ir por la jefatura de gobierno tenés que ganar la interna de tu partido. Pesan tu apoyo partidario, tu relación con las instituciones y tu imagen. Si venís de un cargo bajo, te cuesta más."],
  salto:["Saltos de cargo","Podés postularte a cualquier cargo electivo, pero cada nivel que saltás te resta votos. De concejal a presidente es casi imposible, no imposible."],
- derrotas:["Cómo se pierde","Tres derrotas electorales seguidas, la expulsión de tu partido, un escándalo de 100 o un juicio político terminan tu carrera. A los 74 te retirás sí o sí."],
+ derrotas:["Cómo se pierde","Tres derrotas electorales seguidas, la expulsión de tu partido, un escándalo de 100 o un juicio político terminan tu carrera. Desde los 70 el retiro puede llegar en cualquier momento, y a los 78 llega sí o sí."],
  m_recorrida:["Recorrida","Tocá las ciudades para sumar votos. Las trampas (escándalos, huevazos) restan. Suma o resta hasta unos pocos puntos en la elección."],
  m_debate:["Debate","Cada ataque del rival tiene un tipo. Al dato se lo refuta, a la chicana se le responde con humor y a la pregunta trampa se la esquiva. Cada vez tenés menos tiempo."],
  m_fiscal:["Fiscalización","Todas las actas tienen que decir lo mismo. Encontrá la adulterada antes de que se acabe el tiempo."],
@@ -1681,7 +1681,7 @@ function finTurno(){
   if(G.st.p<=6)return fin("Tu partido te expulsó. Sin estructura, tu carrera termina acá.");
   if(G.st.s>=100)return fin("Procesado por la Justicia. Tu carrera termina en tribunales.");
   if(r?.top&&G.st.l<=6)return fin("Juicio político. Te remueven del cargo.");
-  if(G.edad>=74)return fin("Llegó la hora. Con "+G.edad+" años, te retirás de la política y empezás a escribir tus memorias.");
+  if(G.edad>=78||(G.edad>=70&&R()<.3))return prepararDespedida(true);
   if(G.edad>=64&&(!G.retiroUlt||G.edad-G.retiroUlt>=4)&&R()<.5){G.fase="retiro";save();vGame();return}
   siguientePaso();
 }
@@ -2142,7 +2142,7 @@ function calcInsignias(){
   if((G.cambios||0)>=2)add("panqueque");if(G.elecP===0&&G.elecG>=3)add("invicto");
   if(G.maxEsc>=60&&s.s<40&&!f.startsWith("Procesado"))add("sobreviviente");
   if(f.startsWith("Procesado"))add("prontuario");if(f.startsWith("Tu partido te expulsó"))add("expulsado");
-  if(G.traicionado)add("traicionado");if(G.perfecto)add("perfecto");if(f.startsWith("Llegó la hora"))add("longevo");
+  if(G.traicionado)add("traicionado");if(G.perfecto)add("perfecto");if(G.longevo)add("longevo");
   const prev=insigniasGuardadas(),nuevas=out.filter(x=>!prev[x]);
   out.forEach(x=>{if(!prev[x])prev[x]=hoyISO()});try{localStorage.setItem("elmandato.insignias",JSON.stringify(prev))}catch(e){}
   return {todas:out,nuevas};
@@ -2597,6 +2597,54 @@ function antecedente(e){
   return `<div class="sabias mem"><b>Antecedente (${a.anio}):</b> en «${esc(a.tit)}» elegiste «${esc(a.op)}». La gente se acuerda.</div>`;
 }
 
+/* ================== v10: despedidas ================== */
+/* Motivos del retiro: [condición, título, texto] — {E} edad */
+const MOTIVOS_RETIRO=[
+ [()=>G.st.l>=65,"Te vas en tu mejor momento","Las encuestas te dan como el político mejor valorado de {P}. Justo por eso decidís irte: preferís que te recuerden así."],
+ [()=>G.st.l<35,"Las encuestas son lapidarias","Tu imagen está por el piso y en el partido ya nadie atiende tus llamados. Te piden un paso al costado y esta vez no tenés con qué resistir."],
+ [()=>G.st.s>=55,"La causa no te suelta","Tus abogados son claros: con la causa abierta, cuanto más bajo sea tu perfil, mejor. Dejás la primera línea para concentrarte en tu defensa."],
+ [()=>G.st.p<30,"El partido te jubila","El congreso partidario aprueba una renovación generacional y tu nombre no figura en ninguna lista. Te enterás por la tele."],
+ [()=>G.st.p>=60,"Pasás la posta","El partido quiere que seas su gran elector. Cambiás los actos por los cafés en los que se arman las listas."],
+ [()=>G.st.i>=65,"Te llaman de afuera","Un organismo internacional te ofrece un cargo de enviado especial. Es más tranquilo, mejor pago y lejos de las internas."],
+ [()=>G.llegoTop,"Ya estuviste en la cima","Fuiste presidente. Volver a pelear concejalías no tiene sentido. Te convertís en una voz de consulta del país."],
+ [()=>G.nemesis&&G.nemesis.cargo&&!G.nemWins&&R()<.35,"Tu archirrival te gana la última","{RIVAL} llega a {RCARGO} y en tu partido muchos se pasan a su lado. Entendés que tu tiempo terminó."],
+ [()=>G.nemWins,"Le ganaste a tu archirrival","Ya derrotaste a {RIVAL}, que también se retira. Sin tu enemigo de toda la vida, la política ya no tiene el mismo gusto."],
+ [()=>G.kinds.includes("dip"),"Cancillería te jubila","Llegás a la edad de retiro del servicio exterior. Te despedís con una cena en la embajada y te quedás pensando en volver a {DESTINO}."],
+ [()=>!G.cargo,"El teléfono ya no suena","Hace años que estás en el llano. Los periodistas ya no te llaman y los militantes jóvenes no te conocen."],
+ [()=>G.elecP>=4,"Demasiadas derrotas","Perdiste más elecciones de las que querés recordar. Una noche, en el búnker vacío, lo decidís: no más."],
+ [()=>true,"Tu familia te lo pide","Tus nietos te ven más en la tele que en persona. En un almuerzo de domingo te lo dicen sin vueltas, y esta vez escuchás."],
+ [()=>true,"Una advertencia del médico","Un chequeo de rutina termina con una recomendación clara: menos estrés, menos actos y más horas de sueño. La campaña puede esperar; tu salud, no."],
+ [()=>true,"La política cambió","Las campañas ahora se ganan en TikTok y vos seguís imprimiendo boletas. Reconocés que esta ya no es tu época."],
+ [()=>true,"Querés escribir tu versión","Hay demasiadas cosas que nunca contaste. Decidís bajarte para escribirlas antes de que otro cuente tu historia."],
+ [()=>true,"Volver a {PROV}","Extrañás tu pago. Volvés a {PROV}, al barrio donde empezaste, a ver cómo cambió todo."],
+];
+/* Cómo te despedís: [texto del botón, final] */
+const DESPEDIDAS=[
+ ["Escribir mis memorias","Tus memorias se vuelven best seller y medio arco político pide derecho a réplica."],
+ ["Crear una fundación","Tu fundación forma a cuadros jóvenes. Algunos dicen que es tu forma de seguir haciendo política."],
+ ["Dar clases en la universidad","Tus clases de política se llenan. Los alumnos te preguntan más por las internas que por la teoría."],
+ ["Ser consejero en las sombras","Desaparecés de los medios, pero ningún candidato arma una lista sin pasar antes por tu casa."],
+ ["Tener un programa de radio","Tu programa de los domingos es el que escuchan todos los políticos, aunque digan que no."],
+ ["Volver a mi provincia","Volvés a {PROV}. Te ven en el café, en la cancha y en los actos escolares, como un vecino más."],
+ ["Un último discurso en la plaza","Das un discurso de despedida frente a miles de personas. Lo pasan en todos los noticieros."],
+ ["Irme sin hacer ruido","Te vas sin conferencia ni despedida. Un día, simplemente, dejás de estar."],
+];
+function prepararDespedida(forzado){
+  const ok=MOTIVOS_RETIRO.filter(m=>{try{return m[0]()}catch(e){return false}});
+  const espec=ok.filter(m=>m[0].toString().replace(/\s/g,"")!=="()=>true");
+  const m=(espec.length&&R()<.75)?pick(espec):pick(ok);
+  const ds=[...DESPEDIDAS].sort(()=>R()-.5).slice(0,3);
+  G.desp={tit:tplSafe(m[1]),txt:tplSafe(m[2]),forz:!!forzado,ops:ds.map(d=>[tplSafe(d[0]),tplSafe(d[1])])};
+  G.fase="despedida";save();vGame();
+}
+function htmlDespedida(){
+  const d=G.desp;
+  return `${hero("cafe","Fin de una era")}<div class="dl"><span>${G.anio} · ${G.edad} años</span><span class="stamp">Despedida</span></div><h2>${esc(d.tit)}</h2>
+  <p class="txt">${esc(d.txt)}</p><p class="txt" style="opacity:.8">${d.forz?"Después de toda una vida en la política, llegó el momento de bajarse.":"Tomás la decisión: te retirás."} ¿Cómo querés que sea tu último acto?</p>
+  <div class="choices">${d.ops.map((o,i)=>`<button class="choice" data-desp="${i}"><span class="k">${"ABC"[i]}</span><span>${esc(o[0])}</span></button>`).join("")}</div>`;
+}
+function cerrarDespedida(i){const d=G.desp,o=d.ops[i];G.longevo=d.forz;fin(`${d.tit}. ${d.txt} ${o[1]}`)}
+
 /* ================== VISTA DE JUEGO ================== */
 const STC={l:"Local",i:"Mundo",p:"Partido",n:"Instit.",e:"Economía",s:"Escándalo"};
 function colorFor(k,v){const good=k==="s"?100-v:v;return good>=60?"var(--good)":good>=35?"var(--warn)":"var(--bad)"}
@@ -2648,9 +2696,10 @@ function vGame(){
      ${fm&&puedeReel?`<div class="offer"><div><b>No me presento</b><span>Te vas al llano</span></div><button class="btn sm ghost" id="bLlano">Aceptar</button></div>`:""}
      ${!r&&!(G.ofertas||[]).length?`<div class="offer"><div><b>Seguir en el llano</b><span>Dos años más armando tu regreso</span></div><button class="btn sm ghost" id="bQuedo">Seguir</button></div>`:""}
     </div>${G.pista?`<p class="muted" style="margin:0;font-size:13px">${esc(G.pista)}</p>`:""}`;
+  }else if(G.fase==="despedida"){body=htmlDespedida();
   }else if(G.fase==="retiro"){
     body=`<div class="dl"><span>Homenaje</span></div><h2>¿Llegó la hora?</h2>
-    <p class="txt">Tenés ${G.edad} años. Tu partido te organiza un homenaje y te ofrece retirarte con honores. A los 74 el retiro llega igual.</p>
+    <p class="txt">Tenés ${G.edad} años. Tu partido te organiza un homenaje y te ofrece retirarte con honores. Tarde o temprano, el retiro llega igual.</p>
     <div class="choices"><button class="choice" id="bRetSi"><span class="k">A</span><span>Me retiro con honores</span></button><button class="choice" id="bRetNo"><span class="k">B</span><span>Todavía me queda una más</span></button></div>`;
   }else if(G.fase==="postular"){
     const cur=r?r.tier:G.ultTier;
@@ -2728,8 +2777,8 @@ function vGame(){
   app.querySelectorAll("[data-reel]").forEach(b=>b.onclick=()=>aceptar(b.dataset.reel,true));
   if($("#bQuedo"))$("#bQuedo").onclick=rechazar;
   if($("#bLlano"))$("#bLlano").onclick=()=>{sinCargo("fin de mandato");rechazar()};
-  if($("#bRetHon"))$("#bRetHon").onclick=()=>fin("Te retirás como expresidente, con un lugar asegurado en los libros de historia.");
-  if($("#bRetSi"))$("#bRetSi").onclick=()=>fin("Te retirás con honores a los "+G.edad+" años, con un homenaje de tu partido.");
+  if($("#bRetHon"))$("#bRetHon").onclick=()=>prepararDespedida(false);
+  if($("#bRetSi"))$("#bRetSi").onclick=()=>prepararDespedida(false);app.querySelectorAll("[data-desp]").forEach(b=>b.onclick=()=>cerrarDespedida(+b.dataset.desp));
   if($("#bRetNo"))$("#bRetNo").onclick=()=>{G.retiroUlt=G.edad;siguientePaso()};
   if($("#bInt"))$("#bInt").onclick=contInterna;
   if($("#bPost"))$("#bPost").onclick=()=>{G.fase="postular";save();vGame()};
@@ -2751,7 +2800,7 @@ function vGame(){
   if($("#bCambioNo"))$("#bCambioNo").onclick=()=>{G.fase="evento";save();vGame()};
   if(G.fase==="fundar"){bindCreador(G.mpDraft,()=>{SET.mp=G.mpDraft;const y=scrollY;vGame();scrollTo(0,y)});$("#bFundOk").onclick=()=>{const m=G.mpDraft;if(!m.n.trim())m.n="Nuevo Movimiento";if(!m.sigla)m.sigla=m.n.split(/\s+/).map(w=>w[0]||"").join("").toUpperCase().slice(0,5);G.miPartido={...m};G.pesoPropio=1;G.crecePropio=0;G.fundo=true;cambiarPartido("PROPIO")}}
   if($("#bElec"))$("#bElec").onclick=contEleccion;
-  $("#bRetiro").onclick=()=>{const b=$("#bRetiro");if(b.dataset.ok){fin("Te retirás de la política por decisión propia.")}else{b.dataset.ok=1;b.textContent="¿Seguro? Tocá de nuevo";b.classList.remove("ghost")}};
+  $("#bRetiro").onclick=()=>{const b=$("#bRetiro");if(b.dataset.ok){prepararDespedida(false)}else{b.dataset.ok=1;b.textContent="¿Seguro? Tocá de nuevo";b.classList.remove("ghost")}};
   $("#bSalir").onclick=()=>{save();G=null;show("home")};
   if(G.fase==="evento"&&tutoActivo())setTimeout(mostrarTuto,350);
 }
