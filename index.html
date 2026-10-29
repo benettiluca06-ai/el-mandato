@@ -199,6 +199,17 @@ img{max-width:100%}
 .nego{display:flex;flex-direction:column;gap:12px}
 .nego-v{font-family:var(--f-display);font-size:56px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
 input[type=range]{width:100%;accent-color:var(--accent)}
+/* ---- v4 ---- */
+.sel{font:inherit;padding:10px 12px;border-radius:var(--r);border:1.5px solid var(--line);background:var(--surface);color:var(--ink);max-width:360px}
+.actas{display:grid;gap:8px}
+.acta{padding:12px 4px;border-radius:6px;border:1.5px solid var(--line);background:var(--bg);font-family:var(--f-mono);font-size:15px;font-variant-numeric:tabular-nums}
+.acta.ok{background:var(--good);border-color:var(--good);color:var(--surface)}
+.acta.bad{background:var(--bad);border-color:var(--bad);color:var(--surface)}
+.agenda{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;max-width:420px}
+.ag{padding:22px 8px;border-radius:var(--r);border:2px solid var(--line);background:var(--bg);font-weight:600;font-size:15px;transition:background .1s,transform .1s;touch-action:manipulation}
+.ag0{--c:var(--accent)} .ag1{--c:var(--seal)} .ag2{--c:var(--warn)} .ag3{--c:var(--good)}
+.ag.lit,.ag.tap{background:var(--c);border-color:var(--c);color:var(--surface);transform:scale(1.03)}
+.ag.bad{background:var(--bad);border-color:var(--bad);color:var(--surface)}
 /* ---- v3: juego ---- */
 .play{max-width:720px;margin:20px auto 0;display:flex;flex-direction:column;gap:14px}
 .hud{border:1.5px solid var(--ink);border-radius:var(--r);background:var(--surface);padding:14px 16px;display:flex;flex-direction:column;gap:12px}
@@ -570,15 +581,28 @@ const PARTIDOS = {
 };
 const PESO = {3:{n:"Partido grande",ef:{p:-4},voto:4},2:{n:"Partido mediano",ef:{},voto:0},1:{n:"Partido chico",ef:{p:8},voto:-5}};
 
-const CIUDADES = {
- AR:["Buenos Aires","Córdoba","Rosario","Mendoza","La Plata","Tucumán","Mar del Plata","Salta","Posadas","Neuquén","Resistencia","Bahía Blanca","Corrientes","Ushuaia","San Juan","Santa Fe"],
- BR:["São Paulo","Rio de Janeiro","Brasília","Salvador","Belo Horizonte","Fortaleza","Recife","Manaus","Porto Alegre","Curitiba","Belém","Florianópolis"],
- CL:["Santiago","Valparaíso","Concepción","Antofagasta","Temuco","La Serena","Iquique","Puerto Montt","Rancagua","Arica","Punta Arenas","Viña del Mar"],
- UY:["Montevideo","Salto","Paysandú","Maldonado","Rivera","Colonia","Tacuarembó","Melo","Mercedes","Punta del Este","Florida","Artigas"],
- MX:["Ciudad de México","Guadalajara","Monterrey","Puebla","Tijuana","Mérida","Oaxaca","Cancún","Querétaro","Culiacán","Veracruz","Chihuahua"],
- US:["Nueva York","Los Ángeles","Chicago","Houston","Phoenix","Miami","Atlanta","Detroit","Filadelfia","Denver","Seattle","Pittsburgh"],
- ES:["Madrid","Barcelona","Valencia","Sevilla","Bilbao","Zaragoza","Málaga","Murcia","Palma","Vigo","Valladolid","Las Palmas"],
- UK:["Londres","Manchester","Birmingham","Glasgow","Edimburgo","Liverpool","Leeds","Cardiff","Belfast","Bristol","Newcastle","Sheffield"],
+/* Provincias / estados / regiones: [etiqueta, forma en el texto, capital] */
+const PROVS = {
+ AR:[["Buenos Aires","Buenos Aires","La Plata"],["CABA","la Ciudad de Buenos Aires","Buenos Aires"],["Catamarca","Catamarca","Catamarca"],["Chaco","Chaco","Resistencia"],["Chubut","Chubut","Rawson"],["Córdoba","Córdoba","Córdoba"],["Corrientes","Corrientes","Corrientes"],["Entre Ríos","Entre Ríos","Paraná"],["Formosa","Formosa","Formosa"],["Jujuy","Jujuy","San Salvador de Jujuy"],["La Pampa","La Pampa","Santa Rosa"],["La Rioja","La Rioja","La Rioja"],["Mendoza","Mendoza","Mendoza"],["Misiones","Misiones","Posadas"],["Neuquén","Neuquén","Neuquén"],["Río Negro","Río Negro","Viedma"],["Salta","Salta","Salta"],["San Juan","San Juan","San Juan"],["San Luis","San Luis","San Luis"],["Santa Cruz","Santa Cruz","Río Gallegos"],["Santa Fe","Santa Fe","Santa Fe"],["Santiago del Estero","Santiago del Estero","Santiago del Estero"],["Tierra del Fuego","Tierra del Fuego","Ushuaia"],["Tucumán","Tucumán","San Miguel de Tucumán"]],
+ BR:[["Acre","Acre","Rio Branco"],["Alagoas","Alagoas","Maceió"],["Amapá","Amapá","Macapá"],["Amazonas","Amazonas","Manaus"],["Bahia","Bahia","Salvador"],["Ceará","Ceará","Fortaleza"],["Distrito Federal","el Distrito Federal","Brasília"],["Espírito Santo","Espírito Santo","Vitória"],["Goiás","Goiás","Goiânia"],["Maranhão","Maranhão","São Luís"],["Mato Grosso","Mato Grosso","Cuiabá"],["Mato Grosso do Sul","Mato Grosso do Sul","Campo Grande"],["Minas Gerais","Minas Gerais","Belo Horizonte"],["Pará","Pará","Belém"],["Paraíba","Paraíba","João Pessoa"],["Paraná","Paraná","Curitiba"],["Pernambuco","Pernambuco","Recife"],["Piauí","Piauí","Teresina"],["Rio de Janeiro","Rio de Janeiro","Rio de Janeiro"],["Rio Grande do Norte","Rio Grande do Norte","Natal"],["Rio Grande do Sul","Rio Grande do Sul","Porto Alegre"],["Rondônia","Rondônia","Porto Velho"],["Roraima","Roraima","Boa Vista"],["Santa Catarina","Santa Catarina","Florianópolis"],["São Paulo","São Paulo","São Paulo"],["Sergipe","Sergipe","Aracaju"],["Tocantins","Tocantins","Palmas"]],
+ CL:[["Arica y Parinacota","Arica y Parinacota","Arica"],["Tarapacá","Tarapacá","Iquique"],["Antofagasta","Antofagasta","Antofagasta"],["Atacama","Atacama","Copiapó"],["Coquimbo","Coquimbo","La Serena"],["Valparaíso","Valparaíso","Valparaíso"],["Metropolitana","la Región Metropolitana","Santiago"],["O'Higgins","O'Higgins","Rancagua"],["Maule","Maule","Talca"],["Ñuble","Ñuble","Chillán"],["Biobío","Biobío","Concepción"],["La Araucanía","La Araucanía","Temuco"],["Los Ríos","Los Ríos","Valdivia"],["Los Lagos","Los Lagos","Puerto Montt"],["Aysén","Aysén","Coyhaique"],["Magallanes","Magallanes","Punta Arenas"]],
+ UY:[["Artigas","Artigas","Artigas"],["Canelones","Canelones","Canelones"],["Cerro Largo","Cerro Largo","Melo"],["Colonia","Colonia","Colonia del Sacramento"],["Durazno","Durazno","Durazno"],["Flores","Flores","Trinidad"],["Florida","Florida","Florida"],["Lavalleja","Lavalleja","Minas"],["Maldonado","Maldonado","Maldonado"],["Montevideo","Montevideo","Montevideo"],["Paysandú","Paysandú","Paysandú"],["Río Negro","Río Negro","Fray Bentos"],["Rivera","Rivera","Rivera"],["Rocha","Rocha","Rocha"],["Salto","Salto","Salto"],["San José","San José","San José de Mayo"],["Soriano","Soriano","Mercedes"],["Tacuarembó","Tacuarembó","Tacuarembó"],["Treinta y Tres","Treinta y Tres","Treinta y Tres"]],
+ MX:[["Aguascalientes","Aguascalientes","Aguascalientes"],["Baja California","Baja California","Mexicali"],["Baja California Sur","Baja California Sur","La Paz"],["Campeche","Campeche","Campeche"],["Chiapas","Chiapas","Tuxtla Gutiérrez"],["Chihuahua","Chihuahua","Chihuahua"],["Ciudad de México","la Ciudad de México","Ciudad de México"],["Coahuila","Coahuila","Saltillo"],["Colima","Colima","Colima"],["Durango","Durango","Durango"],["Estado de México","el Estado de México","Toluca"],["Guanajuato","Guanajuato","Guanajuato"],["Guerrero","Guerrero","Chilpancingo"],["Hidalgo","Hidalgo","Pachuca"],["Jalisco","Jalisco","Guadalajara"],["Michoacán","Michoacán","Morelia"],["Morelos","Morelos","Cuernavaca"],["Nayarit","Nayarit","Tepic"],["Nuevo León","Nuevo León","Monterrey"],["Oaxaca","Oaxaca","Oaxaca"],["Puebla","Puebla","Puebla"],["Querétaro","Querétaro","Querétaro"],["Quintana Roo","Quintana Roo","Chetumal"],["San Luis Potosí","San Luis Potosí","San Luis Potosí"],["Sinaloa","Sinaloa","Culiacán"],["Sonora","Sonora","Hermosillo"],["Tabasco","Tabasco","Villahermosa"],["Tamaulipas","Tamaulipas","Ciudad Victoria"],["Tlaxcala","Tlaxcala","Tlaxcala"],["Veracruz","Veracruz","Xalapa"],["Yucatán","Yucatán","Mérida"],["Zacatecas","Zacatecas","Zacatecas"]],
+ US:[["Alabama","Alabama","Montgomery"],["Alaska","Alaska","Juneau"],["Arizona","Arizona","Phoenix"],["Arkansas","Arkansas","Little Rock"],["California","California","Sacramento"],["Carolina del Norte","Carolina del Norte","Raleigh"],["Carolina del Sur","Carolina del Sur","Columbia"],["Colorado","Colorado","Denver"],["Connecticut","Connecticut","Hartford"],["Dakota del Norte","Dakota del Norte","Bismarck"],["Dakota del Sur","Dakota del Sur","Pierre"],["Delaware","Delaware","Dover"],["Florida","Florida","Tallahassee"],["Georgia","Georgia","Atlanta"],["Hawái","Hawái","Honolulu"],["Idaho","Idaho","Boise"],["Illinois","Illinois","Springfield"],["Indiana","Indiana","Indianápolis"],["Iowa","Iowa","Des Moines"],["Kansas","Kansas","Topeka"],["Kentucky","Kentucky","Frankfort"],["Luisiana","Luisiana","Baton Rouge"],["Maine","Maine","Augusta"],["Maryland","Maryland","Annapolis"],["Massachusetts","Massachusetts","Boston"],["Michigan","Michigan","Lansing"],["Minnesota","Minnesota","Saint Paul"],["Misisipi","Misisipi","Jackson"],["Misuri","Misuri","Jefferson City"],["Montana","Montana","Helena"],["Nebraska","Nebraska","Lincoln"],["Nevada","Nevada","Carson City"],["Nueva Jersey","Nueva Jersey","Trenton"],["Nueva York","Nueva York","Albany"],["Nuevo Hampshire","Nuevo Hampshire","Concord"],["Nuevo México","Nuevo México","Santa Fe"],["Ohio","Ohio","Columbus"],["Oklahoma","Oklahoma","Oklahoma City"],["Oregón","Oregón","Salem"],["Pensilvania","Pensilvania","Harrisburg"],["Rhode Island","Rhode Island","Providence"],["Tennessee","Tennessee","Nashville"],["Texas","Texas","Austin"],["Utah","Utah","Salt Lake City"],["Vermont","Vermont","Montpelier"],["Virginia","Virginia","Richmond"],["Virginia Occidental","Virginia Occidental","Charleston"],["Washington","Washington","Olympia"],["Wisconsin","Wisconsin","Madison"],["Wyoming","Wyoming","Cheyenne"]],
+ ES:[["Andalucía","Andalucía","Sevilla"],["Aragón","Aragón","Zaragoza"],["Asturias","Asturias","Oviedo"],["Baleares","Baleares","Palma"],["Canarias","Canarias","Las Palmas"],["Cantabria","Cantabria","Santander"],["Castilla-La Mancha","Castilla-La Mancha","Toledo"],["Castilla y León","Castilla y León","Valladolid"],["Cataluña","Cataluña","Barcelona"],["Comunidad Valenciana","la Comunidad Valenciana","Valencia"],["Extremadura","Extremadura","Mérida"],["Galicia","Galicia","Santiago de Compostela"],["La Rioja","La Rioja","Logroño"],["Madrid","la Comunidad de Madrid","Madrid"],["Murcia","la Región de Murcia","Murcia"],["Navarra","Navarra","Pamplona"],["País Vasco","el País Vasco","Vitoria"]],
+ UK:[["Londres","Londres","Londres"],["Sudeste de Inglaterra","el Sudeste de Inglaterra","Brighton"],["Suroeste de Inglaterra","el Suroeste de Inglaterra","Bristol"],["Este de Inglaterra","el Este de Inglaterra","Cambridge"],["West Midlands","West Midlands","Birmingham"],["East Midlands","East Midlands","Nottingham"],["Yorkshire","Yorkshire","Leeds"],["Noroeste de Inglaterra","el Noroeste de Inglaterra","Mánchester"],["Noreste de Inglaterra","el Noreste de Inglaterra","Newcastle"],["Escocia","Escocia","Edimburgo"],["Gales","Gales","Cardiff"],["Irlanda del Norte","Irlanda del Norte","Belfast"]],
+};
+const CIUDADES=Object.fromEntries(Object.entries(PROVS).map(([k,v])=>[k,v.map(x=>x[2])]));
+const PROV_LAB={AR:"Tu provincia",BR:"Tu estado",CL:"Tu región",UY:"Tu departamento",MX:"Tu estado",US:"Tu estado",ES:"Tu comunidad autónoma",UK:"Tu región"};
+const REFERENTES={
+ AR:{LLA:"Javier Milei",PJ:"Juan Domingo Perón",PRO:"Mauricio Macri",UCR:"Raúl Alfonsín",PU:"Juan Schiaretti",FIT:"Myriam Bregman"},
+ BR:{PT:"Lula da Silva",PL:"Jair Bolsonaro",MDB:"Ulysses Guimarães",PSD:"Gilberto Kassab","UNIÃO":"ACM Neto",PSOL:"Guilherme Boulos"},
+ CL:{REP:"José Antonio Kast",FA:"Gabriel Boric",PS:"Michelle Bachelet",RN:"Sebastián Piñera",UDI:"Jaime Guzmán",PC:"Gladys Marín"},
+ UY:{FA:"José Mujica",PN:"Luis Lacalle Pou",PC:"José Batlle y Ordóñez",CA:"Guido Manini Ríos",IP:"Pablo Mieres"},
+ MX:{MORENA:"Andrés Manuel López Obrador",PAN:"Vicente Fox",PRI:"Luis Donaldo Colosio",MC:"Dante Delgado",PVEM:"Jorge González Torres"},
+ US:{DEM:"Franklin D. Roosevelt",REP:"Abraham Lincoln",LIB:"Ron Paul",IND:"Bernie Sanders"},
+ ES:{PP:"José María Aznar",PSOE:"Felipe González",VOX:"Santiago Abascal",SUMAR:"Yolanda Díaz",PNV:"Sabino Arana",JUNTS:"Carles Puigdemont"},
+ UK:{LAB:"Clement Attlee",CON:"Winston Churchill",REF:"Nigel Farage",LD:"William Gladstone",SNP:"Nicola Sturgeon",GRN:"Caroline Lucas"},
 };
 
 /* Eventos propios de cada país (campo p) */
@@ -865,17 +889,6 @@ EV.push(
   ["Pedís algo a cambio",{p:3,s:2},"Negociación áspera."]]},
 );
 
-/* Provincia o estado de cada ciudad */
-const PROV = {
- AR:{"Buenos Aires":"la Ciudad de Buenos Aires","Córdoba":"Córdoba","Rosario":"Santa Fe","Mendoza":"Mendoza","La Plata":"Buenos Aires","Tucumán":"Tucumán","Mar del Plata":"Buenos Aires","Salta":"Salta","Posadas":"Misiones","Neuquén":"Neuquén","Resistencia":"Chaco","Bahía Blanca":"Buenos Aires","Corrientes":"Corrientes","Ushuaia":"Tierra del Fuego","San Juan":"San Juan","Santa Fe":"Santa Fe"},
- BR:{"São Paulo":"São Paulo","Rio de Janeiro":"Rio de Janeiro","Brasília":"el Distrito Federal","Salvador":"Bahia","Belo Horizonte":"Minas Gerais","Fortaleza":"Ceará","Recife":"Pernambuco","Manaus":"Amazonas","Porto Alegre":"Rio Grande do Sul","Curitiba":"Paraná","Belém":"Pará","Florianópolis":"Santa Catarina"},
- CL:{"Santiago":"la Región Metropolitana","Valparaíso":"Valparaíso","Concepción":"Biobío","Antofagasta":"Antofagasta","Temuco":"La Araucanía","La Serena":"Coquimbo","Iquique":"Tarapacá","Puerto Montt":"Los Lagos","Rancagua":"O'Higgins","Arica":"Arica y Parinacota","Punta Arenas":"Magallanes","Viña del Mar":"Valparaíso"},
- UY:{"Montevideo":"Montevideo","Salto":"Salto","Paysandú":"Paysandú","Maldonado":"Maldonado","Rivera":"Rivera","Colonia":"Colonia","Tacuarembó":"Tacuarembó","Melo":"Cerro Largo","Mercedes":"Soriano","Punta del Este":"Maldonado","Florida":"Florida","Artigas":"Artigas"},
- MX:{"Ciudad de México":"la Ciudad de México","Guadalajara":"Jalisco","Monterrey":"Nuevo León","Puebla":"Puebla","Tijuana":"Baja California","Mérida":"Yucatán","Oaxaca":"Oaxaca","Cancún":"Quintana Roo","Querétaro":"Querétaro","Culiacán":"Sinaloa","Veracruz":"Veracruz","Chihuahua":"Chihuahua"},
- US:{"Nueva York":"Nueva York","Los Ángeles":"California","Chicago":"Illinois","Houston":"Texas","Phoenix":"Arizona","Miami":"Florida","Atlanta":"Georgia","Detroit":"Michigan","Filadelfia":"Pensilvania","Denver":"Colorado","Seattle":"Washington","Pittsburgh":"Pensilvania"},
- ES:{"Madrid":"la Comunidad de Madrid","Barcelona":"Cataluña","Valencia":"la Comunidad Valenciana","Sevilla":"Andalucía","Bilbao":"el País Vasco","Zaragoza":"Aragón","Málaga":"Andalucía","Murcia":"la Región de Murcia","Palma":"Baleares","Vigo":"Galicia","Valladolid":"Castilla y León","Las Palmas":"Canarias"},
- UK:{"Londres":"Londres","Manchester":"el Gran Mánchester","Birmingham":"West Midlands","Glasgow":"Escocia","Edimburgo":"Escocia","Liverpool":"Merseyside","Leeds":"Yorkshire","Cardiff":"Gales","Belfast":"Irlanda del Norte","Bristol":"el suroeste de Inglaterra","Newcastle":"el noreste de Inglaterra","Sheffield":"Yorkshire"},
-};
 /* Sucesos de política local. pr = provincia/estado; sin pr = cualquier provincia del país */
 const EV_PROV = [
  {p:"AR",tit:"La coparticipación",txt:"{PROV} reclama más fondos de la coparticipación federal y el gobierno nacional no afloja.",o:[["Te sumás al reclamo de los gobernadores",{l:4,p:-2,e:1},"Foto de la Liga de Gobernadores."],["Negociás obras a cambio de apoyo",{e:4,p:3,n:-1},"Llegan fondos para {PROV}."],["Vas a la Corte Suprema",{n:4,e:-1},"Juicio largo contra la Nación."]]},
@@ -942,7 +955,7 @@ const EV_PROV = [
  {p:"UK",pr:"Irlanda del Norte",tit:"El protocolo y Stormont",txt:"El gobierno compartido de Stormont vuelve a colapsar por el comercio post-Brexit.",o:[["Mediás entre unionistas y republicanos",{n:5},"Stormont vuelve a funcionar."],["Apoyás a los unionistas",{p:3,i:-3},"Dublín protesta."],["Pedís ayuda a Dublín y Bruselas",{i:4,p:-2},"Gestión trilateral."]]},
  {p:"UK",pr:"Gales",tit:"El acero de Port Talbot",txt:"La acería de Port Talbot despide a miles de trabajadores en Gales.",o:[["Rescate público",{l:5,e:-4},"Se salvan empleos."],["Horno eléctrico con subsidio",{e:2,i:2},"Transición verde."],["Aceptás el cierre",{e:2,l:-6},"Gales de luto."]]},
  {p:"UK",pr:"West Midlands",tit:"Birmingham en quiebra",txt:"El ayuntamiento de Birmingham se declara en quiebra.",o:[["Rescate del gobierno",{l:4,e:-3},"Servicios salvados."],["Recortes y venta de bienes",{e:3,l:-5},"Cierran bibliotecas."],["Comisionados externos",{n:4,p:-2},"Gestión técnica."]]},
- {p:"UK",pr:"el Gran Mánchester",tit:"El tren del norte",txt:"Se cancela el tramo norte del tren de alta velocidad y Mánchester explota.",o:[["Exigís que se haga",{l:5,p:-2},"El norte te banca."],["Proponés un tren regional",{n:3,e:-2},"Plan alternativo."],["Aceptás el recorte",{e:2,l:-5},"Bronca en el norte."]]},
+ {p:"UK",pr:"el Noroeste de Inglaterra",tit:"El tren del norte",txt:"Se cancela el tramo norte del tren de alta velocidad y Mánchester explota.",o:[["Exigís que se haga",{l:5,p:-2},"El norte te banca."],["Proponés un tren regional",{n:3,e:-2},"Plan alternativo."],["Aceptás el recorte",{e:2,l:-5},"Bronca en el norte."]]},
 ];
 EV.push(...EV_PROV.map(e=>({...e,t:"prov"})));
 const REGLA={AR:"consec",BR:"consec",CL:"consec",UY:"consec",MX:"unico",US:"total",ES:"libre",UK:"libre"};
@@ -1078,7 +1091,7 @@ function pushAds(){
 function diario(){
   const h=hash("mandato"+hoyISO()),pk=Object.keys(PAISES),ok=Object.keys(ORIGENES),rs=Object.keys(RASGOS),io=Object.keys(IDEOS);
   const r1=rs[h%rs.length],r2=rs[(h>>>5)%rs.length]===r1?rs[((h>>>5)+1)%rs.length]:rs[(h>>>5)%rs.length];
-  return {pais:pk[h%pk.length],origen:ok[(h>>>3)%ok.length],rasgos:[r1,r2],ciudad:CIUDADES[pk[h%pk.length]][(h>>>11)%CIUDADES[pk[h%pk.length]].length],partido:PARTIDOS[pk[h%pk.length]][(h>>>7)%PARTIDOS[pk[h%pk.length]].length][0],seed:h};
+  return {pais:pk[h%pk.length],origen:ok[(h>>>3)%ok.length],rasgos:[r1,r2],prov:PROVS[pk[h%pk.length]][(h>>>11)%PROVS[pk[h%pk.length]].length][0],partido:PARTIDOS[pk[h%pk.length]][(h>>>7)%PARTIDOS[pk[h%pk.length]].length][0],seed:h};
 }
 const ESCENARIOS=[
  {id:"ministro",n:"Ministro en llamas",d:"Asumís como ministro en plena crisis: economía por el piso y todos te miran.",rama:"ejecutivo",orden:1,ef:{e:-28,l:-8},edad:44},
@@ -1122,7 +1135,7 @@ function vHome(){
        <span class="stamp">Desafío diario</span>
        <h4>${esc(PAISES[d.pais].n)}</h4>
        <p>Mismo país, mismo perfil y mismos sucesos para todos. Una sola partida cuenta para el ranking de hoy.</p>
-       <div class="tags"><span class="tag">${ORIGENES[d.origen].n}</span><span class="tag">${RASGOS[d.rasgos[0]].n}</span><span class="tag">${RASGOS[d.rasgos[1]].n}</span><span class="tag">${esc(PARTIDOS[d.pais].find(x=>x[0]===d.partido)[1])}</span></div>
+       <div class="tags"><span class="tag">${esc(d.prov)}</span><span class="tag">${ORIGENES[d.origen].n}</span><span class="tag">${RASGOS[d.rasgos[0]].n}</span><span class="tag">${RASGOS[d.rasgos[1]].n}</span><span class="tag">${esc(PARTIDOS[d.pais].find(x=>x[0]===d.partido)[1])}</span></div>
       </button>
       ${esc2.map(e=>`<button class="fcard" data-esc="${e.id}"><span class="eyebrow">Escenario</span><h4>${esc(e.n)}</h4><p>${esc(e.d)}</p><div class="tags"><span class="tag">${RAMAS[e.rama]}</span></div></button>`).join("")}
      </div>
@@ -1159,22 +1172,35 @@ function vHome(){
   if($("#bSeguir"))$("#bSeguir").onclick=()=>{G=sv;show(G.fin?"legado":"game")};
   $("#bDiario").onclick=()=>{
     let jugado=false;try{jugado=localStorage.getItem("elmandato.diario")===hoyISO()}catch(e){}
-    nueva({pais:d.pais,origen:d.origen,rasgos:d.rasgos,ciudad:d.ciudad,partido:d.partido,modo:"carrera",diario:true,seed:d.seed,yaJugado:jugado});
+    vPre({pais:d.pais,origen:d.origen,rasgos:d.rasgos,prov:d.prov,partido:d.partido,modo:"carrera",diario:true,seed:d.seed,yaJugado:jugado},"Desafío diario","Mismas condiciones y mismos sucesos para todos. Solo tu primera partida del día cuenta para el ranking de hoy.");
   };
   app.querySelectorAll("[data-esc]").forEach(b=>b.onclick=()=>{
     const e=ESCENARIOS.find(x=>x.id===b.dataset.esc);
     const pk=Object.keys(PAISES)[hash(e.id+hoyISO())%8];
-    nueva({pais:pk,origen:e.origen||"academico",rasgos:["negociador","carismatico"],partido:PARTIDOS[pk][0][0],modo:"escenario",esc:e.id});
+    vPre({pais:pk,origen:e.origen||"academico",rasgos:["negociador","carismatico"],partido:PARTIDOS[pk][0][0],prov:PROVS[pk][hash(e.id+hoyISO()+"p")%PROVS[pk].length][0],modo:"escenario",esc:e.id},e.n,e.d);
   });
   app.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{rankTab=b.dataset.t;app.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-pressed",x===b));subRanking()});
   subRanking();
 }
 
+function vPre(o,tit,desc){
+  window.scrollTo(0,0);
+  const pa=PARTIDOS[o.pais].find(x=>x[0]===o.partido)||PARTIDOS[o.pais][0];
+  app.innerHTML=`<div class="setup" style="max-width:560px">
+   <div><span class="eyebrow">Destacado del día</span><h2>${esc(tit)}</h2></div>
+   <p class="muted" style="margin:0">${esc(desc)}</p>
+   <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="tag">${esc(PAISES[o.pais].n)}</span><span class="tag">${esc(o.prov)}</span><span class="tag">${esc(pa[1])}</span><span class="tag">${ORIGENES[o.origen].n}</span>${o.rasgos.map(r=>`<span class="tag">${RASGOS[r].n}</span>`).join("")}</div>
+   <div class="field"><label for="nm2">Nombre de tu personaje</label><input type="text" id="nm2" maxlength="40" placeholder="Ej: Lucía Ferreyra" value="${esc(SET.nombre||nombreUsuario())}"></div>
+   <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" id="go2">Empezar</button><button class="btn ghost" id="back2">Volver</button></div>
+  </div>`;
+  $("#back2").onclick=()=>show("home");
+  $("#go2").onclick=()=>{SET.nombre=$("#nm2").value;nueva({...o,nombre:SET.nombre})};
+}
 let SET={pais:"AR",partido:null,origen:"academico",rasgos:["carismatico","negociador"],modo:"carrera",inicio:null,nombre:""};
 function vSetup(){
   if(!SET.nombre)SET.nombre=nombreUsuario();
   if(!PARTIDOS[SET.pais].find(x=>x[0]===SET.partido))SET.partido=PARTIDOS[SET.pais][0][0];
-  if(!CIUDADES[SET.pais].includes(SET.ciudad))SET.ciudad=CIUDADES[SET.pais][0];
+  if(!PROVS[SET.pais].some(x=>x[0]===SET.prov))SET.prov=PROVS[SET.pais][0][0];
   const rs=rangos(SET.pais).filter(r=>r.tier>=3&&r.rama!=="internacional");
   if(!SET.inicio||!rs.find(r=>r.id===SET.inicio))SET.inicio=rs[0].id;
   app.innerHTML=`
@@ -1183,9 +1209,9 @@ function vSetup(){
    <div class="field"><label for="nm">Nombre</label><input type="text" id="nm" maxlength="40" placeholder="Ej: Lucía Ferreyra" value="${esc(SET.nombre)}"></div>
    <div class="field"><span class="lab">País</span>
     <div class="grid-c">${Object.entries(PAISES).map(([k,p])=>`<button class="opt" data-p="${k}" aria-pressed="${SET.pais===k}"><span class="code">${p.c}</span><b>${p.n}</b><span>${p.sis}</span></button>`).join("")}</div></div>
-   <div class="field"><span class="lab">Partido</span><div class="chips">${PARTIDOS[SET.pais].map(x=>`<button class="chip" data-pa="${x[0]}" aria-pressed="${SET.partido===x[0]}">${esc(x[1])} <small>· ${PESO[x[2]].n.replace("Partido ","")}</small></button>`).join("")}</div>
-    <span class="muted" style="font-size:12.5px">Grande: más votos y más interna. Chico: menos votos y militancia fiel.</span></div>
-   <div class="field"><span class="lab">Tu ciudad</span><div class="chips">${CIUDADES[SET.pais].map(c=>`<button class="chip" data-ci="${esc(c)}" aria-pressed="${SET.ciudad===c}">${esc(c)}</button>`).join("")}</div></div>
+   <div class="field"><span class="lab">Partido</span><div class="chips">${PARTIDOS[SET.pais].map(x=>{const rf=REFERENTES[SET.pais]?.[x[0]];return `<button class="chip" data-pa="${x[0]}" aria-pressed="${SET.partido===x[0]}">${esc(x[1])} <small>· ${rf?esc(rf)+" · ":""}${PESO[x[2]].n.replace("Partido ","")}</small></button>`}).join("")}</div>
+    <span class="muted" style="font-size:12.5px">Al lado de cada partido, un referente histórico o actual. Grande: más votos y más interna. Chico: menos votos y militancia fiel.</span></div>
+   <div class="field"><label for="prv">${PROV_LAB[SET.pais]}</label><select id="prv" class="sel">${PROVS[SET.pais].map(x=>`<option value="${esc(x[0])}"${SET.prov===x[0]?" selected":""}>${esc(x[0])}</option>`).join("")}</select></div>
    <div class="field"><span class="lab">Origen</span><div class="chips">${Object.entries(ORIGENES).map(([k,v])=>`<button class="chip" data-o="${k}" aria-pressed="${SET.origen===k}">${v.n} <small>· ${v.d}</small></button>`).join("")}</div></div>
    <div class="field"><span class="lab">Rasgos <span class="muted" style="font-weight:400">(elegí 2)</span></span><div class="chips">${Object.entries(RASGOS).map(([k,v])=>`<button class="chip" data-r="${k}" aria-pressed="${SET.rasgos.includes(k)}">${v.n} <small>· ${v.d}</small></button>`).join("")}</div></div>
    <div class="field"><span class="lab">Cómo arrancás</span>
@@ -1196,7 +1222,7 @@ function vSetup(){
   </div>`;
   $("#nm").oninput=e=>SET.nombre=e.target.value;
   app.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{SET.pais=b.dataset.p;vSetup()});
-  app.querySelectorAll("[data-ci]").forEach(b=>b.onclick=()=>{SET.ciudad=b.dataset.ci;vSetup()});
+  $("#prv").onchange=e=>{SET.prov=e.target.value};
   app.querySelectorAll("[data-pa]").forEach(b=>b.onclick=()=>{SET.partido=b.dataset.pa;vSetup()});
   app.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{SET.origen=b.dataset.o;vSetup()});
   app.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{SET.modo=b.dataset.m;vSetup()});
@@ -1221,8 +1247,8 @@ function nueva(o){
      cargo:null,ultTier:1,aniosCargo:0,mandatoAnios:0,mandatos:0,hist:[],maxTier:0,ramas:[],kinds:[],usados:[],puntos:0,
      elecG:0,elecP:0,maxEsc:0,exTop:false,topMandatos:0,nemWins:0,fase:"evento",cola:[],ev:0,vista:"game",log:[]};
   const pa=partidoDe();G.partido=pa[0];G.ideo=pa[3];
-  G.ciudad=CIUDADES[G.pais].includes(o.ciudad)?o.ciudad:CIUDADES[G.pais][0];
-  G.prov=PROV[G.pais][G.ciudad];
+  const pv=PROVS[G.pais].find(x=>x[0]===o.prov)||PROVS[G.pais][0];
+  G.provLab=pv[0];G.prov=pv[1];G.ciudad=pv[2];G.racha=0;
   G.nemesis=nuevoRival();
   const add=ef=>{for(const k in ef)G.st[k]=clamp(G.st[k]+ef[k],0,100)};
   add(ORIGENES[G.origen].ef);add(IDEOS[G.ideo].ef);add(PESO[pa[2]].ef);
@@ -1256,8 +1282,9 @@ function nuevoTurno(){
   const a=locales.length&&x<.3?pick(locales):pais.length&&x<.6?pick(pais):propios.length&&x<.88?pick(propios):pick(pool);
   G.cola=[a];G.usados.push(a);G.ev=0;G.fase="evento";
   G.turnos=(G.turnos||0)+1;
-  const mk=r?{loc:"tira",leg:"poroteo",terr:"crisis",gob:R()<.5?"crisis":"tira",top:"crisis",dip:"tira"}[r.kind]:null;
-  G.mini=(mk&&G.turnos>1&&!G.miniPrev&&R()<.5)?mk:null;G.miniPrev=!!G.mini;
+  const pools={loc:["tira","agenda","fiscal"],leg:["poroteo","agenda","tira"],terr:["crisis","tira","fiscal","agenda"],gob:["crisis","tira","agenda","poroteo"],top:["crisis","agenda","poroteo","tira"],dip:["tira","agenda","fiscal"]};
+  const pl=r?pools[r.kind].filter(m=>m!==G.lastMini):[];
+  G.mini=(pl.length&&G.turnos>1&&!G.miniPrev&&R()<.55)?pick(pl):null;G.miniPrev=!!G.mini;if(G.mini)G.lastMini=G.mini;
 }
 function aplicar(ef){
   const out={};G.prevSt={...G.st};
@@ -1289,8 +1316,10 @@ function seguir(){
 function finTurno(){
   const r=rk(G.cargo);G.lastD=null;G.aviso=null;
   G.st.s=clamp(G.st.s-5,0,100);
+  if(r&&["terr","gob","top"].includes(r.kind))G.st.l=clamp(G.st.l-2,0,100);
   if(r&&(r.kind==="gob"||r.kind==="top"))G.st.e=clamp(G.st.e+Math.round((R()-.5)*8),0,100);
   G.puntos+=r?r.tier*24:6;G.aniosCargo+=2;G.mandatoAnios+=2;G.anio+=2;G.edad+=2;
+  if(G.st.p<=6)return fin("Tu partido te expulsó. Sin estructura, tu carrera termina acá.");
   if(G.st.s>=100)return fin("Procesado por la Justicia. Tu carrera termina en tribunales.");
   if(r?.top&&G.st.l<=6)return fin("Juicio político. Te remueven del cargo.");
   if(G.edad>=74)return fin("Llegó la hora. Con "+G.edad+" años, te retirás de la política y empezás a escribir tus memorias.");
@@ -1353,7 +1382,8 @@ function eleccion(r,reel,bonus,rival){
   if(reel)base+=r.top?(s.e-50)*.15:3;
   if(G.rasgos.includes("carismatico"))base+=3;
   base+=PESO[partidoDe()[2]].voto;
-  let pct=clamp(Math.round((base*.5+23+(R()-.5)*20+(bonus||0))*10)/10,12,72);
+  const curT=rk(G.cargo)?.tier||G.ultTier||1,gap=Math.max(0,r.tier-curT-1);
+  let pct=clamp(Math.round((base*.5+23+(R()-.5)*20+(bonus||0)-gap*4)*10)/10,8,72);
   const rn=`${rival.n} (${rival.pa})`;
   let gano,txt,rpct;
   if(r.top){
@@ -1371,9 +1401,9 @@ function eleccion(r,reel,bonus,rival){
       else{gano=false;txt=`Sacás ${seats} de ${tot} bancas. ${rn} arma gobierno.`}
     }else{rpct=Math.round((30+R()*16)*10)/10;gano=pct>rpct;txt=`${pct}% contra ${rpct}% de ${rn}.`}
   }else{
-    rpct=Math.round((36+R()*16)*10)/10;gano=pct>rpct;txt=`${pct}% contra ${rpct}% de ${rn}.`;
+    rpct=Math.round((34+R()*15+r.tier*1.2)*10)/10;gano=pct>rpct;txt=`${pct}% contra ${rpct}% de ${rn}.`;
   }
-  if(gano)G.elecG++;else G.elecP++;
+  if(gano){G.elecG++;G.racha=0}else{G.elecP++;G.racha=(G.racha||0)+1}
   return{gano,txt,pct,rpct:rpct??Math.round((100-pct)*10)/10};
 }
 function aceptar(id,reel){
@@ -1381,9 +1411,10 @@ function aceptar(id,reel){
   G.pista=null;G.aviso=null;
   if(r.via==="eleccion"){
     const rival=R()<.45?{...G.nemesis,nem:true}:nuevoRival();
-    G.pendElec={id:r.id,reel,prev:G.fase,rival,juego:r.tier>=4?"debate":"recorrida"};G.fase="campania";
+    const jp=(r.tier>=4?["debate","debate","recorrida","fiscal"]:["recorrida","recorrida","fiscal","debate"]).filter(x=>x!==G.lastCamp);const juego=pick(jp);G.lastCamp=juego;
+    G.pendElec={id:r.id,reel,prev:G.fase,rival,juego,postu:!!G.postulando};G.postulando=false;G.fase="campania";
     if(r.top&&!reel){
-      const s=G.st,leg=.45*s.p+.35*s.n+.2*s.l,pInt=clamp((leg-28)/40,.08,.95),gano=R()<pInt;
+      const s=G.st,cT=rk(G.cargo)?.tier||G.ultTier||1,leg=.45*s.p+.35*s.n+.2*s.l-Math.max(0,4-cT)*5,pInt=clamp((leg-28)/40,.08,.95),gano=R()<pInt;
       const N=NOMBRES[G.pais],pct=gano?Math.round((50+R()*25)*10)/10:Math.round((28+R()*21)*10)/10;
       G.interna={gano,pct,rival:pick(N[0])+" "+pick(N[1]),leg:Math.round(leg)};G.fase="interna";
     }
@@ -1395,20 +1426,23 @@ function aceptar(id,reel){
 function resolverEleccion(bonus){
   const pe=G.pendElec,r=rangos(G.pais).find(x=>x.id===pe.id);
   const res=eleccion(r,pe.reel,bonus,pe.rival);
-  G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier};G.fase="eleccion";G.pendElec=null;
+  G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier,postu:pe.postu};G.fase="eleccion";G.pendElec=null;
   if(res.gano){if(pe.rival.nem)G.nemWins=(G.nemWins||0)+1;setCargo(r)}
   else if(G.cargo===r.id||pe.reel||pe.prev==="mandato")sinCargo("derrota");
   save();vGame();
 }
 function contEleccion(){
-  const e=G.elec;G.elec=null;
-  if(e.gano&&!e.reel){G.asuncion={cargo:e.cargo,tier:e.tier,via:"Elección"};G.fase="asuncion";save();vGame();return}
+  const e=G.elec,post=e.postu;G.elec=null;
+  if(G.racha>=3)return fin("Tres derrotas seguidas. Tu partido te soltó la mano y tu carrera se termina acá.");
+  if(e.gano&&!e.reel){G.asuncion={cargo:e.cargo,tier:e.tier,via:"Elección",postu:post};G.fase="asuncion";save();vGame();return}
+  if(post)return finTurno();
   nuevoTurno();save();vGame();
 }
 function contInterna(){
   const it=G.interna,pe=G.pendElec;G.interna=null;
   if(it.gano){G.fase="campania";save();vGame();return}
   G.pendElec=null;if(pe.prev==="mandato")sinCargo("perdió la interna");
+  if(pe.postu)return finTurno();
   nuevoTurno();save();vGame();
 }
 function rechazar(){G.pista=null;G.aviso=null;nuevoTurno();save();vGame()}
@@ -1511,7 +1545,7 @@ function vGame(){
     <p class="txt">${exP?"Llegaste a lo más alto. La ley no te deja seguir por ahora. Podés retirarte como expresidente o volver al ruedo y, cuando la ley lo permita, intentar volver.":fm?(puedeReel?`Cumpliste ${G.mandatos} mandato${G.mandatos>1?"s":""} como ${esc(r.nombre)}.`:`La ley no te permite otro mandato como ${esc(r.nombre)}.`):(r?`Llevás ${G.aniosCargo} años como ${esc(r.nombre)}.`:"Estás en el llano. Estas son las puertas que se abren.")}</p>
     <div class="choices">
      ${puedeReel?`<div class="offer"><div><b>Reelección · ${esc(r.nombre)}</b><span>Elección · se juzga tu gestión</span></div><button class="btn primary sm" data-reel="${r.id}">Ir a elecciones</button></div>`:""}
-     ${(G.ofertas||[]).map(o=>{const x=rangos(G.pais).find(y=>y.id===o.id);return`<div class="offer"><div><b>${esc(x.nombre)}</b><span>${x.top?"Interna y elección presidencial · chances "+(o.p>.6?"altas":o.p>.35?"medias":"bajas"):x.via==="eleccion"?"Elección · chances "+(o.p>.6?"altas":o.p>.35?"medias":"bajas"):"Nombramiento directo"}</span></div><button class="btn sm ${x.top?"primary":""}" data-of="${x.id}">${x.via==="eleccion"?"Ser candidato":"Aceptar"}</button></div>`}).join("")}
+     ${(G.ofertas||[]).map(o=>{const x=rangos(G.pais).find(y=>y.id===o.id);return`<div class="offer"><div><b>${esc(x.nombre)}</b><span>${x.top?"Interna y elección nacional · chances "+(o.p>.6?"altas":o.p>.35?"medias":"bajas"):x.via==="eleccion"?"Elección · chances "+(o.p>.6?"altas":o.p>.35?"medias":"bajas"):"Nombramiento directo"}</span></div><button class="btn sm ${x.top?"primary":""}" data-of="${x.id}">${x.via==="eleccion"?"Ser candidato":"Aceptar"}</button></div>`}).join("")}
      ${exP?`<div class="offer"><div><b>Retirarte como expresidente</b><span>Termina tu carrera con honores</span></div><button class="btn sm primary" id="bRetHon">Retirarme</button></div>`:""}
      ${!fm&&r?`<div class="offer"><div><b>Seguir como ${esc(r.nombre)}</b><span>Rechazás las propuestas</span></div><button class="btn sm ghost" id="bQuedo">Quedarme</button></div>`:""}
      ${fm&&!puedeReel?`<div class="offer"><div><b>Volver al llano</b><span>Un tiempo afuera</span></div><button class="btn sm ghost" id="bLlano">Aceptar</button></div>`:""}
@@ -1522,6 +1556,13 @@ function vGame(){
     body=`<div class="dl"><span>Homenaje</span></div><h2>¿Llegó la hora?</h2>
     <p class="txt">Tenés ${G.edad} años. Tu partido te organiza un homenaje y te ofrece retirarte con honores. A los 74 el retiro llega igual.</p>
     <div class="choices"><button class="choice" id="bRetSi"><span class="k">A</span><span>Me retiro con honores</span></button><button class="choice" id="bRetNo"><span class="k">B</span><span>Todavía me queda una más</span></button></div>`;
+  }else if(G.fase==="postular"){
+    const cur=r?r.tier:G.ultTier;
+    const ops=rangos(G.pais).filter(x=>x.via==="eleccion"&&x.id!==G.cargo&&(!x.top||(!r?.top&&topElegible())));
+    body=`<div class="dl"><span>Candidatura</span></div><h2>¿A qué te postulás?</h2>
+    <p class="txt">Te podés presentar a cualquier cargo electivo. Cuanto más grande el salto desde tu cargo actual, menos chances. Si perdés conservás tu cargo, pero se te van dos años. Ojo: tres derrotas seguidas y tu partido te suelta la mano.</p>
+    <div class="choices">${ops.map(x=>{const gap=Math.max(0,x.tier-cur-1),est=estimarVoto()-gap*4-(x.top?4:0);const ch=est>=50?"altas":est>=44?"medias":est>=36?"bajas":"casi nulas";return `<div class="offer"><div><b>${esc(x.nombre)}</b><span>${x.top?"Interna y elección nacional":"Elección"} · chances ${ch}</span></div><button class="btn sm ${x.top?"primary":""}" data-post="${x.id}">Postularme</button></div>`}).join("")}
+    <div class="offer"><div><b>Mejor no</b><span>Volvés a la agenda</span></div><button class="btn sm ghost" id="bPostNo">Volver</button></div></div>`;
   }else if(G.fase==="interna"){
     const it=G.interna,pa=partidoDe(),x=rangos(G.pais).find(y=>y.id===G.pendElec.id);
     body=`<div class="dl"><span>Interna · ${esc(pa[1])}</span><span class="stamp" style="color:${it.gano?"var(--good)":"var(--bad)"};border-color:currentColor">${it.gano?"Ganaste":"Perdiste"}</span></div>
@@ -1547,7 +1588,7 @@ function vGame(){
   }
   app.innerHTML=`<div class="play">${hud()}<section class="cable"><div class="cable-b">${body}</div></section>
    <details class="tray2"><summary>Trayectoria y archirrival</summary><ul class="tray">${G.hist.map(h=>`<li><span class="y">${h.anio}</span>${esc(h.cargo)}</li>`).join("")}</ul><p class="muted" style="margin:8px 0 0;font-size:13px">Tu archirrival: ${esc(G.nemesis.n)} (${esc(G.nemesis.pa)})${G.nemWins?` · le ganaste ${G.nemWins} ${G.nemWins>1?"veces":"vez"}`:""}.</p></details>
-   <div class="row-a"><button class="btn sm ghost" id="bRetiro">Retirarme</button><button class="btn sm ghost" id="bSalir">Guardar y salir</button></div>
+   <div class="row-a">${G.fase==="evento"?'<button class="btn sm" id="bPost">Postularme a un cargo</button>':""}<button class="btn sm ghost" id="bRetiro">Retirarme</button><button class="btn sm ghost" id="bSalir">Guardar y salir</button></div>
    ${adHTML("game","inline","Banner adaptable")}</div>`;
   pushAds();
   if(G.anim){G.anim=false;requestAnimationFrame(()=>requestAnimationFrame(()=>app.querySelectorAll(".meter .bar i").forEach(b=>{b.style.width=G.st[b.dataset.k]+"%"})))}
@@ -1563,7 +1604,10 @@ function vGame(){
   if($("#bRetSi"))$("#bRetSi").onclick=()=>fin("Te retirás con honores a los "+G.edad+" años, con un homenaje de tu partido.");
   if($("#bRetNo"))$("#bRetNo").onclick=()=>{G.retiroUlt=G.edad;siguientePaso()};
   if($("#bInt"))$("#bInt").onclick=contInterna;
-  if($("#bAsum"))$("#bAsum").onclick=()=>{G.asuncion=null;nuevoTurno();save();vGame()};
+  if($("#bPost"))$("#bPost").onclick=()=>{G.fase="postular";save();vGame()};
+  if($("#bPostNo"))$("#bPostNo").onclick=()=>{G.fase="evento";save();vGame()};
+  app.querySelectorAll("[data-post]").forEach(b=>b.onclick=()=>{G.postulando=true;G.fase="evento";aceptar(b.dataset.post,false)});
+  if($("#bAsum"))$("#bAsum").onclick=()=>{const p=G.asuncion.postu;G.asuncion=null;if(p)return finTurno();nuevoTurno();save();vGame()};
   if($("#bElec"))$("#bElec").onclick=contEleccion;
   $("#bRetiro").onclick=()=>{const b=$("#bRetiro");if(b.dataset.ok){fin("Te retirás de la política por decisión propia.")}else{b.dataset.ok=1;b.textContent="¿Seguro? Tocá de nuevo";b.classList.remove("ghost")}};
   $("#bSalir").onclick=()=>{save();G=null;show("home")};
@@ -1585,12 +1629,17 @@ function miniCtx(){
   return {
     poroteo:{tit:"Poroteo en el recinto",txt:"Se vota tu ley. Mirá qué bancas te apoyan, memorizalas y marcalas cuando se apaguen. Tres rondas."},
     crisis:{tit:k==="terr"?"Gestión de crisis en "+G.ciudad:"Semana negra en el gobierno",txt:"Cuatro frentes se te prenden fuego a la vez. Tocá cada barra para apagar el incendio antes de que llegue a cero. Aguantá 15 segundos.",f:k==="terr"?["Basura","Tránsito","Hospitales","Seguridad"]:["Precios","Calle","Mercados","Congreso"]},
-    tira:{tit:k==="dip"?"Cierre del acuerdo":k==="loc"?"Negociación con los vecinos":"Paritaria",txt:"La aguja va y viene. Tocá Cerrar cuando esté en la zona verde. Tres rondas, cada vez más difícil."},
+    tira:{tit:k==="dip"?"Cierre del acuerdo":k==="loc"?"Negociación con los vecinos":k==="leg"?"Negociación del presupuesto":"Paritaria",txt:"La aguja va y viene. Tocá Cerrar cuando esté en la zona verde. Tres rondas, cada vez más difícil."},
+    agenda:{tit:"Agenda apretada",txt:"Tenés reuniones con la prensa, el partido, los gremios y los empresarios. Mirá el orden en que se prenden y repetilo sin plantar a nadie."},
+    fiscal:{tit:k==="dip"?"Revisión del tratado":"Auditoría de cuentas",txt:"Todas las planillas tienen que coincidir. Encontrá la adulterada antes de que se acabe el tiempo."},
   }[G.mini];
 }
 function miniBody(){
   if(G.fase==="campania"){
     const pe=G.pendElec,x=rangos(G.pais).find(y=>y.id===pe.id);
+    if(pe.juego==="fiscal")return `<div class="dl"><span>Campaña · ${esc(x.nombre)}</span><span class="stamp">Fiscales</span></div><h2>Noche de escrutinio</h2>
+    <p class="txt">Contra ${esc(pe.rival.n)} (${esc(pe.rival.pa)}) cada voto cuenta. Encontrá las actas adulteradas antes de que se carguen.</p>
+    <div id="fz" class="col" style="gap:12px"><button class="btn primary" id="mgGo" style="align-self:flex-start">Ir a fiscalizar</button></div>`;
     if(pe.juego==="debate")return `<div class="dl"><span>Campaña · ${esc(x.nombre)}</span><span class="stamp">Debate</span></div><h2>Debate contra ${esc(pe.rival.n)}</h2>
     <p class="txt">${esc(pe.rival.n)} (${esc(pe.rival.pa)}) te va a atacar seis veces. Respondé rápido con el arma correcta:</p>
     <div class="legend"><span><b>Dato</b> → Refutar</span><span><b>Chicana</b> → Humor</span><span><b>Trampa</b> → Esquivar</span></div>
@@ -1602,7 +1651,9 @@ function miniBody(){
   }
   if(G.fase==="mini"){
     const c=miniCtx();
-    const area=G.mini==="poroteo"?`<div class="mg-top"><span id="poR">Ronda 1 de 3</span><span id="poM">Memorizá</span></div><div class="seats" id="seats">${Array.from({length:12},(_,i)=>`<button class="seat" data-s="${i}" disabled aria-label="Banca ${i+1}"></button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Empezar la votación</button>`
+    const area=G.mini==="agenda"?`<div class="mg-top"><span id="agR">Ronda 1 de 4</span><span id="agM">Mirá el orden</span></div><div class="agenda">${["Prensa","Partido","Gremios","Empresarios"].map((x,i)=>`<button class="ag ag${i}" data-g="${i}">${x}</button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Empezar el día</button>`
+      :G.mini==="fiscal"?`<div id="fz" class="col" style="gap:12px"><button class="btn primary" id="mgGo" style="align-self:flex-start">Abrir las planillas</button></div>`
+      :G.mini==="poroteo"?`<div class="mg-top"><span id="poR">Ronda 1 de 3</span><span id="poM">Memorizá</span></div><div class="seats" id="seats">${Array.from({length:12},(_,i)=>`<button class="seat" data-s="${i}" disabled aria-label="Banca ${i+1}"></button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Empezar la votación</button>`
       :G.mini==="crisis"?`<div class="mg-top"><span>Frentes en pie <b id="crF">4</b></span><span>Tiempo <b id="crT">15</b></span></div><div class="fronts" id="fronts">${c.f.map((f,i)=>`<button class="front" data-f="${i}" disabled><span class="fl">${f}</span><span class="fb"><i style="width:70%"></i></span></button>`).join("")}</div><button class="btn primary" id="mgGo" style="align-self:flex-start">Arrancar</button>`
       :`<div class="mg-top"><span id="tiR">Ronda 1 de 3</span><span>Aciertos <b id="tiS">0</b></span></div><div class="gauge" id="gauge"><span class="zone" id="zone"></span><span class="needle" id="needle"></span></div><button class="btn primary big-btn" id="mgGo">Arrancar</button>`;
     return `<div class="dl"><span>Desafío</span><span class="stamp">${c.tit.split(" ")[0]}</span></div><h2>${esc(c.tit)}</h2><p class="txt">${c.txt}</p><div class="col" style="gap:12px">${area}</div>`;
@@ -1612,8 +1663,13 @@ function miniBody(){
   return "";
 }
 function mountMini(){
-  if(G.fase==="campania")return G.pendElec.juego==="debate"?mountDebate():mountRecorrida();
-  if(G.fase==="mini")return ({poroteo:mountPoroteo,crisis:mountCrisis,tira:mountTira})[G.mini]();
+  if(G.fase==="campania"){const j=G.pendElec.juego;if(j==="debate")return mountDebate();if(j==="fiscal")return mountFiscal(ok=>{const bonus=[-5,-3,-1,1,4,7][ok];$("#fz").innerHTML=`<div class="mg-end"><b>${ok} de 5</b><span>${ok>=4?"Cuidaste cada voto.":ok>=2?"Fiscalización floja.":"Te robaron votos en las mesas."} ${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;$("#mgFin").onclick=()=>resolverEleccion(bonus)});return mountRecorrida()}
+  if(G.fase==="mini")return ({poroteo:mountPoroteo,crisis:mountCrisis,tira:mountTira,agenda:mountAgenda,fiscal:()=>mountFiscal(ok=>{
+    if(ok>=5)return terminarMini("Ojo de halcón","Encontraste todas las irregularidades.",{n:5,s:-3,l:2});
+    if(ok>=3)return terminarMini("Buena auditoría","Detectaste casi todo.",{n:3,s:-1});
+    if(ok>=1)return terminarMini("Se te pasaron cosas","Varias planillas truchas siguieron de largo.",{n:-1,s:2});
+    terminarMini("Te la pasaron por al lado","No viste nada y estalla el escándalo.",{n:-3,s:5,l:-2});
+  })})[G.mini]();
   if(G.fase==="mini_res")$("#bMiniOk").onclick=()=>{G.miniRes=null;G.mini=null;finTurno()};
 }
 function terminarMini(tit,txt,ef){clearMG();const d=aplicar(ef);G.miniRes={tit,txt,d};G.fase="mini_res";save();vGame()}
@@ -1668,6 +1724,53 @@ function mountDebate(){
     const bonus=[-5,-4,-2,0,2,5,8][ok];
     box.innerHTML=`<div class="mg-end"><b>${ok} de ${N}</b><span>${ok>=5?"Lo pasaste por arriba.":ok>=3?"Debate parejo.":"Te comió el debate."} ${bonus>=0?"+":""}${bonus} puntos en la elección</span><button class="btn primary" id="mgFin">Ver el escrutinio</button></div>`;
     $("#mgFin").onclick=()=>resolverEleccion(bonus);
+  }
+}
+function mountFiscal(cb){
+  const box=$("#fz");let i=0,ok=0;const N=5,sizes=[9,9,12,12,16];
+  $("#mgGo").onclick=next;
+  function next(){
+    clearMG();
+    if(i>=N)return cb(ok);
+    const n=sizes[i],base=1000+Math.floor(Math.random()*8000),s=String(base).split(""),a=Math.floor(Math.random()*3);
+    [s[a],s[a+1]]=[s[a+1],s[a]];if(s.join("")===String(base))s[3]=String((+s[3]+1)%10);
+    const odd=+s.join(""),pos=Math.floor(Math.random()*n),ms=Math.max(2600,5200-i*550),fmt=v=>v.toLocaleString("es-AR");
+    box.innerHTML=`<div class="mg-top"><span>Mesa ${i+1} de ${N}</span><span>Bien <b>${ok}</b></span></div><div class="tbar"><i id="fzB"></i></div>
+      <p class="muted" style="margin:0">Todas las actas dicen <b>${fmt(base)}</b> votos. Encontrá la adulterada.</p>
+      <div class="actas" style="grid-template-columns:repeat(${n>12?4:3},minmax(0,1fr))">${Array.from({length:n},(_,j)=>`<button class="acta" data-j="${j}">${fmt(j===pos?odd:base)}</button>`).join("")}</div>`;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{const b=$("#fzB");if(b){b.style.transition=`width ${ms}ms linear`;b.style.width="0%"}}));
+    MGT.push(setTimeout(()=>answer(-1),ms));
+    box.querySelectorAll("[data-j]").forEach(b=>b.onclick=()=>answer(+b.dataset.j));
+    function answer(j){
+      clearMG();const good=j===pos;if(good)ok++;
+      box.querySelectorAll("[data-j]").forEach(b=>{b.disabled=true;if(+b.dataset.j===pos)b.classList.add("ok");else if(+b.dataset.j===j)b.classList.add("bad")});
+      i++;MGT.push(setTimeout(next,good?450:900));
+    }
+  }
+}
+function mountAgenda(){
+  const btns=[...app.querySelectorAll(".ag")],lens=[3,4,5,6];let ri=0,seq=[],k=0,lock=true,done=0;
+  $("#mgGo").onclick=()=>{$("#mgGo").remove();ronda()};
+  function ronda(){
+    clearMG();
+    if(ri>=lens.length)return fin();
+    seq=Array.from({length:lens[ri]},()=>Math.floor(Math.random()*4));k=0;lock=true;
+    $("#agR").textContent=`Ronda ${ri+1} de ${lens.length}`;$("#agM").textContent="Mirá el orden";
+    const sp=Math.max(380,650-ri*80);
+    seq.forEach((b,x)=>{MGT.push(setTimeout(()=>flash(b),400+x*sp))});
+    MGT.push(setTimeout(()=>{lock=false;$("#agM").textContent="Repetilo"},400+seq.length*sp));
+  }
+  function flash(b,cls="lit"){btns[b].classList.add(cls);MGT.push(setTimeout(()=>btns[b].classList.remove(cls),260))}
+  btns.forEach((b,x)=>b.onclick=()=>{
+    if(lock)return;flash(x,"tap");
+    if(x!==seq[k]){lock=true;b.classList.add("bad");$("#agM").textContent="Te equivocaste de reunión";MGT.push(setTimeout(()=>{b.classList.remove("bad");fin()},800));return}
+    k++;if(k===seq.length){lock=true;done++;ri++;$("#agM").textContent="¡Bien!";MGT.push(setTimeout(ronda,700))}
+  });
+  function fin(){
+    if(done>=4)return terminarMini("Agenda perfecta","Atendiste a todos en el orden justo. Nadie se sintió ninguneado.",{p:4,n:4,l:2});
+    if(done>=2)return terminarMini("Agenda cumplida","Algún plantón hubo, pero zafaste.",{p:2,n:1});
+    if(done===1)return terminarMini("Agenda caótica","Dejaste plantados a varios.",{p:-2,n:-2});
+    terminarMini("Plantaste a todos","Los gremios, la prensa y tu partido se quejan.",{p:-4,n:-3,l:-2});
   }
 }
 function mountPoroteo(){
