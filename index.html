@@ -200,6 +200,27 @@ img{max-width:100%}
 .nego{display:flex;flex-direction:column;gap:12px}
 .nego-v{font-family:var(--f-display);font-size:56px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
 input[type=range]{width:100%;accent-color:var(--accent)}
+/* ---- v8 ---- */
+.marca{flex:none;filter:drop-shadow(0 2px 0 color-mix(in srgb,var(--ink) 25%,transparent))}
+.brand h1{font-size:32px}
+.snd{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);padding:0}
+.top{gap:10px}.top .snd{margin-left:auto}
+.mc-scene{height:150px;margin:-20px -20px 0;overflow:hidden;border-bottom:1.5px solid var(--ink)}
+.mc-scene svg{display:block}
+.banderines{display:block;width:calc(100% + 40px);height:22px;margin:-6px -20px 0;color:var(--ink)}
+.mc-fund .banderines{margin:-20px -20px 0;color:#fff}
+.modo{text-align:left;font:inherit;color:inherit;cursor:default}
+.modo.on{cursor:pointer;transition:transform .12s,border-color .12s}
+.modo.on:hover{transform:translateY(-2px);border-color:var(--accent)}
+.modo .ico{color:var(--accent)}
+.modo em{font-style:normal;margin-top:4px;font-weight:600;font-size:13px;color:var(--accent)}
+.pr-j .ico{color:var(--accent);margin-bottom:2px}
+.tuto{position:fixed;left:50%;transform:translateX(-50%);bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:70;width:min(440px,calc(100% - 32px));background:var(--ink);color:var(--bg);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:6px;box-shadow:0 10px 30px rgba(0,0,0,.3);animation:cardIn .3s}
+.tuto .eyebrow{color:inherit;opacity:.7}.tuto b{font-family:var(--f-display);font-size:22px;text-transform:uppercase}.tuto p{margin:0;font-size:14px}
+.tuto-b{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}.tuto .btn.ghost{color:var(--bg);border-color:color-mix(in srgb,var(--bg) 40%,transparent)}
+.tuto-on{position:relative;z-index:65;outline:3px solid var(--seal);outline-offset:4px;border-radius:var(--r);animation:pulseOut 1.4s ease-in-out infinite}
+@keyframes pulseOut{50%{outline-offset:8px}}
+.estilo{margin:0;font-size:14.5px}
 /* ---- v7 ---- */
 .hero2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:12px}
 .mode-card{border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
@@ -1073,6 +1094,46 @@ const EV_PROV = [
  {p:"UK",pr:"el Noroeste de Inglaterra",tit:"El tren del norte",txt:"Se cancela el tramo norte del tren de alta velocidad y Mánchester explota.",o:[["Exigís que se haga",{l:5,p:-2},"El norte te banca."],["Proponés un tren regional",{n:3,e:-2},"Plan alternativo."],["Aceptás el recorte",{e:2,l:-5},"Bronca en el norte."]]},
 ];
 EV.push(...EV_PROV.map(e=>({...e,t:"prov"})));
+/* v8: más política provincial */
+EV.push(...[
+ {p:"AR",pr:"Catamarca",tit:"El litio de Antofagasta de la Sierra",txt:"Una minera quiere ampliar la extracción de litio en la Puna catamarqueña y los pueblos temen por el agua.",o:[["Exigís un estudio hídrico independiente",{n:4,e:-1},"La obra se demora, la gente confía más."],["Aprobás con regalías altas",{e:6,l:-2},"Llega plata a la provincia."],["Consulta a las comunidades",{l:3,n:2},"Proceso largo y legítimo."]]},
+ {p:"AR",pr:"Chubut",tit:"La zonificación minera",txt:"Vuelve el debate para habilitar la minería en la meseta chubutense y en Esquel se arma la marcha.",o:[["Defendés la ley que prohíbe la minería",{l:5,e:-2},"Esquel te aplaude."],["Proponés habilitarla solo en la meseta",{e:5,l:-5},"Corte de rutas en la cordillera."],["Plebiscito provincial",{n:4},"Que decida la gente."]]},
+ {p:"AR",pr:"Entre Ríos",tit:"La planta de celulosa",txt:"Una nueva planta de celulosa del lado uruguayo reaviva el conflicto en Gualeguaychú.",o:[["Te sumás a la asamblea ambiental",{l:6,i:-3},"Vuelven los cortes en el puente."],["Pedís un monitoreo binacional",{i:4,n:2},"Diálogo con Uruguay."],["Defendés la buena relación con Uruguay",{i:5,l:-4},"Te acusan de tibio."]]},
+ {p:"AR",pr:"Formosa",tit:"Los bajos salarios estatales",txt:"Docentes y médicos formoseños denuncian salarios de los más bajos del país.",o:[["Aumento con fondos provinciales",{l:4,e:-3},"Alivio en las escuelas."],["Pedís ayuda a la Nación",{p:2,e:2},"Llega un adelanto de coparticipación."],["Sostener la caja",{e:2,l:-5},"Paro por tiempo indeterminado."]]},
+ {p:"AR",pr:"Jujuy",tit:"La reforma constitucional jujeña",txt:"Una reforma de la constitución provincial genera protestas de comunidades y gremios en la Quebrada.",o:[["Abrir una mesa de diálogo",{n:4,l:1},"Baja la tensión."],["Sostener la reforma",{p:3,l:-4,n:-2},"Cortes en la ruta 9."],["Retirar los artículos polémicos",{l:3,p:-3},"Gesto de distensión."]]},
+ {p:"AR",pr:"La Pampa",tit:"El río Atuel",txt:"La Pampa reclama a Mendoza por el caudal del río Atuel, que llega seco a la provincia.",o:[["Ir de nuevo a la Corte Suprema",{l:5,n:2},"Bandera pampeana."],["Negociar un acuerdo con Mendoza",{n:4,l:-1},"Obras compartidas."],["Pedir que medie la Nación",{p:2,i:1},"El tema vuelve a la agenda nacional."]]},
+ {p:"AR",pr:"La Rioja",tit:"La provincia sin crédito",txt:"La Rioja no puede pagar un bono de deuda y busca emitir su propia cuasimoneda.",o:[["Emitís la cuasimoneda",{l:3,e:-4,i:-3},"Los comercios la aceptan con desconfianza."],["Renegociás con los bonistas",{e:3,i:2,l:-2},"Acuerdo largo."],["Pedís auxilio a la Nación",{p:3,e:2},"Te salvan a cambio de apoyo político."]]},
+ {p:"AR",pr:"Río Negro",tit:"Las peras y manzanas",txt:"Los fruticultores del Alto Valle no cubren costos y dejan la fruta en los árboles.",o:[["Precio sostén para la fruta",{l:4,e:-3},"Los chacareros respiran."],["Abrir mercados en Asia",{e:4,i:3},"Misión comercial a China."],["Reconvertir a otras producciones",{e:2,l:-3},"Plan de largo plazo."]]},
+ {p:"AR",pr:"San Luis",tit:"El fin de una dinastía",txt:"En San Luis se discute cómo desmontar décadas de poder de una misma familia política.",o:[["Auditar todo el Estado provincial",{n:5,p:-2},"Aparecen cosas raras."],["Pacto de gobernabilidad",{n:2,p:2},"Transición ordenada."],["Ir contra todos",{l:4,n:-3},"Te ganás enemigos poderosos."]]},
+ {p:"AR",pr:"Santa Cruz",tit:"Las represas del sur",txt:"Las represas sobre el río Santa Cruz siguen sin terminarse después de años.",o:[["Exigís que se terminen",{l:4,e:-2},"Promesa de reactivación."],["Auditar los sobrecostos",{n:4,s:-1},"Aparecen irregularidades."],["Redirigir los fondos al empleo",{l:3,e:1},"Alivio en Río Gallegos."]]},
+ {p:"AR",pr:"Santiago del Estero",tit:"El agua en el interior santiagueño",txt:"Parajes del interior santiagueño pasan semanas sin agua potable en pleno verano.",o:[["Camiones cisterna ya",{l:4,e:-2},"Solución inmediata."],["Acueducto provincial",{l:3,e:-4,n:2},"Obra de largo plazo."],["Pozos comunitarios",{n:3,e:-1},"Las comunidades participan."]]},
+ {p:"BR",pr:"Pará",tit:"Belém y la COP",txt:"Después de recibir la conferencia climática, Belém pide que no la olviden.",o:[["Plan de saneamiento",{l:5,e:-3},"Obras en las periferias."],["Atraer bioeconomía",{i:4,e:2},"Inversiones verdes."],["Pedir fondos internacionales",{i:5},"Promesas, no tantos pagos."]]},
+ {p:"BR",pr:"Paraná",tit:"El puerto de Paranaguá",txt:"Camiones de soja hacen fila por kilómetros para llegar al puerto de Paranaguá.",o:[["Ampliar el puerto",{e:5,n:-1},"Inversión grande."],["Ferrocarril al puerto",{e:4,n:2},"Obra larga, solución real."],["Turnos digitales",{n:3},"Barato y efectivo."]]},
+ {p:"BR",pr:"Pernambuco",tit:"Lluvias en Recife",txt:"Deslizamientos en los morros de Recife dejan familias sin casa.",o:[["Reubicar a las familias",{l:3,n:2,e:-2},"Decisión difícil."],["Muros de contención",{l:4,e:-3},"Obras rápidas."],["Pedir ayuda federal",{p:2,e:2},"Llega la plata."]]},
+ {p:"BR",pr:"Distrito Federal",tit:"Brasília y los funcionarios",txt:"Los servidores públicos del Distrito Federal reclaman aumento y paralizan servicios.",o:[["Aumento escalonado",{l:3,e:-2},"Se levanta el paro."],["Reforma administrativa",{e:3,l:-4},"Pelea larga."],["Bono por productividad",{n:3},"Prueba piloto."]]},
+ {p:"MX",pr:"Jalisco",tit:"Guadalajara y los desaparecidos",txt:"Colectivos de madres buscadoras de Jalisco piden ayuda del gobierno.",o:[["Fiscalía especial con las madres",{n:5,l:3,e:-2},"Primeros hallazgos."],["Más presupuesto forense",{n:3,e:-2},"Avance lento."],["Minimizar el tema",{l:-6,s:4},"Indignación nacional."]]},
+ {p:"MX",pr:"Chiapas",tit:"La frontera sur",txt:"Miles de migrantes centroamericanos llegan a Tapachula.",o:[["Albergues y trámites rápidos",{n:3,i:3,e:-2},"Te elogian los organismos."],["Contención en la frontera",{i:2,l:2,n:-3},"Críticas de derechos humanos."],["Empleo temporal en Chiapas",{e:2,l:1},"Algunos se quedan a trabajar."]]},
+ {p:"MX",pr:"Estado de México",tit:"El tren al Valle de México",txt:"Millones viajan horas desde el Estado de México a la capital todos los días.",o:[["Nuevas líneas de tren",{l:5,e:-4},"Obra enorme."],["Carriles exclusivos de autobús",{l:3,e:-1},"Rápido y barato."],["Descentralizar empleos",{e:2,n:2},"A largo plazo."]]},
+ {p:"MX",pr:"Guerrero",tit:"Acapulco después del huracán",txt:"Acapulco sigue reconstruyéndose después de un huracán devastador.",o:[["Reconstrucción con fondos federales",{l:4,p:2},"Avanzan las obras."],["Atraer inversión hotelera",{e:4,l:-1},"Vuelven los turistas."],["Plan para los barrios populares",{l:4,e:-2},"Te lo agradecen en los cerros."]]},
+ {p:"US",pr:"Nueva York",tit:"Los alquileres de Nueva York",txt:"Los inquilinos de Nueva York piden congelar los alquileres.",o:[["Congelar alquileres regulados",{l:5,e:-2},"Fiesta en Queens."],["Construir más vivienda",{e:3,l:1},"Grúas por todos lados."],["No intervenir",{e:2,l:-4},"Protestas en el ayuntamiento."]]},
+ {p:"US",pr:"Arizona",tit:"Agua del río Colorado",txt:"El recorte del agua del río Colorado amenaza a los agricultores de Arizona.",o:[["Pagar para dejar campos sin sembrar",{e:-2,n:3},"Ahorro de agua."],["Plantas desalinizadoras",{e:-3,l:3},"Proyecto a futuro."],["Pelear en la Corte con California",{l:4,i:-1},"Pleito interestatal."]]},
+ {p:"US",pr:"Georgia",tit:"Las elecciones en Georgia",txt:"Georgia vuelve a ser decisiva y se discute una nueva ley electoral.",o:[["Ampliar el voto anticipado",{n:3,l:2,p:-1},"Más participación."],["Más controles de identidad",{p:3,n:-2},"Polémica nacional."],["Comisión bipartidista",{n:5},"Acuerdo raro y valorado."]]},
+ {p:"US",pr:"Ohio",tit:"Las fábricas de Ohio",txt:"Una planta de chips promete miles de empleos en Ohio, pero se atrasa.",o:[["Más subsidios para acelerar",{e:4,s:1},"Avanza la obra."],["Exigir empleos locales",{l:4,e:1},"Sindicatos contentos."],["Buscar otros inversores",{e:2,i:2},"Diversificación."]]},
+ {p:"ES",pr:"la Comunidad Valenciana",tit:"El corredor mediterráneo",txt:"Los empresarios valencianos exigen terminar el corredor ferroviario mediterráneo.",o:[["Presionar a Madrid",{l:5,p:-2},"Frente común valenciano."],["Pactar plazos con el Gobierno",{n:3,e:2},"Calendario nuevo."],["Buscar fondos europeos",{i:4,e:2},"Bruselas lo incluye."]]},
+ {p:"ES",pr:"Asturias",tit:"El fin del carbón",txt:"Las cuencas mineras asturianas pierden población tras el cierre de las minas.",o:[["Plan de transición justa",{l:4,e:-2},"Nuevos empleos verdes."],["Atraer industria tecnológica",{e:4,i:2},"Llegan empresas."],["Turismo de montaña",{e:2,l:2},"Los pueblos reviven."]]},
+ {p:"ES",pr:"Navarra",tit:"El fuero navarro",txt:"Navarra defiende su régimen fiscal propio frente a otras comunidades.",o:[["Defenderlo sin concesiones",{l:5,p:-1},"Navarra te respalda."],["Mayor aporte solidario",{n:3,l:-2},"Gesto al resto de España."],["Silencio estratégico",{},"Nadie se entera."]]},
+ {p:"ES",pr:"Aragón",tit:"Teruel existe",txt:"Teruel reclama tren, sanidad y conexión digital para no vaciarse.",o:[["Plan especial para Teruel",{l:5,e:-3},"Vuelven los médicos."],["Fibra óptica en todos los pueblos",{l:3,e:-2,i:1},"Llegan teletrabajadores."],["Concentrar servicios en Zaragoza",{e:3,l:-4},"Protestas en Teruel."]]},
+ {p:"CL",pr:"la Región Metropolitana",tit:"El Metro a Puente Alto",txt:"Los vecinos de la periferia de Santiago pasan horas en el transporte.",o:[["Nueva línea de Metro",{l:5,e:-4},"Obra histórica."],["Buses eléctricos",{l:3,i:2},"Rápido y limpio."],["Teletrabajo y descentralización",{e:2,n:2},"A largo plazo."]]},
+ {p:"CL",pr:"Los Lagos",tit:"Las salmoneras de Chiloé",txt:"Una floración de algas mata salmones y los pescadores de Chiloé cortan el puente.",o:[["Bono para los pescadores",{l:4,e:-3},"Levantan el corte."],["Regulación más dura a las salmoneras",{n:3,e:-2,i:2},"Las empresas protestan."],["Mesa con todos los actores",{n:4},"Acuerdo parcial."]]},
+ {p:"CL",pr:"Coquimbo",tit:"La sequía en el Elqui",txt:"La sequía golpea a los productores del valle del Elqui.",o:[["Embalses nuevos",{l:3,e:-4},"Obra de años."],["Desalinizadora",{e:-3,l:4},"Agua para el valle."],["Riego tecnificado subsidiado",{e:2,n:2},"Ahorro inmediato."]]},
+ {p:"UY",pr:"Canelones",tit:"La costa crece",txt:"La Ciudad de la Costa crece sin saneamiento y los vecinos reclaman.",o:[["Plan de saneamiento",{l:5,e:-4},"Obra esperada."],["Cobrar contribución a los nuevos barrios",{e:3,l:-3},"Protestas."],["Pedir fondos nacionales",{p:2,e:2},"Llegan en cuotas."]]},
+ {p:"UY",pr:"Salto",tit:"Las termas y el turismo",txt:"Salto quiere que sus termas compitan con las mejores de la región.",o:[["Inversión pública en las termas",{l:4,e:-2},"Temporada récord."],["Concesionarlas",{e:4,l:-2},"Llegan cadenas hoteleras."],["Promoción en Argentina y Brasil",{i:3,e:2},"Llegan turistas."]]},
+ {p:"UY",pr:"Colonia",tit:"El puente a Buenos Aires",txt:"Vuelve la idea de un puente entre Colonia y Buenos Aires.",o:[["Impulsar el estudio",{i:4,e:2},"Ilusión binacional."],["Priorizar los ferris",{e:2,n:1},"Más barato."],["Descartarlo",{l:1},"Sin cambios."]]},
+ {p:"UK",pr:"Londres",tit:"La congestión de Londres",txt:"Londres discute ampliar el cobro por entrar en auto al centro.",o:[["Ampliarlo",{i:2,l:-3,n:2},"Menos autos, más quejas."],["Más transporte público",{l:4,e:-3},"Nuevas líneas de bus."],["Mantener todo igual",{},"Nada cambia."]]},
+ {p:"UK",pr:"Yorkshire",tit:"El tren del norte",txt:"Los trenes de Yorkshire llegan tarde todos los días.",o:[["Estatizar las líneas",{l:4,e:-2},"Popular en el norte."],["Multas a las operadoras",{n:3},"Mejora algo."],["Inversión en vías",{e:-3,l:3},"Obra larga."]]},
+ {p:"UK",pr:"el Noreste de Inglaterra",tit:"El norte olvidado",txt:"El noreste inglés tiene los peores índices de pobreza infantil del país.",o:[["Plan de nivelación regional",{l:5,e:-3},"Fondos para Newcastle y Sunderland."],["Zonas francas industriales",{e:4,l:1},"Llegan fábricas."],["Más poderes al alcalde regional",{n:3,l:2},"Devolución de poder."]]},
+].map(e=>({...e,t:"prov"})));
+
 const REGLA={AR:"consec",BR:"consec",CL:"consec",UY:"consec",MX:"unico",US:"total",ES:"libre",UK:"libre"};
 
 /* Ciudades (o barrios) de cada provincia/estado, para la recorrida */
@@ -1225,7 +1286,7 @@ function rangos(pk){
   return out;
 }
 const rk=id=>id?rangos(G.pais).find(r=>r.id===id):null;
-const tpl=s=>s.replace(/\{CIUDAD\}/g,G.ciudad||CIUDADES[G.pais][0]).replace(/\{PROV\}/g,G.prov||"").replace(/\{RIVAL\}/g,G.nemesis?.n||"tu rival").replace(/\{RPART\}/g,G.nemesis?.pa||"").replace(/\{P\}/g,PAISES[G.pais].n).replace(/\{B\}/g,PAISES[G.pais].bloque).replace(/\{C\}/g,PAISES[G.pais].cong);
+const tpl=s=>s.replace(/\{CIUDAD\}/g,G.ciudad||CIUDADES[G.pais][0]).replace(/\{PROV\}/g,G.prov||"").replace(/\{RIVAL\}/g,G.nemesis?.n||"tu rival").replace(/\{RCARGO\}/g,G.nemesis?.cargo||"").replace(/\{RPART\}/g,G.nemesis?.pa||"").replace(/\{P\}/g,PAISES[G.pais].n).replace(/\{B\}/g,PAISES[G.pais].bloque).replace(/\{C\}/g,PAISES[G.pais].cong);
 
 /* ================== CUENTA (Supabase), RANKING, NOTICIAS, ANUNCIOS ================== */
 const CFG=window.MANDATO_CONFIG||{};
@@ -1360,8 +1421,10 @@ function vHome(){
    <div class="col">
     <section class="hero2">
      <div class="mode-card mc-main">
+      <div class="mc-scene">${escenaSVG("gobierno")}</div>
+      ${banderines(SET.pais||"AR")}
       <span class="eyebrow">Carrera política</span>
-      <h2>¿Hasta dónde llegás?</h2>
+      <h2>Del llano al poder</h2>
       <p>Una carrera política de toda la vida, decisión por decisión: elecciones, gestión, internas, alianzas y crisis. Elegí país, provincia y partido, y escribí tu propia historia.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
        <button class="btn primary" id="bNueva">Empezar mi carrera</button>
@@ -1369,6 +1432,7 @@ function vHome(){
       </div>
      </div>
      <div class="mode-card mc-fund">
+      ${banderines(SET.pais||"AR")}
       <div class="fund-logos" aria-hidden="true">${[[0,0,1,8],[1,1,3,2],[2,3,0,8],[3,4,4,2]].map(([f,sy,c1,c2],i)=>{const keep=SET.mp;SET.mp={forma:f,simb:sy,c1,c2,sigla:"",n:""};const b=badgeSVG("PROPIO",58);SET.mp=keep;return `<span style="animation-delay:${i*.15}s">${b}</span>`}).join("")}</div>
       <span class="eyebrow" style="color:inherit;opacity:.8">Modo fundador</span>
       <h3>Fundá tu partido</h3>
@@ -1395,15 +1459,15 @@ function vHome(){
     <section>
      <div class="sec-h"><h3>Modos de juego</h3></div>
      <div class="modos">
-      <div class="modo on"><b>Carrera política</b><span>Toda una vida en la política.</span></div>
-      <div class="modo on"><b>Fundá tu partido</b><span>Tu partido, tus reglas.</span></div>
-      <div class="modo"><span class="pronto">Próximamente</span><b>Test político</b><span>¿Dónde estás en el mapa ideológico?</span></div>
-      <div class="modo"><span class="pronto">Próximamente</span><b>Wordle político</b><span>Adiviná el político, el partido o la ley del día.</span></div>
+      <button class="modo on" data-modo="existente">${ico("urna",28)}<b>Carrera política</b><span>Toda una vida en la política.</span><em>Jugar</em></button>
+      <button class="modo on" data-modo="propio">${ico("partido",28)}<b>Fundá tu partido</b><span>Tu partido, tus reglas.</span><em>Jugar</em></button>
+      <div class="modo">${ico("brujula",28)}<span class="pronto">Próximamente</span><b>Test político</b><span>¿Dónde estás en el mapa ideológico?</span></div>
+      <div class="modo">${ico("wordle",28)}<span class="pronto">Próximamente</span><b>Wordle político</b><span>Adiviná el político, el partido o la ley del día.</span></div>
      </div>
     </section>
     <section>
      <div class="sec-h"><h3>Probá los desafíos</h3><span class="eyebrow">Sin arrancar una carrera</span></div>
-     <div class="practica">${JUEGOS.map(j=>`<button class="pr-j" data-pr="${j[0]}"><b>${j[1]}</b><span>${j[2]}</span></button>`).join("")}</div>
+     <div class="practica">${JUEGOS.map(j=>`<button class="pr-j" data-pr="${j[0]}">${ico(j[0],26)}<b>${j[1]}</b><span>${j[2]}</span></button>`).join("")}</div>
     </section>
     <section>
      <div class="sec-h"><h3>Tus insignias</h3><span class="eyebrow">${Object.keys(insigniasGuardadas()).length} de ${INSIGNIAS.length}</span></div>
@@ -1437,6 +1501,7 @@ function vHome(){
   $("#bNueva").onclick=()=>{SET.modoP="existente";show("setup")};
   $("#bFundar").onclick=()=>{SET.modoP="propio";show("setup")};
   app.querySelectorAll("[data-pr]").forEach(b=>b.onclick=()=>practicar(b.dataset.pr));
+  app.querySelectorAll("[data-modo]").forEach(b=>b.onclick=()=>{SET.modoP=b.dataset.modo;show("setup")});
   if($("#bSeguir"))$("#bSeguir").onclick=()=>{G=sv;show(G.fin?"legado":"game")};
   $("#bDiario").onclick=()=>{
     let jugado=false;try{jugado=localStorage.getItem("elmandato.diario")===hoyISO()}catch(e){}
@@ -1498,6 +1563,7 @@ function vSetup(){
   app.querySelectorAll("[data-pa]").forEach(b=>b.onclick=()=>{SET.partido=b.dataset.pa;vSetup()});
   app.querySelectorAll("[data-mp]").forEach(b=>b.onclick=()=>{SET.modoP=b.dataset.mp;vSetup()});
   app.querySelectorAll("[data-av]").forEach(b=>b.onclick=()=>{SET.av[b.dataset.av]=+b.dataset.v;const y=scrollY;vSetup();scrollTo(0,y)});
+  app.querySelectorAll("[data-gen]").forEach(b=>b.onclick=()=>{aplicarGenero(SET.av,+b.dataset.gen);const y=scrollY;vSetup();scrollTo(0,y)});
   if(SET.modoP==="propio")bindCreador(SET.mp,()=>{const y=scrollY;vSetup();scrollTo(0,y)});
   app.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{SET.origen=b.dataset.o;vSetup()});
   app.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{SET.modo=b.dataset.m;vSetup()});
@@ -1531,7 +1597,7 @@ function nueva(o){
   const pa=partidoDe();if(G.partido!=="PROPIO")G.partido=pa[0];G.ideo=pa[3];
   const pv=PROVS[G.pais].find(x=>x[0]===o.prov)||PROVS[G.pais][0];
   G.provLab=pv[0];G.prov=pv[1];G.ciudad=pv[2];G.racha=0;
-  G.nemesis=nuevoRival();
+  G.nemesis=nuevoRival();G.nemesis.tier=1;G.nemesis.cargo=nemCargo(1);
   const add=ef=>{for(const k in ef)G.st[k]=clamp(G.st[k]+ef[k],0,100)};
   add(ORIGENES[G.origen].ef);add(IDEOS[G.ideo].ef);add(PESO[pa[2]].ef);
   if(G.partido==="PROPIO"){add(IDEOLOGIAS[G.miPartido.ideo][2]);G.st.p=70}
@@ -1592,6 +1658,8 @@ function aplicar(ef){
 function elegir(i){
   const e=EV[G.cola[0]],op=e.o[i];
   const d=aplicar(op[1]);
+  G.T=G.T||{};for(const k in d)G.T[k]=(G.T[k]||0)+d[k];
+  const net=Object.entries(d).reduce((a,[k,v])=>a+(k==="s"?-v:v),0);G._sfx=net>=0?"bien":"mal";
   G.ult={res:op[2],d,elec:op[0]};G.fase="resultado";G.log.push({anio:G.anio,tit:e.tit,op:op[0],raro:e.t==="raro",seq:e.t==="seq"});
   const sq=OPT_SEQ[op[0]];if(sq&&!(G.seqHecho||[]).includes(sq)){G.seq=G.seq||[];G.seqHecho=[...(G.seqHecho||[]),sq];G.seq.push({id:sq,turno:G.turnos+1+Math.floor(R()*2),dec:op[0]})}
   save();vGame();
@@ -1605,7 +1673,7 @@ function finTurno(){
   G.st.s=clamp(G.st.s-5,0,100);
   if(r&&["terr","gob","top"].includes(r.kind))G.st.l=clamp(G.st.l-2,0,100);
   if(r&&(r.kind==="gob"||r.kind==="top"))G.st.e=clamp(G.st.e+Math.round((R()-.5)*8),0,100);
-  const gm=turnoGabinete();if(gm.length)G._gm=gm.join(" ");
+  const gm=turnoGabinete();const nm=avanzarNemesis();if(nm)gm.push(nm);if(gm.length)G._gm=gm.join(" ");
   G.puntos+=r?r.tier*24:6;G.aniosCargo+=2;G.mandatoAnios+=2;G.anio+=2;G.edad+=2;
   if(G.st.p<=6)return fin("Tu partido te expulsó. Sin estructura, tu carrera termina acá.");
   if(G.st.s>=100)return fin("Procesado por la Justicia. Tu carrera termina en tribunales.");
@@ -1702,7 +1770,7 @@ function aceptar(id,reel){
   const r=rangos(G.pais).find(x=>x.id===id);
   G.pista=null;G.aviso=null;
   if(r.via==="eleccion"){
-    const rival=R()<.45?{...G.nemesis,nem:true}:nuevoRival();
+    const rival=((r.top&&(G.nemesis.tier||1)>=4&&R()<.7)||R()<.4)?{...G.nemesis,nem:true}:nuevoRival();
     const juego=elegirJuego(["recorrida","debate","fiscal","discurso"]);
     G.pendElec={id:r.id,reel,prev:G.fase,rival,juego,postu:!!G.postulando};G.postulando=false;G.fase="campania";
     if(r.tier>=3){G.pendElec.aliOps=opcionesAlianza();G.fase="alianza"}
@@ -1723,7 +1791,7 @@ function resolverEleccion(bonus){
   if(G.practica)return practicaFin(`${bonus>=0?"+":""}${bonus} puntos`,"Eso es lo que te habría sumado o restado en una elección.");
   const res=eleccion(r,pe.reel,bonus+(pe.alianza?.bonus||0),pe.rival);
   G.elecLog=G.elecLog||[];G.elecLog.push({anio:G.anio,cargo:r.nombre,gano:res.gano,pct:res.pct,rival:pe.rival.n+" ("+pe.rival.pa+")"});
-  G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier,postu:pe.postu,alianza:pe.alianza||null};
+  G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier,postu:pe.postu,alianza:pe.alianza||null};G._sfx=res.gano?"gana":"pierde";
   if(r.top)G.elec.mapa=resultadoMapa(G.elec);G.fase="eleccion";G.pendElec=null;
   if(res.gano){if(pe.rival.nem)G.nemWins=(G.nemWins||0)+1;if(G._balo)G.ganoBalotaje=true;if((pe.est??60)<43)G.ganoBaja=true;
     if(G.partido==="PROPIO"){G.crecePropio=(G.crecePropio||0)+1;const np=G.crecePropio>=6?3:G.crecePropio>=3?2:1;if(np>G.pesoPropio){G.pesoPropio=np;G.avisoPartido=`${G.miPartido.n} ya es un ${np===3?"partido grande":"partido mediano"}.`}if(r.top)G.llegoTopPropio=true}
@@ -1912,10 +1980,11 @@ function avatarSVG(av,size=48,opt={}){
    ${(av.estilo||0)===0?`<path d="M48.3 74 L51.7 74 L53.5 90 L50 95 L46.5 90Z" fill="${acc}"/>`:av.estilo===1?`<path d="M42 71 Q50 80 58 71" fill="none" stroke="${acc}" stroke-width="2.4"/>${[44,47,50,53,56].map((x,i)=>`<circle cx="${x}" cy="${73.6+[0,1.8,2.4,1.8,0][i]}" r="1.25" fill="#FFF8E7"/>`).join("")}`:`<path d="M44 71 L50 80 L56 71" fill="none" stroke="#d8d2c6" stroke-width="1.2"/>`}
    <rect x="44" y="57" width="12" height="15" fill="${sk}"/>
    <circle cx="33" cy="46" r="4" fill="${sk}"/><circle cx="67" cy="46" r="4" fill="${sk}"/>${av.aros?`<circle cx="33" cy="51.5" r="1.8" fill="#E8C15A"/><circle cx="67" cy="51.5" r="1.8" fill="#E8C15A"/>`:""}
-   <ellipse cx="50" cy="44" rx="17" ry="20" fill="${sk}"/>
+   <ellipse cx="50" cy="44" rx="${av.genero===1?16:17}" ry="${av.genero===1?19.5:20}" fill="${sk}"/>
    ${hair}${beard}
    <circle cx="43" cy="44" r="1.9" fill="#1b1b1b"/><circle cx="57" cy="44" r="1.9" fill="#1b1b1b"/>
    <path d="M39.5 38.5 Q43 36.5 46.5 38.5M53.5 38.5 Q57 36.5 60.5 38.5" stroke="${hc}" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+   ${av.genero===1&&!av.maq?`<path d="M39.6 42.6 l-1.4 -1.2 M60.4 42.6 l1.4 -1.2" stroke="#1b1b1b" stroke-width="1"/>`:""}
    ${av.maq?`<path d="M45 55 Q50 53.6 55 55 Q50 59.4 45 55Z" fill="#B23A54"/><path d="M39.6 42.6 l-1.6 -1.4 M41 41.6 l-1 -1.8 M60.4 42.6 l1.6 -1.4 M59 41.6 l1 -1.8" stroke="#1b1b1b" stroke-width="1"/>`:`<path d="M45 55 Q50 58.5 55 55" stroke="#7a3b2e" stroke-width="1.6" fill="none" stroke-linecap="round"/>`}
    ${glasses}${banda}</g></svg>`;
 }
@@ -1959,7 +2028,7 @@ function badgeSVG(code,size=40,pk){
   const inner=sym===6?`<text x="30" y="${30+fs*.36}" text-anchor="middle" font-family="Big Shoulders Display, Arial Narrow, sans-serif" font-weight="800" font-size="${fs}" fill="${c2}">${esc(sig)}</text>`:simbolo(sym,c2);
   return `<svg class="badge" width="${size}" height="${size}" viewBox="0 0 60 60" aria-hidden="true">${shape}${inner}</svg>`;
 }
-const MARCA=`<svg class="marca" width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect x="1" y="1" width="38" height="38" rx="9" fill="var(--accent)"/><rect x="9" y="19" width="22" height="14" rx="2" fill="var(--accent-ink)"/><rect x="14" y="18" width="12" height="2.6" rx="1.3" fill="var(--accent)"/><path d="M15 7 h10 v11 h-10z" fill="var(--accent-ink)" transform="rotate(-8 20 12)"/><polygon points="20,9.6 21.2,12.3 24,12.5 21.9,14.3 22.6,17 20,15.5 17.4,17 18.1,14.3 16,12.5 18.8,12.3" fill="var(--seal)" transform="rotate(-8 20 12)"/></svg>`;
+
 
 /* Escenas ilustradas */
 function tipoEscena(e,kind){
@@ -1974,8 +2043,8 @@ function tipoEscena(e,kind){
   return{loc:"municipio",leg:"congreso",terr:"ciudad",gob:"gobierno",top:"gobierno",dip:"embajada"}[kind]||"ciudad";
 }
 function escenaSVG(tipo){
-  const c=COLORES_PAIS[G.pais]||["#888","#ccc","#444"],c1=c[0],c2=c[2]||c[1];
-  const flag=(x,y,h=34)=>`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+h}" class="sc-ink" stroke-width="1.6"/><svg x="${x+1}" y="${y}" width="24" height="16" viewBox="0 0 30 20">${flagSVG(G.pais,30).replace(/^<svg[^>]*>|<\/svg>$/g,"")}</svg>`;
+  const PK=(G&&G.pais)||SET.pais||"AR";const c=COLORES_PAIS[PK]||["#888","#ccc","#444"],c1=c[0],c2=c[2]||c[1];
+  const flag=(x,y,h=34)=>`<line x1="${x}" y1="${y}" x2="${x}" y2="${y+h}" class="sc-ink" stroke-width="1.6"/><svg x="${x+1}" y="${y}" width="24" height="16" viewBox="0 0 30 20">${flagSVG(PK,30).replace(/^<svg[^>]*>|<\/svg>$/g,"")}</svg>`;
   const gente=(y,n,seed=1)=>Array.from({length:n},(_,i)=>{const x=(i*37+seed*13)%400,h=6+(i*7%5);return`<circle cx="${x}" cy="${y-h-3}" r="3.2" class="sc-ppl"/><rect x="${x-3.5}" y="${y-h}" width="7" height="${h}" rx="2" class="sc-ppl"/>`}).join("");
   const ventanas=(x,y,w,h)=>{let o="";for(let i=x+5;i<x+w-6;i+=10)for(let j=y+6;j<y+h-6;j+=11)o+=`<rect x="${i}" y="${j}" width="4" height="6" class="sc-win"/>`;return o};
   const skyline=Array.from({length:12},(_,i)=>{const h=30+((i*53)%60),w=26+((i*17)%14),x=i*34-6;return`<rect x="${x}" y="${130-h}" width="${w}" height="${h}" class="sc-far"/>`}).join("");
@@ -2240,7 +2309,8 @@ function resumenCarrera(){
   t+=`Ganó ${G.elecG} ${G.elecG===1?"elección":"elecciones"} y perdió ${G.elecP}. `;
   if(G.cambios)t+=`Se cambió de partido ${G.cambios} ${G.cambios===1?"vez":"veces"} y terminó en ${pa}. `;else t+=`Hizo toda su carrera en ${pa}. `;
   if(G.fundo)t+=`Fundó su propio partido. `;
-  if(G.nemWins)t+=`Le ganó a su archirrival ${G.nemesis.n}. `;else t+=`Su archirrival fue ${G.nemesis.n}. `;
+  const nc=G.nemesis.cargo?`, que terminó como ${G.nemesis.cargo}`:"";
+  if(G.nemWins)t+=`Le ganó a su archirrival ${G.nemesis.n}${nc}. `;else t+=`Su archirrival fue ${G.nemesis.n}${nc}. `;
   return t+G.fin;
 }
 function graficoStats(){
@@ -2282,6 +2352,7 @@ async function tarjetaPNG(){
   x.fillStyle="#F2C230";x.font="800 96px 'Big Shoulders Display', 'Arial Narrow', sans-serif";
   const wrap=(t,maxW)=>{const L=[];let ln="";for(const w of t.split(" ")){const s=ln?ln+" "+w:w;if(x.measureText(s).width>maxW&&ln){L.push(ln);ln=w}else ln=s}L.push(ln);return L};
   let y=684;wrap(G.titulo.toUpperCase(),W-120).slice(0,2).forEach(l=>{x.fillText(l,W/2,y);y+=88});
+  if(G.estilo){x.fillStyle="#E5867A";x.font="600 30px 'IBM Plex Mono', monospace";x.fillText("ESTILO: "+ESTILOS[G.estilo][0].toUpperCase(),W/2,y-24);y+=24}
   x.fillStyle="#C9D1DC";x.font="400 29px 'IBM Plex Sans', sans-serif";
   const desc=resumenCarrera().replace(G.fin,"").trim();wrap(desc,W-160).slice(0,4).forEach(l=>{x.fillText(l,W/2,y+4);y+=40});
   y+=28;const C=[...new Set(G.hist.filter(h=>h.tier>0).map(h=>h.cargo))].slice(-4);
@@ -2291,8 +2362,127 @@ async function tarjetaPNG(){
   y+=92;const st=[["Local",G.st.l],["Mundo",G.st.i],["Instituciones",G.st.n],["Economía",G.st.e]];
   st.forEach(([n,v],i)=>{const bx=110+(i%2)*450,by=y+Math.floor(i/2)*58;x.textAlign="left";x.fillStyle="#97A2B2";x.font="500 24px 'IBM Plex Mono', monospace";x.fillText(n,bx,by);x.fillStyle="#26364f";x.fillRect(bx,by+12,380,14);x.fillStyle=v>=60?"#62C08B":v>=35?"#E3AE52":"#E57C70";x.fillRect(bx,by+12,380*v/100,14)});
   const yp=Math.max(y+150,H-130);x.textAlign="center";x.fillStyle="#E5E9EF";x.font="500 34px 'IBM Plex Mono', monospace";x.fillText(`${G.puntosFinal.toLocaleString("es-AR")} puntos · ${G.elecG} ${G.elecG===1?"victoria":"victorias"}`,W/2,Math.min(yp,H-100));
-  x.fillStyle="#86ADE3";x.font="600 32px 'IBM Plex Sans', sans-serif";x.fillText("¿Hasta dónde llegás vos? · el-mandato.vercel.app",W/2,H-62);
+  x.fillStyle="#86ADE3";x.font="600 32px 'IBM Plex Sans', sans-serif";x.fillText("Armá tu carrera política · el-mandato.vercel.app",W/2,H-62);
   return new Promise(r=>cv.toBlob(r,"image/png"));
+}
+
+/* ================== v8 ================== */
+/* Avatar por género */
+const AV_GEN={
+  0:{pelo:[0,1,4,5,2],estilo:[0,2],extra:["barba"]},
+  1:{pelo:[2,6,3,7,5,0],estilo:[1,2],extra:["maq","aros"]},
+};
+function aplicarGenero(av,g){
+  av.genero=g;
+  if(g===1){av.pelo=6;av.estilo=1;av.barba=0;av.maq=1;av.aros=1}
+  else{av.pelo=0;av.estilo=0;av.maq=0;av.aros=0}
+}
+function editorAvatarHTML(av){
+  const g=av.genero||0,cfg=AV_GEN[g];
+  const row=(k,lab,opts,sw,allowed)=>`<div class="field"><span class="lab">${lab}</span><div class="${sw?"swatches":"chips"}">${(allowed||opts.map((_,i)=>i)).map(i=>sw?`<button type="button" class="sw" data-av="${k}" data-v="${i}" aria-pressed="${av[k]===i}" style="background:${opts[i]}" aria-label="${lab} ${i+1}"></button>`:`<button type="button" class="chip" data-av="${k}" data-v="${i}" aria-pressed="${av[k]===i}">${opts[i]}</button>`).join("")}</div></div>`;
+  return `<div class="av-ed"><div class="av-prev">${avatarSVG(av,120,{acc:"var(--accent)"})}</div><div class="av-opts">
+   <div class="field"><span class="lab">Género</span><div class="chips"><button type="button" class="chip" data-gen="0" aria-pressed="${g===0}">Hombre</button><button type="button" class="chip" data-gen="1" aria-pressed="${g===1}">Mujer</button></div></div>
+   ${row("piel","Tono de piel",AV_OPC.piel,true)}${row("pelo","Peinado",AV_OPC.pelo,false,cfg.pelo)}${row("colorPelo","Color de pelo",AV_OPC.colorPelo,true)}
+   ${g===0?row("barba","Barba",AV_OPC.barba):""}${row("anteojos","Anteojos",AV_OPC.anteojos)}
+   ${row("estilo","Vestimenta",AV_OPC.estilo,false,cfg.estilo)}${row("ropa","Color del saco",AV_OPC.ropa,true)}
+   ${g===1?row("maq","Maquillaje",AV_OPC.maq)+row("aros","Aros",AV_OPC.aros):""}
+  </div></div>`;
+}
+
+/* Logo nuevo: urna con boleta */
+const MARCA=`<svg class="marca" width="44" height="44" viewBox="0 0 48 48" aria-hidden="true">
+ <rect x="1" y="1" width="46" height="46" rx="12" fill="var(--accent)"/>
+ <g transform="rotate(-12 24 16)"><rect x="15" y="5" width="18" height="20" rx="2" fill="#fff"/><path d="M19 15.5 l3.6 3.6 l6.4 -7.4" fill="none" stroke="var(--seal)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
+ <path d="M8 23 H40 L37 41 H11 Z" fill="#fff"/><rect x="14" y="21.5" width="20" height="3.4" rx="1.7" fill="var(--ink)"/>
+ <polygon points="24,28 25.6,31.4 29.2,31.7 26.5,34 27.3,37.6 24,35.7 20.7,37.6 21.5,34 18.8,31.7 22.4,31.4" fill="var(--accent)"/>
+</svg>`;
+
+/* Íconos */
+const ICO={
+ recorrida:'<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.6"/>',
+ debate:'<path d="M3 5h10v7H7l-4 3z"/><path d="M11 12v2h6l4 3V9h-6"/>',
+ fiscal:'<rect x="4" y="3" width="11" height="15" rx="1.5"/><path d="M7 7h5M7 10h5"/><circle cx="16" cy="16" r="3.5"/><path d="M18.6 18.6L21 21"/>',
+ discurso:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>',
+ poroteo:'<path d="M4 14a8 8 0 0 1 16 0"/><path d="M7 14v5M12 14v5M17 14v5M4 19h16"/>',
+ crisis:'<path d="M12 3c2 4 6 5.5 6 10a6 6 0 0 1-12 0c0-3 2-4.5 2-7 2 1.5 3 3 3 5 1-2 1-5 1-8z"/>',
+ tira:'<path d="M4 16a8 8 0 0 1 16 0"/><path d="M12 16l4-6"/><circle cx="12" cy="16" r="1.5"/>',
+ agenda:'<rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M8 14h2M12 14h2M16 14h0"/>',
+ urna:'<path d="M4 11h16l-1.5 9h-13z"/><path d="M8 11V4h8v7"/><path d="M10 7.5l1.5 1.5 3-3"/>',
+ partido:'<path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M12 8l1.3 2.7 3 .4-2.2 2 .6 3-2.7-1.5-2.7 1.5.6-3-2.2-2 3-.4z"/>',
+ brujula:'<circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+ wordle:'<rect x="3" y="3" width="5" height="5" rx="1"/><rect x="9.5" y="3" width="5" height="5" rx="1"/><rect x="16" y="3" width="5" height="5" rx="1"/><rect x="3" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><rect x="16" y="9.5" width="5" height="5" rx="1"/><path d="M3 18h18"/>',
+ sonido:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/>',
+ mudo:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l5 6M22 9l-5 6"/>',
+};
+function ico(k,s=22){return `<svg class="ico" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICO[k]||""}</svg>`}
+function banderines(pk){const c=COLORES_PAIS[pk]||["#888","#ccc"];return `<svg class="banderines" viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 2 Q200 14 400 2" fill="none" stroke="currentColor" stroke-width="1" opacity=".5"/>${Array.from({length:20},(_,i)=>{const x=i*20+3,y=2+Math.sin(Math.PI*(x+7)/400)*12;return `<polygon points="${x},${y} ${x+14},${y+.5} ${x+7},${y+12}" fill="${c[i%c.length]}" stroke="rgba(0,0,0,.12)" stroke-width=".5"/>`}).join("")}</svg>`}
+
+/* Sonido y vibración */
+let AC=null,MUTE=false;try{MUTE=localStorage.getItem("elmandato.mute")==="1"}catch(e){}
+function tono(fr,dur,tipo="sine",vol=.08,delay=0){
+  if(MUTE)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime+delay,o=AC.createOscillator(),g=AC.createGain();o.type=tipo;o.frequency.setValueAtTime(fr,t);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+dur+.02)}catch(e){}
+}
+const SFX={
+  click:()=>tono(520,.06,"triangle",.05),
+  bien:()=>{tono(523,.12);tono(784,.18,"sine",.08,.1)},
+  mal:()=>{tono(330,.14,"sawtooth",.04);tono(220,.22,"sawtooth",.04,.12)},
+  gana:()=>{[523,659,784,1047].forEach((f,i)=>tono(f,.22,"triangle",.07,i*.11));vib([40,40,80])},
+  pierde:()=>{[392,330,262].forEach((f,i)=>tono(f,.3,"sawtooth",.04,i*.16));vib([200])},
+  punto:()=>tono(880,.05,"square",.03),
+};
+function vib(p){try{if(!MUTE&&navigator.vibrate)navigator.vibrate(p)}catch(e){}}
+function botonSonido(){return `<button type="button" class="snd" id="bSnd" aria-label="${MUTE?"Activar sonido":"Silenciar"}" title="${MUTE?"Activar sonido":"Silenciar"}">${ico(MUTE?"mudo":"sonido",20)}</button>`}
+
+/* Tutorial de la primera partida */
+const TUTO=[
+ [".hud .meters","Tus seis barras","Imagen, partido, instituciones, economía, mundo y escándalo. Cada decisión las mueve. Tocá el nombre de cualquiera para saber qué mide."],
+ [".hud .ladder2","Tu objetivo","Subir de cargo hasta lo más alto. Cada cargo tiene sus propias situaciones y desafíos."],
+ [".cable .choices","Decidí","Elegí una opción. Algunas decisiones vuelven más adelante con consecuencias."],
+ [".row-a","Cuando quieras","Podés postularte a cualquier cargo o cambiarte de partido. Ojo: tres derrotas seguidas y se termina tu carrera."],
+];
+let tutoPaso=0;
+function tutoActivo(){try{return localStorage.getItem("elmandato.tuto")!=="1"}catch(e){return false}}
+function mostrarTuto(){
+  if(!G||G.practica||G.fase!=="evento"||!tutoActivo())return;
+  document.querySelectorAll(".tuto-on").forEach(e=>e.classList.remove("tuto-on"));$("#tuto")?.remove();
+  const [sel,t,d]=TUTO[tutoPaso];const el=$(sel);if(el){el.classList.add("tuto-on");el.scrollIntoView({block:"center",behavior:"smooth"})}
+  document.body.insertAdjacentHTML("beforeend",`<div class="tuto" id="tuto" role="dialog" aria-label="Tutorial"><span class="eyebrow">Paso ${tutoPaso+1} de ${TUTO.length}</span><b>${t}</b><p>${d}</p><div class="tuto-b"><button class="btn sm ghost" id="tSkip">Saltar</button><button class="btn sm primary" id="tNext">${tutoPaso===TUTO.length-1?"¡A jugar!":"Siguiente"}</button></div></div>`);
+  const cerrar=()=>{try{localStorage.setItem("elmandato.tuto","1")}catch(e){}document.querySelectorAll(".tuto-on").forEach(e=>e.classList.remove("tuto-on"));$("#tuto")?.remove()};
+  $("#tSkip").onclick=cerrar;$("#tNext").onclick=()=>{tutoPaso++;if(tutoPaso>=TUTO.length)return cerrar();mostrarTuto()};
+}
+
+/* Archirrival que crece */
+function nemCargo(t){const rs=rangos(G.pais).filter(r=>r.tier===t&&(r.rama==="politica"||r.top));return (rs[0]||rangos(G.pais).find(r=>r.tier===t))?.nombre||""}
+function avanzarNemesis(){
+  const n=G.nemesis;if(!n.tier){n.tier=1;n.cargo=nemCargo(1)}
+  if(n.tier<6&&R()<.3){n.tier++;n.cargo=nemCargo(n.tier);
+    if(n.tier>=4)return `Tu archirrival ${n.n} (${n.pa}) ahora es ${n.cargo}.`}
+  return "";
+}
+
+/* Estilo y finales */
+const ESTILOS={gestor:["Gestor","Decidiste con la cabeza en los números y las instituciones."],caudillo:["Caudillo","Tu fuerza fueron la calle y tu partido."],diplomatico:["Diplomático","Te importó mucho cómo te veían afuera."],republicano:["Republicano","Cuidaste las reglas por encima de todo."],polemico:["Polémico","Nunca pasaste desapercibido, para bien o para mal."]};
+function estiloDe(){
+  const T=G.T||{},v=k=>T[k]||0;
+  const sc={gestor:v("e")+v("n"),caudillo:v("l")+v("p"),diplomatico:v("i")*1.5,republicano:v("n")*1.4-v("s"),polemico:v("s")*2+(G.cambios||0)*8};
+  return Object.entries(sc).sort((a,b)=>b[1]-a[1])[0][0];
+}
+const TIT_ESTILO={
+ top:{gestor:"El Gran Gestor",caudillo:"Líder de Masas",diplomatico:"Estadista Global",republicano:"Republicano de Ley",polemico:"Presidente de las Polémicas"},
+ alto:{gestor:"Administrador Implacable",caudillo:"Caudillo Territorial",diplomatico:"Canciller de Hierro",republicano:"Guardián de las Instituciones",polemico:"Animal Mediático"},
+ medio:{gestor:"Gestor Prolijo",caudillo:"Puntero de Lujo",diplomatico:"Embajador del Pueblo",republicano:"Vecino Ejemplar",polemico:"Político de Panel"},
+ bajo:{gestor:"Técnico sin Suerte",caudillo:"Militante de Base",diplomatico:"Soñador Internacional",republicano:"Idealista Incorruptible",polemico:"Eterno Candidato"},
+};
+function titulo(){
+  const f=G.fin||"",est=estiloDe();G.estilo=est;
+  if(f.startsWith("Procesado")||G.st.s>=80)return"Prontuario Abierto";
+  if(f.startsWith("Tu partido te expulsó"))return"Expulsado del Partido";
+  if(G.llegoTopPropio)return"Fundador y Presidente";
+  if(G.llegoTop&&G.topMandatos>=2)return"Leyenda Nacional";
+  if((G.cambios||0)>=3)return"Panqueque Profesional";
+  if(G.elecP>=5&&G.maxTier<=2)return"Eterno Candidato";
+  const nivel=G.llegoTop?"top":G.maxTier>=4?"alto":G.maxTier>=3?"medio":"bajo";
+  return TIT_ESTILO[nivel][est];
 }
 
 /* ================== VISTA DE JUEGO ================== */
@@ -2402,7 +2592,7 @@ function vGame(){
     ${e.mapa?`<div><span class="eyebrow">Resultado por ${PROV_LAB[G.pais].replace("Tu ","")}</span>${mapaHTML(e.mapa)}</div>`:""}
     <div class="vs">
      <div class="vs-r"><span>${esc(G.nombre)} (${esc(partidoDe()[0])})</span><span class="vs-b"><i class="me-b" data-w="${e.pct}"></i></span><b data-n="${e.pct}">0</b></div>
-     <div class="vs-r"><span>${esc(e.rival.n)} (${esc(e.rival.pa)})${e.rival.nem?' · <em>archirrival</em>':""}</span><span class="vs-b"><i data-w="${e.rpct}"></i></span><b data-n="${e.rpct}">0</b></div>
+     <div class="vs-r"><span>${esc(e.rival.n)} (${esc(e.rival.pa)})${e.rival.nem?` · <em>archirrival${e.rival.cargo?", "+esc(e.rival.cargo):""}</em>`:""}</span><span class="vs-b"><i data-w="${e.rpct}"></i></span><b data-n="${e.rpct}">0</b></div>
     </div>
     ${G.avisoPartido?`<p class="res">${esc(G.avisoPartido)}</p>`:""}
     ${e.alianza?`<p class="muted" style="margin:0;font-size:13.5px">La alianza con ${esc(e.alianza.n)} te sumó ${e.alianza.bonus} puntos.</p>`:""}
@@ -2410,14 +2600,15 @@ function vGame(){
     <div class="gbar"><span class="muted">${e.gano?(e.reel?"Seguís en el cargo.":"Te toca asumir."):"Te toca reagruparte."}</span><button class="btn primary" id="bElec">Continuar</button></div>`;
   }
   app.innerHTML=`<div class="play">${hud()}<section class="cable"><div class="cable-b">${body}</div></section>
-   <details class="tray2"><summary>Trayectoria, equipo y archirrival</summary>${G.gab?`<div class="eq">${Object.entries(G.gab.miembros).map(([a,m])=>`<span class="tag">${esc(a)}: ${m?esc(m.n)+" ("+m.perfil+")":"vacante"}</span>`).join("")}</div>`:""}<ul class="tray">${G.hist.map(h=>`<li><span class="y">${h.anio}</span>${esc(h.cargo)}</li>`).join("")}</ul><p class="muted" style="margin:8px 0 0;font-size:13px">Tu archirrival: ${esc(G.nemesis.n)} (${esc(G.nemesis.pa)})${G.nemWins?` · le ganaste ${G.nemWins} ${G.nemWins>1?"veces":"vez"}`:""}.</p></details>
+   <details class="tray2"><summary>Trayectoria, equipo y archirrival</summary>${G.gab?`<div class="eq">${Object.entries(G.gab.miembros).map(([a,m])=>`<span class="tag">${esc(a)}: ${m?esc(m.n)+" ("+m.perfil+")":"vacante"}</span>`).join("")}</div>`:""}<ul class="tray">${G.hist.map(h=>`<li><span class="y">${h.anio}</span>${esc(h.cargo)}</li>`).join("")}</ul><p class="muted" style="margin:8px 0 0;font-size:13px">Tu archirrival: ${esc(G.nemesis.n)} (${esc(G.nemesis.pa)})${G.nemesis.cargo?", hoy "+esc(G.nemesis.cargo):""}${G.nemWins?` · le ganaste ${G.nemWins} ${G.nemWins>1?"veces":"vez"}`:""}.</p></details>
    <div class="row-a">${G.fase==="evento"?'<button class="btn sm" id="bPost">Postularme a un cargo</button>':""}${G.fase==="evento"&&G.anio-(G.ultCambio||0)>=4?'<button class="btn sm ghost" id="bCambio">Cambiar de partido</button>':""}${G.fase==="evento"&&G.gab&&Object.values(G.gab.miembros).some(x=>!x)?'<button class="btn sm ghost" id="bEquipo">Completar gabinete</button>':""}<button class="btn sm ghost" id="bRetiro">Retirarme</button><button class="btn sm ghost" id="bSalir">Guardar y salir</button></div>
    ${adHTML("game","inline","Banner adaptable")}</div>`;
   pushAds();
   if(G.anim){G.anim=false;requestAnimationFrame(()=>requestAnimationFrame(()=>app.querySelectorAll(".meter .bar i").forEach(b=>{b.style.width=G.st[b.dataset.k]+"%"})))}
   cargarHeros();
+  if(G._sfx){const f=SFX[G._sfx];G._sfx=null;setTimeout(()=>f&&f(),120)}
   if(G.fase==="eleccion"){animarVotos();if(G.elec.gano)setTimeout(()=>confeti(COLORES_PAIS[G.pais]),900);else app.querySelector(".cable").classList.add("lose")}
-  if(G.fase==="asuncion")confeti(COLORES_PAIS[G.pais]);
+  if(G.fase==="asuncion"){confeti(COLORES_PAIS[G.pais]);if(!G._asumSfx){G._asumSfx=G.asuncion?.cargo;SFX.gana()}}else G._asumSfx=null;
   mountMini();
   app.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{G.aviso=null;elegir(+b.dataset.c)});
   if($("#bNext"))$("#bNext").onclick=seguir;
@@ -2450,6 +2641,7 @@ function vGame(){
   if($("#bElec"))$("#bElec").onclick=contEleccion;
   $("#bRetiro").onclick=()=>{const b=$("#bRetiro");if(b.dataset.ok){fin("Te retirás de la política por decisión propia.")}else{b.dataset.ok=1;b.textContent="¿Seguro? Tocá de nuevo";b.classList.remove("ghost")}};
   $("#bSalir").onclick=()=>{save();G=null;show("home")};
+  if(G.fase==="evento"&&tutoActivo())setTimeout(mostrarTuto,350);
 }
 function animarVotos(){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
@@ -2525,7 +2717,7 @@ function mountMini(){
   })})[G.mini]();
   if(G.fase==="mini_res")$("#bMiniOk").onclick=()=>{G.miniRes=null;G.mini=null;finTurno()};
 }
-function terminarMini(tit,txt,ef){clearMG();if(G.practica)return practicaFin(tit,txt);if(["Cerraste justo","Poroteo perfecto","Gestión impecable","Agenda perfecta","Ojo de halcón","Ovación total","Timbreo perfecto","Lo destrozaste"].includes(tit))G.perfecto=true;const d=aplicar(ef);G.miniRes={tit,txt,d};G.fase="mini_res";save();vGame()}
+function terminarMini(tit,txt,ef){clearMG();if(G.practica){(Object.values(ef).reduce((a,b)=>a+b,0)>=0?SFX.bien:SFX.mal)();return practicaFin(tit,txt)}G._sfx=Object.entries(ef).reduce((a,[k,v])=>a+(k==="s"?-v:v),0)>=0?"bien":"mal";if(["Cerraste justo","Poroteo perfecto","Gestión impecable","Agenda perfecta","Ojo de halcón","Ovación total","Timbreo perfecto","Lo destrozaste"].includes(tit))G.perfecto=true;const d=aplicar(ef);G.miniRes={tit,txt,d};G.fase="mini_res";save();vGame()}
 
 function mountRecorrida(){
   const arena=$("#arena");let score=0,t=12,run=false;
@@ -2542,7 +2734,7 @@ function mountRecorrida(){
     b.type="button";b.className="pop"+(trap?" trap":"");b.textContent=trap?pickM(traps):pickM(lugares);
     const W=arena.clientWidth,H=arena.clientHeight;
     b.style.left=Math.max(4,Math.random()*(W-140))+"px";b.style.top=Math.max(4,Math.random()*(H-46))+"px";
-    b.onclick=()=>{if(b.dataset.hit)return;b.dataset.hit="1";score+=trap?-2:1;$("#mgS").textContent=score;b.classList.add("hit");b.textContent=trap?"−2":"+1";setTimeout(()=>b.remove(),250)};
+    b.onclick=()=>{if(b.dataset.hit)return;b.dataset.hit="1";score+=trap?-2:1;trap?(SFX.mal(),vib(60)):SFX.punto();$("#mgS").textContent=score;b.classList.add("hit");b.textContent=trap?"−2":"+1";setTimeout(()=>b.remove(),250)};
     arena.appendChild(b);MGT.push(setTimeout(()=>b.remove(),950));
   }
   function end(){
@@ -2725,6 +2917,7 @@ Econ  ${sq(s.e)}`;
    <section class="lcard">
     <div class="leg-top">${avatarSVG(G.av,96,{acc:colorPartido(),banda:G.llegoTop?COLORES_PAIS[G.pais]:null,canas:G.edad>=62})}<div>${flagSVG(G.pais,30)} ${badgeSVG(G.partido,30)}<br><span class="eyebrow">Legado · ${esc(G.nombre)} · ${P.n} · ${G.hist[0].anio}–${G.anio}</span></div></div>
     <div class="ltitle">${esc(G.titulo)}</div>
+    ${G.estilo?`<p class="estilo"><b>Tu estilo: ${ESTILOS[G.estilo][0]}.</b> ${ESTILOS[G.estilo][1]}</p>`:""}
     <div class="lpts">${G.puntosFinal.toLocaleString("es-AR")} puntos · cargo más alto: ${esc([...G.hist].filter(h=>h.tier).sort((a,b)=>b.tier-a.tier)[0]?.cargo||"—")} · ${G.elecG} elecciones ganadas, ${G.elecP} perdidas</div>
     <p class="res">${esc(resumenCarrera())}</p>
     ${G.logros.length?`<div class="logros">${G.logros.map(l=>`<span class="tag">${esc(l)}</span>`).join("")}</div>`:""}
@@ -2764,6 +2957,8 @@ $("#adTop").innerHTML=adHTML("top","leader","728 × 90");
 loadAdsense();
 loginHandlers();
 $("#infoX").onclick=()=>{$("#info").hidden=true};$("#info").onclick=e=>{if(e.target.id==="info")$("#info").hidden=true};
+$("#who").insertAdjacentHTML("beforebegin",botonSonido());
+document.addEventListener("click",e=>{const b=e.target.closest("#bSnd");if(b){MUTE=!MUTE;try{localStorage.setItem("elmandato.mute",MUTE?"1":"0")}catch(x){}b.outerHTML=botonSonido();if(!MUTE)SFX.bien();return}if(e.target.closest("button"))SFX.click()});
 renderWho();
 show("home");
 initAuth();
