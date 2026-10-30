@@ -22,7 +22,7 @@ const tag = (xml, t) => { const m = xml.match(new RegExp("<" + t + "(?:\\s[^>]*)
 async function leerFeed([fuente, url]) {
   const ctl = new AbortController(); const to = setTimeout(() => ctl.abort(), 4500);
   try {
-    const r = await fetch(url, { signal: ctl.signal, headers: { "User-Agent": "ElMandato/1.0 (+https://el-mandato.vercel.app)" } });
+    const r = await fetch(url, { signal: ctl.signal, headers: { "User-Agent": "ElMandato/1.0 (+https://elmandato.app)" } });
     if (!r.ok) return [];
     const xml = await r.text();
     return (xml.match(/<item[\s>][\s\S]*?<\/item>/gi) || []).slice(0, 8).map(it => {

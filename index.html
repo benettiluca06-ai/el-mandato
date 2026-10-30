@@ -10,17 +10,18 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="El Mandato">
 <meta property="og:locale" content="es_AR">
-<meta property="og:url" content="https://el-mandato.vercel.app/">
+<meta property="og:url" content="https://elmandato.app/">
+<link rel="canonical" href="https://elmandato.app/">
 <meta property="og:title" content="El Mandato · Armá tu carrera política">
 <meta property="og:description" content="Elegí país y partido, ganá elecciones, sobreviví a los escándalos y dejá tu legado. Del llano al poder.">
-<meta property="og:image" content="https://el-mandato.vercel.app/og.jpg">
+<meta property="og:image" content="https://elmandato.app/og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="El Mandato: juego de carrera política">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="El Mandato · Armá tu carrera política">
 <meta name="twitter:description" content="Elegí país y partido, ganá elecciones y dejá tu legado. Del llano al poder.">
-<meta name="twitter:image" content="https://el-mandato.vercel.app/og.jpg">
+<meta name="twitter:image" content="https://elmandato.app/og.jpg">
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2431,7 +2432,7 @@ async function tarjetaPNG(){
   const tray=G.hist.filter(h=>h.tier>0).map(h=>h.cargo);const top=[...new Set(tray)].slice(-4).join(" → ");
   const tl=[];let ln="";for(const w of top.split(" ")){const ts=ln?ln+" "+w:w;if(x.measureText(ts).width>W-160&&ln){tl.push(ln);ln=w}else ln=ts}tl.push(ln);
   tl.slice(0,3).forEach((l,i)=>x.fillText(l,W/2,y+80+i*44));
-  x.fillStyle="#86ADE3";x.font="600 34px 'IBM Plex Mono', monospace";x.fillText("el-mandato.vercel.app",W/2,H-60);
+  x.fillStyle="#86ADE3";x.font="600 34px 'IBM Plex Mono', monospace";x.fillText("elmandato.app",W/2,H-60);
   return new Promise(r=>cv.toBlob(r,"image/png"));
 }
 
@@ -2612,7 +2613,7 @@ async function tarjetaPNG(){
   y+=92;const st=[["Local",G.st.l],["Mundo",G.st.i],["Instituciones",G.st.n],["Economía",G.st.e]];
   st.forEach(([n,v],i)=>{const bx=110+(i%2)*450,by=y+Math.floor(i/2)*58;x.textAlign="left";x.fillStyle="#97A2B2";x.font="500 24px 'IBM Plex Mono', monospace";x.fillText(n,bx,by);x.fillStyle="#26364f";x.fillRect(bx,by+12,380,14);x.fillStyle=v>=60?"#62C08B":v>=35?"#E3AE52":"#E57C70";x.fillRect(bx,by+12,380*v/100,14)});
   const yp=Math.max(y+150,H-130);x.textAlign="center";x.fillStyle="#E5E9EF";x.font="500 34px 'IBM Plex Mono', monospace";x.fillText(`${G.puntosFinal.toLocaleString("es-AR")} puntos · ${G.elecG} ${G.elecG===1?"victoria":"victorias"}`,W/2,Math.min(yp,H-100));
-  x.fillStyle="#86ADE3";x.font="600 32px 'IBM Plex Sans', sans-serif";x.fillText("Armá tu carrera política · el-mandato.vercel.app",W/2,H-62);
+  x.fillStyle="#86ADE3";x.font="600 32px 'IBM Plex Sans', sans-serif";x.fillText("Armá tu carrera política · elmandato.app",W/2,H-62);
   return new Promise(r=>cv.toBlob(r,"image/png"));
 }
 
@@ -3557,7 +3558,7 @@ function vLegado(){
   </div>`;
   $("#bImg").onclick=async()=>{const b=$("#bImg");b.textContent="Generando…";const blob=await tarjetaPNG();const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mi-legado-el-mandato.png";document.body.appendChild(a);a.click();a.remove();b.textContent="Descargar imagen"};
   $("#bShare").onclick=async()=>{const blob=await tarjetaPNG();const f=new File([blob],"mi-legado.png",{type:"image/png"});
-    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Mi legado en El Mandato",text:G.titulo+" · el-mandato.vercel.app"})}catch(e){}}else{$("#bShare").textContent="Tu navegador no comparte imágenes: usá Descargar"}};
+    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Mi legado en El Mandato",text:G.titulo+" · elmandato.app"})}catch(e){}}else{$("#bShare").textContent="Tu navegador no comparte imágenes: usá Descargar"}};
   $("#bCopy").onclick=async()=>{const t=$("#shareTxt"),share=textoResultado();if(navigator.share&&/Mobi|Android|iPhone/i.test(navigator.userAgent)){try{await navigator.share({text:share});return}catch(e){}}const ok=()=>{$("#bCopy").textContent="¡Copiado! Pegalo donde quieras"};try{navigator.clipboard.writeText(share).then(ok,()=>{t.select();$("#bCopy").textContent="Seleccionado: copialo"})}catch(e){t.select()}};
   $("#bOtra").onclick=()=>{G=null;show("setup")};
   $("#bInicio").onclick=()=>{G=null;show("home")};
