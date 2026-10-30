@@ -12,7 +12,7 @@
 <meta property="og:locale" content="es_AR">
 <meta property="og:url" content="https://elmandato.app/">
 <link rel="canonical" href="https://elmandato.app/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"El Mandato","url":"https://elmandato.app/","image":"https://elmandato.app/og.jpg","description":"Simulador de carrera política: elegí país y partido, ganá elecciones, sobreviví a los escándalos y dejá tu legado. Del llano al poder.","inLanguage":"es","genre":["Simulación","Estrategia","Política"],"gamePlatform":"Navegador web","applicationCategory":"Game","operatingSystem":"Cualquiera","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"sameAs":["https://x.com/ElMandatoJuego"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"El Mandato","url":"https://elmandato.app/","image":"https://elmandato.app/og.jpg","description":"Simulador de carrera política: elegí país y partido, ganá elecciones, sobreviví a los escándalos y dejá tu legado. Del llano al poder.","inLanguage":"es","genre":["Simulación","Estrategia","Política"],"gamePlatform":"Navegador web","applicationCategory":"Game","operatingSystem":"Cualquiera","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"sameAs":["https://x.com/ElMandatoJuego","https://www.tiktok.com/@elmandato.juego"]}</script>
 <meta property="og:title" content="El Mandato · Armá tu carrera política">
 <meta property="og:description" content="Elegí país y partido, ganá elecciones, sobreviví a los escándalos y dejá tu legado. Del llano al poder.">
 <meta property="og:image" content="https://elmandato.app/og.jpg">
@@ -67,6 +67,7 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;letter-spacing:.01em;line-
 .brand .seal{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;color:var(--seal);border:1.5px solid var(--seal);padding:1px 6px;border-radius:3px;transform:rotate(-3deg)}
 .who{display:flex;align-items:center;gap:8px;font-size:13.5px}
 .who img{width:28px;height:28px;border-radius:50%}
+@media (max-width:420px){.who>.muted{display:none}.who{gap:6px;flex:none}header.top .brand h1{font-size:clamp(20px,6.4vw,28px)}}
 .who .me-acc{display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 3px;color:inherit;font:inherit;cursor:pointer}
 .who .me-acc .ini{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-weight:700}
 .pf{display:flex;flex-direction:column;gap:6px}.pf .lab{font-size:12.5px;margin-top:6px}.pf input,.pf select{padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit}.pf .btn{margin-top:12px}
@@ -603,7 +604,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .sb-link{display:flex;gap:6px}.sb-link input{flex:1;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:inherit;font-family:var(--f-mono);font-size:14px}
 .sb-redes{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}
 .sr{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;color:#fff;border:0;font-family:inherit;cursor:pointer;transition:transform .12s}.sr:hover{transform:translateY(-2px)}
-.sr.segx{background:transparent;color:var(--ink);border:1.5px solid var(--ink);margin-left:auto}.sr.wa{background:#1FA855}.sr.tg{background:#229ED9}.sr.xx{background:#111}.sr.fb{background:#1877F2}.sr.nat{background:var(--sunk);color:var(--ink)}
+.sr.segx,.sr.segt{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}.sb-seg{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line,#ccc)}.sb-seg>span{font-weight:700;font-size:14px;color:var(--muted,#667);margin-right:2px}.sr.wa{background:#1FA855}.sr.tg{background:#229ED9}.sr.xx{background:#111}.sr.fb{background:#1877F2}.sr.nat{background:var(--sunk);color:var(--ink)}
 @media (max-width:640px){.share-band{grid-template-columns:1fr}}
 .pt-mini{margin-top:12px;font-size:13.5px;color:#B9C6D8}.pt-mini b{color:#F2C230}.pt-mini a{color:#fff;font-weight:600}
 </style>
@@ -672,7 +673,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <button class="btn ghost sm" id="ctClose" type="button" style="align-self:flex-start">Cerrar</button>
    </div>
   </div>
-  <footer class="foot"><span>El Mandato · países e instituciones reales, personajes ficticios · <a href="privacidad.html">Privacidad</a> · <a href="#contacto" id="ftCont">Contacto</a> · <a href="https://cafecito.app/elmandato" target="_blank" rel="noopener">☕ Cafecito</a> · <a href="https://x.com/ElMandatoJuego" target="_blank" rel="noopener">𝕏 @ElMandatoJuego</a></span><span id="fecha"></span></footer>
+  <footer class="foot"><span>El Mandato · países e instituciones reales, personajes ficticios · <a href="privacidad.html">Privacidad</a> · <a href="#contacto" id="ftCont">Contacto</a> · <a href="https://cafecito.app/elmandato" target="_blank" rel="noopener">☕ Cafecito</a> · <a href="https://x.com/ElMandatoJuego" target="_blank" rel="noopener">𝕏 @ElMandatoJuego</a> · <a href="https://www.tiktok.com/@elmandato.juego" target="_blank" rel="noopener">TikTok @elmandato.juego</a></span><span id="fecha"></span></footer>
 </div>
 
 <script>
@@ -1800,7 +1801,10 @@ function vHome(){
     <a class="sr xx" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TXT)}&via=ElMandatoJuego">X</a>
     <a class="sr fb" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}">Facebook</a>
     <button class="sr nat" id="shNat" type="button" hidden>Más opciones…</button>
-    <a class="sr segx" target="_blank" rel="noopener" href="https://x.com/ElMandatoJuego">Seguinos en 𝕏</a>
+   </div>
+   <div class="sb-seg"><span>Seguinos</span>
+    <a class="sr segx" target="_blank" rel="noopener" href="https://x.com/ElMandatoJuego">𝕏 @ElMandatoJuego</a>
+    <a class="sr segt" target="_blank" rel="noopener" href="https://www.tiktok.com/@elmandato.juego">TikTok @elmandato.juego</a>
    </div>
   </section>
   <a class="cafe-band" href="https://cafecito.app/elmandato" target="_blank" rel="noopener">
@@ -3693,6 +3697,7 @@ function vLegado(){
      <button class="btn primary" id="bCopy">Compartir resultado</button>
      <a class="btn cafe-btn" href="https://cafecito.app/elmandato" target="_blank" rel="noopener">☕ ¿Te gustó? Invitame un cafecito</a>
      <a class="btn ghost" href="https://x.com/ElMandatoJuego" target="_blank" rel="noopener">𝕏 Seguinos en @ElMandatoJuego</a>
+     <a class="btn ghost" href="https://www.tiktok.com/@elmandato.juego" target="_blank" rel="noopener">🎵 Seguinos en TikTok</a>
      <button class="leg-rep" data-cont="bug" type="button">¿Algo no anduvo bien? Contanos</button>
      ${G.diario&&G.yaJugado?'<span class="muted" style="font-size:12.5px">Ya habías jugado el desafío de hoy: esta partida no cuenta para el ranking diario.</span>':""}
      <span class="muted" id="rkState" aria-live="polite" style="font-size:12.5px">${esc(G._rk||(SESSION?(G.guardado?"":"Guardando en el ranking…"):"Ingresá con tu cuenta antes de empezar para que tus legados entren al ranking."))}</span>
