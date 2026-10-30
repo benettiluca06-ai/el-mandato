@@ -593,6 +593,10 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .cta-pila{display:flex;flex-direction:column;gap:10px}
 .cta-cafe{display:flex;gap:12px;align-items:center;padding:14px;border-radius:16px;background:linear-gradient(135deg,#6B3E1E,#3E2311);color:#FCEBD7;text-decoration:none;transition:transform .15s}.cta-cafe:hover{transform:translateY(-2px)}.cta-cafe b{display:block;font-size:15px;color:#fff}.cta-cafe span{font-size:13px}.cta-cafe .e{font-size:28px}
 .btn.cafe-btn{background:#6B3E1E;color:#fff;border-color:#6B3E1E;text-decoration:none;text-align:center}.btn.cafe-btn:hover{background:#7d4a25}
+.cafe-band{display:flex;align-items:center;gap:16px;margin-top:28px;padding:18px 22px;border-radius:16px;background:linear-gradient(120deg,#6B3E1E,#3E2311);color:#FCEBD7;text-decoration:none;transition:transform .15s}.cafe-band:hover{transform:translateY(-2px)}
+.cb-e{font-size:36px}.cb-t{flex:1;display:flex;flex-direction:column;gap:2px}.cb-t b{color:#fff;font-size:17px}.cb-t span{font-size:14px}
+.cb-go{flex:none;background:#F2C230;color:#3E2311;font-weight:700;padding:10px 16px;border-radius:10px;white-space:nowrap}
+@media (max-width:640px){.cafe-band{flex-wrap:wrap}.cb-go{width:100%;text-align:center}}
 </style>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -1772,9 +1776,14 @@ function vHome(){
       <div><b>4</b><span><strong>Dejá tu legado.</strong> Cuidado: si el escándalo llega a 100, se termina todo.</span></div>
      </div>
     </section>
-    <section class="cta-pila"><a class="cta-cafe" href="https://cafecito.app/elmandato" target="_blank" rel="noopener"><span class="e" aria-hidden="true">☕</span><span><b>Invitame un cafecito</b><span>El Mandato es gratis y lo hace un estudiante. Si te gusta, bancalo con un cafecito.</span></span></a><button class="cta-cont" data-cont="sugerencia"><span class="e" aria-hidden="true">💬</span><span><b>¿Ideas, bugs o querés sumarte?</b><span>Escribinos: leemos todo y el juego crece con lo que nos cuentan.</span></span></button></section>
+    <section><button class="cta-cont" data-cont="sugerencia"><span class="e" aria-hidden="true">💬</span><span><b>¿Ideas, bugs o querés sumarte?</b><span>Escribinos: leemos todo y el juego crece con lo que nos cuentan.</span></span></button></section>
    </aside>
-  </div>`;
+  </div>
+  <a class="cafe-band" href="https://cafecito.app/elmandato" target="_blank" rel="noopener">
+   <span class="cb-e" aria-hidden="true">☕</span>
+   <span class="cb-t"><b>Colaborá para que El Mandato siga creciendo</b><span>El juego es gratis y lo hace un estudiante. Cada cafecito ayuda a sumar países, modos nuevos y más situaciones.</span></span>
+   <span class="cb-go">Invitar un cafecito →</span>
+  </a>`;
   (function(){const el=$("#cdDiario");if(!el)return;clearInterval(window._cdT);const f=()=>{const e=$("#cdDiario");if(!e)return clearInterval(window._cdT);const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const s=Math.max(0,Math.floor((m-n)/1000));e.textContent="Nuevo en "+[s/3600|0,(s%3600)/60|0,s%60].map(x=>String(x).padStart(2,"0")).join(":")};f();window._cdT=setInterval(f,1000)})();
   if(!mav){clearInterval(window._afT);let k=0;window._afT=setInterval(()=>{const a=$("#afAv");if(!a)return clearInterval(window._afT);k=(k+1)%POSTERS.length;a.classList.add("sw");setTimeout(()=>{a.innerHTML=avatarSVG(POSTERS[k],190,{acc:pcol[0],banda:pcol});a.classList.remove("sw")},250)},3200)}
   $("#insMas").onclick=()=>{const g=$("#insGrid");g.classList.toggle("ins-corto");$("#insMas").textContent=g.classList.contains("ins-corto")?"Ver las "+INSIGNIAS.length:"Ver menos"};
