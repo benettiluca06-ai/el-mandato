@@ -59,6 +59,8 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;letter-spacing:.01em;line-
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:14px;border-bottom:2px solid var(--ink)}
 .brand{display:flex;align-items:baseline;gap:10px;background:none;border:0;padding:0}
 .brand h1{font-size:30px;text-transform:uppercase}
+.brand-sub{display:flex;flex-direction:column;gap:2px;padding-left:16px;margin-right:auto;border-left:1.5px solid var(--line);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;line-height:1.35}.brand-sub b{color:var(--ink);font-weight:500;letter-spacing:.12em}.brand-sub #hdrLinea{color:var(--seal)}
+@media (max-width:760px){.brand-sub{display:none}}
 .brand .seal{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;color:var(--seal);border:1.5px solid var(--seal);padding:1px 6px;border-radius:3px;transform:rotate(-3deg)}
 .who{display:flex;align-items:center;gap:8px;font-size:13.5px}
 .who img{width:28px;height:28px;border-radius:50%}
@@ -472,6 +474,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <div class="wrap">
   <header class="top">
     <button class="brand" id="goHome" aria-label="Volver al inicio"><h1>El Mandato</h1></button>
+    <div class="brand-sub" aria-hidden="true"><b>Simulador de carrera política</b><span id="hdrLinea"></span></div>
     <div class="who" id="who"><span class="muted">Conectando…</span></div>
   </header>
   <div id="adTop"></div>
@@ -3207,6 +3210,7 @@ Econ  ${sq(s.e)}`;
 $("#goHome").insertAdjacentHTML("afterbegin",MARCA);
 $("#goHome").onclick=()=>{clearMG();if(G&&!G.fin&&!G.practica)save();G=null;show("home")};
 $("#fecha").textContent=new Date().toLocaleDateString("es-AR",{day:"numeric",month:"long",year:"numeric"});
+try{const dd=diario();$("#hdrLinea").textContent=new Date().toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"})+" · Desafío de hoy: "+PAISES[dd.pais].n}catch(e){}
 $("#adTop").innerHTML=adHTML("top","leader","728 × 90");
 loadAdsense();
 loginHandlers();
