@@ -4,13 +4,7 @@
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "el-mandato.vercel.app" }],
       "destination": "https://elmandato.app/$1",
-      "permanent": true
-    },
-    {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.elmandato.app" }],
-      "destination": "https://elmandato.app/$1",
-      "permanent": true
+      "permanent": false
     }
   ]
 }
