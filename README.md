@@ -25,7 +25,7 @@ Todo es gratis para arrancar. Tardás aproximadamente una hora la primera vez.
 
 ## 3. Base de datos y login (Supabase)
 1. Creá una cuenta en supabase.com y un proyecto nuevo (región: São Paulo).
-2. **SQL Editor → New query**: pegá el contenido de `supabase.sql` y tocá **Run**.
+2. **SQL Editor → New query**: pegá el contenido de `supabase.sql` y tocá **Run**. Después, en otra query nueva, pegá `supabase-antitrampa.sql` y tocá **Run**: así el ranking solo se puede escribir a través de funciones que validan cada partida en el servidor.
 3. **Authentication → URL Configuration**:
    - *Site URL*: tu link de Vercel.
    - *Redirect URLs*: agregá tu link de Vercel (y tu dominio propio si después tenés uno).

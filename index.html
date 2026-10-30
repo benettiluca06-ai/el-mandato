@@ -1682,6 +1682,7 @@ function nueva(o){
     G.escenario=e.n;
   }else if(o.modo==="directo"){start=rs.find(r=>r.id===o.inicio);G.edad=start.tier>=6?54:start.tier>=5?48:42}
   else start=rs.find(r=>r.id===(G.origen==="diplomatico"?"diplomacia0":"politica0"));
+  registrarPartida();
   if(o.modo==="directo"&&SET.destino)G._destIni=SET.destino;
   setCargo(start);
   nuevoTurno();save();show("game");
@@ -1939,26 +1940,27 @@ function titulo(){
   return"Animal Político";
 }
 
+function registrarPartida(){
+  if(!SB||!SESSION||!G)return;const g=G;g.partidaId=null;
+  SB.rpc("iniciar_partida",{p_diario:!!(g.diario&&!g.yaJugado)}).then(({data,error})=>{if(!error&&data&&!g.practica){g.partidaId=data.id;g.diarioCuenta=!!data.diario;if(G===g)save()}}).catch(()=>{});
+}
 async function guardarRanking(){
-  if(!SB||!SESSION)return;
-  const msg=t=>{const el=$("#rkState");if(el)el.textContent=t};
+  if(!SB||!SESSION||G.practica||G.guardado)return;
+  const g=G,msg=t=>{g._rk=t;setTimeout(()=>{const el=$("#rkState");if(el&&G===g)el.textContent=t},60)};
+  if(!G.partidaId){msg("Esta partida arrancó sin cuenta, así que no entra al ranking. La próxima, ingresá antes de empezar.");return}
+  const mejor=G.hist.filter(h=>h.tier).sort((a,b)=>b.tier-a.tier)[0];
   try{
-    const uid=SESSION.user.id;
-    const {data:cur,error:e1}=await SB.from("legados").select("*").eq("user_id",uid).maybeSingle();
-    if(e1)throw e1;
-    const d=cur?{...cur}:{user_id:uid,puntos:0};
-    let ch=!cur;
-    if(G.puntosFinal>(d.puntos||0)){
-      const mejor=G.hist.filter(h=>h.tier).sort((a,b)=>b.tier-a.tier)[0];
-      Object.assign(d,{nombre:String(G.nombre||"Jugador").slice(0,40),puntos:G.puntosFinal,titulo:G.titulo,pais:G.pais,cargo:mejor?.cargo||"",fecha:hoyISO()});ch=true;
-    }
-    if(G.diario&&!G.yaJugado&&d.diario_fecha!==hoyISO()){
-      Object.assign(d,{diario_fecha:hoyISO(),diario_puntos:G.puntosFinal,diario_titulo:G.titulo,diario_pais:G.pais});
-      if(!d.nombre)d.nombre=String(G.nombre||"Jugador").slice(0,40);ch=true;
-    }
-    if(ch){d.updated_at=new Date().toISOString();const {error}=await SB.from("legados").upsert(d);if(error)throw error}
-    G.guardado=true;msg(ch?"Guardado en el ranking.":"Tu mejor legado sigue siendo uno anterior.");
-  }catch(e){msg("No se pudo guardar en el ranking. Probá de nuevo más tarde.")}
+    const {data,error}=await SB.rpc("enviar_legado",{p_partida:G.partidaId,p_puntos:G.puntosFinal,p_turnos:Math.max(1,G.turnos||1),p_nombre:nombreUsuario()||G.nombre,p_titulo:G.titulo,p_pais:G.pais,p_cargo:mejor?.cargo||"",p_fecha:hoyISO()});
+    if(error)throw error;
+    G.guardado=true;try{localStorage.setItem("elmandato.ultimo",JSON.stringify(G))}catch(e){}
+    const r=String(data||"");
+    msg((r.startsWith("record")?"¡Nuevo récord! Guardado en el ranking.":"Guardado. Tu mejor legado sigue siendo uno anterior.")+(r.includes("diario")?" También entra al ranking del desafío de hoy.":""));
+  }catch(e){
+    const m=String(e?.message||"");
+    const T={"partida ya enviada":"Este legado ya estaba guardado.","demasiado rapido":"El servidor rechazó la partida: se jugó demasiado rápido.","puntaje imposible":"El servidor rechazó el puntaje.","partida invalida":"No encontramos esta partida en el servidor."};
+    const k=Object.keys(T).find(x=>m.includes(x));
+    msg(k?T[k]:"No se pudo guardar en el ranking. Probá de nuevo más tarde.");
+  }
 }
 
 /* ================== VISUALES ================== */
@@ -3170,6 +3172,7 @@ Econ  ${sq(s.e)}`;
      <button class="btn ghost" id="bCopy">Copiar texto</button>
      <span class="muted" style="font-size:12.5px" id="rkState">${SESSION?(G.guardado?"Guardado en el ranking.":"Guardando en el ranking…"):"Jugaste como invitado: este legado no entra al ranking. Ingresá antes de tu próxima partida."}</span>
      ${G.diario&&G.yaJugado?'<span class="muted" style="font-size:12.5px">Ya habías jugado el desafío de hoy: esta partida no cuenta para el ranking diario.</span>':""}
+     <span class="muted" id="rkState" aria-live="polite" style="font-size:12.5px">${esc(G._rk||(SESSION?(G.guardado?"":"Guardando en el ranking…"):"Ingresá con tu cuenta antes de empezar para que tus legados entren al ranking."))}</span>
     </section>
     <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="bOtra">Otra carrera</button><button class="btn ghost" id="bInicio">Inicio</button></div>
    </aside>
