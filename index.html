@@ -544,10 +544,47 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .howto2{display:flex;flex-direction:column;gap:12px}.howto2>div{display:flex;gap:12px;align-items:flex-start;font-size:14px}
 .howto2 b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#F2C230;color:#13233B;font-family:var(--f-display);font-size:18px;font-weight:800}
 .howto2 strong{display:block}
+.rk-h{flex-wrap:wrap;align-items:center}.rk-h h3{white-space:nowrap}
 .rank-box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
 @media (max-width:900px){.pt-in{grid-template-columns:1fr;padding:28px 22px}.pt-poster{display:none}.feat2{grid-template-columns:1fr}.modos2,.practica2{grid-template-columns:repeat(2,minmax(0,1fr))}.portada{min-height:0}.pt-h{font-size:58px}}
 @media (max-width:520px){.pt-h{font-size:50px}.pt-in{padding:24px 18px}}
 @media (prefers-reduced-motion:reduce){.tk-run,.afiche,.af-sello,.pt-flags span,.pt-hl::after{animation:none}}
+
+.dc-racha{font-size:13.5px;color:#FFD9A0}.dc-racha b{color:#fff}
+.rk-fire{font-size:11.5px;font-weight:600;color:#C2410C}
+.pronto-paises{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:10px;padding:10px 12px;border:1px dashed var(--line);border-radius:12px;font-size:13px;color:var(--muted)}
+.pronto-paises .pronto{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;background:#F2C230;color:#13233B;padding:2px 7px;border-radius:4px}
+.pronto-paises .pp{white-space:nowrap}
+.tabs button[data-t]{padding-inline:9px}
+.lg-head{display:flex;gap:8px;align-items:center;margin-bottom:10px}.lg-head select{flex:1;min-width:0;padding:7px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;font-size:13.5px}
+.tabs.sm button{font-size:11.5px;padding:3px 7px}
+.lg-inv{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:10px;padding:8px 10px;border-radius:10px;background:var(--sunk);font-size:13px}.lg-inv b{font-family:var(--f-mono);letter-spacing:.12em;color:var(--seal)}
+.lg-acc{display:flex;justify-content:space-between;margin-top:8px}.lnk{background:none;border:0;padding:0;color:var(--accent);font:inherit;font-size:12.5px;cursor:pointer;text-decoration:underline}
+.lg-forms{display:flex;flex-direction:column;gap:8px;margin-top:10px}.lg-hide{display:none}
+.lg-f{display:flex;gap:6px}.lg-f input{flex:1;min-width:0;padding:8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;font-size:13.5px}
+.lg-aviso{margin:0 0 10px;padding:8px 10px;border-radius:8px;background:#FFF4D6;color:#5C4400;font-size:13px}
+.sabias.mes{border-left-color:#F2C230}
+.tapa{margin:14px 0;border:1.5px solid var(--ink);border-radius:6px;background:#FBF8F0;color:#16202E;padding:12px 14px;box-shadow:4px 4px 0 var(--ink);transform:rotate(-.6deg);animation:tapaIn .45s ease-out both}
+@keyframes tapaIn{from{opacity:0;transform:rotate(-4deg) scale(.94)}}
+.tp-mast{display:flex;justify-content:space-between;gap:8px;border-bottom:2px solid #16202E;padding-bottom:4px;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.tp-mast span:first-child{font-family:Georgia,"Times New Roman",serif;font-size:17px;font-weight:700;letter-spacing:0;text-transform:none}
+.tp-h{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:26px;line-height:1.1;margin:8px 0 4px}
+.tp-b{margin:0;font-size:13.5px;color:#3C4656}
+.tp-enc{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:10px;padding-top:8px;border-top:1px solid #CFC8B6;font-size:13px}
+.tp-lab{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#6B7280}
+.tp-enc b{font-size:18px}.tp-dv{font-family:var(--f-mono);font-size:12px}.tp-dv.up{color:#2E7D4F}.tp-dv.dn{color:#B4382F}.tapa .spark{color:#1E4E8C;margin-left:auto}
+.ley-bar{position:relative;display:flex;height:22px;border-radius:6px;overflow:hidden;margin:12px 0 6px;border:1px solid var(--line)}
+.ley-bar i{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.lb-si{background:#2E7D4F}.lb-duda{background:#E0A526}.lb-no{background:#B4382F}
+.ley-chips{font-size:13.5px;margin-bottom:10px;color:var(--accent);letter-spacing:.05em}
+.ley-bl{display:flex;flex-direction:column;gap:8px}
+.lbl{display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:10px;border:1px solid var(--line);border-left-width:5px;background:var(--surface)}
+.lbl>div:first-child{display:flex;justify-content:space-between;gap:8px;font-size:14px}.lbl span{color:var(--muted);font-size:13px}
+.lb-si-b{border-left-color:#2E7D4F}.lb-duda-b{border-left-color:#E0A526}.lb-no-b{border-left-color:#B4382F}
+.lbl-ops{display:flex;flex-wrap:wrap;gap:6px}
+.ley-log{margin:10px 0 0;padding-left:18px;font-size:13px;color:var(--muted)}
+.ley-res{font-size:18px;margin:8px 0;padding:10px 12px;border-radius:10px}.ley-res.ok{background:#E3F2E8;color:#1D5A36}.ley-res.no{background:#F8E1DE;color:#8A2A22}
+.ins.sec{opacity:.75;border-style:dashed}.ins.sec .ins-i{background:#13233B;color:#F2C230}
 </style>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -1466,8 +1503,8 @@ async function initAuth(){
   if(!CFG.SUPABASE_URL||!CFG.SUPABASE_ANON_KEY||!window.supabase){rankDocs=null;paintRanking();renderWho();errorLoginURL();return}
   SB=window.supabase.createClient(CFG.SUPABASE_URL,CFG.SUPABASE_ANON_KEY);
   try{const {data}=await SB.auth.getSession();SESSION=data.session}catch(e){}
-  SB.auth.onAuthStateChange((ev,s)=>{const antes=!!SESSION;SESSION=s;renderWho();if(s)$("#login").hidden=true;if(!s)renderWho._pidio=0;if(!G){subRanking();if(antes!==!!s&&document.querySelector("#bDiario"))show("home")}});
-  renderWho();if(!G)subRanking();errorLoginURL();
+  SB.auth.onAuthStateChange((ev,s)=>{const antes=!!SESSION;SESSION=s;if(antes!==!!s){LIGAS=null;cargarMio();if(s)ligaPendiente()}renderWho();if(s)$("#login").hidden=true;if(!s)renderWho._pidio=0;if(!G){subRanking();if(antes!==!!s&&document.querySelector("#bDiario"))show("home")}});
+  renderWho();if(!G)subRanking();errorLoginURL();cargarMio();ligaPendiente();
 }
 function renderWho(){
   const w=$("#who");
@@ -1506,10 +1543,11 @@ function loginHandlers(){
 }
 
 let rankTab="global",rankDocs=[],rankTimer=null;
-async function subRanking(){clearInterval(rankTimer);await cargarRanking();rankTimer=setInterval(()=>{if($("#rankList"))cargarRanking()},60000)}
+async function subRanking(){clearInterval(rankTimer);await cargarRanking();rankTimer=setInterval(()=>{if($("#rankList")&&rankTab!=="liga")cargarRanking()},60000)}
 async function cargarRanking(){
+  if(rankTab==="liga")return pintarLigas();
   if(!SB){rankDocs=null;return paintRanking()}
-  let q=SB.from("legados").select("user_id,nombre,puntos,titulo,pais,diario_puntos,diario_titulo,diario_pais");
+  let q=SB.from("legados").select("user_id,nombre,puntos,titulo,pais,diario_puntos,diario_titulo,diario_pais,racha,diario_fecha");
   q=rankTab==="global"?q.order("puntos",{ascending:false}).limit(10):q.eq("diario_fecha",hoyISO()).order("diario_puntos",{ascending:false}).limit(10);
   const {data,error}=await q;rankDocs=error?[]:(data||[]);paintRanking();
 }
@@ -1521,7 +1559,7 @@ function paintRanking(){
   rankDocs.forEach((d,i)=>{
     const g=rankTab==="global",li=document.createElement("li");
     li.innerHTML='<span class="pos">'+String(i+1).padStart(2,"0")+'</span><span class="nm"><b></b><span></span></span><span class="pts"></span>';
-    li.querySelector("b").textContent=d.nombre||"Jugador";
+    li.querySelector("b").textContent=d.nombre||"Jugador";if(d.racha>1&&d.diario_fecha>=ayerISO())li.querySelector("b").insertAdjacentHTML("beforeend",` <small class="rk-fire">🔥${d.racha}</small>`);
     li.querySelector(".nm span").textContent=((g?d.titulo:d.diario_titulo)||"")+" · "+(PAISES[g?d.pais:d.diario_pais]?.n||"");
     li.querySelector(".pts").textContent=Number((g?d.puntos:d.diario_puntos)||0).toLocaleString("es-AR");
     if(SESSION&&d.user_id===SESSION.user.id)li.style.fontWeight="600";
@@ -1632,6 +1670,7 @@ function vHome(){
        <h4>${esc(PAISES[d.pais].n)}</h4>
        <p>Mismos sucesos para todos. Una sola chance: tu primera partida es la que cuenta.</p>
        <div class="tags"><span class="tag">${esc(d.prov)}</span><span class="tag">${ORIGENES[d.origen].n}</span><span class="tag">${esc(PARTIDOS[d.pais].find(x=>x[0]===d.partido)[1])}</span></div>
+       <span class="dc-racha" id="dcRacha"></span>
        <span class="dc-go">${SESSION?"Jugar el desafío →":"🔒 Entrá con tu cuenta para jugar"}</span>
       </button>
       ${esc2.map(e=>`<button class="scard" data-esc="${e.id}"><div class="sc-img">${escenaSVG(escTipo(e))}</div><div class="sc-b"><span class="eyebrow">Escenario · ${RAMAS[e.rama]}</span><h4>${esc(e.n)}</h4><p>${esc(e.d)}</p><span class="sc-go">Jugar →</span></div></button>`).join("")}
@@ -1648,6 +1687,7 @@ function vHome(){
       <div class="m2 m-off">${ico("brujula",34)}<span class="pronto">Próximamente</span><b>Test político</b><span>¿Dónde estás en el mapa ideológico?</span></div>
       <div class="m2 m-off">${ico("wordle",34)}<span class="pronto">Próximamente</span><b>Wordle político</b><span>Adiviná el político, el partido o la ley del día.</span></div>
      </div>
+     <div class="pronto-paises"><span class="pronto">Próximamente</span><span>Más países:</span>${[["CO","Colombia"],["PE","Perú"],["VE","Venezuela"],["EC","Ecuador"],["PY","Paraguay"],["BO","Bolivia"],["IT","Italia"],["FR","Francia"],["DE","Alemania"],["PT","Portugal"]].map(([c,n])=>`<span class="pp">${banderaEmoji(c)} ${n}</span>`).join("")}</div>
     </section>
     <section>
      <div class="sec-h"><h3>Probá los desafíos</h3><span class="eyebrow">Sin arrancar una carrera</span></div>
@@ -1667,8 +1707,8 @@ function vHome(){
 
    <aside class="col">
     <section class="rank-box">
-     <div class="sec-h"><h3>🏆 Ranking</h3>
-      <div class="tabs"><button data-t="global" aria-pressed="${rankTab==="global"}">Histórico</button><button data-t="hoy" aria-pressed="${rankTab==="hoy"}">Hoy</button></div>
+     <div class="sec-h rk-h"><h3>Ranking</h3>
+      <div class="tabs"><button data-t="global" aria-pressed="${rankTab==="global"}">Histórico</button><button data-t="hoy" aria-pressed="${rankTab==="hoy"}">Hoy</button><button data-t="liga" aria-pressed="${rankTab==="liga"}">Ligas</button></div>
      </div>
      <div id="rankList"><div class="empty">Cargando ranking…</div></div>
     </section>
@@ -1702,7 +1742,7 @@ function vHome(){
     const pk=Object.keys(PAISES)[hash(e.id+hoyISO())%8];
     vPre({pais:pk,origen:e.origen||"academico",rasgos:["negociador","carismatico"],partido:PARTIDOS[pk][0][0],prov:PROVS[pk][hash(e.id+hoyISO()+"p")%PROVS[pk].length][0],modo:"escenario",esc:e.id},e.n,e.d);
   });
-  app.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{rankTab=b.dataset.t;app.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-pressed",x===b));subRanking()});
+  app.querySelectorAll(".tabs button[data-t]").forEach(b=>b.onclick=()=>{rankTab=b.dataset.t;app.querySelectorAll(".tabs button[data-t]").forEach(x=>x.setAttribute("aria-pressed",x===b));subRanking()});pintarRacha();
   subRanking();
 }
 
@@ -1811,6 +1851,8 @@ function setCargo(r){
   const mismo=G.cargo===r.id;
   G.cargo=r.id;G.aniosCargo=0;G.mandatoAnios=0;G.mandatos=mismo?G.mandatos+1:1;
   if(!mismo&&r.kind==="dip"&&r.tier<=4){G.destino=(G._destIni&&DESTINOS.find(d=>d[0]===G._destIni))?(d=>({n:d[0],cap:d[1],pr:d[2]}))(DESTINOS.find(d=>d[0]===G._destIni)):elegirDestino(r.tier);G._destIni=null}
+  if(r.kind==="dip"&&G.destino&&r.tier<=4)G.destinos=[...new Set([...(G.destinos||[]),G.destino.n])];
+  if(r.top&&!G.topEdad)G.topEdad=G.edad;
   if(!mismo){G.hist.push({anio:G.anio,cargo:nombreCargo(r),tier:r.tier,kind:r.kind});G.gab=null}
   G.maxTier=Math.max(G.maxTier,r.tier);
   if(!G.ramas.includes(r.rama))G.ramas.push(r.rama);
@@ -1829,10 +1871,12 @@ function nuevoTurno(){
   const due=(G.seq||[]).find(q=>q.turno<=(G.turnos||0)+1);
   if(due){G.seq=G.seq.filter(q=>q!==due);const k=EV.findIndex(e=>e.id===due.id);if(k>=0){pick2=k;G.seqDec=due.dec}}
   else if(R()<.07&&(G.turnos||0)>2&&(!G.raroUlt||G.turnos-G.raroUlt>5)){const rs=EV.map((e,i)=>i).filter(i=>EV[i].t==="raro"&&!(G.usados||[]).includes(i));if(rs.length){pick2=pick(rs);G.raroUlt=G.turnos}}
+  if(!due&&pick2===a){const ms=eventoDelMes(r);if(ms.length&&R()<.22)pick2=pick(ms)}
   G.cola=[pick2];G.usados.push(pick2);G.ev=0;G.fase="evento";
   G.turnos=(G.turnos||0)+1;
   const pools={loc:["tira","agenda","fiscal","recorrida","discurso"],leg:["poroteo","agenda","tira","discurso","debate"],terr:["crisis","tira","fiscal","agenda","recorrida","discurso"],gob:["crisis","tira","agenda","poroteo","discurso","debate"],top:["crisis","agenda","poroteo","tira","discurso","debate"],dip:["tira","agenda","fiscal","discurso","debate"]};
   G.mini=(r&&G.turnos>1&&!G.miniPrev&&R()<.55)?elegirJuego(pools[r.kind]):null;G.miniPrev=!!G.mini;
+  G.leyPend=!G.mini&&!!r&&["leg","gob","top"].includes(r.kind)&&G.turnos>1&&R()<.3;
 }
 function aplicar(ef){
   const out={};G.prevSt={...G.st};
@@ -1856,15 +1900,17 @@ function elegir(i){
   const d=aplicar(op[1]);
   G.T=G.T||{};for(const k in d)G.T[k]=(G.T[k]||0)+d[k];
   const net=Object.entries(d).reduce((a,[k,v])=>a+(k==="s"?-v:v),0);G._sfx=net>=0?"bien":"mal";
-  G.ult={res:op[2],d,elec:op[0]};G.fase="resultado";G.log.push({anio:G.anio,tit:tplSafe(e.tit),op:tplSafe(op[0]),raro:e.t==="raro",seq:e.t==="seq",tipo:tipoEscena(e,null)});
+  G.ult={res:op[2],d,elec:op[0]};G.fase="resultado";G.log.push({anio:G.anio,tit:tplSafe(e.tit),op:tplSafe(op[0]),raro:e.t==="raro",seq:e.t==="seq",tipo:tipoEscena(e,null),net});armarTapa(e,op,net);
   const sq=OPT_SEQ[op[0]];if(sq&&!(G.seqHecho||[]).includes(sq)){G.seq=G.seq||[];G.seqHecho=[...(G.seqHecho||[]),sq];G.seq.push({id:sq,turno:G.turnos+1+Math.floor(R()*2),dec:op[0]})}
   save();vGame();
 }
 function seguir(){
+  if(G.leyPend&&!G.mini){prepararLey();save();vGame();return}
   if(G.mini){G.fase="mini";G.lastD=null;save();vGame();return}
   finTurno();
 }
 function finTurno(){
+  G.enc=G.enc||[];G.enc.push(Math.round(estimarVoto()*10)/10);if(G.enc.length>40)G.enc.shift();
   const r=rk(G.cargo);G.hs=G.hs||[];G.hs.push({anio:G.anio,l:G.st.l,e:G.st.e,i:G.st.i});G.lastD=null;G.aviso=null;
   G.st.s=clamp(G.st.s-5,0,100);
   if(r&&["terr","gob","top"].includes(r.kind))G.st.l=clamp(G.st.l-2,0,100);
@@ -1987,7 +2033,7 @@ function resolverEleccion(bonus){
   if(G.practica)return practicaFin(`${bonus>=0?"+":""}${bonus} puntos`,"Eso es lo que te habría sumado o restado en una elección.");
   const res=eleccion(r,pe.reel,bonus+(pe.alianza?.bonus||0),pe.rival);
   G.elecLog=G.elecLog||[];G.elecLog.push({anio:G.anio,cargo:r.nombre,gano:res.gano,pct:res.pct,rival:pe.rival.n+" ("+pe.rival.pa+")"});
-  G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier,postu:pe.postu,alianza:pe.alianza||null};G._sfx=res.gano?"gana":"pierde";
+  G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier,postu:pe.postu,alianza:pe.alianza||null};G._sfx=res.gano?"gana":"pierde";if(res.gano&&Math.abs(res.pct-res.rpct)<1)G.porUnPelo=true;
   if(r.top)G.elec.mapa=resultadoMapa(G.elec);G.fase="eleccion";G.pendElec=null;
   if(res.gano){if(pe.rival.nem)G.nemWins=(G.nemWins||0)+1;if(G._balo)G.ganoBalotaje=true;if((pe.est??60)<43)G.ganoBaja=true;
     if(G.partido==="PROPIO"){G.crecePropio=(G.crecePropio||0)+1;const np=G.crecePropio>=6?3:G.crecePropio>=3?2:1;if(np>G.pesoPropio){G.pesoPropio=np;G.avisoPartido=`${G.miPartido.n} ya es un ${np===3?"partido grande":"partido mediano"}.`}if(r.top)G.llegoTopPropio=true}
@@ -2073,8 +2119,9 @@ async function guardarRanking(){
     const {data,error}=await SB.rpc("enviar_legado",{p_partida:G.partidaId,p_puntos:G.puntosFinal,p_turnos:Math.max(1,G.turnos||1),p_nombre:nombreUsuario()||G.nombre,p_titulo:G.titulo,p_pais:G.pais,p_cargo:mejor?.cargo||"",p_fecha:hoyISO()});
     if(error)throw error;
     G.guardado=true;try{localStorage.setItem("elmandato.ultimo",JSON.stringify(G))}catch(e){}
-    const r=String(data||"");
-    msg((r.startsWith("record")?"¡Nuevo récord! Guardado en el ranking.":"Guardado. Tu mejor legado sigue siendo uno anterior.")+(r.includes("diario")?" También entra al ranking del desafío de hoy.":""));
+    const r=String(data||"");const mr=r.match(/racha(\d+)/);
+    if(mr){g.rachaHoy=+mr[1];MIO={...(MIO||{}),racha:g.rachaHoy,diario_fecha:hoyISO()};if(g.rachaHoy>=7&&sumarInsignia("racha7"))g._r7=1;try{localStorage.setItem("elmandato.ultimo",JSON.stringify(g))}catch(e){}const st=$("#shareTxt");if(st&&G===g)st.value=textoResultado()}
+    msg((r.startsWith("record")?"¡Nuevo récord! Guardado en el ranking.":"Guardado. Tu mejor legado sigue siendo uno anterior.")+(r.includes("diario")?" También entra al ranking del desafío de hoy.":"")+(g.rachaHoy?` 🔥 Racha: ${g.rachaHoy} ${g.rachaHoy===1?"día":"días"}.`:"")+(g._r7?" ¡Desbloqueaste un logro secreto!":""));
   }catch(e){
     const m=String(e?.message||"");
     const T={"partida ya enviada":"Este legado ya estaba guardado.","demasiado rapido":"El servidor rechazó la partida: se jugó demasiado rápido.","puntaje imposible":"El servidor rechazó el puntaje.","partida invalida":"No encontramos esta partida en el servidor."};
@@ -2324,7 +2371,7 @@ const INSIGNIAS=[
  ["expulsado","Expulsado","Tu partido te echó."],
  ["traicionado","Traicionado","Alguien de tu gabinete te clavó un puñal."],
  ["perfecto","Mano de cirujano","Hiciste perfecto un desafío."],
- ["longevo","Hasta el final","Llegaste a los 74 en actividad."],
+ ["longevo","Hasta el final","Te retiraste por edad, después de los 70."],
 ];
 function insigniasGuardadas(){try{return JSON.parse(localStorage.getItem("elmandato.insignias")||"{}")}catch(e){return {}}}
 function calcInsignias(){
@@ -2337,11 +2384,12 @@ function calcInsignias(){
   if(G.maxEsc>=60&&s.s<40&&!f.startsWith("Procesado"))add("sobreviviente");
   if(f.startsWith("Procesado"))add("prontuario");if(f.startsWith("Tu partido te expulsó"))add("expulsado");
   if(G.traicionado)add("traicionado");if(G.perfecto)add("perfecto");if(G.longevo)add("longevo");
+  insigniasSecretas(add);
   const prev=insigniasGuardadas(),nuevas=out.filter(x=>!prev[x]);
   out.forEach(x=>{if(!prev[x])prev[x]=hoyISO()});try{localStorage.setItem("elmandato.insignias",JSON.stringify(prev))}catch(e){}
   return {todas:out,nuevas};
 }
-function insigniaHTML(id,on,nueva){const x=INSIGNIAS.find(y=>y[0]===id);return `<div class="ins${on?" on":""}${nueva?" new":""}" title="${esc(x[2])}"><span class="ins-i">${esc(x[1].split(" ").map(w=>w[0]).join("").slice(0,2))}</span><b>${esc(x[1])}</b><span>${esc(x[2])}</span></div>`}
+function insigniaHTML(id,on,nueva){const x=INSIGNIAS.find(y=>y[0]===id);if(x[3]&&!on)return `<div class="ins sec" title="Logro secreto"><span class="ins-i">?</span><b>???</b><span>Logro secreto. Seguí jugando.</span></div>`;return `<div class="ins${on?" on":""}${nueva?" new":""}" title="${esc(x[2])}"><span class="ins-i">${esc(x[1].split(" ").map(w=>w[0]).join("").slice(0,2))}</span><b>${esc(x[1])}</b><span>${esc(x[2])}</span></div>`}
 
 /* Tarjeta para compartir */
 async function tarjetaPNG(){
@@ -2780,7 +2828,7 @@ function tipoEscena(e,kind){
 function trasladoDip(){
   const r=rk(G.cargo);if(!r||r.kind!=="dip"||r.tier>4||!G.destino)return null;
   if(G.aniosCargo<4||R()>.35)return null;
-  const ant=G.destino.n;G.destino=elegirDestino(r.tier);G.hist.push({anio:G.anio+2,cargo:`${r.nombre} en ${G.destino.n}`,tier:r.tier,kind:"dip"});
+  const ant=G.destino.n;G.destino=elegirDestino(r.tier);G.destinos=[...new Set([...(G.destinos||[]),G.destino.n])];G.hist.push({anio:G.anio+2,cargo:`${r.nombre} en ${G.destino.n}`,tier:r.tier,kind:"dip"});
   return `Cancillería te traslada: dejás ${ant} y te vas a ${G.destino.cap}.`;
 }
 function antecedente(e){
@@ -2839,6 +2887,204 @@ function htmlDespedida(){
 }
 function cerrarDespedida(i){const d=G.desp,o=d.ops[i];G.longevo=d.forz;fin(`${d.tit}. ${d.txt} ${o[1]}`)}
 
+/* ================== v12: racha, compartir, ligas, actualidad, prensa, congreso ================== */
+/* ---------- Racha ---------- */
+let MIO=null;
+async function cargarMio(){
+  if(!SB||!SESSION){MIO=null;return}
+  try{const {data}=await SB.from("legados").select("racha,racha_max,diario_fecha,puntos").eq("user_id",SESSION.user.id).maybeSingle();MIO=data||{racha:0,racha_max:0}}catch(e){MIO=null}
+  pintarRacha();
+}
+function ayerISO(){const d=new Date();d.setDate(d.getDate()-1);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function rachaActual(){if(!MIO||!MIO.diario_fecha)return 0;return MIO.diario_fecha>=ayerISO()?(MIO.racha||0):0}
+function pintarRacha(){const el=$("#dcRacha");if(!el)return;const r=rachaActual(),hoy=MIO?.diario_fecha===hoyISO();
+  el.innerHTML=!SESSION?"":r>0?`🔥 <b>${r}</b> ${r===1?"día":"días"} de racha${hoy?" · hoy ya jugaste":" · ¡no la cortes!"}`:"🔥 Empezá tu racha hoy";}
+
+/* ---------- Resultado para compartir ---------- */
+const LANZAMIENTO="2026-10-29";
+function nroDesafio(){const a=new Date(LANZAMIENTO+"T00:00:00"),b=new Date(hoyISO()+"T00:00:00");return Math.round((b-a)/864e5)+1}
+function banderaEmoji(pk){const c=pk==="UK"?"GB":pk;return String.fromCodePoint(...[...c].map(x=>0x1F1E6+x.charCodeAt(0)-65))}
+function textoResultado(){
+  const mejor=G.hist.filter(h=>h.tier).sort((a,b)=>b.tier-a.tier)[0];
+  const fila=(G.log||[]).filter(x=>!x.ley).slice(-24).map(x=>x.net==null?"🟨":x.net>=3?"🟩":x.net<=-3?"🟥":"🟨").join("");
+  const r=G.rachaHoy||0;
+  return `EL MANDATO · ${G.diario?"Desafío #"+nroDesafio():"Carrera"} ${banderaEmoji(G.pais)}
+🏛️ ${mejor?mejor.cargo:"Militante"} · ${Number(G.puntosFinal||0).toLocaleString("es-AR")} pts
+${fila}
+🗳️ ${G.elecG} ganadas · ${G.elecP} perdidas${G.leyesOk?` · 📜 ${G.leyesOk} leyes`:""}${r?` · 🔥 ${r}`:""}
+«${G.titulo}»
+${location.origin.replace(/^https?:\/\//,"")}`;
+}
+
+/* ---------- Ligas ---------- */
+let LIGAS=null,LIGA_SEL=null,LIGA_MODO="global",LIGA_FORM=null;
+try{LIGA_SEL=localStorage.getItem("elmandato.liga")}catch(e){}
+const LIGA_URL=new URLSearchParams(location.search).get("liga");
+if(LIGA_URL){try{localStorage.setItem("elmandato.ligaPend",LIGA_URL.toUpperCase())}catch(e){}history.replaceState(null,"",location.pathname+location.hash)}
+async function ligaPendiente(){
+  let c=null;try{c=localStorage.getItem("elmandato.ligaPend")}catch(e){}
+  if(!c)return;
+  if(!SESSION){setTimeout(()=>abrirLogin("Te invitaron a una liga. Entrá con tu cuenta y te sumamos automáticamente."),600);return}
+  try{localStorage.removeItem("elmandato.ligaPend")}catch(e){}
+  const {data,error}=await SB.rpc("unirse_liga",{p_codigo:c});
+  if(!error&&data){LIGA_SEL=data.id;try{localStorage.setItem("elmandato.liga",data.id)}catch(e){};LIGAS=null;rankTab="liga";if($("#rankList")){app.querySelectorAll("[data-t]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.t==="liga"));await pintarLigas("¡Te sumaste a "+data.nombre+"!")}}
+  else if($("#rankList")){rankTab="liga";await pintarLigas("No encontramos la liga "+c+".")}
+}
+function errLiga(e){const m=String(e?.message||"");return ({"codigo inexistente":"Ese código no existe.","maximo de ligas":"Ya creaste 5 ligas, que es el máximo.","nombre corto":"Poné un nombre de al menos 3 letras.","liga llena":"La liga está llena.","demasiadas ligas":"Ya estás en 15 ligas."})[Object.keys({"codigo inexistente":1,"maximo de ligas":1,"nombre corto":1,"liga llena":1,"demasiadas ligas":1}).find(k=>m.includes(k))]||"No se pudo. Probá de nuevo."}
+async function pintarLigas(aviso){
+  const box=$("#rankList");if(!box)return;
+  if(!SB){box.innerHTML='<div class="empty">Las ligas se activan con la base de datos configurada.</div>';return}
+  if(!SESSION){box.innerHTML='<div class="empty">Armá una liga con tus amigos, tu grupo de la facu o tu oficina y compitan entre ustedes.<br><button class="btn sm primary" id="lgIn" style="margin-top:8px">Ingresar para crear o unirme</button></div>';$("#lgIn").onclick=()=>abrirLogin();return}
+  if(!LIGAS){box.innerHTML='<div class="empty">Cargando tus ligas…</div>';const {data,error}=await SB.rpc("mis_ligas");LIGAS=error?[]:(data||[])}
+  if(rankTab!=="liga")return;
+  if(LIGA_SEL&&!LIGAS.find(l=>l.id===LIGA_SEL))LIGA_SEL=null;
+  if(!LIGA_SEL&&LIGAS.length)LIGA_SEL=LIGAS[0].id;
+  const L=LIGAS.find(l=>l.id===LIGA_SEL);
+  const forms=`<div class="lg-forms${LIGAS.length&&!LIGA_FORM?" lg-hide":""}">
+    <form id="lgCrear" class="lg-f"><input id="lgNom" maxlength="40" placeholder="Nombre de la liga (ej: Politólogos UADE)"><button class="btn sm primary">Crear</button></form>
+    <form id="lgUnir" class="lg-f"><input id="lgCod" maxlength="6" placeholder="Código (ej: K7P2QX)" style="text-transform:uppercase"><button class="btn sm">Unirme</button></form>
+  </div>`;
+  let rows="";
+  if(L){
+    const {data,error}=await SB.rpc("ranking_liga",{p_liga:L.id,p_hoy:LIGA_MODO==="hoy"?hoyISO():null});
+    const R2=error?[]:(data||[]);
+    rows=R2.length?`<ol class="rank">${R2.map((d,i)=>`<li style="${d.es_yo?"font-weight:600":""}"><span class="pos">${String(i+1).padStart(2,"0")}</span><span class="nm"><b>${esc(d.nombre||"Jugador")}${d.racha>1?` <small class="rk-fire">🔥${d.racha}</small>`:""}</b><span>${esc(d.titulo||"")} · ${esc(PAISES[d.pais]?.n||"")}</span></span><span class="pts">${Number(d.puntos||0).toLocaleString("es-AR")}</span></li>`).join("")}</ol>`
+      :`<div class="empty">${LIGA_MODO==="hoy"?"Nadie de la liga jugó el desafío de hoy.":"Todavía nadie de la liga terminó una partida."}</div>`;
+  }
+  box.innerHTML=`${aviso?`<p class="lg-aviso">${esc(aviso)}</p>`:""}
+   ${L?`<div class="lg-head"><select id="lgSel">${LIGAS.map(l=>`<option value="${l.id}" ${l.id===LIGA_SEL?"selected":""}>${esc(l.nombre)} (${l.miembros})</option>`).join("")}</select>
+     <div class="tabs sm"><button data-lm="global" aria-pressed="${LIGA_MODO==="global"}">Histórico</button><button data-lm="hoy" aria-pressed="${LIGA_MODO==="hoy"}">Hoy</button></div></div>${rows}
+     <div class="lg-inv"><span>Código <b>${esc(L.codigo)}</b></span><button class="btn sm" id="lgCopy">Invitar amigos</button></div>
+     <div class="lg-acc"><button class="lnk" id="lgMas">${LIGA_FORM?"Cerrar":"Crear otra o unirme a otra"}</button><button class="lnk" id="lgSalir">Salir de esta liga</button></div>`
+    :`<p class="muted" style="font-size:13.5px;margin:0 0 8px">Competí con tus amigos en un ranking propio. Creá una liga y pasales el código, o sumate con el código de otro.</p>`}
+   ${forms}`;
+  if($("#lgSel"))$("#lgSel").onchange=e=>{LIGA_SEL=e.target.value;try{localStorage.setItem("elmandato.liga",LIGA_SEL)}catch(x){};pintarLigas()};
+  box.querySelectorAll("[data-lm]").forEach(b=>b.onclick=()=>{LIGA_MODO=b.dataset.lm;pintarLigas()});
+  if($("#lgMas"))$("#lgMas").onclick=()=>{LIGA_FORM=!LIGA_FORM;pintarLigas()};
+  if($("#lgSalir"))$("#lgSalir").onclick=async()=>{const b=$("#lgSalir");if(!b.dataset.ok){b.dataset.ok=1;b.textContent="¿Seguro? Tocá de nuevo";return}await SB.rpc("salir_liga",{p_liga:LIGA_SEL});LIGAS=null;LIGA_SEL=null;pintarLigas()};
+  if($("#lgCopy"))$("#lgCopy").onclick=async()=>{const url=location.origin+"/?liga="+L.codigo,t=`Sumate a mi liga "${L.nombre}" en El Mandato, el juego de carrera política: ${url}`;
+    if(navigator.share){try{await navigator.share({text:t});return}catch(e){}}
+    try{await navigator.clipboard.writeText(t);$("#lgCopy").textContent="¡Link copiado!"}catch(e){prompt("Copiá el link:",url)}};
+  $("#lgCrear").onsubmit=async e=>{e.preventDefault();const {data,error}=await SB.rpc("crear_liga",{p_nombre:$("#lgNom").value});if(error)return pintarLigas(errLiga(error));LIGAS=null;LIGA_SEL=data.id;LIGA_FORM=null;try{localStorage.setItem("elmandato.liga",data.id)}catch(x){};pintarLigas(`¡Liga creada! Pasales el código ${data.codigo} a tus amigos.`)};
+  $("#lgUnir").onsubmit=async e=>{e.preventDefault();const {data,error}=await SB.rpc("unirse_liga",{p_codigo:$("#lgCod").value});if(error)return pintarLigas(errLiga(error));LIGAS=null;LIGA_SEL=data.id;LIGA_FORM=null;try{localStorage.setItem("elmandato.liga",data.id)}catch(x){};pintarLigas("¡Te sumaste a "+data.nombre+"!")};
+}
+
+/* ---------- Actualidad: sucesos según el mes real ---------- */
+const MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+EV.push(...[
+ {m:[1,2],tit:"Temporada de verano",txt:"Las playas y los destinos turísticos de {P} explotan de gente, pero los precios están por las nubes.",o:[["Programa de descuentos para el turismo interno",{l:4,e:-2},"Los hoteles llenos te lo agradecen."],["Dejar que el mercado se acomode",{e:2,l:-2},"Algunos se quejan de los precios."],["Campaña para atraer turistas extranjeros",{i:3,e:2},"Llegan visitantes y divisas."]]},
+ {m:[2,3],tit:"Arranque de clases en duda",txt:"Los gremios docentes amenazan con no empezar las clases si no hay aumento.",o:[["Acordar un aumento a tiempo",{l:4,e:-3},"Las clases empiezan en fecha."],["Descontar los días de paro",{e:2,l:-4,n:-1},"Conflicto largo."],["Llamar a una mesa con padres y docentes",{n:3,l:1},"Se gana tiempo."]]},
+ {m:[3],tit:"Marcha del 8M",txt:"Una multitudinaria marcha por el Día de la Mujer pide medidas contra la violencia de género y la brecha salarial.",o:[["Anunciar un plan de igualdad",{l:4,n:2,e:-1},"Las organizaciones lo celebran."],["Acompañar con un mensaje",{l:1},"Correcto, pero tibio."],["No pronunciarte",{l:-3},"Te reprochan el silencio."]]},
+ {m:[4,5],tit:"El Día del Trabajador",txt:"Las centrales sindicales preparan un acto masivo con reclamos salariales.",o:[["Ir al acto",{l:3,p:2,i:-1},"Foto con los gremios."],["Anunciar una suba del salario mínimo",{l:5,e:-4},"Los empresarios se quejan."],["Recibir a los gremios en tu despacho",{n:3,p:1},"Diálogo institucional."]]},
+ {m:[5,6,7],tit:"Llegó el frío",txt:"Con las primeras heladas, sube el precio del gas y hay gente durmiendo en la calle en {PROV}.",o:[["Operativo invierno con refugios",{l:4,e:-2,n:1},"Se salvan vidas."],["Tarifa social de gas",{l:3,e:-3},"Alivio para los que menos tienen."],["Pedir a las ONG que se encarguen",{l:-3},"Te acusan de desentenderte."]]},
+ {m:[6,7],tit:"El medio aguinaldo",txt:"Se cobra el medio aguinaldo y los comercios esperan un repunte del consumo.",o:[["Lanzar un plan de cuotas sin interés",{e:3,l:2},"El consumo se mueve."],["Pedir moderación en los precios",{n:1},"Nadie te da mucha bola."],["Bajar impuestos al consumo por un mes",{l:4,e:-3},"Fiesta en los shoppings."]]},
+ {m:[7,8],tit:"Vacaciones de invierno",txt:"Las familias salen de vacaciones y los micros y aviones van llenos. Hay quejas por los precios.",o:[["Descuentos en transporte para familias",{l:4,e:-2},"Las terminales se llenan."],["Agenda cultural gratuita en {PROV}",{l:3,n:1,e:-1},"Museos y teatros explotan."],["No intervenir",{e:1,l:-1},"Pasa sin pena ni gloria."]]},
+ {m:[8,9],tit:"Tomas estudiantiles",txt:"Estudiantes secundarios toman varios colegios por el mal estado de los edificios.",o:[["Plan de obras en escuelas",{l:4,e:-3},"Levantan las tomas."],["Desalojar las escuelas",{l:-4,n:-2,e:1},"Imágenes que dan la vuelta al país."],["Sentarte a negociar con los centros de estudiantes",{n:3,l:2},"Arreglo en una semana."]]},
+ {m:[9,10],tit:"Llega la primavera",txt:"Miles de jóvenes festejan el Día de la Primavera en plazas y parques. Hay pedidos de más seguridad.",o:[["Organizar un festival gratuito",{l:4,e:-1},"Un éxito, pero queda todo lleno de basura."],["Operativo de seguridad fuerte",{n:2,l:1,e:-1},"Fiesta tranquila."],["Dejarlo como está",{l:-1},"Algún incidente menor."]]},
+ {m:[10,11],tit:"Se discute el Presupuesto",txt:"Llega el momento de aprobar el Presupuesto del año que viene y todos quieren su parte.",o:[["Presupuesto austero",{e:5,l:-3},"Los mercados aplauden."],["Más plata para obra pública",{l:3,e:-3,p:2},"Los intendentes se alinean."],["Negociar partida por partida con la oposición",{n:4,p:-1},"Sale con amplio apoyo."]],k:["leg","gob","top","terr"]},
+ {m:[11,12],tit:"Las fiestas y los precios",txt:"Se acercan las fiestas y los precios de la canasta navideña se disparan.",o:[["Acuerdo de precios para las fiestas",{l:4,e:-1},"Pan dulce a precio cuidado."],["Bono de fin de año para jubilados",{l:5,e:-4},"Los jubilados lo celebran."],["Dejar actuar al mercado",{e:2,l:-3},"Te acusan de insensible."]]},
+ {m:[12,1],tit:"Ola de calor y cortes de luz",txt:"Una ola de calor récord dispara el consumo y hay cortes de luz en barrios enteros de {PROV}.",o:[["Multar a las empresas eléctricas",{l:5,i:-2},"Las empresas amenazan con frenar inversiones."],["Plan de emergencia con generadores",{l:3,e:-3},"Se alivia la situación."],["Pedir a la gente que ahorre energía",{n:1,l:-3},"Memes por todos lados."]]},
+ {m:[12],tit:"El balance del año",txt:"Los diarios hacen el balance del año y te preguntan cuál fue tu peor error.",o:[["Reconocer un error con humildad",{n:3,l:2},"Te ganás respeto."],["Decir que no te arrepentís de nada",{p:3,l:-2},"Tu núcleo duro te banca."],["Echarle la culpa a la gestión anterior",{l:1,n:-2},"Clásico."]]},
+].map(e=>({...e,t:"mes"})));
+function eventoDelMes(r){
+  const mm=new Date().getMonth()+1;
+  return EV.map((e,i)=>i).filter(i=>EV[i].t==="mes"&&EV[i].m.includes(mm)&&!(G.usados||[]).includes(i)&&(!EV[i].k||(r&&EV[i].k.includes(r.kind))));
+}
+
+/* ---------- Prensa y encuestas ---------- */
+const DIARIOS={AR:"El Matutino",BR:"Jornal da Praça",CL:"Diario Austral",UY:"La Rambla",MX:"El Zócalo",US:"The Daily Ballot",ES:"La Gaceta del Pueblo",UK:"The Westminster Post"};
+function apellido(){const p=String(G.nombre||"").trim().split(/\s+/);return (p[p.length-1]||"El candidato")}
+function armarTapa(e,op,net){
+  const AP=apellido(),O=tplSafe(op[0]);
+  const T=net>=4?[`¡Golazo de ${AP}!`,`${AP} la pegó`,`Aplausos para ${AP}`,`${AP} se anotó un poroto`]
+    :net<=-4?[`Polémica por ${AP}`,`Lluvia de críticas contra ${AP}`,`${AP}, en la mira`,`Otra vez ${AP}`]
+    :[`${AP} jugó a lo seguro`,`${AP} mueve las fichas`,`La apuesta de ${AP}`,`${AP}, con cautela`];
+  G.enc=G.enc||[];const v=Math.round(estimarVoto()*10)/10,prev=G.enc.length?G.enc[G.enc.length-1]:v;
+  G.tapa={diario:DIARIOS[G.pais]||"El Diario",tit:T[Math.floor(R()*T.length)],baj:`«${O}». ${tplSafe(e.tit)}: ${tplSafe(op[2])}`,v,dv:Math.round((v-prev)*10)/10};
+}
+function sparkEnc(){const L=[...(G.enc||[]),G.tapa?.v].filter(x=>x!=null).slice(-12);if(L.length<2)return"";const mn=Math.min(...L)-2,mx=Math.max(...L)+2,W=120,H=34;
+  const pts=L.map((v,i)=>`${(i*(W/(L.length-1))).toFixed(1)},${(H-(v-mn)/(mx-mn)*H).toFixed(1)}`).join(" ");
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true"><polyline points="${pts}" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>`}
+function htmlTapa(){const t=G.tapa;if(!t)return"";
+  return `<div class="tapa"><div class="tp-mast"><span>${esc(t.diario)}</span><span>${G.anio} · Edición del día</span></div>
+   <div class="tp-h">${esc(t.tit)}</div><p class="tp-b">${esc(t.baj)}</p>
+   <div class="tp-enc"><span class="tp-lab">Encuesta · intención de voto</span><b>${t.v.toLocaleString("es-AR")}%</b><span class="tp-dv ${t.dv>0?"up":t.dv<0?"dn":""}">${t.dv>0?"▲":t.dv<0?"▼":"="} ${Math.abs(t.dv).toLocaleString("es-AR")}</span>${sparkEnc()}</div></div>`}
+
+/* ---------- Congreso: aprobar leyes ---------- */
+const LEYES=[
+ ["Reforma laboral","der",{e:5,l:-3,p:2}],["Suba del salario mínimo","izq",{l:5,e:-3}],["Nueva ley de alquileres","izq",{l:4,e:-2}],
+ ["Baja de impuestos a las pymes","der",{e:4,l:2,n:-1}],["Ficha limpia","centro",{n:5,s:-4}],["Ley de humedales","izq",{i:4,e:-2,l:1}],
+ ["Régimen de grandes inversiones","der",{e:5,i:3,l:-2}],["Presupuesto plurianual","centro",{e:3,n:3}],["Boleto estudiantil gratuito","izq",{l:4,e:-2}],
+ ["Reforma del sistema electoral","centro",{n:4,p:-2}],["Ley de economía del conocimiento","centro",{e:4,i:2}],["Endurecimiento de penas","der",{l:4,n:-2,i:-1}],
+];
+function prepararLey(){
+  const s=G.st,id=pick(LEYES.map((_,i)=>i)),L=LEYES[id];
+  const mio=clamp(22+Math.round(s.p/5),20,42),ali=clamp(8+Math.round(s.n/10),8,18),prov=18,opo=100-mio-ali-prov;
+  const afin=L[1]===G.ideo||L[1]==="centro";
+  G.ley={id,n:L[0],ef:{...L[2]},chips:2+(s.p>=60?1:0)+(G.rasgos.includes("negociador")?1:0),
+    bl:[{n:"Tu bloque",b:mio,st:"si"},{n:"Aliados",b:ali,st:afin?"si":"duda"},{n:"Provinciales",b:prov,st:"duda"},{n:"Oposición",b:opo,st:"no"}],log:[]};
+  G.fase="ley";
+}
+const CONCES=[["obras","Obras para sus distritos",{e:-2},.75,.3],["cargos","Cargos en el gobierno",{s:3,p:1},.85,.4],["texto","Cambiar el texto",null,.7,.35]];
+function negociar(bi,ci){
+  const L=G.ley,b=L.bl[bi],c=CONCES[ci];if(L.chips<=0||b.st==="si")return;
+  L.chips--;if(c[2])aplicar(c[2]);else for(const k in L.ef)L.ef[k]=Math.round(L.ef[k]*.6);
+  const ok=R()<(b.st==="duda"?c[3]:c[4]);
+  if(ok){b.st=b.st==="no"?"duda":"si"}
+  L.log.push(`${c[1]} → ${b.n}: ${ok?(b.st==="si"?"¡se suman!":"ahora dudan"):"no aflojan"}`);
+  save();vGame();
+}
+function votarLey(){
+  const L=G.ley;let si=0;
+  L.bl.forEach(b=>{if(b.st==="si")si+=b.b;else if(b.st==="duda")si+=Math.round(b.b*(.3+R()*.4));else si+=Math.round(b.b*R()*.12)});
+  L.si=si;L.ok=si>50;
+  if(L.ok){aplicar({...L.ef,l:(L.ef.l||0)+1});G.leyesOk=(G.leyesOk||0)+1}else aplicar({p:-3,l:-2});
+  G.log.push({anio:G.anio,tit:"Ley: "+L.n,op:L.ok?"Aprobada":"Rechazada",ley:true,net:L.ok?3:-3});
+  G.fase="ley_res";save();vGame();
+}
+function retirarLey(){aplicar({p:-1});G.log.push({anio:G.anio,tit:"Ley: "+G.ley.n,op:"Retirada",ley:true,net:-1});G.ley.ok=null;G.ley.si=null;G.fase="ley_res";save();vGame()}
+function htmlLey(){
+  const L=G.ley,est={si:"A favor",duda:"Dudan",no:"En contra"},r=rk(G.cargo);
+  const bar=L.bl.map(b=>`<span class="lb-${b.st}" style="flex:${b.b}" title="${esc(b.n)}: ${b.b}"></span>`).join("");
+  const seguro=L.bl.filter(b=>b.st==="si").reduce((a,b)=>a+b.b,0);
+  if(G.fase==="ley_res")return `${hero("congreso","Votación")}<div class="dl"><span>${esc(r?.kind==="leg"?PAISES[G.pais].cong:"Congreso")}</span><span class="stamp">${L.ok===null?"Retirado":L.ok?"Aprobada":"Rechazada"}</span></div>
+    <h2>${esc(L.n)}</h2>${L.si!=null?`<div class="ley-res ${L.ok?"ok":"no"}"><b>${L.si}</b> votos a favor de 100 · ${L.ok?"¡Es ley!":"No alcanzó."}</div>`:""}
+    <p class="res">${L.ok===null?"Retiraste el proyecto antes de perder la votación. Tu partido lo nota.":L.ok?"Tu proyecto ya es ley. Se nota en tu gestión.":"La derrota en el recinto te debilita."}</p>${deltas(G.lastD||{})}
+    <div class="gbar"><span class="muted">Cierra el bienio ${G.anio}–${G.anio+1}.</span><button class="btn primary" id="bLeyFin">Seguir</button></div>`;
+  return `${hero("congreso","Sesión especial")}<div class="dl"><span>Proyecto de ley</span><span class="stamp">Necesitás 51</span></div>
+   <h2>${esc(L.n)}</h2><p class="txt">Tu proyecto llega al recinto. Tenés <b>${seguro}</b> votos seguros de 100. Negociá con los bloques usando tu capital político y, cuando te den los números, llamá a votar.</p>
+   <div class="ley-bar">${bar}<i style="left:50%"></i></div>
+   <div class="ley-chips">Capital político: ${"●".repeat(L.chips)}${"○".repeat(Math.max(0,3-L.chips))} <span class="muted">(${L.chips} ${L.chips===1?"negociación":"negociaciones"})</span></div>
+   <div class="ley-bl">${L.bl.map((b,i)=>`<div class="lbl lb-${b.st}-b"><div><b>${esc(b.n)}</b><span>${b.b} bancas · ${est[b.st]}</span></div>${b.st!=="si"&&L.chips>0?`<div class="lbl-ops">${CONCES.map((c,j)=>`<button class="btn sm" data-neg="${i}:${j}">${esc(c[1])}</button>`).join("")}</div>`:""}</div>`).join("")}</div>
+   ${L.log.length?`<ul class="ley-log">${L.log.slice(-4).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}
+   <div class="gbar"><button class="btn ghost" id="bLeyRet">Retirar el proyecto</button><button class="btn primary" id="bLeyVot">Llamar a votación</button></div>`;
+}
+function bindLey(){
+  app.querySelectorAll("[data-neg]").forEach(b=>b.onclick=()=>{const [i,j]=b.dataset.neg.split(":").map(Number);negociar(i,j)});
+  if($("#bLeyVot"))$("#bLeyVot").onclick=votarLey;if($("#bLeyRet"))$("#bLeyRet").onclick=retirarLey;
+  if($("#bLeyFin"))$("#bLeyFin").onclick=()=>{G.ley=null;G.leyPend=false;finTurno()};
+}
+
+/* ---------- Logros secretos ---------- */
+INSIGNIAS.push(
+ ["ajustado","Por un pelo","Ganaste una elección por menos de un punto.",1],
+ ["joven","Joven maravilla","Llegaste a la cima antes de los 45.",1],
+ ["fenix","Ave fénix","Llegaste a la cima después de perder 3 elecciones.",1],
+ ["camaleon","Camaleón","Te cambiaste de partido 4 veces o más.",1],
+ ["limpio","Manos limpias","Hiciste una carrera larga sin escándalos.",1],
+ ["trotamundos","Trotamundos","Serviste en 3 destinos diplomáticos distintos.",1],
+ ["leyes","Hacedor de leyes","Aprobaste 3 leyes en el Congreso.",1],
+ ["outsider","Outsider","Llegaste a la cima sin pasar nunca por el Congreso.",1],
+ ["racha7","Militante de fierro","Jugaste el desafío diario 7 días seguidos.",1],
+);
+function insigniasSecretas(add){
+  if(G.porUnPelo)add("ajustado");if(G.llegoTop&&G.topEdad&&G.topEdad<45)add("joven");
+  if(G.llegoTop&&G.elecP>=3)add("fenix");if((G.cambios||0)>=4)add("camaleon");
+  if((G.turnos||0)>=15&&(G.maxEsc||0)<20)add("limpio");if((G.destinos||[]).length>=3)add("trotamundos");
+  if((G.leyesOk||0)>=3)add("leyes");if(G.llegoTop&&!G.kinds.includes("leg"))add("outsider");
+}
+function sumarInsignia(id){const p=insigniasGuardadas();if(p[id])return false;p[id]=hoyISO();try{localStorage.setItem("elmandato.insignias",JSON.stringify(p))}catch(e){}return true}
+
 /* ================== VISTA DE JUEGO ================== */
 const STC={l:"Local",i:"Mundo",p:"Partido",n:"Instit.",e:"Economía",s:"Escándalo"};
 function colorFor(k,v){const good=k==="s"?100-v:v;return good>=60?"var(--good)":good>=35?"var(--warn)":"var(--bad)"}
@@ -2866,13 +3112,13 @@ function vGame(){
     const e=EV[G.cola[0]];
     body=`${G.aviso?`<p class="res">${esc(G.aviso)}</p>`:""}
     ${hero(fotoQuery(e,r?.kind),dateline(e.pr?"loc":r?.kind))}
-    ${e.t==="seq"?`<div class="sabias"><b>Consecuencia de tu decisión:</b> «${esc(tpl(G.seqDec||""))}»</div>`:e.t==="raro"?`<div class="sabias raro"><b>Momento histórico.</b> Esto no pasa todos los días.</div>`:antecedente(e)}
+    ${e.t==="seq"?`<div class="sabias"><b>Consecuencia de tu decisión:</b> «${esc(tpl(G.seqDec||""))}»</div>`:e.t==="raro"?`<div class="sabias raro"><b>Momento histórico.</b> Esto no pasa todos los días.</div>`:e.t==="mes"?`<div class="sabias mes"><b>Actualidad · ${MESES[new Date().getMonth()]}:</b> esto pasa en estos días.</div>`:antecedente(e)}
     <div class="dl"><span>${esc(G.provLab)} · ${esc(PAISES[G.pais].n)}</span><span class="stamp">${r?KIND_N[r.kind]:"En el llano"}</span></div>
     <h2>${esc(tpl(e.tit))}</h2><p class="txt">${esc(tpl(e.txt))}</p>
     <div class="choices">${e.o.map((o,i)=>`<button class="choice" data-c="${i}"><span class="k">${String.fromCharCode(65+i)}</span><span>${esc(tpl(o[0]))}</span></button>`).join("")}</div>`;
   }else if(G.fase==="resultado"){
     const dp=DATOS_POL[G.pais],dato=G.turnos%3===0?dp[(G.turnos/3)%dp.length|0]:null;
-    body=`<div class="dl"><span>Decisión</span></div><h2>${esc(tpl(G.ult.elec))}</h2><p class="res">${esc(G.ult.res)}</p>${deltas(G.ult.d)}
+    body=`<div class="dl"><span>Decisión</span></div><h2>${esc(tpl(G.ult.elec))}</h2><p class="res">${esc(G.ult.res)}</p>${deltas(G.ult.d)}${htmlTapa()}
     ${dato?`<div class="sabias"><b>¿Sabías que…?</b> ${esc(dato)}</div>`:""}
     <div class="gbar"><span class="muted">${G.mini?"Antes de cerrar el bienio, un desafío.":"Cierra el bienio "+G.anio+"–"+(G.anio+1)+"."}</span><button class="btn primary" id="bNext">${G.mini?"Al desafío":"Seguir"}</button></div>`;
   }else if(G.fase==="ofertas"||G.fase==="mandato"){
@@ -2891,6 +3137,7 @@ function vGame(){
      ${!r&&!(G.ofertas||[]).length?`<div class="offer"><div><b>Seguir en el llano</b><span>Dos años más armando tu regreso</span></div><button class="btn sm ghost" id="bQuedo">Seguir</button></div>`:""}
     </div>${G.pista?`<p class="muted" style="margin:0;font-size:13px">${esc(G.pista)}</p>`:""}`;
   }else if(G.fase==="despedida"){body=htmlDespedida();
+  }else if(G.fase==="ley"||G.fase==="ley_res"){body=htmlLey();
   }else if(G.fase==="retiro"){
     body=`<div class="dl"><span>Homenaje</span></div><h2>¿Llegó la hora?</h2>
     <p class="txt">Tenés ${G.edad} años. Tu partido te organiza un homenaje y te ofrece retirarte con honores. Tarde o temprano, el retiro llega igual.</p>
@@ -2972,6 +3219,7 @@ function vGame(){
   if($("#bQuedo"))$("#bQuedo").onclick=rechazar;
   if($("#bLlano"))$("#bLlano").onclick=()=>{sinCargo("fin de mandato");rechazar()};
   if($("#bRetHon"))$("#bRetHon").onclick=()=>prepararDespedida(false);
+  if(G.fase==="ley"||G.fase==="ley_res")bindLey();
   if($("#bRetSi"))$("#bRetSi").onclick=()=>prepararDespedida(false);app.querySelectorAll("[data-desp]").forEach(b=>b.onclick=()=>cerrarDespedida(+b.dataset.desp));
   if($("#bRetNo"))$("#bRetNo").onclick=()=>{G.retiroUlt=G.edad;siguientePaso()};
   if($("#bInt"))$("#bInt").onclick=contInterna;
@@ -3261,13 +3509,7 @@ function vLegado(){
   const P=PAISES[G.pais],s=G.st;
   const sq=v=>{const n=Math.round(v/20);return"🟩".repeat(n)+"⬜".repeat(5-n)};
   const tray=G.hist.filter(h=>h.tier>0).map(h=>h.cargo);
-  const share=`EL MANDATO · ${P.n} · ${partidoDe()[0]}${G.diario?" · Desafío "+hoyISO():""}
-${G.titulo} · ${G.puntosFinal} pts
-${tray.slice(-4).join(" → ")}
-Local ${sq(s.l)}
-Mundo ${sq(s.i)}
-Instit ${sq(s.n)}
-Econ  ${sq(s.e)}`;
+  const share=textoResultado();
   app.innerHTML=`<div class="legacy">
    <section class="lcard">
     <div class="leg-top">${avatarSVG(G.av,96,{acc:colorPartido(),banda:G.llegoTop?COLORES_PAIS[G.pais]:null,canas:G.edad>=62})}<div>${flagSVG(G.pais,30)} ${badgeSVG(G.partido,30)}<br><span class="eyebrow">Legado · ${esc(G.nombre)} · ${P.n} · ${G.hist[0].anio}–${G.anio}</span></div></div>
@@ -3289,7 +3531,7 @@ Econ  ${sq(s.e)}`;
      <button class="btn primary" id="bImg">Descargar imagen</button>
      <button class="btn" id="bShare">Compartir imagen</button>
      <textarea class="share" id="shareTxt" readonly>${esc(share)}</textarea>
-     <button class="btn ghost" id="bCopy">Copiar texto</button>
+     <button class="btn primary" id="bCopy">Compartir resultado</button>
      <span class="muted" style="font-size:12.5px" id="rkState">${SESSION?(G.guardado?"Guardado en el ranking.":"Guardando en el ranking…"):"Jugaste como invitado: este legado no entra al ranking. Ingresá antes de tu próxima partida."}</span>
      ${G.diario&&G.yaJugado?'<span class="muted" style="font-size:12.5px">Ya habías jugado el desafío de hoy: esta partida no cuenta para el ranking diario.</span>':""}
      <span class="muted" id="rkState" aria-live="polite" style="font-size:12.5px">${esc(G._rk||(SESSION?(G.guardado?"":"Guardando en el ranking…"):"Ingresá con tu cuenta antes de empezar para que tus legados entren al ranking."))}</span>
@@ -3300,7 +3542,7 @@ Econ  ${sq(s.e)}`;
   $("#bImg").onclick=async()=>{const b=$("#bImg");b.textContent="Generando…";const blob=await tarjetaPNG();const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mi-legado-el-mandato.png";document.body.appendChild(a);a.click();a.remove();b.textContent="Descargar imagen"};
   $("#bShare").onclick=async()=>{const blob=await tarjetaPNG();const f=new File([blob],"mi-legado.png",{type:"image/png"});
     if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Mi legado en El Mandato",text:G.titulo+" · el-mandato.vercel.app"})}catch(e){}}else{$("#bShare").textContent="Tu navegador no comparte imágenes: usá Descargar"}};
-  $("#bCopy").onclick=()=>{const t=$("#shareTxt");const ok=()=>{$("#bCopy").textContent="Copiado"};try{navigator.clipboard.writeText(share).then(ok,()=>{t.select();$("#bCopy").textContent="Seleccionado: copialo"})}catch(e){t.select()}};
+  $("#bCopy").onclick=async()=>{const t=$("#shareTxt"),share=textoResultado();if(navigator.share&&/Mobi|Android|iPhone/i.test(navigator.userAgent)){try{await navigator.share({text:share});return}catch(e){}}const ok=()=>{$("#bCopy").textContent="¡Copiado! Pegalo donde quieras"};try{navigator.clipboard.writeText(share).then(ok,()=>{t.select();$("#bCopy").textContent="Seleccionado: copialo"})}catch(e){t.select()}};
   $("#bOtra").onclick=()=>{G=null;show("setup")};
   $("#bInicio").onclick=()=>{G=null;show("home")};
 }
