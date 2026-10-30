@@ -466,6 +466,88 @@ input[type=range]{width:100%;accent-color:var(--accent)}
   .tray{max-height:none}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ===== Portada v2 ===== */
+.portada{position:relative;margin-top:18px;border-radius:18px;overflow:hidden;background:#13233B;color:#fff;min-height:400px;isolation:isolate}
+.pt-scene{position:absolute;inset:0;z-index:-2}.pt-scene svg{width:100%;height:100%}
+.pt-veil{position:absolute;inset:0;z-index:-1;background:linear-gradient(100deg,rgba(13,25,43,.97) 0%,rgba(13,25,43,.9) 45%,rgba(13,25,43,.35) 100%)}
+.pt-in{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:24px;align-items:center;padding:42px 44px}
+.pt-kicker{display:inline-block;font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#13233B;background:#F2C230;padding:4px 10px;border-radius:4px;transform:rotate(-1.5deg)}
+.pt-h{font-family:var(--f-display);font-weight:800;font-size:clamp(52px,7.4vw,96px);line-height:.9;text-transform:uppercase;margin:16px 0 14px;letter-spacing:-.01em}
+.pt-hl{position:relative;color:#F2C230;white-space:nowrap}
+.pt-hl::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.04em;height:.13em;background:#C8102E;border-radius:4px;transform:rotate(-1deg);z-index:-1;animation:subr 1s .3s ease-out both;transform-origin:left}
+@keyframes subr{from{transform:scaleX(0) rotate(-1deg)}to{transform:scaleX(1) rotate(-1deg)}}
+.pt-p{font-size:17px;line-height:1.5;color:#D3DCE8;max-width:46ch;margin:0 0 22px}
+.pt-cta{display:flex;gap:10px;flex-wrap:wrap}
+.btn.pt-go{background:#F2C230;color:#13233B;border:0;font-size:17px;font-weight:700;padding:14px 22px;border-radius:12px;box-shadow:0 6px 0 #B38A12;transition:transform .12s,box-shadow .12s}
+.btn.pt-go:hover{transform:translateY(-2px);box-shadow:0 8px 0 #B38A12}.btn.pt-go:active{transform:translateY(4px);box-shadow:0 2px 0 #B38A12}
+.btn.pt-alt{background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.5);font-size:15px;padding:13px 18px;border-radius:12px}
+.btn.pt-alt:hover{background:rgba(255,255,255,.16)}
+.pt-flags{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap}
+.pt-flags span{animation:flagIn .4s ease-out both;filter:drop-shadow(0 2px 3px rgba(0,0,0,.4));transition:transform .15s}.pt-flags span:hover{transform:translateY(-3px) rotate(-4deg)}
+@keyframes flagIn{from{opacity:0;transform:translateY(8px)}}
+.pt-poster{display:flex;justify-content:center}
+.afiche{position:relative;width:250px;background:#F6F1E4;color:#13233B;border-radius:6px;padding:0 0 18px;box-shadow:0 18px 40px rgba(0,0,0,.45);transform:rotate(3deg);animation:afIn .7s .15s cubic-bezier(.2,1.4,.4,1) both;text-align:center;overflow:hidden}
+.afiche::before{content:"";position:absolute;top:-6px;left:50%;width:46px;height:18px;margin-left:-23px;background:rgba(255,255,255,.55);transform:rotate(-4deg);box-shadow:0 1px 2px rgba(0,0,0,.1)}
+@keyframes afIn{from{opacity:0;transform:rotate(12deg) translateY(30px) scale(.9)}}
+.af-band{background:var(--c1);color:#fff;font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:10px 6px}
+.af-av{display:flex;justify-content:center;padding:14px 0 0;background:linear-gradient(var(--c1) 0 0) bottom/100% 6px no-repeat;transition:opacity .25s}.af-av.sw{opacity:0}
+.af-name{font-family:var(--f-display);font-weight:800;font-size:30px;text-transform:uppercase;margin-top:12px;line-height:1}
+.af-sello{position:absolute;right:8px;top:196px;font-family:var(--f-display);font-weight:800;font-size:30px;text-transform:uppercase;color:#C8102E;border:3px solid #C8102E;border-radius:6px;padding:0 10px;transform:rotate(-14deg);opacity:.9;background:rgba(246,241,228,.7);animation:sello .35s .9s ease-in both}
+@keyframes sello{from{opacity:0;transform:rotate(-14deg) scale(2.2)}}
+.ticker{display:flex;align-items:stretch;margin-top:10px;border-radius:10px;overflow:hidden;background:var(--ink);color:var(--bg);font-size:14px}
+.tk-lab{flex:none;background:#C8102E;color:#fff;font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:.04em;padding:9px 14px;font-size:16px;display:flex;align-items:center;gap:8px}
+.tk-lab::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:#fff;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.tk-win{overflow:hidden;flex:1;display:flex;align-items:center;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.tk-run{display:flex;gap:36px;white-space:nowrap;animation:tick 70s linear infinite;padding-left:20px}
+.ticker:hover .tk-run{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+.tk-i{display:inline-flex;align-items:center;gap:7px}.tk-i b{color:#F2C230;font-weight:600}
+.feat2{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr) minmax(0,1fr);gap:12px}
+.dcard{position:relative;display:flex;flex-direction:column;gap:8px;text-align:left;padding:16px;border:0;border-radius:16px;color:#fff;background:linear-gradient(150deg,#13233B 0%,#1E3A63 100%);overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;box-shadow:0 8px 20px rgba(19,35,59,.25)}
+.dcard::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,var(--c2) 0,transparent 70%);opacity:.35}
+.dcard:hover{transform:translateY(-3px) rotate(-.4deg);box-shadow:0 14px 28px rgba(19,35,59,.35)}
+.dc-top{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.dc-lab{white-space:nowrap;font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;background:#C8102E;padding:3px 8px;border-radius:4px}
+.dc-cd{white-space:nowrap;font-family:var(--f-mono);font-size:11.5px;color:#F2C230;font-variant-numeric:tabular-nums}
+.dc-flag{margin:6px 0 0;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4));transform:rotate(-3deg);align-self:flex-start}
+.dcard h4{margin:0;font-family:var(--f-display);font-size:34px;font-weight:800;text-transform:uppercase;line-height:1}
+.dcard p{margin:0;font-size:13.5px;color:#C9D4E3}
+.dcard .tag{background:rgba(255,255,255,.12);color:#fff}
+.dcard .tags{display:flex;flex-wrap:wrap;gap:5px}
+.dc-go{margin-top:auto;font-weight:700;color:#F2C230;font-size:14px}
+.scard{display:flex;flex-direction:column;text-align:left;padding:0;border:1px solid var(--line);border-radius:16px;background:var(--surface);overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s}
+.scard:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.12)}
+.sc-img{height:110px;overflow:hidden;border-bottom:1px solid var(--line)}.sc-img svg{width:100%;height:100%;transition:transform .5s}.scard:hover .sc-img svg{transform:scale(1.06)}
+.sc-b{display:flex;flex-direction:column;gap:6px;padding:12px 14px 14px;flex:1}
+.sc-b h4{margin:0;font-family:var(--f-display);font-size:22px;font-weight:800;text-transform:uppercase;line-height:1.02}
+.sc-b p{margin:0;font-size:13.5px;color:var(--muted)}
+.sc-go{margin-top:auto;font-weight:700;color:var(--accent);font-size:14px}
+.modos2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.m2{position:relative;display:flex;flex-direction:column;gap:6px;text-align:left;padding:16px;border-radius:16px;border:0;color:#fff;font:inherit;overflow:hidden;min-height:170px}
+.m2 b{font-family:var(--f-display);font-size:22px;font-weight:800;text-transform:uppercase;line-height:1.02}
+.m2 span{font-size:13px;opacity:.85}.m2 em{font-style:normal;font-weight:700;margin-top:auto}
+.m2 .ico{color:currentColor}
+.m-car{background:linear-gradient(150deg,#1E4E8C,#13233B)}.m-fun{background:linear-gradient(150deg,#C8102E,#7A0F1E)}
+.m-car,.m-fun{cursor:pointer;transition:transform .15s}.m-car:hover,.m-fun:hover{transform:translateY(-3px) rotate(-1deg)}
+.m-car em,.m-fun em{color:#F2C230}
+.m-off{background:var(--sunk);color:var(--muted)}.m-off b{color:var(--ink);opacity:.6}
+.m-off .pronto{align-self:flex-start;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;background:#F2C230;color:#13233B;padding:2px 7px;border-radius:4px;opacity:1;transform:rotate(-2deg)}
+.practica2{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.pj{display:flex;flex-direction:column;gap:4px;text-align:left;padding:14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);font:inherit;color:inherit;cursor:pointer;transition:transform .15s,border-color .15s}
+.pj b{font-size:15.5px}.pj>span:last-child{font-size:12.5px;color:var(--muted)}
+.pj-i{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:6px;background:hsl(var(--h) 70% 92%);color:hsl(var(--h) 65% 35%);transition:transform .2s}
+.pj:hover{transform:translateY(-3px);border-color:hsl(var(--h) 60% 50%)}.pj:hover .pj-i{transform:rotate(-8deg) scale(1.08)}
+.ins-bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden;margin:-4px 0 12px}.ins-bar span{display:block;height:100%;background:linear-gradient(90deg,#F2C230,#C8102E);border-radius:99px}
+.ins-corto>:nth-child(n+9){display:none}
+.howto2{display:flex;flex-direction:column;gap:12px}.howto2>div{display:flex;gap:12px;align-items:flex-start;font-size:14px}
+.howto2 b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#F2C230;color:#13233B;font-family:var(--f-display);font-size:18px;font-weight:800}
+.howto2 strong{display:block}
+.rank-box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
+@media (max-width:900px){.pt-in{grid-template-columns:1fr;padding:28px 22px}.pt-poster{display:none}.feat2{grid-template-columns:1fr}.modos2,.practica2{grid-template-columns:repeat(2,minmax(0,1fr))}.portada{min-height:0}.pt-h{font-size:58px}}
+@media (max-width:520px){.pt-h{font-size:50px}.pt-in{padding:24px 18px}}
+@media (prefers-reduced-motion:reduce){.tk-run,.afiche,.af-sello,.pt-flags span,.pt-hl::after{animation:none}}
 </style>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -1505,42 +1587,54 @@ function show(v){window.scrollTo(0,0);({home:vHome,setup:vSetup,game:vGame,legad
 
 function vHome(){
   const d=diario(),esc2=escenariosHoy(),sv=loadSave();
-  const AR=PAISES.AR;
+  const mav=SESSION&&perfil().em_av;
+  const POSTERS=[{...AV_DEF,genero:1,pelo:6,estilo:1,maq:1,aros:1,piel:1,colorPelo:0},{...AV_DEF,piel:3,colorPelo:2,barba:1,anteojos:1},{...AV_DEF,genero:1,pelo:3,estilo:1,maq:1,aros:1,piel:4,colorPelo:1,anteojos:1},{...AV_DEF,piel:0,colorPelo:3,pelo:4}];
+  const pcol=COLORES_PAIS[SET.pais||"AR"]||["#1E4E8C","#fff","#F2C230"];
+  const titulares=(()=>{const L=EV.filter(e=>e.p&&PAISES[e.p]&&!/[{}]/.test(e.tit)).map(e=>[e.p,e.tit]);const o=[];const used=new Set();for(let k=0;k<14&&L.length;k++){const x=L[Math.floor(Math.random()*L.length)];if(used.has(x[1]))continue;used.add(x[1]);o.push(x)}return o})();
+  const tick=titulares.map(([p,t])=>`<span class="tk-i">${flagSVG(p,18)}<b>${esc(PAISES[p].n)}:</b> ${esc(t)}</span>`).join("");
+  const insG=insigniasGuardadas(),nIns=Object.keys(insG).length;
+  const escTipo=e=>{const t=tipoEscena({tit:e.n,txt:e.d},null);return t!=="cafe"?t:({ejecutivo:"gobierno",diplomacia:"embajada",politica:"urna"}[e.rama]||"ciudad")};
   app.innerHTML=`
+  <section class="portada">
+   <div class="pt-scene" aria-hidden="true">${escenaSVG("protesta").replace(/<text[\s\S]*?<\/text>/g,"")}</div>
+   <div class="pt-veil"></div>
+   <div class="pt-in">
+    <div class="pt-txt">
+     <span class="pt-kicker">Carrera política · ${Object.keys(PAISES).length} países</span>
+     <h2 class="pt-h">Del llano<br><span class="pt-hl">al poder</span></h2>
+     <p class="pt-p">Ganá elecciones, armá alianzas, sobreviví a los escándalos y bancá la crisis. Una vida entera en la política, decisión por decisión.</p>
+     <div class="pt-cta">
+      <button class="btn pt-go" id="bNueva">Empezar mi carrera <span aria-hidden="true">→</span></button>
+      ${sv&&!sv.fin?'<button class="btn pt-alt" id="bSeguir">Seguir · '+esc(PAISES[sv.pais]?.n||"")+' '+(sv.anio||"")+'</button>':'<button class="btn pt-alt" id="bFundar">Fundar mi partido</button>'}
+     </div>
+     <div class="pt-flags">${Object.keys(PAISES).map((k,i)=>`<span style="animation-delay:${.3+i*.06}s" title="${esc(PAISES[k].n)}">${flagSVG(k,30)}</span>`).join("")}</div>
+    </div>
+    <div class="pt-poster" aria-hidden="true">
+     <div class="afiche" style="--c1:${pcol[0]};--c2:${pcol[2]||pcol[1]}">
+      <div class="af-band">${mav?"Tu candidatura":"Candidato/a 2027"}</div>
+      <div class="af-av" id="afAv">${avatarSVG(mav||POSTERS[0],190,{acc:pcol[0],banda:pcol})}</div>
+      <div class="af-name" id="afName">${mav?esc(nombreUsuario()||"Vos"):"¿Vos?"}</div>
+      <div class="af-sello">Votá</div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <div class="ticker" aria-label="Último momento"><span class="tk-lab">Último momento</span><div class="tk-win"><div class="tk-run">${tick}${tick}</div></div></div>
+
   <div class="home">
    <div class="col">
-    <section class="hero2">
-     <div class="mode-card mc-main">
-      <div class="mc-scene">${escenaSVG("gobierno")}</div>
-      ${banderines(SET.pais||"AR")}
-      <span class="eyebrow">Carrera política</span>
-      <h2>Del llano al poder</h2>
-      <p>Una carrera política de toda la vida, decisión por decisión: elecciones, gestión, internas, alianzas y crisis. Elegí país, provincia y partido, y escribí tu propia historia.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-       <button class="btn primary" id="bNueva">Empezar mi carrera</button>
-       ${sv&&!sv.fin?'<button class="btn" id="bSeguir">Seguir partida · '+esc(PAISES[sv.pais]?.n||"")+'</button>':''}
-      </div>
-     </div>
-     <div class="mode-card mc-fund">
-      ${banderines(SET.pais||"AR")}
-      <div class="fund-logos" aria-hidden="true">${[[0,0,1,8],[1,1,3,2],[2,3,0,8],[3,4,4,2]].map(([f,sy,c1,c2],i)=>{const keep=SET.mp;SET.mp={forma:f,simb:sy,c1,c2,sigla:"",n:""};const b=badgeSVG("PROPIO",58);SET.mp=keep;return `<span style="animation-delay:${i*.15}s">${b}</span>`}).join("")}</div>
-      <span class="eyebrow" style="color:inherit;opacity:.8">Modo fundador</span>
-      <h3>Fundá tu partido</h3>
-      <p>Nombre, ideología y logo propios. Arrancás chico y crecés a fuerza de votos, sin internas.</p>
-      <button class="btn fund-btn" id="bFundar">Fundar mi partido</button>
-     </div>
-    </section>
-
     <section>
      <div class="sec-h"><h3>Destacados del día</h3><span class="eyebrow">${new Date().toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"})}</span></div>
-     <div class="feat">
-      <button class="fcard daily" id="bDiario">
-       <span class="stamp">Desafío diario</span>${SESSION?"":`<span class="tag" style="float:right">🔒 Solo con cuenta</span>`}
+     <div class="feat2">
+      <button class="dcard" id="bDiario" style="--c1:${(COLORES_PAIS[d.pais]||pcol)[0]};--c2:${(COLORES_PAIS[d.pais]||pcol)[2]||(COLORES_PAIS[d.pais]||pcol)[1]}">
+       <div class="dc-top"><span class="dc-lab">Desafío diario</span><span class="dc-cd" id="cdDiario">--:--:--</span></div>
+       <div class="dc-flag">${flagSVG(d.pais,84)}</div>
        <h4>${esc(PAISES[d.pais].n)}</h4>
-       <p>Mismo país, mismo perfil y mismos sucesos para todos. Una sola partida cuenta para el ranking de hoy.</p>
-       <div class="tags"><span class="tag">${esc(d.prov)}</span><span class="tag">${ORIGENES[d.origen].n}</span><span class="tag">${RASGOS[d.rasgos[0]].n}</span><span class="tag">${RASGOS[d.rasgos[1]].n}</span><span class="tag">${esc(PARTIDOS[d.pais].find(x=>x[0]===d.partido)[1])}</span></div>
+       <p>Mismos sucesos para todos. Una sola chance: tu primera partida es la que cuenta.</p>
+       <div class="tags"><span class="tag">${esc(d.prov)}</span><span class="tag">${ORIGENES[d.origen].n}</span><span class="tag">${esc(PARTIDOS[d.pais].find(x=>x[0]===d.partido)[1])}</span></div>
+       <span class="dc-go">${SESSION?"Jugar el desafío →":"🔒 Entrá con tu cuenta para jugar"}</span>
       </button>
-      ${esc2.map(e=>`<button class="fcard" data-esc="${e.id}"><span class="eyebrow">Escenario</span><h4>${esc(e.n)}</h4><p>${esc(e.d)}</p><div class="tags"><span class="tag">${RAMAS[e.rama]}</span></div></button>`).join("")}
+      ${esc2.map(e=>`<button class="scard" data-esc="${e.id}"><div class="sc-img">${escenaSVG(escTipo(e))}</div><div class="sc-b"><span class="eyebrow">Escenario · ${RAMAS[e.rama]}</span><h4>${esc(e.n)}</h4><p>${esc(e.d)}</p><span class="sc-go">Jugar →</span></div></button>`).join("")}
      </div>
     </section>
 
@@ -1548,20 +1642,22 @@ function vHome(){
 
     <section>
      <div class="sec-h"><h3>Modos de juego</h3></div>
-     <div class="modos">
-      <button class="modo on" data-modo="existente">${ico("urna",28)}<b>Carrera política</b><span>Toda una vida en la política.</span><em>Jugar</em></button>
-      <button class="modo on" data-modo="propio">${ico("partido",28)}<b>Fundá tu partido</b><span>Tu partido, tus reglas.</span><em>Jugar</em></button>
-      <div class="modo">${ico("brujula",28)}<span class="pronto">Próximamente</span><b>Test político</b><span>¿Dónde estás en el mapa ideológico?</span></div>
-      <div class="modo">${ico("wordle",28)}<span class="pronto">Próximamente</span><b>Wordle político</b><span>Adiviná el político, el partido o la ley del día.</span></div>
+     <div class="modos2">
+      <button class="m2 m-car" data-modo="existente">${ico("urna",34)}<b>Carrera política</b><span>Toda una vida en la política: del llano al sillón.</span><em>Jugar →</em></button>
+      <button class="m2 m-fun" data-modo="propio">${ico("partido",34)}<b>Fundá tu partido</b><span>Tu nombre, tu logo, tus reglas. Crecé a fuerza de votos.</span><em>Jugar →</em></button>
+      <div class="m2 m-off">${ico("brujula",34)}<span class="pronto">Próximamente</span><b>Test político</b><span>¿Dónde estás en el mapa ideológico?</span></div>
+      <div class="m2 m-off">${ico("wordle",34)}<span class="pronto">Próximamente</span><b>Wordle político</b><span>Adiviná el político, el partido o la ley del día.</span></div>
      </div>
     </section>
     <section>
      <div class="sec-h"><h3>Probá los desafíos</h3><span class="eyebrow">Sin arrancar una carrera</span></div>
-     <div class="practica">${JUEGOS.map(j=>`<button class="pr-j" data-pr="${j[0]}">${ico(j[0],26)}<b>${j[1]}</b><span>${j[2]}</span></button>`).join("")}</div>
+     <div class="practica2">${JUEGOS.map((j,i)=>`<button class="pj" data-pr="${j[0]}" style="--h:${[212,4,42,280,150,18,190,330][i%8]}"><span class="pj-i">${ico(j[0],26)}</span><b>${j[1]}</b><span>${j[2]}</span></button>`).join("")}</div>
     </section>
     <section>
-     <div class="sec-h"><h3>Tus insignias</h3><span class="eyebrow">${Object.keys(insigniasGuardadas()).length} de ${INSIGNIAS.length}</span></div>
-     <div class="ins-grid">${INSIGNIAS.map(x=>insigniaHTML(x[0],!!insigniasGuardadas()[x[0]])).join("")}</div>
+     <div class="sec-h"><h3>Tus insignias</h3><span class="eyebrow">${nIns} de ${INSIGNIAS.length}</span></div>
+     <div class="ins-bar"><span style="width:${Math.round(nIns/INSIGNIAS.length*100)}%"></span></div>
+     <div class="ins-grid ins-corto" id="insGrid">${INSIGNIAS.slice().sort((a,b)=>(insG[b[0]]?1:0)-(insG[a[0]]?1:0)).map(x=>insigniaHTML(x[0],!!insG[x[0]])).join("")}</div>
+     <button class="btn ghost sm" id="insMas" type="button" style="margin-top:8px">Ver las ${INSIGNIAS.length}</button>
     </section>
     <section>
      <div class="sec-h"><h3>Noticias internacionales</h3><span class="eyebrow" id="newsState">Cargando</span></div>
@@ -1570,8 +1666,8 @@ function vHome(){
    </div>
 
    <aside class="col">
-    <section>
-     <div class="sec-h"><h3>Ranking</h3>
+    <section class="rank-box">
+     <div class="sec-h"><h3>🏆 Ranking</h3>
       <div class="tabs"><button data-t="global" aria-pressed="${rankTab==="global"}">Histórico</button><button data-t="hoy" aria-pressed="${rankTab==="hoy"}">Hoy</button></div>
      </div>
      <div id="rankList"><div class="empty">Cargando ranking…</div></div>
@@ -1579,17 +1675,20 @@ function vHome(){
     ${adHTML("sidebar","box","300 × 250")}
     <section>
      <div class="sec-h"><h3>Cómo se juega</h3></div>
-     <div class="howto">
-      <div><b>1</b><span>Elegís país, origen, ideología y dos rasgos.</span></div>
-      <div><b>2</b><span>Cada dos años te llega una situación según tu cargo, y a veces un desafío de habilidad.</span></div>
-      <div><b>3</b><span>Te ofrecen cargos: unos se ganan en elecciones, otros por nombramiento.</span></div>
-      <div><b>4</b><span>Antes de cada elección, campaña o debate contra tu rival. Si el escándalo llega a 100, se termina todo.</span></div>
+     <div class="howto2">
+      <div><b>1</b><span><strong>Armá tu personaje.</strong> País, provincia, partido y dos rasgos.</span></div>
+      <div><b>2</b><span><strong>Decidí.</strong> Cada dos años te llega una situación según tu cargo.</span></div>
+      <div><b>3</b><span><strong>Competí.</strong> Campañas, debates y elecciones contra tu archirrival.</span></div>
+      <div><b>4</b><span><strong>Dejá tu legado.</strong> Cuidado: si el escándalo llega a 100, se termina todo.</span></div>
      </div>
     </section>
    </aside>
   </div>`;
+  (function(){const el=$("#cdDiario");if(!el)return;clearInterval(window._cdT);const f=()=>{const e=$("#cdDiario");if(!e)return clearInterval(window._cdT);const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const s=Math.max(0,Math.floor((m-n)/1000));e.textContent="Nuevo en "+[s/3600|0,(s%3600)/60|0,s%60].map(x=>String(x).padStart(2,"0")).join(":")};f();window._cdT=setInterval(f,1000)})();
+  if(!mav){clearInterval(window._afT);let k=0;window._afT=setInterval(()=>{const a=$("#afAv");if(!a)return clearInterval(window._afT);k=(k+1)%POSTERS.length;a.classList.add("sw");setTimeout(()=>{a.innerHTML=avatarSVG(POSTERS[k],190,{acc:pcol[0],banda:pcol});a.classList.remove("sw")},250)},3200)}
+  $("#insMas").onclick=()=>{const g=$("#insGrid");g.classList.toggle("ins-corto");$("#insMas").textContent=g.classList.contains("ins-corto")?"Ver las "+INSIGNIAS.length:"Ver menos"};
   $("#bNueva").onclick=()=>{SET.modoP="existente";show("setup")};
-  $("#bFundar").onclick=()=>{SET.modoP="propio";show("setup")};
+  if($("#bFundar"))$("#bFundar").onclick=()=>{SET.modoP="propio";show("setup")};
   app.querySelectorAll("[data-pr]").forEach(b=>b.onclick=()=>practicar(b.dataset.pr));
   app.querySelectorAll("[data-modo]").forEach(b=>b.onclick=()=>{SET.modoP=b.dataset.modo;show("setup")});
   if($("#bSeguir"))$("#bSeguir").onclick=()=>{G=sv;show(G.fin?"legado":"game")};
