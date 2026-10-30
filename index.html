@@ -50,7 +50,8 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;letter-spacing:.01em;line-
 .who .me-acc{display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 3px;color:inherit;font:inherit;cursor:pointer}
 .who .me-acc .ini{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-weight:700}
 .pf{display:flex;flex-direction:column;gap:6px}.pf .lab{font-size:12.5px;margin-top:6px}.pf input,.pf select{padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit}.pf .btn{margin-top:12px}
-.pf-foot{display:flex;justify-content:space-between}
+.pf-foot{display:flex;justify-content:space-between}#perfil .mbox{max-height:90vh;overflow:auto}#pfAv .av-ed{gap:10px}#pfAv .av-prev svg{width:90px;height:90px}.who .me-acc .avw{width:30px;height:30px;border-radius:50%;overflow:hidden;display:grid;place-items:center;background:var(--bg)}.who .me-acc .avw svg{width:30px;height:30px}
+.av-modo{margin-bottom:10px}.av-mio{display:flex;align-items:center;gap:12px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:var(--r);border:1.5px solid var(--ink);background:transparent;padding:9px 14px;font-weight:600;font-size:14px}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .btn.ghost{border-color:var(--line)}
@@ -481,6 +482,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
      <label class="lab" for="pfPais">Tu país para jugar</label><select id="pfPais"></select>
      <label class="lab" for="pfIdeo">¿Dónde te parás?</label><select id="pfIdeo"></select>
      <label class="lab" for="pfPart">Partido favorito</label><select id="pfPart"></select>
+     <span class="lab">Tu avatar</span><div id="pfAv"></div>
      <button class="btn primary" type="submit">Guardar mi cuenta</button>
     </form>
     <p id="pfMsg" class="muted" aria-live="polite" style="font-size:13.5px"></p>
@@ -1325,13 +1327,20 @@ function abrirPerfil(primera){
   if(!SESSION)return abrirLogin();
   const m=perfil(),pais=m.em_pais&&PAISES[m.em_pais]?m.em_pais:(SET.pais||"AR");
   $("#pfT").textContent=primera?"Creá tu cuenta":"Tu cuenta";
-  $("#pfSub").textContent=primera?"Último paso. Así te van a conocer en el ranking, y armamos tus partidas a tu medida.":(SESSION.user.email||"");
+  $("#pfSub").textContent=primera?"Último paso. Tu cuenta es anónima: en el juego solo se ven tu usuario y tu avatar, nunca tu mail ni tu foto.":"En el juego solo se ven tu usuario y tu avatar.";
+  PFAV=JSON.parse(JSON.stringify(m.em_av||SET.av));pintarPfAv();
   $("#pfAlias").value=m.em_alias||"";
   $("#pfPais").innerHTML=Object.entries(PAISES).map(([k,p])=>`<option value="${k}" ${k===pais?"selected":""}>${esc(p.n)}</option>`).join("");
   $("#pfIdeo").innerHTML=`<option value="">Prefiero no decir</option>`+IDEOLOGIAS.map((x,i)=>`<option value="${i}" ${String(m.em_ideo)===String(i)?"selected":""}>${esc(x[0])}</option>`).join("");
   const partOps=pk=>`<option value="">Ninguno en particular</option>`+PARTIDOS[pk].map(x=>`<option value="${x[0]}" ${m.em_partido===x[0]&&pk===m.em_pais?"selected":""}>${esc(x[1])}</option>`).join("");
   $("#pfPart").innerHTML=partOps(pais);$("#pfPais").onchange=()=>{$("#pfPart").innerHTML=partOps($("#pfPais").value)};
   $("#pfMsg").textContent="";$("#pfOut").hidden=!!primera;$("#perfil").hidden=false;$("#pfAlias").focus();
+}
+let PFAV=null;
+function pintarPfAv(){
+  const c=$("#pfAv");c.innerHTML=editorAvatarHTML(PFAV);
+  c.querySelectorAll("[data-av]").forEach(b=>b.onclick=()=>{PFAV[b.dataset.av]=+b.dataset.v;pintarPfAv()});
+  c.querySelectorAll("[data-gen]").forEach(b=>b.onclick=()=>{aplicarGenero(PFAV,+b.dataset.gen);pintarPfAv()});
 }
 function aplicarPerfil(){const m=perfil();if(m.em_pais&&PAISES[m.em_pais]){SET.pais=m.em_pais;if(m.em_partido)SET.partido=m.em_partido}if(m.em_alias&&!SET.nombre)SET.nombre=m.em_alias}
 function perfilHandlers(){
@@ -1342,7 +1351,7 @@ function perfilHandlers(){
     if(alias.length<3)return $("#pfMsg").textContent="Poné al menos 3 letras.";
     if(/@/.test(alias))return $("#pfMsg").textContent="Mejor que no sea tu mail: es público en el ranking.";
     $("#pfMsg").textContent="Guardando…";
-    const data={em_alias:alias,em_pais:$("#pfPais").value,em_ideo:$("#pfIdeo").value,em_partido:$("#pfPart").value};
+    const data={em_alias:alias,em_pais:$("#pfPais").value,em_ideo:$("#pfIdeo").value,em_partido:$("#pfPart").value,em_av:PFAV};
     const {data:r,error}=await SB.auth.updateUser({data});
     if(error)return $("#pfMsg").textContent="No se pudo guardar: "+error.message;
     if(r?.user)SESSION={...SESSION,user:r.user};
@@ -1360,13 +1369,12 @@ async function initAuth(){
 function renderWho(){
   const w=$("#who");
   if(SESSION){
-    const av=SESSION.user.user_metadata?.avatar_url;
     const al=nombreUsuario();
-    w.innerHTML='<button class="me-acc" id="btnAcc" type="button" aria-label="Tu cuenta">'+(av?'<img alt="">':'<span class="ini"></span>')+'<span class="nm"></span></button>';
-    if(av)w.querySelector("img").src=av;else w.querySelector(".ini").textContent=(al||SESSION.user.email||"?")[0].toUpperCase();
+    const mav=perfil().em_av;
+    w.innerHTML='<button class="me-acc" id="btnAcc" type="button" aria-label="Tu cuenta">'+(mav?'<span class="avw">'+avatarSVG(mav,30,{acc:"var(--accent)"})+'</span>':'<span class="ini">?</span>')+'<span class="nm"></span></button>';
     w.querySelector(".nm").textContent=al||"Completá tu cuenta";
     $("#btnAcc").onclick=()=>abrirPerfil(!al);
-    if(!al&&!renderWho._pidio){renderWho._pidio=1;setTimeout(()=>abrirPerfil(true),400)}
+    if((!al||!mav)&&!renderWho._pidio){renderWho._pidio=1;setTimeout(()=>abrirPerfil(!al),400)}
     aplicarPerfil();
   }else{
     w.innerHTML='<span class="muted">Invitado</span><button class="btn sm" id="btnLogin">Ingresar</button>';
@@ -1603,7 +1611,9 @@ function vSetup(){
    <div><span class="eyebrow">${SET.modoP==="propio"?"Modo fundador":"Carrera política"}</span><h2>${SET.modoP==="propio"?"Fundá tu partido":"Armá tu personaje"}</h2></div>
    <div class="chips"><button type="button" class="chip" data-mp="existente" aria-pressed="${SET.modoP!=="propio"}">Partido existente</button><button type="button" class="chip" data-mp="propio" aria-pressed="${SET.modoP==="propio"}">Fundar mi partido</button></div>
    <div class="field"><label for="nm">Nombre</label><input type="text" id="nm" maxlength="40" placeholder="Ej: Lucía Ferreyra" value="${esc(SET.nombre)}"></div>
-   <div class="field"><span class="lab">Tu avatar</span>${editorAvatarHTML(SET.av)}</div>
+   <div class="field"><span class="lab">Tu avatar</span>${(()=>{const mav=SESSION&&perfil().em_av;if(!mav)return editorAvatarHTML(SET.av);
+     if(!SET.avModo)SET.avModo="mio";if(SET.avModo==="mio")SET.av=JSON.parse(JSON.stringify(mav));
+     return `<div class="chips av-modo"><button type="button" class="chip" data-avm="mio" aria-pressed="${SET.avModo==="mio"}">Usar mi avatar</button><button type="button" class="chip" data-avm="nuevo" aria-pressed="${SET.avModo==="nuevo"}">Crear uno nuevo</button></div>`+(SET.avModo==="mio"?`<div class="av-mio">${avatarSVG(SET.av,90,{acc:"var(--accent)"})}<span class="muted" style="font-size:13px">El de tu cuenta. Lo cambiás tocando tu usuario arriba.</span></div>`:editorAvatarHTML(SET.av))})()}</div>
    <div class="field"><span class="lab">País</span>
     <div class="grid-c">${Object.entries(PAISES).map(([k,p])=>`<button class="opt" data-p="${k}" aria-pressed="${SET.pais===k}"><span class="code">${flagSVG(k,24)} ${p.c}</span><b>${p.n}</b><span>${p.sis}</span></button>`).join("")}</div></div>
    <p class="muted" style="margin:-10px 0 0;font-size:13px">Cómo se elige en ${PAISES[SET.pais].n} ${infoBtn("sis:"+SET.pais,"sistema electoral")}</p>
@@ -1626,6 +1636,7 @@ function vSetup(){
   app.querySelectorAll("[data-mp]").forEach(b=>b.onclick=()=>{SET.modoP=b.dataset.mp;vSetup()});
   app.querySelectorAll("[data-av]").forEach(b=>b.onclick=()=>{SET.av[b.dataset.av]=+b.dataset.v;const y=scrollY;vSetup();scrollTo(0,y)});
   app.querySelectorAll("[data-gen]").forEach(b=>b.onclick=()=>{aplicarGenero(SET.av,+b.dataset.gen);const y=scrollY;vSetup();scrollTo(0,y)});
+  app.querySelectorAll("[data-avm]").forEach(b=>b.onclick=()=>{SET.avModo=b.dataset.avm;const y=scrollY;vSetup();scrollTo(0,y)});
   if(SET.modoP==="propio")bindCreador(SET.mp,()=>{const y=scrollY;vSetup();scrollTo(0,y)});
   app.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{SET.origen=b.dataset.o;vSetup()});
   app.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{SET.modo=b.dataset.m;vSetup()});
