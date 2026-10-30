@@ -6,7 +6,7 @@ window.MANDATO_CONFIG = {
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN0d3luaXJ3b2ZvcmNtc3dnZmp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMTMxNjcsImV4cCI6MjEwODg4OTE2N30.BrF9GxYe0CKgNwmPlTxj_lrrtRaOoWCIyJWGZ0irC8g",   // la clave "anon public"
 
   // Google AdSense (cuando te aprueben el sitio)
-  ADSENSE_CLIENT: "",      // ej: "ca-pub-1234567890123456"
+  ADSENSE_CLIENT: "ca-pub-5334174831294160",      // ej: "ca-pub-1234567890123456"
   ADSENSE_SLOTS: {         // un bloque de anuncios por lugar (AdSense → Anuncios → Por bloque)
     top: "",               // banner superior
     home: "",              // entre secciones del inicio

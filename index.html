@@ -593,6 +593,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 </style>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5334174831294160" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="wrap">
@@ -1642,7 +1643,7 @@ function adHTML(key,cls,label){
   return "";
 }
 function loadAdsense(){
-  if(!CFG.ADSENSE_CLIENT)return;
+  if(!CFG.ADSENSE_CLIENT||document.querySelector('script[src*="adsbygoogle.js"]'))return;
   const s=document.createElement("script");s.async=true;s.crossOrigin="anonymous";
   s.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+encodeURIComponent(CFG.ADSENSE_CLIENT);
   document.head.appendChild(s);
