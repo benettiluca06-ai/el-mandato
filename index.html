@@ -12,7 +12,7 @@
 <meta property="og:locale" content="es_AR">
 <meta property="og:url" content="https://elmandato.app/">
 <link rel="canonical" href="https://elmandato.app/">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"El Mandato","url":"https://elmandato.app/","image":"https://elmandato.app/og.jpg","description":"Simulador de carrera política: elegí país y partido, ganá elecciones, sobreviví a los escándalos y dejá tu legado. Del llano al poder.","inLanguage":"es","genre":["Simulación","Estrategia","Política"],"gamePlatform":"Navegador web","applicationCategory":"Game","operatingSystem":"Cualquiera","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoGame","name":"El Mandato","url":"https://elmandato.app/","image":"https://elmandato.app/og.jpg","description":"Simulador de carrera política: elegí país y partido, ganá elecciones, sobreviví a los escándalos y dejá tu legado. Del llano al poder.","inLanguage":"es","genre":["Simulación","Estrategia","Política"],"gamePlatform":"Navegador web","applicationCategory":"Game","operatingSystem":"Cualquiera","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"sameAs":["https://x.com/ElMandatoJuego"]}</script>
 <meta property="og:title" content="El Mandato · Armá tu carrera política">
 <meta property="og:description" content="Elegí país y partido, ganá elecciones, sobreviví a los escándalos y dejá tu legado. Del llano al poder.">
 <meta property="og:image" content="https://elmandato.app/og.jpg">
@@ -20,6 +20,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="El Mandato: juego de carrera política">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@ElMandatoJuego">
 <meta name="twitter:title" content="El Mandato · Armá tu carrera política">
 <meta name="twitter:description" content="Elegí país y partido, ganá elecciones y dejá tu legado. Del llano al poder.">
 <meta name="twitter:image" content="https://elmandato.app/og.jpg">
@@ -602,7 +603,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .sb-link{display:flex;gap:6px}.sb-link input{flex:1;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:inherit;font-family:var(--f-mono);font-size:14px}
 .sb-redes{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}
 .sr{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;color:#fff;border:0;font-family:inherit;cursor:pointer;transition:transform .12s}.sr:hover{transform:translateY(-2px)}
-.sr.wa{background:#1FA855}.sr.tg{background:#229ED9}.sr.xx{background:#111}.sr.fb{background:#1877F2}.sr.nat{background:var(--sunk);color:var(--ink)}
+.sr.segx{background:transparent;color:var(--ink);border:1.5px solid var(--ink);margin-left:auto}.sr.wa{background:#1FA855}.sr.tg{background:#229ED9}.sr.xx{background:#111}.sr.fb{background:#1877F2}.sr.nat{background:var(--sunk);color:var(--ink)}
 @media (max-width:640px){.share-band{grid-template-columns:1fr}}
 .pt-mini{margin-top:12px;font-size:13.5px;color:#B9C6D8}.pt-mini b{color:#F2C230}.pt-mini a{color:#fff;font-weight:600}
 </style>
@@ -671,7 +672,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <button class="btn ghost sm" id="ctClose" type="button" style="align-self:flex-start">Cerrar</button>
    </div>
   </div>
-  <footer class="foot"><span>El Mandato · países e instituciones reales, personajes ficticios · <a href="privacidad.html">Privacidad</a> · <a href="#contacto" id="ftCont">Contacto</a> · <a href="https://cafecito.app/elmandato" target="_blank" rel="noopener">☕ Cafecito</a></span><span id="fecha"></span></footer>
+  <footer class="foot"><span>El Mandato · países e instituciones reales, personajes ficticios · <a href="privacidad.html">Privacidad</a> · <a href="#contacto" id="ftCont">Contacto</a> · <a href="https://cafecito.app/elmandato" target="_blank" rel="noopener">☕ Cafecito</a> · <a href="https://x.com/ElMandatoJuego" target="_blank" rel="noopener">𝕏 @ElMandatoJuego</a></span><span id="fecha"></span></footer>
 </div>
 
 <script>
@@ -1796,9 +1797,10 @@ function vHome(){
    <div class="sb-redes">
     <a class="sr wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(SHARE_TXT)}">WhatsApp</a>
     <a class="sr tg" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(SHARE_TXT_CORTO)}">Telegram</a>
-    <a class="sr xx" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TXT)}">X</a>
+    <a class="sr xx" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TXT)}&via=ElMandatoJuego">X</a>
     <a class="sr fb" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}">Facebook</a>
     <button class="sr nat" id="shNat" type="button" hidden>Más opciones…</button>
+    <a class="sr segx" target="_blank" rel="noopener" href="https://x.com/ElMandatoJuego">Seguinos en 𝕏</a>
    </div>
   </section>
   <a class="cafe-band" href="https://cafecito.app/elmandato" target="_blank" rel="noopener">
@@ -3690,6 +3692,7 @@ function vLegado(){
      <textarea class="share" id="shareTxt" readonly>${esc(share)}</textarea>
      <button class="btn primary" id="bCopy">Compartir resultado</button>
      <a class="btn cafe-btn" href="https://cafecito.app/elmandato" target="_blank" rel="noopener">☕ ¿Te gustó? Invitame un cafecito</a>
+     <a class="btn ghost" href="https://x.com/ElMandatoJuego" target="_blank" rel="noopener">𝕏 Seguinos en @ElMandatoJuego</a>
      <button class="leg-rep" data-cont="bug" type="button">¿Algo no anduvo bien? Contanos</button>
      ${G.diario&&G.yaJugado?'<span class="muted" style="font-size:12.5px">Ya habías jugado el desafío de hoy: esta partida no cuenta para el ranking diario.</span>':""}
      <span class="muted" id="rkState" aria-live="polite" style="font-size:12.5px">${esc(G._rk||(SESSION?(G.guardado?"":"Guardando en el ranking…"):"Ingresá con tu cuenta antes de empezar para que tus legados entren al ranking."))}</span>
