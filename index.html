@@ -1540,7 +1540,8 @@ function loginHandlers(){
     e.preventDefault();if(!SB)return;
     const email=$("#lgMail").value.trim();$("#lgMsg").textContent="Enviando…";
     const {error}=await SB.auth.signInWithOtp({email,options:{emailRedirectTo:location.origin+location.pathname}});
-    $("#lgMsg").textContent=error?"No se pudo enviar: "+error.message:"Listo. Revisá tu mail (y spam) y tocá el link para entrar.";
+    const em=error?(error.message&&error.message!=="{}"?error.message:(error.status===504||error.name==="AuthRetryableFetchError"?"el servidor de mails no respondió a tiempo":"error "+(error.status||error.name||"desconocido"))):"";
+    $("#lgMsg").textContent=error?"No se pudo enviar: "+em+(error.status?" (código "+error.status+")":""):"Listo. Revisá tu mail (y spam) y tocá el link para entrar.";
   };
 }
 
