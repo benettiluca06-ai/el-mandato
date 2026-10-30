@@ -1,0 +1,16 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "el-mandato.vercel.app" }],
+      "destination": "https://elmandato.app/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.elmandato.app" }],
+      "destination": "https://elmandato.app/:path*",
+      "permanent": true
+    }
+  ]
+}
