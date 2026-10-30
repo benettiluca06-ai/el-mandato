@@ -5,9 +5,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>El Mandato</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Crect x=%271%27 y=%271%27 width=%2738%27 height=%2738%27 rx=%279%27 fill=%27%231E4E8C%27/%3E%3Crect x=%279%27 y=%2719%27 width=%2722%27 height=%2714%27 rx=%272%27 fill=%27white%27/%3E%3Crect x=%2714%27 y=%2718%27 width=%2712%27 height=%272.6%27 fill=%27%231E4E8C%27/%3E%3Crect x=%2715%27 y=%277%27 width=%2710%27 height=%2711%27 fill=%27white%27 transform=%27rotate(-8 20 12)%27/%3E%3C/svg%3E">
-<meta name="description" content="Simulador de carrera política internacional: elegí tu país, subí de cargo y mirá tu legado.">
-<meta property="og:title" content="El Mandato">
-<meta property="og:description" content="De concejal a la ONU. ¿Qué legado dejás?">
+<meta name="description" content="Armá tu carrera política: elegí país y partido, ganá elecciones, sobreviví a los escándalos y dejá tu legado. Del llano al poder.">
+<meta name="theme-color" content="#1E4E8C">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="El Mandato">
+<meta property="og:locale" content="es_AR">
+<meta property="og:url" content="https://el-mandato.vercel.app/">
+<meta property="og:title" content="El Mandato · Armá tu carrera política">
+<meta property="og:description" content="Elegí país y partido, ganá elecciones, sobreviví a los escándalos y dejá tu legado. Del llano al poder.">
+<meta property="og:image" content="https://el-mandato.vercel.app/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="El Mandato: juego de carrera política">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="El Mandato · Armá tu carrera política">
+<meta name="twitter:description" content="Elegí país y partido, ganá elecciones y dejá tu legado. Del llano al poder.">
+<meta name="twitter:image" content="https://el-mandato.vercel.app/og.jpg">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -456,7 +471,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 <body>
 <div class="wrap">
   <header class="top">
-    <button class="brand" id="goHome" aria-label="Volver al inicio"><h1>El Mandato</h1><span class="seal">Reservado</span></button>
+    <button class="brand" id="goHome" aria-label="Volver al inicio"><h1>El Mandato</h1></button>
     <div class="who" id="who"><span class="muted">Conectando…</span></div>
   </header>
   <div id="adTop"></div>
@@ -1302,9 +1317,12 @@ function save(){try{localStorage.setItem("elmandato.partida",JSON.stringify(G))}
 function clearSave(){try{localStorage.removeItem("elmandato.partida")}catch(e){}}
 function loadSave(){try{const s=localStorage.getItem("elmandato.partida");return s?JSON.parse(s):null}catch(e){return null}}
 
-function rangos(pk){
-  const P=PAISES[pk],out=[];
-  for(const rama of ["politica","ejecutivo","diplomacia"])P[rama].forEach((r,i)=>out.push({id:rama+i,nombre:r[0],tier:r[1],via:r[2]==="e"?"eleccion":"nombramiento",kind:r[3],rama,orden:i,top:r[3]==="top"}));
+const FEM=[["Secretário executivo","Secretária executiva"],["Primer Ministro","Primera Ministra"],["Tercer secretario","Tercera secretaria"],["Terceiro-secretário","Terceira-secretária"],["Vicepresidente","Vicepresidenta"],["Presidente","Presidenta"],["Subsecretario","Subsecretaria"],["Secretario","Secretaria"],["Secretário","Secretária"],["Senador","Senadora"],["Diputado","Diputada"],["Deputado","Deputada"],["Gobernador","Gobernadora"],["Governador","Governadora"],["Legislador","Legisladora"],["Embajador","Embajadora"],["Embaixador","Embaixadora"],["Consejero","Consejera"],["consejero","consejera"],["Conselheiro","Conselheira"],["Ministro","Ministra"],["Intendente","Intendenta"],["Alcalde","Alcaldesa"],["Concejal","Concejala"],["Regidor","Regidora"],["Vereador","Vereadora"],["Prefeito","Prefeita"],["Funcionario","Funcionaria"],["Jefe","Jefa"]];
+function fem(t){let o=String(t||"");for(const [a,b] of FEM)o=o.replace(new RegExp("(^|[^A-Za-zÁ-úñ])"+a+"(?![A-Za-zÁ-úñ])","g"),"$1"+b);return o}
+function esMujerNombre(pk,n){const L=NOMBRES[pk]?.[0]||[];const i=L.indexOf(String(n||"").split(" ")[0]);return i>=0&&i%2===0}
+function rangos(pk,neutro){
+  const P=PAISES[pk],out=[],gen=neutro?0:((typeof G!=="undefined"&&G&&G.av)?G.av.genero:(typeof SET!=="undefined"?SET.av?.genero:0));
+  for(const rama of ["politica","ejecutivo","diplomacia"])P[rama].forEach((r,i)=>out.push({id:rama+i,nombre:gen===1?fem(r[0]):r[0],tier:r[1],via:r[2]==="e"?"eleccion":"nombramiento",kind:r[3],rama,orden:i,top:r[3]==="top"}));
   return out;
 }
 const rk=id=>id?rangos(G.pais).find(r=>r.id===id):null;
@@ -2518,7 +2536,7 @@ function mostrarTuto(){
 }
 
 /* Archirrival que crece */
-function nemCargo(t){const rs=rangos(G.pais).filter(r=>r.tier===t&&(r.rama==="politica"||r.top));return (rs[0]||rangos(G.pais).find(r=>r.tier===t))?.nombre||""}
+function nemCargo(t){const L=rangos(G.pais,true),rs=L.filter(r=>r.tier===t&&(r.rama==="politica"||r.top));const n=(rs[0]||L.find(r=>r.tier===t))?.nombre||"";return G.nemesis&&esMujerNombre(G.pais,G.nemesis.n)?fem(n):n}
 function avanzarNemesis(){
   const n=G.nemesis;if(!n.tier){n.tier=1;n.cargo=nemCargo(1)}
   if(n.tier<6&&R()<.3){n.tier++;n.cargo=nemCargo(n.tier);
