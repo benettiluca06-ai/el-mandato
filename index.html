@@ -587,6 +587,9 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .ley-log{margin:10px 0 0;padding-left:18px;font-size:13px;color:var(--muted)}
 .ley-res{font-size:18px;margin:8px 0;padding:10px 12px;border-radius:10px}.ley-res.ok{background:#E3F2E8;color:#1D5A36}.ley-res.no{background:#F8E1DE;color:#8A2A22}
 .ins.sec{opacity:.75;border-style:dashed}.ins.sec .ins-i{background:#13233B;color:#F2C230}
+.ct-tipos .chip{font-size:13px}#contacto textarea{padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;resize:vertical}#contacto .mbox{max-height:90vh;overflow:auto}
+.cta-cont{display:flex;gap:12px;align-items:center;padding:14px;border-radius:16px;background:linear-gradient(135deg,#FFF4D6,#FDE7C2);color:#13233B;border:0;text-align:left;font:inherit;cursor:pointer;width:100%;transition:transform .15s}.cta-cont:hover{transform:translateY(-2px)}.cta-cont b{display:block;font-size:15px}.cta-cont span{font-size:13px;opacity:.85}.cta-cont .e{font-size:28px}
+.leg-rep{background:none;border:0;padding:0;color:var(--muted);font:inherit;font-size:12.5px;text-decoration:underline;cursor:pointer}
 </style>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -628,7 +631,31 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <div class="pf-foot"><button class="btn ghost sm" id="pfClose" type="button">Después</button><button class="btn ghost sm" id="pfOut" type="button">Cerrar sesión</button></div>
    </div>
   </div>
-  <footer class="foot"><span>El Mandato · países e instituciones reales, personajes ficticios · <a href="privacidad.html">Privacidad</a></span><span id="fecha"></span></footer>
+  <div class="modal" id="contacto" hidden role="dialog" aria-modal="true" aria-labelledby="ctT">
+   <div class="mbox">
+    <h3 id="ctT">Escribinos</h3>
+    <p class="muted" style="font-size:14px">Lo lee una persona, no un robot. Cada mensaje ayuda a mejorar el juego.</p>
+    <form id="ctForm" class="pf">
+     <span class="lab">¿Sobre qué?</span>
+     <div class="chips ct-tipos">
+      <button type="button" class="chip" data-ct="sugerencia" aria-pressed="true">💡 Idea o sugerencia</button>
+      <button type="button" class="chip" data-ct="bug" aria-pressed="false">🐞 Error o bug</button>
+      <button type="button" class="chip" data-ct="colaborar" aria-pressed="false">🤝 Quiero colaborar</button>
+      <button type="button" class="chip" data-ct="publicidad" aria-pressed="false">📣 Publicidad</button>
+      <button type="button" class="chip" data-ct="otro" aria-pressed="false">✉️ Otro</button>
+     </div>
+     <label class="lab" for="ctMsg" id="ctMsgLab">Tu mensaje</label>
+     <textarea id="ctMsg" required minlength="10" maxlength="3000" rows="5" placeholder="Contanos tu idea…"></textarea>
+     <label class="lab" for="ctMail">Tu mail, si querés que te respondamos (opcional)</label>
+     <input id="ctMail" type="email" maxlength="120" placeholder="tu@mail.com" autocomplete="email">
+     <button class="btn primary" type="submit">Enviar</button>
+    </form>
+    <p id="ctRes" class="muted" aria-live="polite" style="font-size:13.5px"></p>
+    <p class="muted" style="font-size:12.5px;margin:0">También podés escribir directo a <a href="mailto:elmandato.juegos@gmail.com">elmandato.juegos@gmail.com</a>.</p>
+    <button class="btn ghost sm" id="ctClose" type="button" style="align-self:flex-start">Cerrar</button>
+   </div>
+  </div>
+  <footer class="foot"><span>El Mandato · países e instituciones reales, personajes ficticios · <a href="privacidad.html">Privacidad</a> · <a href="#contacto" id="ftCont">Contacto</a></span><span id="fecha"></span></footer>
 </div>
 
 <script>
@@ -1530,7 +1557,7 @@ function abrirLogin(msg){
 function loginHandlers(){
   $("#lgClose").onclick=()=>{$("#login").hidden=true};
   $("#login").onclick=e=>{if(e.target.id==="login")$("#login").hidden=true};
-  document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("#login").hidden=true;$("#perfil").hidden=true}});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("#login").hidden=true;$("#perfil").hidden=true;$("#contacto").hidden=true}});
   $("#lgGoogle").onclick=async()=>{
     if(!SB)return;
     const {error}=await SB.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}});
@@ -1741,6 +1768,7 @@ function vHome(){
       <div><b>4</b><span><strong>Dejá tu legado.</strong> Cuidado: si el escándalo llega a 100, se termina todo.</span></div>
      </div>
     </section>
+    <section><button class="cta-cont" data-cont="sugerencia"><span class="e" aria-hidden="true">💬</span><span><b>¿Ideas, bugs o querés sumarte?</b><span>Escribinos: leemos todo y el juego crece con lo que nos cuentan.</span></span></button></section>
    </aside>
   </div>`;
   (function(){const el=$("#cdDiario");if(!el)return;clearInterval(window._cdT);const f=()=>{const e=$("#cdDiario");if(!e)return clearInterval(window._cdT);const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const s=Math.max(0,Math.floor((m-n)/1000));e.textContent="Nuevo en "+[s/3600|0,(s%3600)/60|0,s%60].map(x=>String(x).padStart(2,"0")).join(":")};f();window._cdT=setInterval(f,1000)})();
@@ -2542,7 +2570,7 @@ function practicar(j){
 function renderPractica(j){
   clearMG();window.scrollTo(0,0);
   app.innerHTML=`<div class="play"><div class="dl"><span>Modo práctica · no afecta ninguna carrera</span></div><section class="cable"><div class="cable-b">${miniBody()}</div></section>
-   <div class="row-a"><button class="btn sm" id="pOtra">Probar otra vez</button><button class="btn sm ghost" id="pVolver">Volver al inicio</button></div></div>`;
+   <div class="row-a"><button class="btn sm" id="pOtra">Probar otra vez</button><button class="btn sm ghost" id="pVolver">Volver al inicio</button><button class="leg-rep" data-cont="bug" type="button" style="margin-left:auto">Reportar un error</button></div></div>`;
   mountMini();$("#pOtra").onclick=()=>practicar(j);$("#pVolver").onclick=()=>{clearMG();G=null;show("home")};
 }
 function practicaFin(tit,txt){
@@ -3104,6 +3132,38 @@ function insigniasSecretas(add){
 }
 function sumarInsignia(id){const p=insigniasGuardadas();if(p[id])return false;p[id]=hoyISO();try{localStorage.setItem("elmandato.insignias",JSON.stringify(p))}catch(e){}return true}
 
+
+/* ---------- Contacto ---------- */
+let CT_TIPO="sugerencia";
+const CT_PH={sugerencia:"Contanos tu idea: qué agregarías, qué cambiarías…",bug:"¿Qué pasó? ¿En qué pantalla? ¿Qué estabas haciendo? Si podés, decinos país y cargo.",colaborar:"Contanos quién sos y cómo te gustaría colaborar (contenido, diseño, código, difusión…).",publicidad:"Contanos sobre tu marca o propuesta. Dejanos un mail para responderte.",otro:"Escribí lo que quieras."};
+function abrirContacto(tipo){
+  CT_TIPO=tipo||CT_TIPO;$("#contacto").hidden=false;$("#ctRes").textContent="";
+  document.querySelectorAll("[data-ct]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.ct===CT_TIPO));
+  $("#ctMsg").placeholder=CT_PH[CT_TIPO];
+  if(!$("#ctMail").value&&SESSION?.user?.email)$("#ctMail").value=SESSION.user.email;
+  setTimeout(()=>$("#ctMsg").focus(),50);
+}
+function contactoHandlers(){
+  document.querySelectorAll("[data-ct]").forEach(b=>b.onclick=()=>{CT_TIPO=b.dataset.ct;document.querySelectorAll("[data-ct]").forEach(x=>x.setAttribute("aria-pressed",x===b));$("#ctMsg").placeholder=CT_PH[CT_TIPO]});
+  $("#ctClose").onclick=()=>{$("#contacto").hidden=true};
+  $("#contacto").onclick=e=>{if(e.target.id==="contacto")$("#contacto").hidden=true};
+  $("#ftCont").onclick=e=>{e.preventDefault();abrirContacto()};
+  document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-cont]");if(b){e.preventDefault();abrirContacto(b.dataset.cont)}});
+  $("#ctForm").onsubmit=async e=>{
+    e.preventDefault();const msg=$("#ctMsg").value.trim(),mail=$("#ctMail").value.trim();
+    if(msg.length<10)return $("#ctRes").textContent="Contanos un poquito más (al menos 10 letras).";
+    const ctx=G&&!G.practica?` [${G.pais} · ${rk(G.cargo)?.nombre||"sin cargo"} · ${G.anio} · fase ${G.fase}]`:"";
+    const mailto=`mailto:elmandato.juegos@gmail.com?subject=${encodeURIComponent("El Mandato · "+CT_TIPO)}&body=${encodeURIComponent(msg+ctx)}`;
+    if(!SB){$("#ctRes").innerHTML=`No pudimos enviarlo desde acá. <a href="${mailto}">Mandalo por mail</a>.`;return}
+    $("#ctRes").textContent="Enviando…";
+    const {error}=await SB.rpc("enviar_mensaje",{p_tipo:CT_TIPO,p_mensaje:msg+ctx,p_contacto:mail||null,p_pagina:location.pathname+(G?" · "+(G.vista||"juego"):""),p_agente:navigator.userAgent});
+    if(error){$("#ctRes").innerHTML=(String(error.message).includes("demasiados")?"Mandaste varios mensajes seguidos. Probá en un rato o ":"No se pudo enviar. ")+`<a href="${mailto}">mandalo por mail</a>.`;return}
+    $("#ctMsg").value="";$("#ctRes").textContent="¡Gracias! Lo recibimos."+(mail?" Si hace falta, te respondemos a "+mail+".":"");
+    setTimeout(()=>{if($("#ctRes").textContent.startsWith("¡Gracias"))$("#contacto").hidden=true},2500);
+  };
+  if(location.hash==="#contacto")abrirContacto();
+}
+
 /* ================== VISTA DE JUEGO ================== */
 const STC={l:"Local",i:"Mundo",p:"Partido",n:"Instit.",e:"Economía",s:"Escándalo"};
 function colorFor(k,v){const good=k==="s"?100-v:v;return good>=60?"var(--good)":good>=35?"var(--warn)":"var(--bad)"}
@@ -3551,6 +3611,7 @@ function vLegado(){
      <button class="btn" id="bShare">Compartir imagen</button>
      <textarea class="share" id="shareTxt" readonly>${esc(share)}</textarea>
      <button class="btn primary" id="bCopy">Compartir resultado</button>
+     <button class="leg-rep" data-cont="bug" type="button">¿Algo no anduvo bien? Contanos</button>
      <span class="muted" style="font-size:12.5px" id="rkState">${SESSION?(G.guardado?"Guardado en el ranking.":"Guardando en el ranking…"):"Jugaste como invitado: este legado no entra al ranking. Ingresá antes de tu próxima partida."}</span>
      ${G.diario&&G.yaJugado?'<span class="muted" style="font-size:12.5px">Ya habías jugado el desafío de hoy: esta partida no cuenta para el ranking diario.</span>':""}
      <span class="muted" id="rkState" aria-live="polite" style="font-size:12.5px">${esc(G._rk||(SESSION?(G.guardado?"":"Guardando en el ranking…"):"Ingresá con tu cuenta antes de empezar para que tus legados entren al ranking."))}</span>
@@ -3579,7 +3640,7 @@ $("#who").insertAdjacentHTML("beforebegin",botonSonido());
 document.addEventListener("click",e=>{const b=e.target.closest("#bSnd");if(b){MUTE=!MUTE;try{localStorage.setItem("elmandato.mute",MUTE?"1":"0")}catch(x){}b.outerHTML=botonSonido();if(!MUTE)SFX.bien();return}if(e.target.closest("button"))SFX.click()});
 renderWho();
 show("home");
-perfilHandlers();initAuth();
+perfilHandlers();contactoHandlers();initAuth();
 </script>
 </body>
 </html>
