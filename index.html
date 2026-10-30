@@ -47,6 +47,10 @@ h1,h2,h3{font-family:var(--f-display);font-weight:800;letter-spacing:.01em;line-
 .brand .seal{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;color:var(--seal);border:1.5px solid var(--seal);padding:1px 6px;border-radius:3px;transform:rotate(-3deg)}
 .who{display:flex;align-items:center;gap:8px;font-size:13.5px}
 .who img{width:28px;height:28px;border-radius:50%}
+.who .me-acc{display:flex;align-items:center;gap:8px;background:none;border:1px solid var(--line);border-radius:999px;padding:3px 10px 3px 3px;color:inherit;font:inherit;cursor:pointer}
+.who .me-acc .ini{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:#fff;font-weight:700}
+.pf{display:flex;flex-direction:column;gap:6px}.pf .lab{font-size:12.5px;margin-top:6px}.pf input,.pf select{padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit}.pf .btn{margin-top:12px}
+.pf-foot{display:flex;justify-content:space-between}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:var(--r);border:1.5px solid var(--ink);background:transparent;padding:9px 14px;font-weight:600;font-size:14px}
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .btn.ghost{border-color:var(--line)}
@@ -466,6 +470,21 @@ input[type=range]{width:100%;accent-color:var(--accent)}
     <form id="lgForm"><label for="lgMail" class="muted" style="font-size:13px">Te mandamos un link para entrar, sin contraseña.</label><input type="email" id="lgMail" required placeholder="tu@mail.com" autocomplete="email"><button class="btn" type="submit">Mandame el link</button></form>
     <p id="lgMsg" class="muted" aria-live="polite" style="font-size:13.5px"></p>
     <button class="btn ghost sm" id="lgClose" type="button">Cerrar</button>
+   </div>
+  </div>
+  <div class="modal" id="perfil" hidden role="dialog" aria-modal="true" aria-labelledby="pfT">
+   <div class="mbox">
+    <h3 id="pfT">Creá tu cuenta</h3>
+    <p class="muted" id="pfSub">Así te van a conocer en el ranking. Con esto armamos tus partidas a tu medida.</p>
+    <form id="pfForm" class="pf">
+     <label class="lab" for="pfAlias">Nombre de usuario</label><input id="pfAlias" required maxlength="24" minlength="3" placeholder="Ej: ElTanoDelConurbano" autocomplete="nickname">
+     <label class="lab" for="pfPais">Tu país para jugar</label><select id="pfPais"></select>
+     <label class="lab" for="pfIdeo">¿Dónde te parás?</label><select id="pfIdeo"></select>
+     <label class="lab" for="pfPart">Partido favorito</label><select id="pfPart"></select>
+     <button class="btn primary" type="submit">Guardar mi cuenta</button>
+    </form>
+    <p id="pfMsg" class="muted" aria-live="polite" style="font-size:13.5px"></p>
+    <div class="pf-foot"><button class="btn ghost sm" id="pfClose" type="button">Después</button><button class="btn ghost sm" id="pfOut" type="button">Cerrar sesión</button></div>
    </div>
   </div>
   <footer class="foot"><span>El Mandato · países e instituciones reales, personajes ficticios · <a href="privacidad.html">Privacidad</a></span><span id="fecha"></span></footer>
@@ -1292,35 +1311,76 @@ const tpl=s=>s.replace(/\{CIUDAD\}/g,G.ciudad||CIUDADES[G.pais][0]).replace(/\{P
 /* ================== CUENTA (Supabase), RANKING, NOTICIAS, ANUNCIOS ================== */
 const CFG=window.MANDATO_CONFIG||{};
 let SB=null,SESSION=null;
-function nombreUsuario(){const m=SESSION?.user?.user_metadata||{};return String(m.full_name||m.name||"").trim()}
+const URL0=(location.hash||"").replace(/^#/,"")+"&"+location.search.replace(/^\?/,"");
+function perfil(){return SESSION?.user?.user_metadata||{}}
+function nombreUsuario(){const m=perfil();return String(m.em_alias||"").trim()}
+function errorLoginURL(){
+  const q=new URLSearchParams(URL0);
+  const d=q.get("error_description");if(!d)return;
+  history.replaceState(null,"",location.pathname);
+  const T={"Unable to exchange external code":"Google rechazó la configuración: revisá en Supabase que el Client ID y el Client Secret sean los de Google, sin espacios.","Email link is invalid or has expired":"El link del mail ya se usó o venció. Pedí uno nuevo."};
+  setTimeout(()=>{abrirLogin();$("#lgMsg").textContent="No se pudo entrar: "+(T[d]||d)},300);
+}
+function abrirPerfil(primera){
+  if(!SESSION)return abrirLogin();
+  const m=perfil(),pais=m.em_pais&&PAISES[m.em_pais]?m.em_pais:(SET.pais||"AR");
+  $("#pfT").textContent=primera?"Creá tu cuenta":"Tu cuenta";
+  $("#pfSub").textContent=primera?"Último paso. Así te van a conocer en el ranking, y armamos tus partidas a tu medida.":(SESSION.user.email||"");
+  $("#pfAlias").value=m.em_alias||"";
+  $("#pfPais").innerHTML=Object.entries(PAISES).map(([k,p])=>`<option value="${k}" ${k===pais?"selected":""}>${esc(p.n)}</option>`).join("");
+  $("#pfIdeo").innerHTML=`<option value="">Prefiero no decir</option>`+IDEOLOGIAS.map((x,i)=>`<option value="${i}" ${String(m.em_ideo)===String(i)?"selected":""}>${esc(x[0])}</option>`).join("");
+  const partOps=pk=>`<option value="">Ninguno en particular</option>`+PARTIDOS[pk].map(x=>`<option value="${x[0]}" ${m.em_partido===x[0]&&pk===m.em_pais?"selected":""}>${esc(x[1])}</option>`).join("");
+  $("#pfPart").innerHTML=partOps(pais);$("#pfPais").onchange=()=>{$("#pfPart").innerHTML=partOps($("#pfPais").value)};
+  $("#pfMsg").textContent="";$("#pfOut").hidden=!!primera;$("#perfil").hidden=false;$("#pfAlias").focus();
+}
+function aplicarPerfil(){const m=perfil();if(m.em_pais&&PAISES[m.em_pais]){SET.pais=m.em_pais;if(m.em_partido)SET.partido=m.em_partido}if(m.em_alias&&!SET.nombre)SET.nombre=m.em_alias}
+function perfilHandlers(){
+  $("#pfClose").onclick=()=>{$("#perfil").hidden=true};
+  $("#pfOut").onclick=()=>{$("#perfil").hidden=true;SB.auth.signOut()};
+  $("#pfForm").onsubmit=async e=>{
+    e.preventDefault();const alias=$("#pfAlias").value.trim().replace(/\s+/g," ");
+    if(alias.length<3)return $("#pfMsg").textContent="Poné al menos 3 letras.";
+    if(/@/.test(alias))return $("#pfMsg").textContent="Mejor que no sea tu mail: es público en el ranking.";
+    $("#pfMsg").textContent="Guardando…";
+    const data={em_alias:alias,em_pais:$("#pfPais").value,em_ideo:$("#pfIdeo").value,em_partido:$("#pfPart").value};
+    const {data:r,error}=await SB.auth.updateUser({data});
+    if(error)return $("#pfMsg").textContent="No se pudo guardar: "+error.message;
+    if(r?.user)SESSION={...SESSION,user:r.user};
+    SET.nombre="";aplicarPerfil();renderWho();$("#perfil").hidden=true;
+    if(!G&&document.querySelector(".home, #bNueva"))show("home");
+  };
+}
 async function initAuth(){
-  if(!CFG.SUPABASE_URL||!CFG.SUPABASE_ANON_KEY||!window.supabase){rankDocs=null;paintRanking();renderWho();return}
+  if(!CFG.SUPABASE_URL||!CFG.SUPABASE_ANON_KEY||!window.supabase){rankDocs=null;paintRanking();renderWho();errorLoginURL();return}
   SB=window.supabase.createClient(CFG.SUPABASE_URL,CFG.SUPABASE_ANON_KEY);
   try{const {data}=await SB.auth.getSession();SESSION=data.session}catch(e){}
-  SB.auth.onAuthStateChange((ev,s)=>{SESSION=s;renderWho();if(s)$("#login").hidden=true;if(!G)subRanking()});
-  renderWho();if(!G)subRanking();
+  SB.auth.onAuthStateChange((ev,s)=>{const antes=!!SESSION;SESSION=s;renderWho();if(s)$("#login").hidden=true;if(!s)renderWho._pidio=0;if(!G){subRanking();if(antes!==!!s&&document.querySelector("#bDiario"))show("home")}});
+  renderWho();if(!G)subRanking();errorLoginURL();
 }
 function renderWho(){
   const w=$("#who");
   if(SESSION){
     const av=SESSION.user.user_metadata?.avatar_url;
-    w.innerHTML=(av?'<img alt="">':'')+'<span></span><button class="btn sm ghost" id="btnOut">Salir</button>';
-    if(av)w.querySelector("img").src=av;
-    w.querySelector("span").textContent=nombreUsuario()||(SESSION.user.email||"Tu cuenta");
-    $("#btnOut").onclick=()=>SB.auth.signOut();
+    const al=nombreUsuario();
+    w.innerHTML='<button class="me-acc" id="btnAcc" type="button" aria-label="Tu cuenta">'+(av?'<img alt="">':'<span class="ini"></span>')+'<span class="nm"></span></button>';
+    if(av)w.querySelector("img").src=av;else w.querySelector(".ini").textContent=(al||SESSION.user.email||"?")[0].toUpperCase();
+    w.querySelector(".nm").textContent=al||"Completá tu cuenta";
+    $("#btnAcc").onclick=()=>abrirPerfil(!al);
+    if(!al&&!renderWho._pidio){renderWho._pidio=1;setTimeout(()=>abrirPerfil(true),400)}
+    aplicarPerfil();
   }else{
     w.innerHTML='<span class="muted">Invitado</span><button class="btn sm" id="btnLogin">Ingresar</button>';
     $("#btnLogin").onclick=abrirLogin;
   }
 }
-function abrirLogin(){
-  $("#login").hidden=false;$("#lgMsg").textContent=SB?"":"El login todavía no está configurado: falta completar config.js.";
+function abrirLogin(msg){
+  $("#login").hidden=false;$("#lgMsg").textContent=SB?(typeof msg==="string"?msg:""):"El login todavía no está configurado: falta completar config.js.";
   $("#lgMail").focus();
 }
 function loginHandlers(){
   $("#lgClose").onclick=()=>{$("#login").hidden=true};
   $("#login").onclick=e=>{if(e.target.id==="login")$("#login").hidden=true};
-  document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#login").hidden=true});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("#login").hidden=true;$("#perfil").hidden=true}});
   $("#lgGoogle").onclick=async()=>{
     if(!SB)return;
     const {error}=await SB.auth.signInWithOAuth({provider:"google",options:{redirectTo:location.origin+location.pathname}});
@@ -1446,7 +1506,7 @@ function vHome(){
      <div class="sec-h"><h3>Destacados del día</h3><span class="eyebrow">${new Date().toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"})}</span></div>
      <div class="feat">
       <button class="fcard daily" id="bDiario">
-       <span class="stamp">Desafío diario</span>
+       <span class="stamp">Desafío diario</span>${SESSION?"":`<span class="tag" style="float:right">🔒 Solo con cuenta</span>`}
        <h4>${esc(PAISES[d.pais].n)}</h4>
        <p>Mismo país, mismo perfil y mismos sucesos para todos. Una sola partida cuenta para el ranking de hoy.</p>
        <div class="tags"><span class="tag">${esc(d.prov)}</span><span class="tag">${ORIGENES[d.origen].n}</span><span class="tag">${RASGOS[d.rasgos[0]].n}</span><span class="tag">${RASGOS[d.rasgos[1]].n}</span><span class="tag">${esc(PARTIDOS[d.pais].find(x=>x[0]===d.partido)[1])}</span></div>
@@ -1505,6 +1565,7 @@ function vHome(){
   app.querySelectorAll("[data-modo]").forEach(b=>b.onclick=()=>{SET.modoP=b.dataset.modo;show("setup")});
   if($("#bSeguir"))$("#bSeguir").onclick=()=>{G=sv;show(G.fin?"legado":"game")};
   $("#bDiario").onclick=()=>{
+    if(!SESSION)return abrirLogin("El desafío diario se juega solo con cuenta, así el ranking de hoy es justo. Entrá y arrancá.");
     let jugado=false;try{jugado=localStorage.getItem("elmandato.diario")===hoyISO()}catch(e){}
     vPre({pais:d.pais,origen:d.origen,rasgos:d.rasgos,prov:d.prov,partido:d.partido,modo:"carrera",diario:true,seed:d.seed,yaJugado:jugado},"Desafío diario","Mismas condiciones y mismos sucesos para todos. Solo tu primera partida del día cuenta para el ranking de hoy.");
   };
@@ -3122,7 +3183,7 @@ $("#who").insertAdjacentHTML("beforebegin",botonSonido());
 document.addEventListener("click",e=>{const b=e.target.closest("#bSnd");if(b){MUTE=!MUTE;try{localStorage.setItem("elmandato.mute",MUTE?"1":"0")}catch(x){}b.outerHTML=botonSonido();if(!MUTE)SFX.bien();return}if(e.target.closest("button"))SFX.click()});
 renderWho();
 show("home");
-initAuth();
+perfilHandlers();initAuth();
 </script>
 </body>
 </html>
