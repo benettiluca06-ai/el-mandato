@@ -604,6 +604,7 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .sr{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;color:#fff;border:0;font-family:inherit;cursor:pointer;transition:transform .12s}.sr:hover{transform:translateY(-2px)}
 .sr.wa{background:#1FA855}.sr.tg{background:#229ED9}.sr.xx{background:#111}.sr.fb{background:#1877F2}.sr.nat{background:var(--sunk);color:var(--ink)}
 @media (max-width:640px){.share-band{grid-template-columns:1fr}}
+.pt-mini{margin-top:12px;font-size:13.5px;color:#B9C6D8}.pt-mini b{color:#F2C230}.pt-mini a{color:#fff;font-weight:600}
 </style>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -1706,8 +1707,11 @@ function vHome(){
      <h2 class="pt-h">Del llano<br><span class="pt-hl">al poder</span></h2>
      <p class="pt-p">Ganá elecciones, armá alianzas, sobreviví a los escándalos y bancá la crisis. Una vida entera en la política, decisión por decisión.</p>
      <div class="pt-cta">
-      <button class="btn pt-go" id="bNueva">Empezar mi carrera <span aria-hidden="true">→</span></button>
-      ${sv&&!sv.fin?'<button class="btn pt-alt" id="bSeguir">Seguir · '+esc(PAISES[sv.pais]?.n||"")+' '+(sv.anio||"")+'</button>':'<button class="btn pt-alt" id="bFundar">Fundar mi partido</button>'}
+      <button class="btn pt-go" id="bRapido">⚡ Jugar ya</button>
+      <button class="btn pt-alt" id="bNueva">Armar mi personaje</button>
+      ${sv&&!sv.fin?'<button class="btn pt-alt" id="bSeguir">Seguir · '+esc(PAISES[sv.pais]?.n||"")+' '+(sv.anio||"")+'</button>':''}
+     </div>
+     <div class="pt-mini">⚡ <b>Jugar ya</b> arma un personaje al azar y arrancás al toque. ${sv&&!sv.fin?'':'¿Preferís lo tuyo? <a href="#" id="bFundar">Fundá tu partido</a>.'}
      </div>
      <div class="pt-flags">${Object.keys(PAISES).map((k,i)=>`<span style="animation-delay:${.3+i*.06}s" title="${esc(PAISES[k].n)}">${flagSVG(k,30)}</span>`).join("")}</div>
     </div>
@@ -1807,12 +1811,15 @@ function vHome(){
   </a>`;
   (function(){const el=$("#cdDiario");if(!el)return;clearInterval(window._cdT);const f=()=>{const e=$("#cdDiario");if(!e)return clearInterval(window._cdT);const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const s=Math.max(0,Math.floor((m-n)/1000));e.textContent="Nuevo en "+[s/3600|0,(s%3600)/60|0,s%60].map(x=>String(x).padStart(2,"0")).join(":")};f();window._cdT=setInterval(f,1000)})();
   if(!mav){clearInterval(window._afT);let k=0;window._afT=setInterval(()=>{const a=$("#afAv");if(!a)return clearInterval(window._afT);k=(k+1)%POSTERS.length;a.classList.add("sw");setTimeout(()=>{a.innerHTML=avatarSVG(POSTERS[k],190,{acc:pcol[0],banda:pcol});a.classList.remove("sw")},250)},3200)}
-  $("#shCopy").onclick=async()=>{try{await navigator.clipboard.writeText(SHARE_URL);$("#shCopy").textContent="¡Copiado!"}catch(e){const i=$("#shLink");i.value=SHARE_URL;i.select();$("#shCopy").textContent="Seleccionado"}setTimeout(()=>{if($("#shCopy"))$("#shCopy").textContent="Copiar link"},2200)};
+  app.querySelectorAll(".sr").forEach(a=>a.addEventListener("click",()=>track("compartir",{donde:"inicio",red:a.className.replace("sr ","")})));
+  $("#shCopy").onclick=async()=>{track("compartir",{donde:"inicio",red:"link"});try{await navigator.clipboard.writeText(SHARE_URL);$("#shCopy").textContent="¡Copiado!"}catch(e){const i=$("#shLink");i.value=SHARE_URL;i.select();$("#shCopy").textContent="Seleccionado"}setTimeout(()=>{if($("#shCopy"))$("#shCopy").textContent="Copiar link"},2200)};
   $("#shLink").onclick=e=>e.target.select();
   if(navigator.share){$("#shNat").hidden=false;$("#shNat").onclick=()=>navigator.share({title:"El Mandato",text:SHARE_TXT_CORTO,url:SHARE_URL}).catch(()=>{})}
   $("#insMas").onclick=()=>{const g=$("#insGrid");g.classList.toggle("ins-corto");$("#insMas").textContent=g.classList.contains("ins-corto")?"Ver las "+INSIGNIAS.length:"Ver menos"};
   $("#bNueva").onclick=()=>{SET.modoP="existente";show("setup")};
-  if($("#bFundar"))$("#bFundar").onclick=()=>{SET.modoP="propio";show("setup")};
+  $("#bRapido").onclick=jugarYa;
+  track("visita",{ref:document.referrer?new URL(document.referrer).hostname:""},"visita");
+  if($("#bFundar"))$("#bFundar").onclick=e=>{e.preventDefault();SET.modoP="propio";show("setup")};
   app.querySelectorAll("[data-pr]").forEach(b=>b.onclick=()=>practicar(b.dataset.pr));
   app.querySelectorAll("[data-modo]").forEach(b=>b.onclick=()=>{SET.modoP=b.dataset.modo;show("setup")});
   if($("#bSeguir"))$("#bSeguir").onclick=()=>{G=sv;show(G.fin?"legado":"game")};
@@ -1845,6 +1852,7 @@ function vPre(o,tit,desc){
 }
 let SET={av:{piel:1,pelo:0,colorPelo:1,barba:0,anteojos:0,ropa:0,estilo:0,maq:0,aros:0},modoP:"existente",mp:{n:"",sigla:"",ideo:3,forma:0,simb:0,c1:1,c2:8},pais:"AR",partido:null,origen:"academico",rasgos:["carismatico","negociador"],modo:"carrera",inicio:null,nombre:""};
 function vSetup(){
+  track("setup",{},"setup");
   if(!SET.nombre)SET.nombre=nombreUsuario();
   if(!PARTIDOS[SET.pais].find(x=>x[0]===SET.partido))SET.partido=PARTIDOS[SET.pais][0][0];
   if(!PROVS[SET.pais].some(x=>x[0]===SET.prov))SET.prov=PROVS[SET.pais][0][0];
@@ -1927,6 +1935,8 @@ function nueva(o){
   }else if(o.modo==="directo"){start=rs.find(r=>r.id===o.inicio);G.edad=start.tier>=6?54:start.tier>=5?48:42}
   else start=rs.find(r=>r.id===(G.origen==="diplomatico"?"diplomacia0":"politica0"));
   registrarPartida();
+  G.pid=Math.random().toString(36).slice(2,11);
+  track("inicio",{pid:G.pid,modo:o.rapido?"rapido":o.diario?"diario":(o.modo||"carrera"),pais:G.pais,fundador:G.partido==="PROPIO"});
   if(o.modo==="directo"&&SET.destino)G._destIni=SET.destino;
   setCargo(start);
   nuevoTurno();save();show("game");
@@ -1958,6 +1968,7 @@ function nuevoTurno(){
   if(!due&&pick2===a){const ms=eventoDelMes(r);if(ms.length&&R()<.22)pick2=pick(ms)}
   G.cola=[pick2];G.usados.push(pick2);G.ev=0;G.fase="evento";
   G.turnos=(G.turnos||0)+1;
+  if(G.pid&&[2,5,10,15,20].includes(G.turnos))track("turno",{pid:G.pid,n:G.turnos,pais:G.pais});
   const pools={loc:["tira","agenda","fiscal","recorrida","discurso"],leg:["poroteo","agenda","tira","discurso","debate"],terr:["crisis","tira","fiscal","agenda","recorrida","discurso"],gob:["crisis","tira","agenda","poroteo","discurso","debate"],top:["crisis","agenda","poroteo","tira","discurso","debate"],dip:["tira","agenda","fiscal","discurso","debate"]};
   G.mini=(r&&G.turnos>1&&!G.miniPrev&&R()<.55)?elegirJuego(pools[r.kind]):null;G.miniPrev=!!G.mini;
   G.leyPend=!G.mini&&!!r&&["leg","gob","top"].includes(r.kind)&&G.turnos>1&&R()<.3;
@@ -2116,6 +2127,7 @@ function resolverEleccion(bonus){
   const pe=G.pendElec,r=rangos(G.pais).find(x=>x.id===pe.id);
   if(G.practica)return practicaFin(`${bonus>=0?"+":""}${bonus} puntos`,"Eso es lo que te habría sumado o restado en una elección.");
   const res=eleccion(r,pe.reel,bonus+(pe.alianza?.bonus||0),pe.rival);
+  if(!G.elecLog||!G.elecLog.length)track("eleccion",{pid:G.pid,pais:G.pais,gano:res.gano});
   G.elecLog=G.elecLog||[];G.elecLog.push({anio:G.anio,cargo:r.nombre,gano:res.gano,pct:res.pct,rival:pe.rival.n+" ("+pe.rival.pa+")"});
   G.elec={...res,cargo:r.nombre,id:r.id,reel:pe.reel,rival:pe.rival,bonus,tier:r.tier,postu:pe.postu,alianza:pe.alianza||null};G._sfx=res.gano?"gana":"pierde";if(res.gano&&Math.abs(res.pct-res.rpct)<1)G.porUnPelo=true;
   if(r.top)G.elec.mapa=resultadoMapa(G.elec);G.fase="eleccion";G.pendElec=null;
@@ -2166,6 +2178,7 @@ function fin(motivo){
   const finales=Math.round((s.l+s.i+s.n+s.e+s.p)/2-s.s);
   G.puntosFinal=Math.max(0,G.puntos+finales+logros.length*60+(G.llegoTop?250:0)+(G.topMandatos>=2?150:0)-(motivo.startsWith("Procesado")?200:0));
   G.logros=logros;G.titulo=titulo();G.ins=calcInsignias();
+  if(G.pid)track("fin",{pid:G.pid,pais:G.pais,turnos:G.turnos,puntos:G.puntosFinal,titulo:G.titulo,cargo:Math.max(0,...G.hist.map(h=>h.tier||0)),motivo:String(motivo).slice(0,40)});
   clearSave();try{localStorage.setItem("elmandato.ultimo",JSON.stringify(G))}catch(e){}
   if(G.diario&&!G.yaJugado){try{localStorage.setItem("elmandato.diario",hoyISO())}catch(e){}}
   guardarRanking();
@@ -2597,6 +2610,7 @@ function discursoHTML(){return `<div class="mg-top"><span id="dsR">Frase 1 de 3<
 /* Práctica de minijuegos */
 const JUEGOS=[["recorrida","Recorrida","Tocá lugares, esquivá escándalos."],["debate","Debate","Respondé cada ataque con el arma correcta."],["fiscal","Fiscalización","Encontrá el acta adulterada."],["discurso","Discurso","Mantené y soltá en el punto justo."],["poroteo","Poroteo","Memorizá las bancas que te apoyan."],["crisis","Gestión de crisis","Que no se caiga ningún frente."],["tira","Negociación","Frená la aguja en la zona verde."],["agenda","Agenda","Repetí el orden de las reuniones."]];
 function practicar(j){
+  track("practica",{juego:j});
   const pais=SET.pais||"AR",pv=PROVS[pais].find(x=>x[0]===SET.prov)||PROVS[pais][0];
   G={practica:true,pais,provLab:pv[0],prov:pv[1],ciudad:pv[2],partido:PARTIDOS[pais][0][0],cargo:"politica2",st:{l:50,i:50,p:50,n:50,e:50,s:5},rasgos:[],rs:Date.now()%2147483647,hist:[],uso:{}};
   G.nemesis=nuevoRival();
@@ -3201,6 +3215,37 @@ function contactoHandlers(){
   if(location.hash==="#contacto")abrirContacto();
 }
 
+
+/* ---------- Estadísticas propias (anónimas) ---------- */
+const VID=(()=>{try{let v=localStorage.getItem("elmandato.vid");if(!v){v=Math.random().toString(36).slice(2,12)+Date.now().toString(36);localStorage.setItem("elmandato.vid",v)}return v}catch(e){return "anon"}})();
+const SID=Math.random().toString(36).slice(2,12)+Date.now().toString(36);
+const TRK_ONCE={};
+function track(tipo,datos,una){
+  if(una){if(TRK_ONCE[una])return;TRK_ONCE[una]=1}
+  if(!CFG.SUPABASE_URL||!CFG.SUPABASE_ANON_KEY||/localhost|127\.0\.0\.1/.test(location.hostname))return;
+  try{fetch(CFG.SUPABASE_URL+"/rest/v1/rpc/registrar_evento",{method:"POST",keepalive:true,headers:{apikey:CFG.SUPABASE_ANON_KEY,Authorization:"Bearer "+CFG.SUPABASE_ANON_KEY,"Content-Type":"application/json"},
+    body:JSON.stringify({p_tipo:tipo,p_sesion:SID,p_visitante:VID,p_datos:{...(datos||{}),cuenta:!!SESSION,movil:matchMedia("(max-width:760px)").matches}})}).catch(()=>{})}catch(e){}
+}
+
+/* ---------- Jugar ya: personaje al azar en un toque ---------- */
+function jugarYa(){
+  const m=SESSION?perfil():{};
+  const lang=(navigator.language||"").toLowerCase();
+  const POR={"es-mx":"MX","es-cl":"CL","es-uy":"UY","es-es":"ES","pt-br":"BR","pt":"BR","en-us":"US","en-gb":"UK","en":"US"};
+  const pk=(m.em_pais&&PAISES[m.em_pais])?m.em_pais:(POR[lang]||POR[lang.slice(0,2)]||"AR");
+  const grandes=PARTIDOS[pk].filter(x=>x[2]>=2&&x[0]!=="IND");
+  const pa=(m.em_partido&&PARTIDOS[pk].find(x=>x[0]===m.em_partido))?m.em_partido:pickM(grandes.length?grandes:PARTIDOS[pk])[0];
+  const origen=pickM(Object.keys(ORIGENES).filter(k=>k!=="diplomatico"));
+  const rasgos=shuffle(Object.keys(RASGOS)).slice(0,2);
+  const N=NOMBRES[pk],i=Math.floor(Math.random()*N[0].length),mujer=i%2===0;
+  let av=m.em_av?JSON.parse(JSON.stringify(m.em_av)):null;
+  if(!av){av={...AV_DEF,piel:Math.floor(Math.random()*AV_OPC.piel.length),colorPelo:Math.floor(Math.random()*4),anteojos:Math.random()<.3?1+Math.floor(Math.random()*2):0,ropa:Math.floor(Math.random()*AV_OPC.ropa.length)};aplicarGenero(av,mujer?1:0);if(!mujer&&Math.random()<.35)av.barba=1+Math.floor(Math.random()*2)}
+  const nombre=nombreUsuario()||(N[0][i]+" "+pickM(N[1]));
+  const prov=pickM(PROVS[pk])[0];
+  SET.pais=pk;SET.partido=pa;
+  nueva({pais:pk,partido:pa,origen,rasgos,nombre,av,prov,modo:"carrera",modoP:"existente",mp:{...SET.mp},rapido:true});
+}
+
 /* ================== VISTA DE JUEGO ================== */
 const STC={l:"Local",i:"Mundo",p:"Partido",n:"Instit.",e:"Economía",s:"Escándalo"};
 function colorFor(k,v){const good=k==="s"?100-v:v;return good>=60?"var(--good)":good>=35?"var(--warn)":"var(--bad)"}
@@ -3659,7 +3704,7 @@ function vLegado(){
   $("#bImg").onclick=async()=>{const b=$("#bImg");b.textContent="Generando…";const blob=await tarjetaPNG();const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mi-legado-el-mandato.png";document.body.appendChild(a);a.click();a.remove();b.textContent="Descargar imagen"};
   $("#bShare").onclick=async()=>{const blob=await tarjetaPNG();const f=new File([blob],"mi-legado.png",{type:"image/png"});
     if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Mi legado en El Mandato",text:G.titulo+" · elmandato.app"})}catch(e){}}else{$("#bShare").textContent="Tu navegador no comparte imágenes: usá Descargar"}};
-  $("#bCopy").onclick=async()=>{const t=$("#shareTxt"),share=textoResultado();if(navigator.share&&/Mobi|Android|iPhone/i.test(navigator.userAgent)){try{await navigator.share({text:share});return}catch(e){}}const ok=()=>{$("#bCopy").textContent="¡Copiado! Pegalo donde quieras"};try{navigator.clipboard.writeText(share).then(ok,()=>{t.select();$("#bCopy").textContent="Seleccionado: copialo"})}catch(e){t.select()}};
+  $("#bCopy").onclick=async()=>{track("compartir",{donde:"legado",red:"resultado",diario:!!G.diario});const t=$("#shareTxt"),share=textoResultado();if(navigator.share&&/Mobi|Android|iPhone/i.test(navigator.userAgent)){try{await navigator.share({text:share});return}catch(e){}}const ok=()=>{$("#bCopy").textContent="¡Copiado! Pegalo donde quieras"};try{navigator.clipboard.writeText(share).then(ok,()=>{t.select();$("#bCopy").textContent="Seleccionado: copialo"})}catch(e){t.select()}};
   $("#bOtra").onclick=()=>{G=null;show("setup")};
   $("#bInicio").onclick=()=>{G=null;show("home")};
 }
