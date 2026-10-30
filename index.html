@@ -1707,11 +1707,8 @@ function vHome(){
      <h2 class="pt-h">Del llano<br><span class="pt-hl">al poder</span></h2>
      <p class="pt-p">Ganá elecciones, armá alianzas, sobreviví a los escándalos y bancá la crisis. Una vida entera en la política, decisión por decisión.</p>
      <div class="pt-cta">
-      <button class="btn pt-go" id="bRapido">⚡ Jugar ya</button>
-      <button class="btn pt-alt" id="bNueva">Armar mi personaje</button>
-      ${sv&&!sv.fin?'<button class="btn pt-alt" id="bSeguir">Seguir · '+esc(PAISES[sv.pais]?.n||"")+' '+(sv.anio||"")+'</button>':''}
-     </div>
-     <div class="pt-mini">⚡ <b>Jugar ya</b> arma un personaje al azar y arrancás al toque. ${sv&&!sv.fin?'':'¿Preferís lo tuyo? <a href="#" id="bFundar">Fundá tu partido</a>.'}
+      <button class="btn pt-go" id="bNueva">Empezar mi carrera <span aria-hidden="true">→</span></button>
+      ${sv&&!sv.fin?'<button class="btn pt-alt" id="bSeguir">Seguir · '+esc(PAISES[sv.pais]?.n||"")+' '+(sv.anio||"")+'</button>':'<button class="btn pt-alt" id="bFundar">Fundar mi partido</button>'}
      </div>
      <div class="pt-flags">${Object.keys(PAISES).map((k,i)=>`<span style="animation-delay:${.3+i*.06}s" title="${esc(PAISES[k].n)}">${flagSVG(k,30)}</span>`).join("")}</div>
     </div>
@@ -1817,7 +1814,6 @@ function vHome(){
   if(navigator.share){$("#shNat").hidden=false;$("#shNat").onclick=()=>navigator.share({title:"El Mandato",text:SHARE_TXT_CORTO,url:SHARE_URL}).catch(()=>{})}
   $("#insMas").onclick=()=>{const g=$("#insGrid");g.classList.toggle("ins-corto");$("#insMas").textContent=g.classList.contains("ins-corto")?"Ver las "+INSIGNIAS.length:"Ver menos"};
   $("#bNueva").onclick=()=>{SET.modoP="existente";show("setup")};
-  $("#bRapido").onclick=jugarYa;
   track("visita",{ref:document.referrer?new URL(document.referrer).hostname:""},"visita");
   if($("#bFundar"))$("#bFundar").onclick=e=>{e.preventDefault();SET.modoP="propio";show("setup")};
   app.querySelectorAll("[data-pr]").forEach(b=>b.onclick=()=>practicar(b.dataset.pr));
