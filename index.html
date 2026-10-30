@@ -597,6 +597,13 @@ input[type=range]{width:100%;accent-color:var(--accent)}
 .cb-e{font-size:36px}.cb-t{flex:1;display:flex;flex-direction:column;gap:2px}.cb-t b{color:#fff;font-size:17px}.cb-t span{font-size:14px}
 .cb-go{flex:none;background:#F2C230;color:#3E2311;font-weight:700;padding:10px 16px;border-radius:10px;white-space:nowrap}
 @media (max-width:640px){.cafe-band{flex-wrap:wrap}.cb-go{width:100%;text-align:center}}
+.share-band{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:12px 20px;align-items:center;margin-top:28px;padding:18px 22px;border-radius:16px;background:var(--surface);border:1.5px solid var(--ink)}
+.sb-t{display:flex;flex-direction:column;gap:2px}.sb-t b{font-size:17px}.sb-t span{font-size:14px;color:var(--muted)}
+.sb-link{display:flex;gap:6px}.sb-link input{flex:1;min-width:0;padding:9px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:inherit;font-family:var(--f-mono);font-size:14px}
+.sb-redes{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px}
+.sr{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:600;text-decoration:none;color:#fff;border:0;font-family:inherit;cursor:pointer;transition:transform .12s}.sr:hover{transform:translateY(-2px)}
+.sr.wa{background:#1FA855}.sr.tg{background:#229ED9}.sr.xx{background:#111}.sr.fb{background:#1877F2}.sr.nat{background:var(--sunk);color:var(--ink)}
+@media (max-width:640px){.share-band{grid-template-columns:1fr}}
 </style>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -1679,6 +1686,9 @@ function escenariosHoy(){const h=hash("esc"+hoyISO());const a=h%ESCENARIOS.lengt
 const app=$("#app");
 function show(v){window.scrollTo(0,0);({home:vHome,setup:vSetup,game:vGame,legado:vLegado})[v]();pushAds();if(v==="home")cargarNoticias()}
 
+const SHARE_URL="https://elmandato.app";
+const SHARE_TXT_CORTO="🗳️ El Mandato: armá tu carrera política, del llano al poder. Elegí país y partido, ganá elecciones y dejá tu legado. Gratis.";
+const SHARE_TXT=SHARE_TXT_CORTO+" "+SHARE_URL;
 function vHome(){
   const d=diario(),esc2=escenariosHoy(),sv=loadSave();
   const mav=SESSION&&perfil().em_av;
@@ -1779,6 +1789,17 @@ function vHome(){
     <section><button class="cta-cont" data-cont="sugerencia"><span class="e" aria-hidden="true">💬</span><span><b>¿Ideas, bugs o querés sumarte?</b><span>Escribinos: leemos todo y el juego crece con lo que nos cuentan.</span></span></button></section>
    </aside>
   </div>
+  <section class="share-band">
+   <div class="sb-t"><b>📣 Compartí El Mandato</b><span>Mandáselo a tus amigos, armen una liga y vean quién llega más lejos.</span></div>
+   <div class="sb-link"><input id="shLink" value="elmandato.app" readonly aria-label="Link del juego"><button class="btn sm primary" id="shCopy" type="button">Copiar link</button></div>
+   <div class="sb-redes">
+    <a class="sr wa" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(SHARE_TXT)}">WhatsApp</a>
+    <a class="sr tg" target="_blank" rel="noopener" href="https://t.me/share/url?url=${encodeURIComponent(SHARE_URL)}&text=${encodeURIComponent(SHARE_TXT_CORTO)}">Telegram</a>
+    <a class="sr xx" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TXT)}">X</a>
+    <a class="sr fb" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}">Facebook</a>
+    <button class="sr nat" id="shNat" type="button" hidden>Más opciones…</button>
+   </div>
+  </section>
   <a class="cafe-band" href="https://cafecito.app/elmandato" target="_blank" rel="noopener">
    <span class="cb-e" aria-hidden="true">☕</span>
    <span class="cb-t"><b>Colaborá para que El Mandato siga creciendo</b><span>El Mandato es gratis y lo seguimos mejorando. Cada cafecito ayuda a sumar países, modos nuevos y más situaciones.</span></span>
@@ -1786,6 +1807,9 @@ function vHome(){
   </a>`;
   (function(){const el=$("#cdDiario");if(!el)return;clearInterval(window._cdT);const f=()=>{const e=$("#cdDiario");if(!e)return clearInterval(window._cdT);const n=new Date(),m=new Date(n);m.setHours(24,0,0,0);const s=Math.max(0,Math.floor((m-n)/1000));e.textContent="Nuevo en "+[s/3600|0,(s%3600)/60|0,s%60].map(x=>String(x).padStart(2,"0")).join(":")};f();window._cdT=setInterval(f,1000)})();
   if(!mav){clearInterval(window._afT);let k=0;window._afT=setInterval(()=>{const a=$("#afAv");if(!a)return clearInterval(window._afT);k=(k+1)%POSTERS.length;a.classList.add("sw");setTimeout(()=>{a.innerHTML=avatarSVG(POSTERS[k],190,{acc:pcol[0],banda:pcol});a.classList.remove("sw")},250)},3200)}
+  $("#shCopy").onclick=async()=>{try{await navigator.clipboard.writeText(SHARE_URL);$("#shCopy").textContent="¡Copiado!"}catch(e){const i=$("#shLink");i.value=SHARE_URL;i.select();$("#shCopy").textContent="Seleccionado"}setTimeout(()=>{if($("#shCopy"))$("#shCopy").textContent="Copiar link"},2200)};
+  $("#shLink").onclick=e=>e.target.select();
+  if(navigator.share){$("#shNat").hidden=false;$("#shNat").onclick=()=>navigator.share({title:"El Mandato",text:SHARE_TXT_CORTO,url:SHARE_URL}).catch(()=>{})}
   $("#insMas").onclick=()=>{const g=$("#insGrid");g.classList.toggle("ins-corto");$("#insMas").textContent=g.classList.contains("ins-corto")?"Ver las "+INSIGNIAS.length:"Ver menos"};
   $("#bNueva").onclick=()=>{SET.modoP="existente";show("setup")};
   if($("#bFundar"))$("#bFundar").onclick=()=>{SET.modoP="propio";show("setup")};
@@ -2341,7 +2365,7 @@ function escenaSVG(tipo){
   const gente=(y,n,seed=1)=>Array.from({length:n},(_,i)=>{const x=(i*37+seed*13)%400,h=6+(i*7%5);return`<circle cx="${x}" cy="${y-h-3}" r="3.2" class="sc-ppl"/><rect x="${x-3.5}" y="${y-h}" width="7" height="${h}" rx="2" class="sc-ppl"/>`}).join("");
   const ventanas=(x,y,w,h)=>{let o="";for(let i=x+5;i<x+w-6;i+=10)for(let j=y+6;j<y+h-6;j+=11)o+=`<rect x="${i}" y="${j}" width="4" height="6" class="sc-win"/>`;return o};
   const skyline=Array.from({length:12},(_,i)=>{const h=30+((i*53)%60),w=26+((i*17)%14),x=i*34-6;return`<rect x="${x}" y="${130-h}" width="${w}" height="${h}" class="sc-far"/>`}).join("");
-  const base=`<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sc-sky1"/><stop offset="1" class="sc-sky2"/></linearGradient></defs><rect width="400" height="170" fill="url(#sky)"/>`;
+  const skid="sky"+(escenaSVG.n=(escenaSVG.n||0)+1);const base=`<defs><linearGradient id="${skid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" class="sc-sky1"/><stop offset="1" class="sc-sky2"/></linearGradient></defs><rect width="400" height="170" fill="url(#${skid})"/>`;
   const suelo=`<rect y="130" width="400" height="40" class="sc-ground"/>`;
   const S={
     municipio:`${skyline}${suelo}<rect x="150" y="70" width="100" height="60" class="sc-bld"/><rect x="185" y="40" width="30" height="34" class="sc-bld2"/><circle cx="200" cy="55" r="8" class="sc-win"/><path d="M200 55 v-5 M200 55 h4" class="sc-ink" stroke-width="1.4"/>${ventanas(150,78,100,50)}<rect x="192" y="108" width="16" height="22" class="sc-door"/>${flag(240,36)}<circle cx="120" cy="118" r="14" class="sc-tree"/><rect x="118" y="118" width="4" height="12" class="sc-ink"/><circle cx="285" cy="116" r="16" class="sc-tree"/><rect x="283" y="116" width="4" height="14" class="sc-ink"/>${gente(140,9,2)}`,
@@ -2971,7 +2995,7 @@ function textoResultado(){
   return `EL MANDATO · ${G.diario?"Desafío #"+nroDesafio():"Carrera"} ${banderaEmoji(G.pais)}
 🏛️ ${mejor?mejor.cargo:"Militante"} · ${Number(G.puntosFinal||0).toLocaleString("es-AR")} pts
 ${fila}
-🗳️ ${G.elecG} ganadas · ${G.elecP} perdidas${G.leyesOk?` · 📜 ${G.leyesOk} leyes`:""}${r?` · 🔥 ${r}`:""}
+🗳️ ${G.elecG} ganadas · ${G.elecP} perdidas${G.leyesOk?` · 📜 ${G.leyesOk} ${G.leyesOk===1?"ley":"leyes"}`:""}${r?` · 🔥 ${r}`:""}
 «${G.titulo}»
 ${location.origin.replace(/^https?:\/\//,"")}`;
 }
