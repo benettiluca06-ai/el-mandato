@@ -186,6 +186,9 @@ input[type=text]{font:inherit;padding:10px 12px;border-radius:var(--r);border:1.
 .lcard{border:1.5px solid var(--ink);border-radius:var(--r);background:var(--surface);padding:22px;display:flex;flex-direction:column;gap:16px}
 .ltitle{font-family:var(--f-display);font-weight:800;font-size:clamp(40px,8vw,72px);text-transform:uppercase;line-height:.95;color:var(--seal)}
 .lpts{font-family:var(--f-mono);font-size:15px}
+.share-top{display:none}
+@media (max-width:900px){.share-top{display:flex}.share-top .btn{flex:1;min-height:48px;font-size:16px}}
+@media (max-width:360px){header.top{gap:6px}header.top .brand h1{font-size:18px}header.top #btnLogin{padding-inline:10px}}
 .timeline{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
 .timeline div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
 .timeline span{font-family:var(--f-mono);color:var(--muted);font-size:12.5px}
@@ -3011,7 +3014,7 @@ function textoResultado(){
   return `EL MANDATO · ${G.diario?"Desafío #"+nroDesafio():"Carrera"} ${banderaEmoji(G.pais)}
 🏛️ ${mejor?mejor.cargo:"Militante"} · ${Number(G.puntosFinal||0).toLocaleString("es-AR")} pts
 ${fila}
-🗳️ ${G.elecG} ganadas · ${G.elecP} perdidas${G.leyesOk?` · 📜 ${G.leyesOk} ${G.leyesOk===1?"ley":"leyes"}`:""}${r?` · 🔥 ${r}`:""}
+🗳️ ${G.elecG} ${G.elecG===1?"ganada":"ganadas"} · ${G.elecP} ${G.elecP===1?"perdida":"perdidas"}${G.leyesOk?` · 📜 ${G.leyesOk} ${G.leyesOk===1?"ley":"leyes"}`:""}${r?` · 🔥 ${r}`:""}
 «${G.titulo}»
 ${location.origin.replace(/^https?:\/\//,"")}`;
 }
@@ -3679,6 +3682,7 @@ function vLegado(){
     <div class="ltitle">${esc(G.titulo)}</div>
     ${G.estilo?`<p class="estilo"><b>Tu estilo: ${ESTILOS[G.estilo][0]}.</b> ${ESTILOS[G.estilo][1]}</p>`:""}
     <div class="lpts">${G.puntosFinal.toLocaleString("es-AR")} puntos · cargo más alto: ${esc([...G.hist].filter(h=>h.tier).sort((a,b)=>b.tier-a.tier)[0]?.cargo||"—")} · ${G.elecG} elecciones ganadas, ${G.elecP} perdidas</div>
+    <div class="share-top"><button class="btn primary" id="bCopyTop" type="button">📣 Compartir resultado</button></div>
     <p class="res">${esc(resumenCarrera())}</p>
     ${G.logros.length?`<div class="logros">${G.logros.map(l=>`<span class="tag">${esc(l)}</span>`).join("")}</div>`:""}
     ${G.ins?`<div><span class="eyebrow">Insignias de esta carrera</span><div class="ins-grid" style="margin-top:6px">${G.ins.todas.map(id=>insigniaHTML(id,true,G.ins.nuevas.includes(id))).join("")||'<span class="muted">Ninguna esta vez.</span>'}</div></div>`:""}
@@ -3708,7 +3712,9 @@ function vLegado(){
   $("#bImg").onclick=async()=>{const b=$("#bImg");b.textContent="Generando…";const blob=await tarjetaPNG();const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mi-legado-el-mandato.png";document.body.appendChild(a);a.click();a.remove();b.textContent="Descargar imagen"};
   $("#bShare").onclick=async()=>{const blob=await tarjetaPNG();const f=new File([blob],"mi-legado.png",{type:"image/png"});
     if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:"Mi legado en El Mandato",text:G.titulo+" · elmandato.app"})}catch(e){}}else{$("#bShare").textContent="Tu navegador no comparte imágenes: usá Descargar"}};
-  $("#bCopy").onclick=async()=>{track("compartir",{donde:"legado",red:"resultado",diario:!!G.diario});const t=$("#shareTxt"),share=textoResultado();if(navigator.share&&/Mobi|Android|iPhone/i.test(navigator.userAgent)){try{await navigator.share({text:share});return}catch(e){}}const ok=()=>{$("#bCopy").textContent="¡Copiado! Pegalo donde quieras"};try{navigator.clipboard.writeText(share).then(ok,()=>{t.select();$("#bCopy").textContent="Seleccionado: copialo"})}catch(e){t.select()}};
+  const compartirRes=(id,donde)=>async()=>{track("compartir",{donde,red:"resultado",diario:!!G.diario});const b=$(id),t=$("#shareTxt"),share=textoResultado();if(navigator.share&&/Mobi|Android|iPhone/i.test(navigator.userAgent)){try{await navigator.share({text:share});return}catch(e){if(e&&e.name==="AbortError")return}}const ok=()=>{b.textContent="¡Copiado! Pegalo donde quieras"};try{navigator.clipboard.writeText(share).then(ok,()=>{t.select();b.textContent="Seleccionado: copialo"})}catch(e){t.select()}};
+  $("#bCopy").onclick=compartirRes("#bCopy","legado");
+  $("#bCopyTop").onclick=compartirRes("#bCopyTop","legado-arriba");
   $("#bOtra").onclick=()=>{G=null;show("setup")};
   $("#bInicio").onclick=()=>{G=null;show("home")};
 }
